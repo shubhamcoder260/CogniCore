@@ -1,0 +1,1047 @@
+{
+  "meta": {
+    "title": "CogniCore Validation Seams and Reconciliation Machine-Readable Specification",
+    "version": "1.0.0",
+    "generated_at": "2026-10-08T18:59:00.000Z",
+    "baseline_receipt": {
+      "commit": "64d14ea8f4f846645543c01a98d1eb763f34d36a",
+      "status": "clean",
+      "node_version": "v24.13.1"
+    },
+    "constraints": {
+      "read_only_source": true,
+      "server_started": false,
+      "ollama_called": false,
+      "npm_installed": false,
+      "test_executed": false,
+      "secrets_redacted": true
+    }
+  },
+  "reconciliation": {
+    "R1_directory_reality": {
+      "report_claim": "Active project uses server/ and client/ directories.",
+      "code_truth": "Verified. server/ (backend) and client/ (frontend) exist. Neither backend/ nor frontend/ exists anywhere in the repository.",
+      "receipt": "server/package.json:6-14",
+      "package_main": "src/index.js",
+      "package_test_script": "node --test",
+      "inventory_command": "Get-ChildItem -Path C:\\cognicore\\CogniCore | Select-Object Name",
+      "existing_test_directories": [
+        "server/tests/unit/",
+        "server/tests/integration/",
+        "server/tests/benchmark/",
+        "server/tests/helpers/"
+      ],
+      "recommended_suite_location": "server/tests/validation/",
+      "impact_on_suite": "Runner scripts and test imports must target server/src and server/tests/. Never reference backend/."
+    },
+    "R2_password_hashing": {
+      "report_claim": "Authentication uses bcrypt password hashing.",
+      "code_truth": "Verified. Hashing uses bcryptjs.hash() and bcryptjs.compare(). PBKDF2-SHA512 does not exist anywhere in the security module.",
+      "receipt": "server/src/security/auth.js:2-10",
+      "default_rounds": 10,
+      "impact_on_suite": "Fixture test users must be generated via bcryptjs hashes or injected directly into AuthRegistry.createUser({ passwordHash })."
+    },
+    "R3_model_defaults": {
+      "report_claim": "Default models are qwen2.5:7b for generation and nomic-embed-text for embeddings.",
+      "code_truth": "Verified. env.js defaults to qwen2.5:7b and nomic-embed-text. Legacy names gemma3:4b and qwen2.5:14b are completely absent from the codebase.",
+      "receipts": [
+        "server/src/config/env.js:26-28",
+        "server/src/llm/model.manager.js:21-39"
+      ],
+      "tasks": ["sql", "reasoning", "rewrite", "planner"],
+      "task_model_map": {
+        "sql": {
+          "provider_env": "LLM_PROVIDER_SQL",
+          "provider_default": "ollama",
+          "ollama_model_env": "OLLAMA_MODEL_SQL",
+          "ollama_model_default": "qwen2.5:7b",
+          "openai_model_env": "OPENAI_MODEL_SQL",
+          "openai_model_default": "gpt-4o-mini",
+          "anthropic_model_env": "ANTHROPIC_MODEL_SQL",
+          "anthropic_model_default": "claude-haiku-4-5-20251001"
+        },
+        "reasoning": {
+          "provider_env": "LLM_PROVIDER_REASONING",
+          "provider_default": "ollama",
+          "ollama_model_env": "OLLAMA_MODEL_REASONING",
+          "ollama_model_default": "qwen2.5:7b",
+          "openai_model_env": "OPENAI_MODEL_REASONING",
+          "openai_model_default": "gpt-4o-mini",
+          "anthropic_model_env": "ANTHROPIC_MODEL_REASONING",
+          "anthropic_model_default": "claude-haiku-4-5-20251001"
+        },
+        "rewrite": {
+          "provider_env": "LLM_PROVIDER_REWRITE",
+          "provider_default": "ollama",
+          "ollama_model_env": "OLLAMA_MODEL_REWRITE",
+          "ollama_model_default": "qwen2.5:7b",
+          "openai_model_env": "OPENAI_MODEL_REWRITE",
+          "openai_model_default": "gpt-4o-mini",
+          "anthropic_model_env": "ANTHROPIC_MODEL_REWRITE",
+          "anthropic_model_default": "claude-haiku-4-5-20251001"
+        },
+        "planner": {
+          "provider_env": "LLM_PROVIDER_PLANNER",
+          "provider_default": "ollama",
+          "ollama_model_env": "OLLAMA_MODEL_PLANNER",
+          "ollama_model_default": "qwen2.5:7b",
+          "openai_model_env": "OPENAI_MODEL_PLANNER",
+          "openai_model_default": "gpt-4o-mini",
+          "anthropic_model_env": "ANTHROPIC_MODEL_PLANNER",
+          "anthropic_model_default": "claude-haiku-4-5-20251001"
+        }
+      },
+      "embedding_model": {
+        "env": "OLLAMA_EMBEDDING_MODEL",
+        "default": "nomic-embed-text"
+      },
+      "impact_on_suite": "Multi-model test runner must test against qwen2.5:7b when testing local Ollama, or mock provider."
+    },
+    "R4_gate_architecture": {
+      "report_claim": "The active pipeline chain is sql.repair -> sql.validator -> sql.complexity -> data.policy.",
+      "code_truth": "Verified. prepareSql() runs repairs, validateSql() validates AST and complexity, enforcePolicy() applies CTE shadowing. Files gate.chain.js, ast.gate.*, fastIntent, and pipeline.config.js do not exist. No validator or file is marked FROZEN.",
+      "receipts": [
+        "server/src/core/engines/structured.engine.js:82-90",
+        "server/src/structured/sql.validator.js:15-139",
+        "server/src/structured/sql.complexity.js:72-76",
+        "server/src/security/data.policy.js:108-118"
+      ],
+      "impact_on_suite": "Direct validation tests must target the real chain modules. Disregard legacy gate documentation."
+    },
+    "R5_multi_tenancy_and_rbac": {
+      "report_claim": "Multi-tenancy is active with 5 roles, dataset grants, and dialect-aware row policies.",
+      "code_truth": "Verified. Roles are admin, manager, analyst (user alias), employee, viewer. Dataset grants live in dataset_grants table. Row policies work on SQLite and Postgres via CTE shadowing; MySQL throws PolicyError (fails closed).",
+      "receipts": [
+        "server/src/security/rbac.js:55-63",
+        "server/src/security/auth.registry.js:35-43",
+        "server/src/security/data.policy.js:108-118"
+      ],
+      "roles": ["admin", "manager", "analyst", "employee", "viewer"],
+      "dialect_support": {
+        "sqlite": "supported_cte_shadowing",
+        "postgres": "supported_cte_shadowing",
+        "mysql": "fail_closed_throws_PolicyError"
+      },
+      "impact_on_suite": "Suite must assert role authorization, dataset sharing grants, User A vs User B isolation, and MySQL 403 fail-closed rejection."
+    },
+    "R6_fixture_databases": {
+      "report_claim": "Legacy fixture databases ecommerce_test.db, college_attendance.db, U3_institute.db, chinook.db, H3_metropol.db exist.",
+      "code_truth": "False. None of the 5 legacy databases exist. The actual fixtures are 5 CSVs in sample-data/, retail_multitable.db, and dynamic SQLite instances created via tempDb.js.",
+      "receipts": [
+        "sample-data/",
+        "server/scripts/generate-sample-data.js:10-91",
+        "server/tests/helpers/tempDb.js:6-17"
+      ],
+      "real_fixtures": [
+        {
+          "path": "sample-data/hospital_appointments.csv",
+          "format": "csv",
+          "rows": 241,
+          "planted_flaw": "Fee outlier 95000 (row 11), duplicate row 4, mixed date formats (DD/MM/YYYY and YYYY-MM-DD)"
+        },
+        {
+          "path": "sample-data/hr_employees.csv",
+          "format": "csv",
+          "rows": 160,
+          "planted_flaw": "Salary outlier 9800000 (row 8), missing salary on row 21"
+        },
+        {
+          "path": "sample-data/finance_expenses.csv",
+          "format": "csv",
+          "rows": 182,
+          "planted_flaw": "Expense outlier 1250000 (row 181), duplicate row 6"
+        },
+        {
+          "path": "sample-data/retail_orders.csv",
+          "format": "csv",
+          "rows": 216,
+          "planted_flaw": "None (clean multi-region retail transactions)"
+        },
+        {
+          "path": "sample-data/education_students.csv",
+          "format": "csv",
+          "rows": 180,
+          "planted_flaw": "None (clean academic records with scores and attendance rates)"
+        },
+        {
+          "path": "sample-data/retail_multitable.db",
+          "format": "sqlite",
+          "tables": ["customers", "products", "orders", "order_items", "payments"],
+          "generation_command": "npm run sample-data",
+          "planted_flaw": "Foreign key relationships across 5 tables"
+        }
+      ],
+      "impact_on_suite": "Tests cannot mount legacy .db files. Fixtures must be ingested from sample-data/ or dynamically created with makeTempSqlite()."
+    },
+    "R7_prior_pinned_ground_truths": {
+      "report_claim": "Pinned values 450000, 450000.00, 5541 or oracle files exist.",
+      "code_truth": "False. 450000, 5541, and oracle are absent from codebase. Real pins are the 21 benchmark queries in server/benchmark/suite.js and planted outliers (95000, 9800000, 1250000).",
+      "receipts": [
+        "server/benchmark/suite.js:11-63",
+        "server/tests/benchmark/benchmark.test.js:9-10"
+      ],
+      "planted_outliers": [95000, 9800000, 1250000],
+      "benchmark_query_count": 21,
+      "impact_on_suite": "Assertion comparators must target the 21 ground truth queries in suite.js and planted outlier values."
+    },
+    "R8_runtime_facts": {
+      "report_claim": "Node.js 18+, better-sqlite3, child_process Python fallback, and zero-dependency native test runner.",
+      "code_truth": "Verified. Requires Node 18+ (README.md, no engines block in package.json). Uses better-sqlite3: ^11.3.0. node:sqlite is absent. Python tool falls back to JS on failure. Tests run via node:test.",
+      "receipts": [
+        "server/package.json:10, 18",
+        "server/src/python/python.tool.js:20-43, 76-79",
+        "server/tests/unit/sql.validator.test.js:2-3"
+      ],
+      "sqlite_driver": "better-sqlite3",
+      "test_framework": "node:test with node:assert/strict",
+      "impact_on_suite": "New tests should adhere to native node:test. Python tests must exercise both execution and JS fallback."
+    },
+    "R9_corpora_verification": {
+      "report_claim": "Benchmark suite contains INJECTION_CORPUS and SQL_ATTACK_CORPUS.",
+      "code_truth": "Verified. INJECTION_CORPUS (10 items), SAFE_CORPUS (4 items), and SQL_ATTACK_CORPUS (10 items) are defined in server/benchmark/suite.js.",
+      "receipts": [
+        "server/benchmark/suite.js:81-97",
+        "server/benchmark/run.js:1-7"
+      ],
+      "corpus_sizes": {
+        "INJECTION_CORPUS": 10,
+        "SAFE_CORPUS": 4,
+        "SQL_ATTACK_CORPUS": 10
+      },
+      "runner_invocation_command": "node benchmark/run.js --mode=tools",
+      "impact_on_suite": "Security gate runners can import and test these corpora directly without external dependencies."
+    }
+  },
+  "seams": {
+    "S1_in_process_invocation": {
+      "entrypoint_module": "server/src/core/core.engine.js",
+      "entrypoint_function": "handleUserQuery",
+      "receipt": "server/src/core/core.engine.js:38",
+      "parameters": {
+        "question": { "type": "string", "required": true, "description": "Natural language query" },
+        "datasetId": { "type": "string", "required": false, "description": "Singular dataset ID" },
+        "datasetIds": { "type": "string[]", "required": false, "description": "Array of dataset IDs for hybrid/multi-dataset querying" },
+        "sessionId": { "type": "string", "required": false, "description": "Conversation session ID; generates new UUID if omitted" },
+        "userId": { "type": "string", "required": false, "description": "User ID for permission evaluation" },
+        "user": { "type": "object", "required": false, "description": "User identity object: { user_id, role, name, email }. Defaults to { role: 'analyst' }" },
+        "analysisMode": { "type": "boolean", "required": false, "default": false, "description": "Enables multi-step planning and deep analysis" }
+      },
+      "bootstrap_sequence": [
+        {
+          "step": 1,
+          "action": "Set test environment variables",
+          "code": "process.env.NODE_ENV = 'test'; process.env.JWT_SECRET = 'test_secret_for_validation_suite';",
+          "receipt": "server/tests/helpers/testEnv.js:3-4"
+        },
+        {
+          "step": 2,
+          "action": "Initialize Dataset and Auth registries",
+          "code": "const { DatasetRegistry } = require('../src/ingestion/dataset.registry'); const { AuthRegistry } = require('../src/security/auth.registry');",
+          "receipt": "server/src/ingestion/dataset.registry.js:22-67, server/src/security/auth.registry.js:22-54"
+        },
+        {
+          "step": 3,
+          "action": "Ingest fixture data",
+          "code": "const { ingestFile } = require('../src/ingestion/ingestion.pipeline'); const dataset = await ingestFile({ filePath, originalFilename, ownerId });",
+          "receipt": "server/src/ingestion/ingestion.pipeline.js:23"
+        },
+        {
+          "step": 4,
+          "action": "Mock LLM provider (optional for CI)",
+          "code": "const mm = require('../src/llm/model.manager'); mm.getLLMProvider = () => mockLLM; mm.getEmbeddingProvider = () => mockEmbedder;",
+          "receipt": "server/benchmark/run.js:14-15"
+        },
+        {
+          "step": 5,
+          "action": "Invoke core engine",
+          "code": "const { handleUserQuery } = require('../src/core/core.engine'); const result = await handleUserQuery({ question, datasetId: dataset.dataset_id, user });",
+          "receipt": "server/src/core/core.engine.js:38"
+        }
+      ],
+      "http_fallback": {
+        "route": "POST /api/chat/query",
+        "handler_receipt": "server/src/api/routes/chat.js:12-58",
+        "auth_middleware_receipt": "server/src/security/auth.middleware.js:13-34",
+        "auth_header": "Authorization: Bearer <jwt_token>",
+        "token_acquisition": "POST /api/auth/login with { email, password }"
+      }
+    },
+    "S2_trace_contract": {
+      "table_name": "ai_traces",
+      "schema_receipt": "server/src/observability/trace.js:11-16",
+      "columns": [
+        { "name": "trace_id", "type": "TEXT PRIMARY KEY" },
+        { "name": "session_id", "type": "TEXT" },
+        { "name": "user_id", "type": "TEXT" },
+        { "name": "question", "type": "TEXT" },
+        { "name": "route", "type": "TEXT" },
+        { "name": "tool", "type": "TEXT" },
+        { "name": "status", "type": "TEXT" },
+        { "name": "total_ms", "type": "INTEGER" },
+        { "name": "steps_json", "type": "TEXT NOT NULL" },
+        { "name": "created_at", "type": "TEXT NOT NULL" }
+      ],
+      "step_record_fields": {
+        "n": "integer (1-indexed sequence)",
+        "name": "string (verbatim step name)",
+        "status": "string ('ok' | 'warn' | 'error' | 'blocked' | 'skipped')",
+        "detail": "string (description truncated to 400 chars)",
+        "at_ms": "integer (milliseconds from start)",
+        "step_ms": "integer (optional step duration)"
+      },
+      "execution_steps_by_route": {
+        "STRUCTURED": [
+          { "name": "input_guardrails", "possible_statuses": ["ok", "warn", "blocked"], "receipt": "core.engine.js:49" },
+          { "name": "follow_up", "possible_statuses": ["ok", "skipped"], "receipt": "core.engine.js:69" },
+          { "name": "intent", "possible_statuses": ["ok"], "receipt": "core.engine.js:79" },
+          { "name": "tool_selected", "possible_statuses": ["ok"], "condition": "agent tool invoked", "receipt": "core.engine.js:99" },
+          { "name": "query", "possible_statuses": ["ok"], "condition": "agent tool sub-query", "receipt": "core.engine.js:100" },
+          { "name": "executed", "possible_statuses": ["ok"], "condition": "agent tool execution", "receipt": "core.engine.js:101" },
+          { "name": "routing", "possible_statuses": ["ok"], "receipt": "core.engine.js:115" },
+          { "name": "schema_context", "possible_statuses": ["ok"], "receipt": "structured.engine.js:59" },
+          { "name": "sql_generated", "possible_statuses": ["ok", "warn"], "receipt": "structured.engine.js:61" },
+          { "name": "auto_repair", "possible_statuses": ["ok"], "receipt": "structured.engine.js:83" },
+          { "name": "sql_validated", "possible_statuses": ["ok", "error"], "receipt": "structured.engine.js:86, 107" },
+          { "name": "policy_enforced", "possible_statuses": ["ok", "blocked"], "receipt": "structured.engine.js:89, 95" },
+          { "name": "executed", "possible_statuses": ["ok", "error"], "receipt": "structured.engine.js:91, 107" },
+          { "name": "error_recovery", "possible_statuses": ["warn"], "condition": "on database error", "receipt": "structured.engine.js:119" },
+          { "name": "empty_result_diagnosis", "possible_statuses": ["ok", "warn"], "condition": "on 0 rows returned", "receipt": "structured.engine.js:158" },
+          { "name": "result_validated", "possible_statuses": ["ok", "warn"], "receipt": "structured.engine.js:182" },
+          { "name": "confidence", "possible_statuses": ["ok", "warn"], "receipt": "structured.engine.js:183" },
+          { "name": "synthesis", "possible_statuses": ["ok", "error"], "receipt": "core.engine.js:125" },
+          { "name": "grounding_check", "possible_statuses": ["ok", "warn"], "receipt": "core.engine.js:127" },
+          { "name": "pii_masking", "possible_statuses": ["ok"], "condition": "on viewer or employee role", "receipt": "core.engine.js:179" },
+          { "name": "presentation", "possible_statuses": ["ok"], "receipt": "core.engine.js:180" }
+        ],
+        "DOCUMENT": [
+          { "name": "input_guardrails", "possible_statuses": ["ok", "warn", "blocked"], "receipt": "core.engine.js:49" },
+          { "name": "follow_up", "possible_statuses": ["ok", "skipped"], "receipt": "core.engine.js:69" },
+          { "name": "intent", "possible_statuses": ["ok"], "receipt": "core.engine.js:79" },
+          { "name": "routing", "possible_statuses": ["ok"], "receipt": "core.engine.js:115" },
+          { "name": "synthesis", "possible_statuses": ["ok", "error"], "receipt": "core.engine.js:125" },
+          { "name": "grounding_check", "possible_statuses": ["ok", "warn"], "receipt": "core.engine.js:127" },
+          { "name": "presentation", "possible_statuses": ["ok"], "receipt": "core.engine.js:180" }
+        ],
+        "ANALYSIS": [
+          { "name": "input_guardrails", "possible_statuses": ["ok", "warn", "blocked"], "receipt": "core.engine.js:49" },
+          { "name": "follow_up", "possible_statuses": ["ok", "skipped"], "receipt": "core.engine.js:69" },
+          { "name": "intent", "possible_statuses": ["ok"], "receipt": "core.engine.js:79" },
+          { "name": "routing", "possible_statuses": ["ok"], "receipt": "core.engine.js:115" },
+          { "name": "presentation", "possible_statuses": ["ok"], "receipt": "core.engine.js:180" }
+        ],
+        "HYBRID": [
+          { "name": "input_guardrails", "possible_statuses": ["ok", "warn", "blocked"], "receipt": "core.engine.js:49" },
+          { "name": "follow_up", "possible_statuses": ["ok", "skipped"], "receipt": "core.engine.js:69" },
+          { "name": "intent", "possible_statuses": ["ok"], "receipt": "core.engine.js:79" },
+          { "name": "routing", "possible_statuses": ["ok"], "receipt": "core.engine.js:115" },
+          { "name": "synthesis", "possible_statuses": ["ok", "error"], "receipt": "core.engine.js:125" },
+          { "name": "grounding_check", "possible_statuses": ["ok", "warn"], "receipt": "core.engine.js:127" },
+          { "name": "presentation", "possible_statuses": ["ok"], "receipt": "core.engine.js:180" }
+        ]
+      },
+      "trace_retrieval_seams": {
+        "in_process": "Access result.trace on object returned from handleUserQuery()",
+        "offline_database": "TraceStore.get(traceId) or TraceStore.list({ userId, limit }) (server/src/observability/trace.js:49-58)"
+      }
+    },
+    "S3_response_and_evidence_contract": {
+      "construction_receipt": "server/src/core/core.engine.js:188-213",
+      "sanitization_receipt": "server/src/api/routes/chat.js:51-52",
+      "success_response_shape": {
+        "sessionId": "string (UUID or ses_*)",
+        "routeType": "string ('STRUCTURED' | 'DOCUMENT' | 'ANALYSIS' | 'HYBRID' | 'BLOCKED')",
+        "answer": "string (Markdown formatted answer)",
+        "evidence": {
+          "source_type": "string ('database' | 'document' | 'hybrid')",
+          "dataset_id": "string",
+          "dataset_name": "string",
+          "query": "string (SQL query or search phrase)",
+          "row_count": "number",
+          "truncated": "boolean",
+          "columns": "string[]",
+          "sample_rows": "object[]",
+          "confidence": "number (0.0 to 1.0)",
+          "issues": "string[]",
+          "generated_at": "string (ISO timestamp)",
+          "tables_used": "string[]",
+          "columns_used": "string[]",
+          "provenance": {
+            "source": "string",
+            "dataset_id": "string",
+            "source_type": "string",
+            "tables": "string[]",
+            "columns": "string[]",
+            "query": "string",
+            "calculation": "string",
+            "rows_scanned": "number",
+            "rows_returned": "number",
+            "timestamp": "string"
+          },
+          "confidence_detail": {
+            "score": "number",
+            "level": "string ('High' | 'Medium' | 'Low')",
+            "components": {
+              "schema": { "score": "number", "reason": "string" },
+              "query": { "score": "number", "reason": "string" },
+              "completeness": { "score": "number", "reason": "string" },
+              "consistency": { "score": "number", "reason": "string" },
+              "evidence": { "score": "number", "reason": "string" }
+            },
+            "summary": "string",
+            "missing_data": "string[]"
+          }
+        },
+        "lowConfidence": "boolean",
+        "generatedSql": "string | undefined",
+        "execResult": {
+          "columns": "string[]",
+          "rows": "object[]",
+          "rowCount": "number",
+          "truncated": "boolean"
+        },
+        "partial": "undefined | boolean",
+        "insights": "string[]",
+        "chart": "null | object",
+        "suggestions": "string[]",
+        "trace": "object",
+        "confidence": "object (mirrors evidence.confidence_detail)",
+        "provenance": "object (mirrors evidence.provenance)",
+        "qualityWarnings": "string[]"
+      },
+      "conditional_fields": {
+        "tool": "string (when agent tool handles query: trend, forecast, anomaly, etc.)",
+        "analytics": "object (structured tool output)",
+        "report": "object ({ datasetId, title, formats })",
+        "action": "object ({ action_id, type, summary, status })",
+        "repairs": "object[] (recorded SQL repairs)",
+        "recoveryAttempts": "number (retry count in structured engine)",
+        "guardrail": "object ({ flags, ungrounded })",
+        "redactedFields": "number (count of PII cells masked)",
+        "followUp": "object ({ standaloneQuestion })",
+        "denied": "boolean (true if policy blocked query)"
+      },
+      "blocked_refusal_response_shape": {
+        "receipt": "server/src/core/core.engine.js:54",
+        "sessionId": "string",
+        "routeType": "BLOCKED",
+        "answer": "string (Fixed refusal message)",
+        "evidence": null,
+        "lowConfidence": true,
+        "guardrail": {
+          "flags": ["prompt_injection"]
+        }
+      },
+      "error_response_shape": {
+        "receipt": "server/src/api/middleware/errorHandler.js:4-15",
+        "error": true,
+        "message": "string (error description)",
+        "name": "string (Error, PolicyError, etc.)"
+      }
+    },
+    "S4_provider_injection": {
+      "module": "server/src/llm/model.manager.js",
+      "monkey_patch_targets": [
+        "modelManager.getLLMProvider",
+        "modelManager.getEmbeddingProvider"
+      ],
+      "llm_provider_interface": {
+        "receipt": "server/src/llm/llm.provider.js:7-25",
+        "methods": {
+          "complete": {
+            "signature": "async complete(prompt: string, options?: { temperature?: number, maxTokens?: number, json?: boolean }): Promise<string>",
+            "return_type": "string"
+          },
+          "healthCheck": {
+            "signature": "async healthCheck(): Promise<{ healthy: boolean, [key: string]: any }>",
+            "return_type": "object"
+          }
+        },
+        "properties": {
+          "name": "string (e.g. 'mock-provider')"
+        }
+      },
+      "embedding_provider_interface": {
+        "receipt": "server/src/llm/embedding.provider.js:8-25",
+        "methods": {
+          "embed": {
+            "signature": "async embed(texts: string[]): Promise<number[][]>",
+            "return_type": "number[][]"
+          },
+          "healthCheck": {
+            "signature": "async healthCheck(): Promise<{ healthy: boolean }>",
+            "return_type": "object"
+          }
+        },
+        "properties": {
+          "name": "string (e.g. 'mock-embedder')"
+        }
+      }
+    },
+    "S5_config_surface": {
+      "env_variables": [
+        {
+          "name": "NODE_ENV",
+          "receipt": "config/env.js:10",
+          "default": "development",
+          "effect": "When set to 'test', redirects storage paths to data-test/ and uploads-test/."
+        },
+        {
+          "name": "DATA_DIR",
+          "receipt": "config/env.js:33",
+          "default": "data/ (or data-test/ when NODE_ENV=test)",
+          "effect": "Base filesystem directory for SQLite databases and profiles."
+        },
+        {
+          "name": "REGISTRY_DB_PATH",
+          "receipt": "config/env.js:35",
+          "default": "<DATA_DIR>/cognicore_registry.db",
+          "effect": "File path to the central CogniCore SQLite registry database."
+        },
+        {
+          "name": "LLM_PROVIDER",
+          "receipt": "config/env.js:23",
+          "default": "ollama",
+          "effect": "Default LLM provider backend ('ollama', 'openai', 'anthropic')."
+        },
+        {
+          "name": "OLLAMA_BASE_URL",
+          "receipt": "config/env.js:25",
+          "default": "http://localhost:11434",
+          "effect": "HTTP base URL for local Ollama server."
+        },
+        {
+          "name": "OLLAMA_MODEL",
+          "receipt": "config/env.js:26",
+          "default": "qwen2.5:7b",
+          "effect": "Default model name for SQL generation and chat reasoning."
+        },
+        {
+          "name": "OLLAMA_TIMEOUT_MS",
+          "receipt": "config/env.js:27",
+          "default": "120000",
+          "effect": "Timeout in milliseconds for Ollama HTTP requests (note: .env.example specifies 60000)."
+        },
+        {
+          "name": "OLLAMA_EMBEDDING_MODEL",
+          "receipt": "config/env.js:28",
+          "default": "nomic-embed-text",
+          "effect": "Model used for vector embeddings in document search."
+        },
+        {
+          "name": "OLLAMA_MODEL_SQL",
+          "receipt": "model.manager.js:29",
+          "default": "OLLAMA_MODEL",
+          "effect": "Model override specifically for SQL generation task."
+        },
+        {
+          "name": "OLLAMA_MODEL_REASONING",
+          "receipt": "model.manager.js:29",
+          "default": "OLLAMA_MODEL",
+          "effect": "Model override specifically for synthesis and explanation task."
+        },
+        {
+          "name": "OLLAMA_MODEL_REWRITE",
+          "receipt": "model.manager.js:29",
+          "default": "OLLAMA_MODEL",
+          "effect": "Model override specifically for follow-up conversational rewrites."
+        },
+        {
+          "name": "OLLAMA_MODEL_PLANNER",
+          "receipt": "model.manager.js:29",
+          "default": "OLLAMA_MODEL",
+          "effect": "Model override specifically for analysis task decomposition."
+        },
+        {
+          "name": "MAX_RESULT_ROWS",
+          "receipt": "config/env.js:40",
+          "default": "1000",
+          "effect": "Hard limit on rows returned by database adapter queries."
+        },
+        {
+          "name": "QUERY_TIMEOUT_MS",
+          "receipt": "config/env.js:41",
+          "default": "15000",
+          "effect": "Database query execution timeout in milliseconds."
+        },
+        {
+          "name": "SQL_MAX_LENGTH",
+          "receipt": "sql.complexity.js:14",
+          "default": "4000",
+          "effect": "Maximum permitted length of generated SQL query string."
+        },
+        {
+          "name": "SQL_MAX_JOINS",
+          "receipt": "sql.complexity.js:15",
+          "default": "6",
+          "effect": "Maximum permitted number of table joins."
+        },
+        {
+          "name": "SQL_MAX_SUBQUERY_DEPTH",
+          "receipt": "sql.complexity.js:16",
+          "default": "4",
+          "effect": "Maximum allowed nested subquery depth."
+        },
+        {
+          "name": "SQL_MAX_ESTIMATED_ROWS",
+          "receipt": "sql.complexity.js:17",
+          "default": "5000000000",
+          "effect": "Maximum Cartesian fan-out rows allowed before complexity rejection."
+        },
+        {
+          "name": "CHAT_RATE_LIMIT_PER_MIN",
+          "receipt": "rate.limit.js:7",
+          "default": "30",
+          "effect": "Maximum chat requests per user or IP address per minute."
+        },
+        {
+          "name": "PII_MASK_ROLES",
+          "receipt": "pii.js:8",
+          "default": "viewer,employee",
+          "effect": "Comma-separated list of roles whose query evidence rows have PII masked."
+        },
+        {
+          "name": "ACTION_EMAIL_ALLOWED_DOMAINS",
+          "receipt": "action.registry.js:51",
+          "default": "",
+          "effect": "Comma-separated domain allowlist for outbound email action."
+        },
+        {
+          "name": "ACTION_WEBHOOK_ALLOWLIST",
+          "receipt": "action.registry.js:73",
+          "default": "",
+          "effect": "Comma-separated HTTPS domain allowlist for outbound webhook action."
+        },
+        {
+          "name": "ACTION_ALLOW_SELF_APPROVAL",
+          "receipt": "action.executor.js:64",
+          "default": "false",
+          "effect": "When 'true', non-admins can approve their own action requests."
+        },
+        {
+          "name": "API_CONNECTOR_MAX_MB",
+          "receipt": "api.connector.js:21",
+          "default": "20",
+          "effect": "Maximum payload size in megabytes for API connector data sources."
+        },
+        {
+          "name": "API_CONNECTOR_ALLOW_PRIVATE",
+          "receipt": "api.connector.js:47",
+          "default": "false",
+          "effect": "Disables SSRF blocking against private RFC1918 IPs when 'true' (for testing)."
+        },
+        {
+          "name": "PYTHON_BIN",
+          "receipt": "python.tool.js:20",
+          "default": "",
+          "effect": "Custom path to Python executable; falls back to python3 / python or JS fallback."
+        }
+      ],
+      "delta_vs_env_example": [
+        {
+          "variable": "OLLAMA_TIMEOUT_MS",
+          "example_value": "60000",
+          "code_default": "120000",
+          "impact": "Code allows longer generation before timing out."
+        },
+        {
+          "variable": "SQL_MAX_ESTIMATED_ROWS",
+          "example_value": "omitted",
+          "code_default": "5e9",
+          "impact": "Complexity gate limits Cartesian fan-out even though omitted from .env.example."
+        },
+        {
+          "variable": "INPUT_GUARD_MAX_CHARS",
+          "example_value": "omitted",
+          "code_default": "4000 (hardcoded)",
+          "impact": "Input guard screens questions longer than 4000 characters without an env var override."
+        }
+      ]
+    },
+    "S6_policy_and_rbac_api": {
+      "column_denial_policy": {
+        "programmatic_method": "PolicyStore.add({ datasetId, role, kind: 'deny_column', columnName, tableName, createdBy })",
+        "receipt": "server/src/security/data.policy.js:42-51",
+        "http_route": "POST /api/policies/:datasetId",
+        "http_receipt": "server/src/api/routes/policies.js:17"
+      },
+      "row_filter_policy": {
+        "programmatic_method": "PolicyStore.add({ datasetId, role, kind: 'row_filter', tableName, columnName, op, value, createdBy })",
+        "template_support": "{{user.*}} fields (e.g. {{user.email}}, {{user.user_id}})",
+        "receipt": "server/src/security/data.policy.js:42-51, 61",
+        "http_route": "POST /api/policies/:datasetId",
+        "http_receipt": "server/src/api/routes/policies.js:17"
+      },
+      "user_role_assignment": {
+        "programmatic_method": "AuthRegistry.updateUserRole(userId, newRole)",
+        "receipt": "server/src/security/auth.registry.js:93-97",
+        "http_route": "PATCH /api/admin/users/:id/role",
+        "http_receipt": "server/src/api/routes/admin.js:15"
+      },
+      "dataset_access_grant": {
+        "programmatic_method": "AuthRegistry.grantAccess({ datasetId, userId, permission, grantedBy })",
+        "receipt": "server/src/security/auth.registry.js:145-151",
+        "http_route": "POST /api/datasets/:id/share",
+        "http_receipt": "server/src/api/routes/datasets.js:46"
+      },
+      "pii_masking_rules": {
+        "receipt": "server/src/guardrails/pii.js:8-45",
+        "roles_masked": ["viewer", "employee"],
+        "detectors": ["email", "phone", "ssn", "credit_card", "ip_address"],
+        "redaction_method": "redactEvidence(evidence, semantic, role)"
+      },
+      "policy_violation_error": {
+        "error_class": "PolicyError",
+        "receipt": "server/src/security/data.policy.js:35-37",
+        "status": 403
+      }
+    },
+    "S7_semantic_model_access": {
+      "registry_database": "cognicore_registry.db",
+      "table": "datasets",
+      "receipt": "server/src/ingestion/dataset.registry.js:26-39",
+      "columns": ["dataset_id", "schema_json", "profile_json"],
+      "schema_json_shape": {
+        "tables": [
+          {
+            "name": "string",
+            "columns": [
+              { "name": "string", "type": "string", "nullable": "boolean", "pk": "boolean" }
+            ]
+          }
+        ],
+        "foreignKeys": [
+          { "table": "string", "column": "string", "referencesTable": "string", "referencesColumn": "string" }
+        ]
+      },
+      "profile_json_semantic_shape": {
+        "tables": [
+          {
+            "name": "string",
+            "columns": [
+              {
+                "name": "string",
+                "role": "string ('monetary' | 'temporal' | 'identifier' | 'categorical' | 'measure')",
+                "values": "object[] ([{ value: string, count: number }])",
+                "pii": "string | null ('email' | 'phone' | etc.)",
+                "stats": {
+                  "distinct": "number",
+                  "missing": "number",
+                  "min": "number | string | null",
+                  "max": "number | string | null",
+                  "avg": "number | null",
+                  "distribution": "object"
+                }
+              }
+            ]
+          }
+        ],
+        "relationships": [
+          { "fromTable": "string", "fromColumn": "string", "toTable": "string", "toColumn": "string" }
+        ]
+      }
+    },
+    "S8_dataset_lifecycle": {
+      "dataset_id_format": "ds_${uuidv4().slice(0, 8)}",
+      "dataset_id_receipt": "server/src/ingestion/dataset.registry.js:76",
+      "user_bootstrap_rule": "First user registered via /api/auth/register automatically receives role 'admin'",
+      "user_bootstrap_receipt": "server/src/api/routes/auth.js:35-36",
+      "multi_dataset_query_mechanism": "Pass array to datasetIds in handleUserQuery({ question, datasetIds: [...] })",
+      "registry_state_wipe": {
+        "test_directory": "data-test/",
+        "clean_slate_procedure": "Delete data-test/ folder between processes or execute DELETE FROM on registry tables in running process (GAP-2)",
+        "tables_to_truncate": [
+          "datasets",
+          "dataset_grants",
+          "sessions",
+          "conversation_turns",
+          "policies",
+          "action_requests",
+          "ai_traces",
+          "meanings"
+        ]
+      }
+    },
+    "S9_existing_harness_inventory": {
+      "benchmark_suite_path": "server/benchmark/suite.js",
+      "benchmark_runner_path": "server/benchmark/run.js",
+      "benchmark_invocation_modes": {
+        "tools_mode": "node benchmark/run.js --mode=tools",
+        "llm_mode": "node benchmark/run.js --mode=llm"
+      },
+      "benchmark_output_format": "Markdown file benchmark-report.md with summary table and per-query breakdown",
+      "existing_unit_tests": {
+        "total_files": 31,
+        "location": "server/tests/",
+        "framework": "node:test with node:assert/strict",
+        "npm_script": "npm test -> node --test"
+      },
+      "target_testing_convention": {
+        "directory": "server/tests/validation/",
+        "style": "node:test with assert/strict, in-process invocation, mock providers for CI"
+      }
+    },
+    "S10_ollama_client_details": {
+      "module": "server/src/llm/ollama.provider.js",
+      "base_url_env": "OLLAMA_BASE_URL",
+      "base_url_default": "http://localhost:11434",
+      "timeout_env": "OLLAMA_TIMEOUT_MS",
+      "timeout_default": 120000,
+      "streaming": false,
+      "keep_alive_supported": false,
+      "keep_alive_gap_receipt": "server/src/llm/ollama.provider.js:28 (GAP-1)",
+      "keep_alive_fix_code": "keep_alive: options.keepAlive !== undefined ? options.keepAlive : (process.env.OLLAMA_KEEP_ALIVE || undefined)",
+      "model_unload_supported": false,
+      "model_unload_fix_code": "async unload() { await axios.post(`${this.baseUrl}/api/generate`, { model: this.model, keep_alive: 0 }); }"
+    },
+    "S11_unit_testable_pure_functions": [
+      {
+        "module": "server/src/structured/sql.repair.js",
+        "export_name": "repairTableNames",
+        "signature": "(sql, schema) => { sql, repaired, corrections }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/structured/sql.repair.js",
+        "export_name": "ensureFromClause",
+        "signature": "(sql, schema) => { sql, repaired }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/structured/sql.repair.js",
+        "export_name": "fixIntegerDivision",
+        "signature": "(sql) => { sql, repaired }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/structured/sql.analyzer.js",
+        "export_name": "repairColumnNames",
+        "signature": "(sql, schema) => { sql, repaired, corrections, unresolved }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/structured/sql.analyzer.js",
+        "export_name": "repairMissingGroupBy",
+        "signature": "(sql) => { sql, repaired, groupBy }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/structured/sql.analyzer.js",
+        "export_name": "tokenize",
+        "signature": "(sql) => [{ t, v, s, e, depth }]",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/structured/sql.values.repair.js",
+        "export_name": "repairValueLiterals",
+        "signature": "(sql, semantic) => { sql, repaired, corrections }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/structured/sql.validator.js",
+        "export_name": "validateSql",
+        "signature": "(sql, schema, datasetType) => { valid, ast, tablesUsed, complexity }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/structured/sql.complexity.js",
+        "export_name": "analyzeComplexity",
+        "signature": "(sql, schema) => { ok, reasons, level, score, joinCount, maxDepth, estimatedRows }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/security/data.policy.js",
+        "export_name": "assertColumnAccess",
+        "signature": "(sql, schema, policy) => void (throws PolicyError)",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/security/data.policy.js",
+        "export_name": "applyRowFilters",
+        "signature": "(sql, schema, policy, datasetType) => string (rewritten SQL)",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/security/data.policy.js",
+        "export_name": "enforcePolicy",
+        "signature": "({ sql, schema, policy, datasetType }) => string",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/guardrails/answer.grounding.js",
+        "export_name": "checkNumericGrounding",
+        "signature": "(answer, evidence, question) => { grounded: bool, ungrounded: string[] }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/guardrails/answer.grounding.js",
+        "export_name": "detectContradiction",
+        "signature": "(answer, evidence) => boolean",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/guardrails/answer.grounding.js",
+        "export_name": "buildDeterministicAnswer",
+        "signature": "(evidence) => string",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/guardrails/pii.js",
+        "export_name": "maskText",
+        "signature": "(text) => string",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/guardrails/pii.js",
+        "export_name": "redactEvidence",
+        "signature": "(evidence, semantic, role) => { evidence, redacted }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/guardrails/input.guard.js",
+        "export_name": "screenQuestion",
+        "signature": "(question) => { blocked: bool, flags: string[], message: string|null }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/guardrails/input.guard.js",
+        "export_name": "neutralizeInjection",
+        "signature": "(text) => { text: string, removed: number }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/analytics/stats.js",
+        "export_name": "mean, median, std, iqrBounds, pearson, linearRegression",
+        "signature": "(arrays...) => number | object",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/analytics/anomaly.js",
+        "export_name": "detectIqr, detectZScore, detectMad, detectAnomalies, isolationForest",
+        "signature": "(values, options) => [{ index, value, score, method }]",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/analytics/forecast.js",
+        "export_name": "forecast",
+        "signature": "(values, options) => { predictions, method, backtest, ... }",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/analytics/dates.js",
+        "export_name": "parseDateLoose, toIsoDate, bucketKey",
+        "signature": "(dateStr, ...) => object | string",
+        "is_pure": true
+      },
+      {
+        "module": "server/src/structured/sqlident.js",
+        "export_name": "quoteIdent, dialectOf, isSqliteBacked",
+        "signature": "(name, dialect) => string",
+        "is_pure": true
+      }
+    ],
+    "S12_error_taxonomy": [
+      {
+        "error_class": "SQLValidationError",
+        "origin_receipt": "server/src/structured/sql.validator.js:28",
+        "http_status": "200 OK with lowConfidence: true (or thrown in unit test)",
+        "distinction": "Declined",
+        "verdict_code": "REJECTED_UNSAFE_SQL",
+        "description": "Refuses unsafe DDL, DML, SQL comments, or tables not in schema."
+      },
+      {
+        "error_class": "SQLComplexityError",
+        "origin_receipt": "server/src/structured/sql.complexity.js:20",
+        "http_status": "200 OK with lowConfidence: true",
+        "distinction": "Declined",
+        "verdict_code": "REJECTED_COMPLEXITY",
+        "description": "Statement exceeded join limit, subquery depth, or Cartesian fan-out limit."
+      },
+      {
+        "error_class": "PolicyError",
+        "origin_receipt": "server/src/security/data.policy.js:35",
+        "http_status": "200 OK with denied: true (or 403 on policy management API)",
+        "distinction": "Declined",
+        "verdict_code": "DENIED_POLICY",
+        "description": "Column or row access forbidden by policy; also thrown when MySQL encounters row policies."
+      },
+      {
+        "error_class": "InputGuardrailBlock",
+        "origin_receipt": "server/src/guardrails/input.guard.js:36",
+        "http_status": "200 OK with routeType: 'BLOCKED', evidence: null",
+        "distinction": "Declined",
+        "verdict_code": "BLOCKED_GUARDRAIL",
+        "description": "Prompt injection attempt or question exceeding length limit detected."
+      },
+      {
+        "error_class": "RecoveryExhaustion",
+        "origin_receipt": "server/src/core/engines/structured.engine.js:108",
+        "http_status": "200 OK with recoveryAttempts: 2, lowConfidence: true",
+        "distinction": "Declined",
+        "verdict_code": "RECOVERY_EXHAUSTED",
+        "description": "SQL failed database execution and auto-recovery attempts exhausted."
+      },
+      {
+        "error_class": "GroundingReplacement",
+        "origin_receipt": "server/src/guardrails/answer.grounding.js:41",
+        "http_status": "200 OK with guardrail.flags: ['ungrounded_numbers_replaced']",
+        "distinction": "Recovered",
+        "verdict_code": "GROUNDING_FALLBACK",
+        "description": "Fabricated numbers detected in LLM answer; stripped and replaced with deterministic answer."
+      },
+      {
+        "error_class": "UploadValidationError",
+        "origin_receipt": "server/src/security/file.validator.js:10",
+        "http_status": "400 Bad Request",
+        "distinction": "Declined",
+        "verdict_code": "REJECTED_UPLOAD",
+        "description": "Uploaded file failed magic byte or structure validation."
+      },
+      {
+        "error_class": "LLMConnectionError",
+        "origin_receipt": "server/src/llm/ollama.provider.js:55",
+        "http_status": "200 OK with lowConfidence: true",
+        "distinction": "Crashed",
+        "verdict_code": "INFRA_LLM_FAILURE",
+        "description": "Ollama server unreachable, crashed, or request timed out."
+      },
+      {
+        "error_class": "UnhandledException",
+        "origin_receipt": "server/src/api/middleware/errorHandler.js:4",
+        "http_status": "500 Internal Server Error",
+        "distinction": "Crashed",
+        "verdict_code": "ENGINE_CRASH",
+        "description": "Unexpected runtime error in engine execution."
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "gap_id": "GAP-1",
+      "title": "Missing Ollama keep_alive and model unload support",
+      "evidence_receipt": "server/src/llm/ollama.provider.js:20-42",
+      "impact": "Models remain resident in GPU VRAM during multi-model test sweeps, risking out-of-memory crashes on consumer GPUs.",
+      "remedy": "Add keep_alive option to request body at ollama.provider.js:28 and implement unload() method sending keep_alive: 0."
+    },
+    {
+      "gap_id": "GAP-2",
+      "title": "In-memory database handle caching prevents folder cleanup on Windows",
+      "evidence_receipt": "server/src/config/registry.db.js:9-23",
+      "impact": "better-sqlite3 handles cached in-process prevent deleting data-test/ folder on Windows between suites with EBUSY error.",
+      "remedy": "Export resetRegistryDb() helper in registry.db.js to close open connections and clear the connection map."
+    },
+    {
+      "gap_id": "GAP-3",
+      "title": "Legacy fixture database files absent from repository",
+      "evidence_receipt": "Workspace root / sample-data/",
+      "impact": "Tests expecting ecommerce_test.db, college_attendance.db, U3_institute.db, chinook.db, or H3_metropol.db will fail.",
+      "remedy": "Use 5 CSV files in sample-data/, generate sample-data/retail_multitable.db, or create in-memory SQLite fixtures via makeTempSqlite()."
+    },
+    {
+      "gap_id": "GAP-4",
+      "title": "Traces omit engine-level sub-steps for Document, Hybrid, and Analysis routes",
+      "evidence_receipt": "server/src/core/engines/document.engine.js:42, hybrid.engine.js:63, analysis.engine.js:91",
+      "impact": "Layer-isolated runner cannot attribute stage-by-stage failures for document retrieval or analysis decomposition through trace object.",
+      "remedy": "Add steps accumulator array to document.engine.js, hybrid.engine.js, and analysis.engine.js matching structured.engine.js."
+    }
+  ]
+}
