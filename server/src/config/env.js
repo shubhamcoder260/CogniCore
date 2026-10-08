@@ -23,7 +23,7 @@ const config = {
     provider: process.env.LLM_PROVIDER || 'ollama',
     ollama: {
       baseUrl: process.env.OLLAMA_BASE_URL || 'http://localhost:11434',
-      model: process.env.OLLAMA_MODEL || 'qwen2.5:7b',
+      model: process.env.OLLAMA_MODEL || 'qwen2.5:14b',
       timeoutMs: parseInt(process.env.OLLAMA_TIMEOUT_MS || '120000', 10),
       embeddingModel: process.env.OLLAMA_EMBEDDING_MODEL || 'nomic-embed-text',
     },
