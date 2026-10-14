@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-10-14T19:58:02.270Z",
+  "git": {
+    "copy_head": "20a21643d7fc31a3811abc6927b17296b9c8df0e",
+    "original_head": "6f2dd4c004e555b83587c3e0c195f7882432ad9b",
+    "prereg_commit": "20a21643d7fc31a3811abc6927b17296b9c8df0e",
+    "prereg_tag": "prereg-v1"
+  },
+  "runtime": {
+    "node_version": "v24.13.1",
+    "npm_version": "11.8.0"
+  },
+  "system": {
+    "os": {
+      "type": "Windows_NT",
+      "platform": "win32",
+      "release": "10.0.26300",
+      "arch": "x64"
+    },
+    "cpu": {
+      "model": "13th Gen Intel(R) Core(TM) i5-13420H",
+      "cores": 12,
+      "speed_mhz": 2611
+    },
+    "total_ram_bytes": 16869351424,
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 2050",
+      "driver_version": "560.94",
+      "vram_mb": 4096
+    }
+  },
+  "ollama": {
+    "version": "0.40.3",
+    "installed_models": [
+      "qwen2.5vl:3b",
+      "qwen2.5-coder:7b",
+      "qwen2.5:14b"
+    ],
+    "target_models": {
+      "qwen2.5:7b": {
+        "installed": false,
+        "digest": null,
+        "reason": "not installed"
+      },
+      "qwen2.5-coder:7b": {
+        "installed": true,
+        "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364"
+      },
+      "llama3.1:8b": {
+        "installed": false,
+        "digest": null,
+        "reason": "not installed"
+      },
+      "gemma3:4b": {
+        "installed": false,
+        "digest": null,
+        "reason": "not installed"
+      }
+    }
+  },
+  "validation_config": {
+    "master_seed": 20261015,
+    "evaluation_temperature": 0,
+    "secondary_temperature": 0.2,
+    "source_parameter_citations": {
+      "temperature": [
+        {
+          "file_line": "server/src/structured/sql.generator.js:79",
+          "code": "const raw = await llmProvider.complete(prompt, { temperature: opts.recovery ? 0.2 : 0.1, maxTokens: 500 });",
+          "notes": "SQL generator passes temperature 0.1 on initial generation, 0.2 on recovery retry"
+        },
+        {
+          "file_line": "server/src/core/engines/analysis.engine.js:36",
+          "code": "const planRaw = await llmProvider.complete(planPrompt, { temperature: 0.2, maxTokens: 500 });",
+          "notes": "Analysis planner defaults to temperature 0.2"
+        },
+        {
+          "file_line": "server/src/core/engines/analysis.engine.js:76",
+          "code": "const synthesisText = await llmProvider.complete(synthesisPrompt, { temperature: 0.3, maxTokens: 700 });",
+          "notes": "Analysis synthesis defaults to temperature 0.3"
+        },
+        {
+          "file_line": "server/src/core/followup.resolver.js:72",
+          "code": "rewritten = String(await llmProvider.complete(buildRewritePrompt(question, state), { temperature: 0, maxTokens: 120 })).trim();",
+          "notes": "Follow-up query rewriter sets temperature 0"
+        },
+        {
+          "file_line": "server/src/response/answer.composer.js:66",
+          "code": "const text = await llmProvider.complete(prompt, { temperature: 0.3, maxTokens: 500 });",
+          "notes": "Natural language answer composer sets temperature 0.3"
+        },
+        {
+          "file_line": "server/src/llm/ollama.provider.js:30",
+          "code": "temperature: options.temperature ?? 0.2,",
+          "notes": "Ollama provider default fallback temperature is 0.2"
+        }
+      ],
+      "max_tokens": [
+        {
+          "file_line": "server/src/structured/sql.generator.js:79",
+          "code": "maxTokens: 500",
+          "notes": "SQL generation token limit"
+        },
+        {
+          "file_line": "server/src/core/engines/analysis.engine.js:36",
+          "code": "maxTokens: 500",
+          "notes": "Analysis plan token limit"
+        },
+        {
+          "file_line": "server/src/core/engines/analysis.engine.js:76",
+          "code": "maxTokens: 700",
+          "notes": "Analysis synthesis token limit"
+        },
+        {
+          "file_line": "server/src/core/followup.resolver.js:72",
+          "code": "maxTokens: 120",
+          "notes": "Follow-up query rewrite token limit"
+        },
+        {
+          "file_line": "server/src/response/answer.composer.js:66",
+          "code": "maxTokens: 500",
+          "notes": "Answer composer token limit"
+        },
+        {
+          "file_line": "server/src/llm/ollama.provider.js:31",
+          "code": "num_predict: options.maxTokens ?? 1024,",
+          "notes": "Ollama provider maps maxTokens to num_predict, defaulting to 1024"
+        }
+      ],
+      "top_p": {
+        "value": null,
+        "reason": "top_p is not explicitly specified in server/src/; inherits provider/model default"
+      },
+      "num_ctx": {
+        "value": null,
+        "reason": "num_ctx is not passed in Ollama request options in server/src/llm/ollama.provider.js; defaults to Ollama model level configuration (typically 2048 or 4096)"
+      }
+    }
+  },
+  "checksums": {
+    "databases": {
+      "database/bank/B1_community.db": "221d6dd967f32f6c82b13ac176da4eabba436b03161f1ae6e9b223568e2d7c41",
+      "database/bank/B2_district.db": "060a3893e42432ea47bf2b2d49c4b41371a3441628a217320d4052bd0ff491ad",
+      "database/bank/B3_metro.db": "e2ef3c591dd90916009ab48c381651f2f45df1f299638fd60ad8aad50fbdfc5e",
+      "database/fooddelivery/F1_quickbite.db": "d355acedfe33447924971a947d2aff0602456ab2db507789dd7bb476448b3d76",
+      "database/fooddelivery/F2_citygrub.db": "fc07ff05a992f213d0bc8550064c1e548fb03cf4f093d4d0e0a8d902925a00ce",
+      "database/fooddelivery/F3_national.db": "6e030f86019c2f4c24f2341c4e27fe5d7f6313a4a1d7d403c9cdafa57e7990e9",
+      "database/hospital/H1_clinic.db": "f1d38c5c959b0cf59d3b69f2956bd76e4bcea3e5fdd797cdbef45eb06d7aa585",
+      "database/hospital/H2_legacymed.db": "26259661b777cf5c663c3c342ae314b047fdd2ed686d3ea3a5635ef8869f1c3a",
+      "database/hospital/H3_metropol.db": "e2252b5840f192629dc45b6a5a32ecfc50d0dd599be13279eed44d2703cd4b2d",
+      "database/industry/I1_workshop.db": "20a14e508f68655dd1747b28546c4b72aca0d11d1689ec7636adbbbb18afe3e5",
+      "database/industry/I2_factory.db": "141e0df9a830c3b3afdc238a72e261390f1dead7bafbd5830a2083a8d0df70a7",
+      "database/industry/I3_plantops.db": "b75e885471fbd1309a666da9bfd7b2bf636f3f065a1ccee7efedf4d989f894c0",
+      "database/university/U1_stateuniv.db": "5242f4fb99ca902d9e14c3f967e6688895002aa70026ff60f496ca3d6b9d34aa",
+      "database/university/U2_metrouniv.db": "6419f87877b0d465f242f690bd5ad5cf4d905c3c4143e3dae9c9cf9c083fd061",
+      "database/university/U3_institute.db": "eb9a9b1ca05ef393283dc32632f4beac1fe887d0ea381c7a898c8a3a038d072f"
+    },
+    "sample_data": {
+      "sample-data/education_students.csv": "fe5798bd1182925121a3a1cb286b89495399bf6ea167a82e3c87e1313d885261",
+      "sample-data/finance_expenses.csv": "3d0109944d4617421af1d40b382313d2fd71ddc58d39fe0773144d0b58e42919",
+      "sample-data/hospital_appointments.csv": "7fa7702539973b66ebdcf9c237d6e11aaf5e32721a4332a4e75810290ab644be",
+      "sample-data/hr_employees.csv": "9dd300c06f3d2449ec6bb4c5a7d7874450e995dd6f00181a79b93426be7f33d1",
+      "sample-data/retail_orders.csv": "8f821914690c78fa3284a9c69294d3ae7d8dd3f20a0abc0de8a86ae10e6c52b0"
+    },
+    "package_lock": {
+      "server/package-lock.json": "5b2e1535506c51822a6df46c564684363a6c37231523d950e0d815657fe832d3"
+    }
+  }
+}

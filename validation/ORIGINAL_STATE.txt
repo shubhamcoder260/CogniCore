@@ -1,0 +1,6 @@
+ORIGINAL_HEAD: 6f2dd4c004e555b83587c3e0c195f7882432ad9b
+ORIGINAL_STATUS:
+?? .agent/
+?? GEMINI.md
+?? docs/CODEBASE_DOSSIER.md
+?? docs/dossier/
