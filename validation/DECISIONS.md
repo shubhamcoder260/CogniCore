@@ -39,3 +39,17 @@ This document records all methodological decisions, architectural invariants, an
 
 6. **Missing Probe Value Conventions**:
    - As mandated by the zero-fabrication invariant, any hardware, model, or configuration metric that cannot be directly queried is recorded as `{ value: null, reason: "<concrete explanation>" }` rather than an assumed or placeholder string.
+
+---
+
+## Phase B Decisions (Step 2: V4 SQL Safety Gate)
+
+1. **Dual Driver Architecture for Oracles**:
+   - To prevent test coupling, `better-sqlite3@12.11.1` is installed into `validation/package.json` specifically for the oracle verification harness, while the server's existing module instance (`server/node_modules/better-sqlite3`) is probed for runtime compatibility.
+
+2. **Preregistration Immutability & Amendments**:
+   - `validation/PREREGISTRATION.md` is strictly frozen at git tag `prereg-v1`. All clarifications, operational definitions, item classifications, and hypothesis criteria refinements are committed to `validation/PREREG_AMENDMENTS.md`.
+
+3. **Item Class Stratification (A, B, C, D)**:
+   - Tests are partitioned into Class A (spec-mandated rejections), Class B (unspecified/SELECT-callable probes), Class C (benign valid queries), and Class D (complexity boundary limits). This ensures clear separation between explicit contract violations and dialect edge-case behaviors.
+

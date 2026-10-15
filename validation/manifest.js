@@ -151,6 +151,52 @@ function getFilesChecksum(baseDir, ext) {
   return results;
 }
 
+function getSqliteDriverInfo() {
+  const serverBetterSqlitePkg = path.resolve(config.PATHS.SERVER_DIR, 'node_modules/better-sqlite3/package.json');
+  const validationBetterSqlitePkg = path.resolve(config.PATHS.VALIDATION_ROOT, 'node_modules/better-sqlite3/package.json');
+
+  let projectDriver = { name: 'better-sqlite3', installed: false, version: null };
+  if (fs.existsSync(serverBetterSqlitePkg)) {
+    try {
+      const pkg = JSON.parse(fs.readFileSync(serverBetterSqlitePkg, 'utf8'));
+      projectDriver = {
+        name: 'better-sqlite3',
+        installed: true,
+        version: pkg.version,
+        location: 'server/node_modules/better-sqlite3',
+      };
+    } catch (_) {}
+  }
+
+  let validationDriver = { name: 'better-sqlite3', installed: false, version: null, sqlite_version: null, compile_options: [] };
+  if (fs.existsSync(validationBetterSqlitePkg)) {
+    try {
+      const pkg = JSON.parse(fs.readFileSync(validationBetterSqlitePkg, 'utf8'));
+      const Database = require(path.resolve(config.PATHS.VALIDATION_ROOT, 'node_modules/better-sqlite3'));
+      const db = new Database(':memory:');
+      const sqliteVersion = db.prepare('SELECT sqlite_version() AS v').get().v;
+      const compileOptions = db.prepare('PRAGMA compile_options').all().map(r => r.compile_options);
+      db.close();
+
+      validationDriver = {
+        name: 'better-sqlite3',
+        installed: true,
+        pinned_version: pkg.version,
+        package_json: 'validation/package.json',
+        sqlite_version: sqliteVersion,
+        compile_options: compileOptions,
+      };
+    } catch (err) {
+      validationDriver.error = err.message;
+    }
+  }
+
+  return {
+    project_driver: projectDriver,
+    validation_driver: validationDriver,
+  };
+}
+
 function generateManifest() {
   const copyHead = safeExec('git rev-parse HEAD');
   const originalHead = getOriginalHead();
@@ -294,6 +340,7 @@ function generateManifest() {
       sample_data: sampleDataHashes,
       package_lock: packageLockHashes,
     },
+    sqlite_driver: getSqliteDriverInfo(),
   };
 
   const manifestPath = path.resolve(config.PATHS.VALIDATION_ROOT, 'MANIFEST.json');
