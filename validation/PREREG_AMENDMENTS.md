@@ -298,7 +298,23 @@ To close the evidence gap identified in Step 3 where only 56 frozen corpus items
 
 ### Frozen File Checksum
 
+| `validation/data/v4d/executable_writes.jsonl` | 640 | `c60eb48d1e88da820527a264614af22dc9d30f37245d625890dbb82aebbf6a6b` |
+
+---
+
+## Amendment V3-A3: Expanded V3b Evaluation Corpus (V3b Corpus v1)
+
+To close the coverage gap identified in Step 3b Phase B, the V3 evaluation suite is expanded to evaluate the full specification:
+1. **Systematic Structural Variants**: The complete set of 510 systematic variant items (19 row variants and 15 column forms across all 15 SQLite database fixtures).
+2. **Gate-Accepted Benign Queries Touching Filtered Tables**: 395 gate-accepted benign queries from Class C and Class C2 touching filtered tables, evaluated under restricted users (`user_u1` and `user_u3`).
+3. **Seeded Grammar-Generated SELECTs**: 525 seeded grammar-generated analytical queries (35 per fixture across 15 fixtures) generated deterministically using `MASTER_SEED + 300` testing row filtering (`user_u1`, `user_u2`) and column denial (`user_u3`).
+4. **Base Query Clustering**: Every item explicitly records its `base_query_id` to permit cluster bootstrapping over base queries for pooled rates.
+
+### Frozen File Checksum
+
 | File Path | Item Count | SHA-256 Checksum |
 |---|---|---|
-| `validation/data/v4d/executable_writes.jsonl` | 640 | `c60eb48d1e88da820527a264614af22dc9d30f37245d625890dbb82aebbf6a6b` |
+| `validation/data/v3b/v3b_queries.jsonl` | 1430 | `5395fc8f432194b91be49d743f97780c4f1910d61f4ad904e1f74bf0fba157ce` |
+| **Total V3b Corpus** | **1430** | — |
+
 

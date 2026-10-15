@@ -184,6 +184,9 @@
     "corpus_v3": {
       "validation/data/v3/v3_queries.jsonl": "67b4ad014d4a8ee017171f706c67b0c7df71556d25b47e58da46764f2922481c"
     },
+    "corpus_v3b": {
+      "validation/data/v3b/v3b_queries.jsonl": "5395fc8f432194b91be49d743f97780c4f1910d61f4ad904e1f74bf0fba157ce"
+    },
     "corpus_v4d": {
       "validation/data/v4d/executable_writes.jsonl": "c60eb48d1e88da820527a264614af22dc9d30f37245d625890dbb82aebbf6a6b"
     }
