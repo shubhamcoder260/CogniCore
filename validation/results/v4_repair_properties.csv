@@ -1,0 +1,25 @@
+id,description,repaired,idempotent,raw_val,repaired_val,hand_val,matches_float_semantics,shifts_semantics,raw_sql,repaired_sql
+T01,COUNT / COUNT aggregate ratio,true,true,0,0.8,0.8,PASS,YES,SELECT COUNT(a) / COUNT(*) AS res FROM t_ints,SELECT 1.0 * COUNT(a) / COUNT(*) AS res FROM t_ints
+T02,SUM / COUNT aggregate average,true,true,15,15,15,PASS,NO,SELECT SUM(a) / COUNT(*) AS res FROM t_ints,SELECT 1.0 * SUM(a) / COUNT(*) AS res FROM t_ints
+T03,COUNT with CASE WHEN filter in aggregate,true,true,0,0.4,0.4,PASS,YES,SELECT COUNT(CASE WHEN a > 5 THEN 1 END) / COUNT(*) AS res FROM t_ints,SELECT 1.0 * COUNT(CASE WHEN a > 5 THEN 1 END) / COUNT(*) AS res FROM t_ints
+T04,SUM with CASE WHEN / SUM positive filter,true,true,5,5.333333333333333,5.333333333333333,PASS,YES,SELECT SUM(CASE WHEN a > 0 THEN a ELSE 0 END) / SUM(b) AS res FROM t_ints WHERE b > 0,SELECT 1.0 * SUM(CASE WHEN a > 0 THEN a ELSE 0 END) / SUM(b) AS res FROM t_ints WHERE b > 0
+T05,COUNT / integer literal,true,true,0,0.8,0.8,PASS,YES,SELECT COUNT(a) / 10 AS res FROM t_ints,SELECT 1.0 * COUNT(a) / 10 AS res FROM t_ints
+T06,Parenthesized SUM / COUNT multiplied by 100,true,true,1800,1875,1875,PASS,YES,SELECT (SUM(a) / COUNT(a)) * 100 AS res FROM t_ints,SELECT (1.0 * SUM(a) / COUNT(a)) * 100 AS res FROM t_ints
+T07,Already float-multiplied (1.0 * COUNT / COUNT),false,true,0.8,0.8,0.8,PASS,NO,SELECT 1.0 * COUNT(a) / COUNT(*) AS res FROM t_ints,SELECT 1.0 * COUNT(a) / COUNT(*) AS res FROM t_ints
+T08,Already CAST as REAL (CAST(COUNT AS REAL) / COUNT),false,true,0.8,0.8,0.8,PASS,NO,SELECT CAST(COUNT(a) AS REAL) / COUNT(*) AS res FROM t_ints,SELECT CAST(COUNT(a) AS REAL) / COUNT(*) AS res FROM t_ints
+T09,COUNT / float literal (COUNT / 2.0),true,true,4,4,4,PASS,NO,SELECT COUNT(a) / 2.0 AS res FROM t_ints,SELECT 1.0 * COUNT(a) / 2.0 AS res FROM t_ints
+T10,Slash in date-like literal in WHERE filter,true,true,1,1,1,PASS,NO,SELECT COUNT(a) / COUNT(b) AS res FROM t_ints WHERE note = '2024/01/02',SELECT 1.0 * COUNT(a) / COUNT(b) AS res FROM t_ints WHERE note = '2024/01/02'
+T11,Slash in LIKE pattern (no aggregates),false,true,,,,PASS,NO,"SELECT id, note FROM t_ints WHERE note LIKE '%/%' LIMIT 3","SELECT id, note FROM t_ints WHERE note LIKE '%/%' LIMIT 3"
+T12,Plain query without any division operator,false,true,,,,PASS,NO,"SELECT id, a, b FROM t_ints WHERE id > 0 LIMIT 5","SELECT id, a, b FROM t_ints WHERE id > 0 LIMIT 5"
+T13,COUNT / COUNT inside scalar subquery,true,true,0,0.8,0.8,PASS,YES,SELECT (SELECT COUNT(a) / COUNT(*) FROM t_ints) AS res FROM t_ints LIMIT 1,SELECT (SELECT 1.0 * COUNT(a) / COUNT(*) FROM t_ints) AS res FROM t_ints LIMIT 1
+T14,Division by zero aggregate (zero count in denominator),true,true,,,,PASS,NO,SELECT COUNT(a) / COUNT(CASE WHEN id = 999 THEN 1 END) AS res FROM t_ints,SELECT 1.0 * COUNT(a) / COUNT(CASE WHEN id = 999 THEN 1 END) AS res FROM t_ints
+T15,Division by zero aggregate (zero sum in denominator),true,true,,,,PASS,NO,SELECT SUM(a) / SUM(CASE WHEN id = 999 THEN 1 ELSE 0 END) AS res FROM t_ints,SELECT 1.0 * SUM(a) / SUM(CASE WHEN id = 999 THEN 1 ELSE 0 END) AS res FROM t_ints
+T16,Slash in quoted column identifier alias,true,true,,,,PASS,NO,"SELECT COUNT(a) / COUNT(*) AS ""ratio/all"" FROM t_ints","SELECT 1.0 * COUNT(a) / COUNT(*) AS ""ratio/all"" FROM t_ints"
+T17,Modulo operator % present in query,false,true,1,1,1,PASS,NO,SELECT a % 3 AS res FROM t_ints WHERE a IS NOT NULL LIMIT 3,SELECT a % 3 AS res FROM t_ints WHERE a IS NOT NULL LIMIT 3
+T18,COUNT DISTINCT in numerator and denominator,true,true,1,1,1,PASS,NO,SELECT COUNT(DISTINCT a) / COUNT(DISTINCT b) AS res FROM t_ints,SELECT 1.0 * COUNT(DISTINCT a) / COUNT(DISTINCT b) AS res FROM t_ints
+T19,COUNT with multiple spaces and newlines before slash,true,true,0,0.8,0.8,PASS,YES,"SELECT COUNT(a)   
+	  /   COUNT(*) AS res FROM t_ints","SELECT 1.0 * COUNT(a)   
+	  /   COUNT(*) AS res FROM t_ints"
+T20,Bare column division (unaggregated integers a / b),false,true,5,5,5,PASS,NO,SELECT a / b AS res FROM t_ints WHERE b > 0 LIMIT 3,SELECT a / b AS res FROM t_ints WHERE b > 0 LIMIT 3
+T21,Bare integer literal division (10 / 3),false,true,3,3,3.3333333333333335,FAIL,NO,SELECT 10 / 3 AS res,SELECT 10 / 3 AS res
+T22,CASE WHEN conditional evaluating aggregate division,true,true,Empty,HasData,HasData,PASS,YES,SELECT CASE WHEN (COUNT(a) / COUNT(*)) > 0 THEN 'HasData' ELSE 'Empty' END AS res FROM t_ints,SELECT CASE WHEN (1.0 * COUNT(a) / COUNT(*)) > 0 THEN 'HasData' ELSE 'Empty' END AS res FROM t_ints

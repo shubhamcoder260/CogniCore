@@ -1,0 +1,25 @@
+id,category,raw_sql,repaired_sql,rejecting_layer,reason
+ben_0181,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'New York; Los Angeles'","SELECT br_id, br_nm FROM brs WHERE city = 'New York; Los Angeles'",semicolon_rule,Multiple statements are not allowed.
+ben_0182,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'Branch -- North'","SELECT br_id, br_nm FROM brs WHERE city = 'Branch -- North'",comment_rule,SQL comments are not allowed.
+ben_0183,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'Historic /* Downtown */ Branch'","SELECT br_id, br_nm FROM brs WHERE city = 'Historic /* Downtown */ Branch'",comment_rule,SQL comments are not allowed.
+ben_0184,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'DROP TABLE brs'","SELECT br_id, br_nm FROM brs WHERE city = 'DROP TABLE brs'",keyword_denylist,Query contains a disallowed operation: DROP
+ben_0185,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'DELETE FROM txns WHERE 1=1'","SELECT br_id, br_nm FROM brs WHERE city = 'DELETE FROM txns WHERE 1=1'",keyword_denylist,Query contains a disallowed operation: DELETE
+ben_0186,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'INSERT INTO accts VALUES (1)'","SELECT br_id, br_nm FROM brs WHERE city = 'INSERT INTO accts VALUES (1)'",keyword_denylist,Query contains a disallowed operation: INSERT
+ben_0187,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'ALTER TABLE lns RENAME'","SELECT br_id, br_nm FROM brs WHERE city = 'ALTER TABLE lns RENAME'",keyword_denylist,Query contains a disallowed operation: ALTER
+ben_0188,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'CREATE TABLE test (x INT)'","SELECT br_id, br_nm FROM brs WHERE city = 'CREATE TABLE test (x INT)'",keyword_denylist,Query contains a disallowed operation: CREATE
+ben_0189,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'PRAGMA query_only=OFF'","SELECT br_id, br_nm FROM brs WHERE city = 'PRAGMA query_only=OFF'",keyword_denylist,Query contains a disallowed operation: PRAGMA
+ben_0190,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'ATTACH "":memory:"" AS m'","SELECT br_id, br_nm FROM brs WHERE city = 'ATTACH "":memory:"" AS m'",keyword_denylist,Query contains a disallowed operation: ATTACH
+ben_0191,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'SELECT * FROM brs; VACUUM;'","SELECT br_id, br_nm FROM brs WHERE city = 'SELECT * FROM brs; VACUUM;'",keyword_denylist,Query contains a disallowed operation: VACUUM
+ben_0192,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'Branch /* Multi */ -- Mixed'","SELECT br_id, br_nm FROM brs WHERE city = 'Branch /* Multi */ -- Mixed'",comment_rule,SQL comments are not allowed.
+ben_0193,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'Special;Char;String'","SELECT br_id, br_nm FROM brs WHERE city = 'Special;Char;String'",semicolon_rule,Multiple statements are not allowed.
+ben_0194,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'Admin--Notice'","SELECT br_id, br_nm FROM brs WHERE city = 'Admin--Notice'",comment_rule,SQL comments are not allowed.
+ben_0195,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'Safe /* comment */ literal'","SELECT br_id, br_nm FROM brs WHERE city = 'Safe /* comment */ literal'",comment_rule,SQL comments are not allowed.
+ben_0196,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = '/* prefix comment'","SELECT br_id, br_nm FROM brs WHERE city = '/* prefix comment'",comment_rule,SQL comments are not allowed.
+ben_0198,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'Line 1
+-- Line 2
+Line 3'","SELECT br_id, br_nm FROM brs WHERE city = 'Line 1
+-- Line 2
+Line 3'",comment_rule,SQL comments are not allowed.
+ben_0199,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'Value with ; and -- and /* all */'","SELECT br_id, br_nm FROM brs WHERE city = 'Value with ; and -- and /* all */'",semicolon_rule,Multiple statements are not allowed.
+ben_0200,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'TRUNCATE TABLE brs;'","SELECT br_id, br_nm FROM brs WHERE city = 'TRUNCATE TABLE brs;'",keyword_denylist,Query contains a disallowed operation: TRUNCATE
+ben_0201,literal_embedded_syntax,"SELECT br_id, br_nm FROM brs WHERE city = 'GRANT ALL PRIVILEGES'","SELECT br_id, br_nm FROM brs WHERE city = 'GRANT ALL PRIVILEGES'",keyword_denylist,Query contains a disallowed operation: GRANT

@@ -1,0 +1,13 @@
+id,category,expected,actual,matches,rejecting_layer,reason,complexity_score,notes
+bnd_001,join_boundary_6,accept,accept,PASS,none,,1,Exactly 6 joins (boundary limit 6)
+bnd_002,join_boundary_7,reject,reject,PASS,complexity_gate,Query is too expensive to run safely: it joins 7 tables (limit 6). Please simplify it.,N/A,Exactly 7 joins (exceeds limit 6)
+bnd_003,depth_boundary_4,accept,accept,PASS,none,,0.52,Subquery nesting depth 4 (limit 4)
+bnd_004,depth_boundary_5,reject,accept,FAIL,none,,0.7,Subquery nesting depth 5 (exceeds limit 4)
+bnd_005,length_boundary_3999,accept,reject,FAIL,complexity_gate,Query is too expensive to run safely: the statement is 7961 characters long (limit 4000). Please simplify it.,N/A,Length exactly 3999 chars
+bnd_006,length_boundary_4000,accept,reject,FAIL,complexity_gate,Query is too expensive to run safely: the statement is 7963 characters long (limit 4000). Please simplify it.,N/A,Length exactly 4000 chars
+bnd_007,length_boundary_4001,reject,reject,PASS,complexity_gate,Query is too expensive to run safely: the statement is 7965 characters long (limit 4000). Please simplify it.,N/A,Length exactly 4001 chars (exceeds limit 4000)
+bnd_008,cross_join,reject,reject,PASS,complexity_gate,Query is too expensive to run safely: it combines tables without a join condition (a cartesian product). Please simplify it.,N/A,Explicit CROSS JOIN without condition
+bnd_009,comma_join_no_where,reject,reject,PASS,complexity_gate,Query is too expensive to run safely: it combines tables without a join condition (a cartesian product). Please simplify it.,N/A,Comma join without WHERE or ON predicate
+bnd_010,comma_join_with_where,accept,accept,PASS,none,,0.01,Comma join with linking WHERE predicate
+bnd_011,fanout_large_unkeyed,reject,reject,PASS,schema_table_conformity,"Query references unknown table ""users"".",N/A,Unkeyed join multiplying large table row counts beyond 5e9
+bnd_012,fanout_keyed_safe,accept,accept,PASS,none,,0.18,Keyed join with bounded intermediate rows

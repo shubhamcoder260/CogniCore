@@ -24,12 +24,31 @@ To probe the local hardware, OS, Node/NPM versions, Ollama models, and database/
 node validation/manifest.js
 ```
 
-### Verify Preregistration Immutability
-To guarantee that the preregistered evaluation protocol has not been tampered with or modified since commit tag `prereg-v1`:
+### Verify Preregistration & Corpus Immutability
+To guarantee that the preregistered evaluation protocol and frozen corpus have not been modified since tags `prereg-v1` and `v4-corpus-v1`:
 ```bash
 git diff prereg-v1 -- validation/PREREGISTRATION.md
+git diff v4-corpus-v1 -- validation/data/v4
 ```
 *(Expected output: empty / exit code 0)*
+
+### Step 2 (V4 SQL Safety Gate) Execution Commands
+1. **Generate Deterministic Corpus** (builds `attacks.jsonl`, `benign.jsonl`, `boundary.jsonl`, `fuzz.jsonl`):
+   ```bash
+   node validation/experiments/v4_build_corpus.js
+   ```
+2. **Execute AST Gate & Verification Oracles** (runs `validateSql`, `prepareSql`, and Oracles 1-3 with resume support):
+   ```bash
+   node validation/experiments/v4_run_gate.js
+   ```
+3. **Run Integer Division Property Tests** (evaluates float equivalence, idempotence, and literal preservation):
+   ```bash
+   node validation/experiments/v4_repair_props.js
+   ```
+4. **Generate Statistical Analysis & Results** (calculates Wilson CIs, Rule of Three, CSVs, and `V4_RESULTS.md`):
+   ```bash
+   node validation/analysis_v4.js
+   ```
 
 ---
 

@@ -53,3 +53,16 @@ This document records all methodological decisions, architectural invariants, an
 3. **Item Class Stratification (A, B, C, D)**:
    - Tests are partitioned into Class A (spec-mandated rejections), Class B (unspecified/SELECT-callable probes), Class C (benign valid queries), and Class D (complexity boundary limits). This ensures clear separation between explicit contract violations and dialect edge-case behaviors.
 
+---
+
+## Phase G Decisions (Step 2: V4 Analysis & Reporting)
+
+1. **Bypass Denominator Standardization**:
+   - The denominator for the bypass rate is defined strictly as the count of queries *accepted by the gate* ($n_{accepted}$) within that stratum, rather than the total corpus count. This accurately reflects conditional gate failure: given that the gate permitted execution, what proportion resulted in a driver non-read-only state or filesystem/database mutation?
+
+2. **Classification of False Rejections on Class C**:
+   - Rejections on Class C are categorized into literal syntax smuggling controls (queries where legitimate punctuation like `;`, `--`, `/*` was present inside string constants) vs. AST parser errors. This ensures precision in identifying that the 9.09% false rejection rate stems directly from regex string-level screening over-reaching into literal data content.
+
+3. **Multi-Oracle Consensus**:
+   - Any query accepted by the gate that triggers non-readonly in Oracle 1 (`statement.readonly === false`), or filesystem/data changes in Oracle 2 (`mutationOracle`), or executor mutation in Oracle 3 (`defenseInDepthOracle`) is recorded as a security bypass.
+

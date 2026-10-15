@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-15T04:57:11.585Z",
+  "generated_at": "2026-10-15T05:06:11.254Z",
   "git": {
-    "copy_head": "078f814cd688fee6c5d057402261fa1d811dce32",
+    "copy_head": "d053729ea8f78c659de6ee83e458c990f2ccbcf3",
     "original_head": "6f2dd4c004e555b83587c3e0c195f7882432ad9b",
     "prereg_commit": "20a21643d7fc31a3811abc6927b17296b9c8df0e",
     "prereg_tag": "prereg-v1"
@@ -141,20 +141,20 @@
   "checksums": {
     "databases": {
       "database/bank/B1_community.db": "17f576f11810884dbbc18a12ec66d3d608aa0e1db1e695846334ab13945b51a0",
-      "database/bank/B2_district.db": "060a3893e42432ea47bf2b2d49c4b41371a3441628a217320d4052bd0ff491ad",
-      "database/bank/B3_metro.db": "e2ef3c591dd90916009ab48c381651f2f45df1f299638fd60ad8aad50fbdfc5e",
-      "database/fooddelivery/F1_quickbite.db": "d355acedfe33447924971a947d2aff0602456ab2db507789dd7bb476448b3d76",
-      "database/fooddelivery/F2_citygrub.db": "fc07ff05a992f213d0bc8550064c1e548fb03cf4f093d4d0e0a8d902925a00ce",
-      "database/fooddelivery/F3_national.db": "6e030f86019c2f4c24f2341c4e27fe5d7f6313a4a1d7d403c9cdafa57e7990e9",
+      "database/bank/B2_district.db": "59cdb0c03bf964e142c0a811f2d739ff0e248a5f42345f55974a283f64569bd2",
+      "database/bank/B3_metro.db": "c1167ad22e053b45e6312d608e53c23b76ecf3a8c4a4e393263f153cbde58e18",
+      "database/fooddelivery/F1_quickbite.db": "bec697471f67da8de315c2ee58e6bc00316643ee0e127cc5070ac562e2b7f4f6",
+      "database/fooddelivery/F2_citygrub.db": "ead2be5424d184080ca8ce2acfdec39e13a8c47debd0066806a576bd8e2c3794",
+      "database/fooddelivery/F3_national.db": "2ce7951316409b8f4e4b115f27272f520b567607d8544c9255444ce9f0add211",
       "database/hospital/H1_clinic.db": "f1d38c5c959b0cf59d3b69f2956bd76e4bcea3e5fdd797cdbef45eb06d7aa585",
-      "database/hospital/H2_legacymed.db": "26259661b777cf5c663c3c342ae314b047fdd2ed686d3ea3a5635ef8869f1c3a",
-      "database/hospital/H3_metropol.db": "e2252b5840f192629dc45b6a5a32ecfc50d0dd599be13279eed44d2703cd4b2d",
-      "database/industry/I1_workshop.db": "20a14e508f68655dd1747b28546c4b72aca0d11d1689ec7636adbbbb18afe3e5",
-      "database/industry/I2_factory.db": "141e0df9a830c3b3afdc238a72e261390f1dead7bafbd5830a2083a8d0df70a7",
-      "database/industry/I3_plantops.db": "b75e885471fbd1309a666da9bfd7b2bf636f3f065a1ccee7efedf4d989f894c0",
-      "database/university/U1_stateuniv.db": "5242f4fb99ca902d9e14c3f967e6688895002aa70026ff60f496ca3d6b9d34aa",
-      "database/university/U2_metrouniv.db": "6419f87877b0d465f242f690bd5ad5cf4d905c3c4143e3dae9c9cf9c083fd061",
-      "database/university/U3_institute.db": "eb9a9b1ca05ef393283dc32632f4beac1fe887d0ea381c7a898c8a3a038d072f"
+      "database/hospital/H2_legacymed.db": "f42e020339eb82a4a1d39acee633e1e9966425f58d87ef0730d637765b071c2f",
+      "database/hospital/H3_metropol.db": "55692a5b9d37f0fbfd01a478828ee92cb6f65b2b628bf71ba3089222b71d22b7",
+      "database/industry/I1_workshop.db": "a5e710f75afa08913c094ba7b98bb5e6e05ce3882e1112aa9e71d6796fa2dedf",
+      "database/industry/I2_factory.db": "23a2fd783b4544fcd2a833eb93080b02525ca4860ea42eae8f028e3e9b585cc9",
+      "database/industry/I3_plantops.db": "c84a2fc8c07a49d270fdc7ab43103d7f072eaa025eae2b66828d2942d1fba74e",
+      "database/university/U1_stateuniv.db": "d186b511d5a8ed3ff237c106acd158ba0bf61d721c1b4b3962027414525101e6",
+      "database/university/U2_metrouniv.db": "445c8ec48238d89c1c2000a535386404575b6f118a3f9af30579c370f5e7434a",
+      "database/university/U3_institute.db": "642aa310a725a7bb54c2bc5ba4af01b0137ddda664ce66a916c63da5242620a1"
     },
     "sample_data": {
       "sample-data/education_students.csv": "fe5798bd1182925121a3a1cb286b89495399bf6ea167a82e3c87e1313d885261",

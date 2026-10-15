@@ -1,0 +1,8 @@
+rejecting_layer,rejection_count,pct_of_total_rejections
+keyword_denylist,180,14.13%
+semicolon_rule,66,5.18%
+comment_rule,347,27.24%
+schema_table_conformity,23,1.81%
+ast_parser,650,51.02%
+statement_type_whitelist,2,0.16%
+complexity_gate,6,0.47%

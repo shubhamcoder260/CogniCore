@@ -34,6 +34,39 @@ const sql = Buffer.from(sqlBase64, 'base64').toString('utf8');
       const adapter = new SQLiteAdapter({ location: dbPath });
       const res = await executeValidatedQuery(adapter, sql);
       process.stdout.write(JSON.stringify({ success: true, mode: 'real', rowCount: res.rowCount }));
+    } else if (mode === 'resource_watch') {
+      const { SQLiteAdapter } = require(path.resolve(__dirname, '../../server/src/ingestion/adapters/sqlite.adapter'));
+      const { executeValidatedQuery } = require(path.resolve(__dirname, '../../server/src/structured/sql.executor'));
+      const adapter = new SQLiteAdapter({ location: dbPath });
+      let peakRss = process.memoryUsage().rss;
+      const timer = setInterval(() => {
+        const currentRss = process.memoryUsage().rss;
+        if (currentRss > peakRss) peakRss = currentRss;
+      }, 50);
+      const t0 = Date.now();
+      try {
+        const res = await executeValidatedQuery(adapter, sql);
+        const elapsed = Date.now() - t0;
+        clearInterval(timer);
+        process.stdout.write(JSON.stringify({
+          success: true,
+          mode: 'resource_watch',
+          elapsedMs: elapsed,
+          peakRss,
+          rowCount: res.rowCount,
+          truncated: res.truncated,
+        }));
+      } catch (err) {
+        clearInterval(timer);
+        const elapsed = Date.now() - t0;
+        process.stdout.write(JSON.stringify({
+          success: false,
+          mode: 'resource_watch',
+          elapsedMs: elapsed,
+          peakRss,
+          error: err.message,
+        }));
+      }
     } else {
       process.stderr.write(`Unknown mode: ${mode}\n`);
       process.exit(1);

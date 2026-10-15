@@ -211,10 +211,75 @@ function defenseInDepthOracle(sql, fixtureDbPath, timeoutMs = 10000) {
   return runInSandbox('real', sql, fixtureDbPath, timeoutMs);
 }
 
+/**
+ * Resource watch oracle: Runs real executor in child process with 15s hard timeout
+ * and memory watch tracking peak RSS.
+ * @param {string} sql
+ * @param {string} fixtureDbPath
+ * @param {number} [timeoutMs=15000]
+ */
+function resourceWatchOracle(sql, fixtureDbPath, timeoutMs = 15000) {
+  if (!fs.existsSync(SANDBOX_BASE)) {
+    fs.mkdirSync(SANDBOX_BASE, { recursive: true });
+  }
+  const runId = `sb_res_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  const sandboxDir = path.join(SANDBOX_BASE, runId);
+  fs.mkdirSync(sandboxDir, { recursive: true });
+
+  const targetDbName = path.basename(fixtureDbPath);
+  const targetDbPath = path.join(sandboxDir, targetDbName);
+  fs.copyFileSync(fixtureDbPath, targetDbPath);
+
+  const workerScript = path.resolve(__dirname, 'v4_worker.js');
+  const sqlBase64 = Buffer.from(sql, 'utf8').toString('base64');
+
+  let childRes;
+  let timedOut = false;
+  const t0 = Date.now();
+  try {
+    childRes = spawnSync(process.execPath, [workerScript, 'resource_watch', targetDbPath, sqlBase64], {
+      cwd: sandboxDir,
+      timeout: timeoutMs,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+    if (childRes.error && childRes.error.code === 'ETIMEDOUT') {
+      timedOut = true;
+    }
+  } catch (err) {
+    childRes = { error: err };
+  }
+  const elapsedMs = Date.now() - t0;
+
+  let outputJson = null;
+  if (childRes?.stdout) {
+    try {
+      outputJson = JSON.parse(childRes.stdout);
+    } catch (_) {
+      outputJson = { raw: childRes.stdout };
+    }
+  }
+
+  try {
+    fs.rmSync(sandboxDir, { recursive: true, force: true });
+  } catch (_) {}
+
+  return {
+    timedOut,
+    elapsedMs,
+    peakRss: outputJson?.peakRss || null,
+    workerSuccess: outputJson ? outputJson.success === true : false,
+    rowCount: outputJson?.rowCount ?? null,
+    truncated: outputJson?.truncated ?? false,
+    workerError: outputJson?.error || childRes?.stderr || (timedOut ? '15s hard timeout fired' : null),
+  };
+}
+
 module.exports = {
   readonlyOracle,
   mutationOracle,
   defenseInDepthOracle,
+  resourceWatchOracle,
   snapshotDir,
   getLogicalDumpHash,
   diffSnapshots,

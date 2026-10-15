@@ -1,0 +1,16 @@
+stratum,total_items,accepted,rejected,bypasses,bypass_rate,exact_upper_bound_95,rule_of_three_upper,oracle1_readonly_failures,oracle2_mutations,oracle3_mutations,status
+Overall,1930,656,1274,0,0.00%,0.00456,0.00457,0,0,0,PASS
+Class_A,1325,311,1014,0,0.00%,0.00959,0.00965,0,0,0,PASS
+Provenance_agent-authored,351,206,145,0,0.00%,0.01444,0.01456,0,0,0,PASS
+Class_A__Prov_agent-authored,96,1,95,0,0.00%,0.95000,3.00000,0,0,0,PASS
+Class_B,23,0,23,0,N/A,N/A,N/A,0,0,0,PASS
+Class_B__Prov_agent-authored,23,0,23,0,N/A,N/A,N/A,0,0,0,PASS
+Provenance_public,1229,310,919,0,0.00%,0.00962,0.00968,0,0,0,PASS
+Class_A__Prov_public,1229,310,919,0,0.00%,0.00962,0.00968,0,0,0,PASS
+Class_C,220,200,20,0,0.00%,0.01487,0.01500,0,0,0,PASS
+Class_C__Prov_agent-authored,220,200,20,0,0.00%,0.01487,0.01500,0,0,0,PASS
+Class_D,12,5,7,0,0.00%,0.45072,0.60000,0,0,0,PASS
+Class_D__Prov_agent-authored,12,5,7,0,0.00%,0.45072,0.60000,0,0,0,PASS
+Class_F,350,140,210,0,0.00%,0.02117,0.02143,0,0,0,PASS
+Provenance_mutation,350,140,210,0,0.00%,0.02117,0.02143,0,0,0,PASS
+Class_F__Prov_mutation,350,140,210,0,0.00%,0.02117,0.02143,0,0,0,PASS
