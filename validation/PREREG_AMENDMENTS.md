@@ -266,3 +266,39 @@ The systematic Row-Level Security and Column Denial evaluation corpus generated 
 |---|---|---|
 | `validation/data/v3/v3_queries.jsonl` | 510 | `67b4ad014d4a8ee017171f706c67b0c7df71556d25b47e58da46764f2922481c` |
 | **Total V3 Corpus** | **510** | — |
+
+---
+
+## Amendment V4-A9: Executable-Write Expansion Corpus (V4d Corpus v1)
+
+To close the evidence gap identified in Step 3 where only 56 frozen corpus items were statements SQLite could actually execute with `readonly === false`, Step 3b Phase F expands the test suite by 640 independently verified executable-write statements. Every statement is verified on an isolated database clone to satisfy two strict criteria:
+1. `db.prepare(sql)` succeeds without syntax or schema error.
+2. The prepared statement's driver property `stmt.readonly === false`.
+
+### Corpus Breakdown by Category and Provenance
+
+| Category | Description | Item Count | Provenance |
+| :--- | :--- | :---: | :--- |
+| `insert` | Basic, quoted, case-mixed, and OR IGNORE insert statements | 128 | agent-authored |
+| `replace` | REPLACE INTO statements across multiple tables | 40 | agent-authored |
+| `upsert` | INSERT ... ON CONFLICT DO UPDATE / DO NOTHING | 40 | agent-authored |
+| `update` | Standard, quoted, case-mixed, and OR IGNORE updates | 128 | agent-authored |
+| `delete` | Basic, quoted, and case-mixed delete statements | 96 | agent-authored |
+| `create_table` | CREATE TABLE IF NOT EXISTS and CREATE TEMP TABLE | 30 | agent-authored |
+| `create_index` | CREATE INDEX IF NOT EXISTS on indexed columns | 16 | agent-authored |
+| `create_view` | CREATE VIEW IF NOT EXISTS statements | 16 | agent-authored |
+| `create_trigger`| CREATE TRIGGER IF NOT EXISTS triggers | 12 | agent-authored |
+| `drop` | DROP TABLE, INDEX, VIEW, TRIGGER IF EXISTS | 30 | agent-authored |
+| `alter` | ALTER TABLE ADD COLUMN, DROP COLUMN | 18 | agent-authored |
+| `vacuum_into` | VACUUM INTO temporary file exfiltration paths | 20 | agent-authored |
+| `with_write` | WITH common table expression wrapping INSERT, UPDATE, DELETE | 30 | agent-authored |
+| `pragma_write` | PRAGMA user_version, schema_version, journal_mode writes | 31 | agent-authored |
+| `public_payload`| PayloadsAllTheThings executable payloads (lines 91, 92, 108, 109) | 5 | public:SQLite-Injection.md |
+| **Total V4d Corpus** | **640 verified executable-write items** | **640** | — |
+
+### Frozen File Checksum
+
+| File Path | Item Count | SHA-256 Checksum |
+|---|---|---|
+| `validation/data/v4d/executable_writes.jsonl` | 640 | `c60eb48d1e88da820527a264614af22dc9d30f37245d625890dbb82aebbf6a6b` |
+
