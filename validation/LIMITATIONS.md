@@ -131,6 +131,13 @@ This document tracks all hypotheses that did not hold, planned experiments that 
 2. **External Database Dialects (PostgreSQL and MySQL)**:
    - *Reason*: CogniCore bundles 15 preloaded SQLite database fixtures under `database/`. Testing against PostgreSQL or MySQL without live running database server containers would evaluate synthetic parser mocks rather than genuine execution ground truth. In accordance with Decision 1 (`DECISIONS.md`), dialect scope is restricted to SQLite. Tests requiring external database servers are marked `NOT RUN`.
 
+3. **PostgreSQL Schema-Qualified Bypass Behavior (`public.t`)**:
+   - *Reason*: While SQLite schema qualification (`main.t`) was empirically proven to bypass CTE shadowing in 100% of tested fixtures, PostgreSQL behavior for schema-qualified table references (`public.t` or other schema prefixes) is `NOT RUN` due to the absence of a live PostgreSQL server instance in this validation environment. It must NOT be assumed to be "isolated to SQLite", as SQL standard schema resolution rules may similarly resolve schema-qualified relations outside CTE scope.
+
+4. **PRAGMA Table-Valued Function Gate Bypass & Introspection**:
+   - *Observed Reality*: `BLOCKED_KEYWORDS` includes `'PRAGMA'`, checked via `new RegExp('\\b' + kw + '\\b')` on uppercase SQL. Because underscore `_` is a word character (`\w`), `\bPRAGMA\b` fails to match `PRAGMA_TABLE_INFO`, `PRAGMA_TABLE_XINFO`, `PRAGMA_DATABASE_LIST`, `PRAGMA_FUNCTION_LIST`, etc. Furthermore, `node-sql-parser` in PostgreSQL mode treats table-valued PRAGMA functions in `FROM` clauses as function calls rather than table references, bypassing table schema verification. In E1 end-to-end execution, these queries pass the gate, pass policy, and execute on SQLite, disclosing denied column names and host filesystem paths.
+
+
 ---
 
 # Could not verify (claims made in docs/paper where code or oracle was missing)

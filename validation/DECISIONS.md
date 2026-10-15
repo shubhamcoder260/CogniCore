@@ -139,3 +139,34 @@ This document records all methodological decisions, architectural invariants, an
 3. **Verified Executable-Write Corpus Expansion (Corpus v4d)**:
    - To establish a sub-0.5% upper bound on executable-write acceptance, Corpus v4d generated 640 diverse write statements across all 15 fixture databases (DML `INSERT/UPDATE/DELETE/REPLACE`, DDL `CREATE/DROP/ALTER`, and ATTACH/DETACH operations). Every item was independently verified using `better-sqlite3` on an isolated DB clone to confirm `db.prepare(sql)` succeeds and `stmt.readonly === false`. Gate acceptance was 0 / 640 (0.00%, exact 95% upper bound 0.47%). Pooled with Phase 0, overall write acceptance is 0 / 696 (0.00%, exact upper bound 0.43%).
 
+---
+
+## Step 3c Decisions (V3/V4 Gap Audit, LIMIT Reclassification, Path A Reproduction, and Corpus V3c Expansion)
+
+1. **LIMIT Artifact Reclassification via Subquery Containment**:
+   - For queries with `LIMIT` and no total `ORDER BY`, multiset equality produces false-positive leak flags due to non-deterministic tie-breaks in SQLite B-tree page order. A returned row constitutes a leak if and only if it is not contained within the oracle's full result computed on the purged database clone without `LIMIT` (multiset subset containment).
+   - Subquery containment checking is executed via `SELECT 1 FROM (${sqlNoLimit}) AS __auth WHERE <row_predicate> LIMIT 1` directly on purged clones, avoiding memory pressure and Cartesian product OOMs.
+   - Positive control verified: `SELECT "br_id", "br_nm", "city" FROM main."brs" LIMIT 3` against unpurged vs purged clone catches uncontained rows (`Mumbai`, `Pune`), confirming `isContained === false` and catching the leak.
+   - Reclassifies V3b E1 leaks from 26 to 15 / 1,430 (1.05%, 95% bootstrap CI [0.48%, 1.68%]), and E2 leaks from 41 to 30 / 1,430 (2.10%).
+
+2. **Path A Real Executor Reproduction & Mutation Reconciliation**:
+   - Confirmed that running `DELETE`, `DROP TABLE`, `INSERT`, `CREATE TABLE`, `UPDATE` through the project's own `executeValidatedQuery` results in `near "<KEYWORD>": syntax error` due to the outer `SELECT * FROM (${trimmed}) AS __cognicore_capped LIMIT ${maxRows}` subquery wrapper. Database hashes before and after were byte-for-byte identical (`Mutated: false`).
+   - Reconciled with reported "26 mutations vs 0/40": Direct raw execution `db.exec(sql)` produces 33 mutations; compound/subquery-compatible contexts produce 26 mutations; passing top-level statements directly through the real executor's subquery wrapper blocks all 40 unvalidated top-level write items (0 mutations).
+
+3. **Introspection End-to-End & Regex Boundary Mechanics**:
+   - Discovered that `BLOCKED_KEYWORDS` regex `\bPRAGMA\b` fails on `pragma_table_info` because underscore `_` is a word character (`\w`), preventing word boundary matching.
+   - Table-valued PRAGMA functions pass gate and policy and execute against SQLite, disclosing denied column names and host filesystem paths.
+
+4. **Corpus V3c Systematic Row-Variant Expansion (46,920 items)**:
+   - Expanded evaluation across all 920 base queries (380 benign + 15 fixture + 525 grammar) x 17 variant forms x 3 users = 46,920 items.
+   - Evaluated under E1 and E2 with subset containment rule, yielding 1,720 leaks / 46,920 (3.67% [3.41%, 3.93%]).
+
+5. **TARGET_REPO Environment Abstraction & Secondary Worktree Verification**:
+   - Built support for `TARGET_REPO` into `validation/lib/config.js` with path resolution fallbacks for uncommitted fixture databases and node_modules.
+   - Verified via smoke test on a secondary git worktree (`../validation_worktree_smoke`).
+
+6. **Heartbeat Event-Loop Block Threshold**:
+   - Defined blocked event-loop threshold as `gap > 1000 ms` (missed 10 heartbeats on a 100ms interval).
+   - Maximum event-loop gap on B2 resource queries was 695ms on `printf_expansion` (0 blocked), whereas v4c DoS queries registered gaps up to 15,235ms (16 blocked).
+
+
