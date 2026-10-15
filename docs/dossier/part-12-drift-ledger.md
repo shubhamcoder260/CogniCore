@@ -1,0 +1,21 @@
+# PART 12 — DRIFT LEDGER (DOCUMENTATION VS CODE)
+
+This chapter provides a factual ledger of all contradictions, discrepancies, and stale records between project documentation (`README.md`, `PROGRESS.md`, `ARCHITECTURE_REPORT.md`, `.env.example`) and the actual implementation in source code.
+
+---
+
+## 1. Comprehensive Drift Register
+
+| Drift ID | Source Document / Claim | Documented Claim | Code Truth | Code Receipt (`file:line`) | Severity | Research & Evaluation Impact |
+| :---: | :--- | :--- | :--- | :--- | :---: | :--- |
+| **D1** | Older project records | Directory structure is split into `backend/src` and `frontend/src`. | Directories are named `server/` and `client/`. Zero references to `backend/` exist in `package.json`. | `package.json:6-14` | **MEDIUM** | Build scripts and test runners targeting `backend/` fail immediately. |
+| **D2** | Older security notes | Password hashing uses PBKDF2-SHA512. | Hashing is implemented strictly via `bcryptjs` with configurable salt rounds (default 10). | `server/src/security/auth.js:20`, `env.js:52` | **LOW** | Security audits must evaluate bcrypt resistance rather than PBKDF2 parameters. |
+| **D3** | `server/.env.example:9` | Default Ollama model is documented as `qwen2.5:7b`. | Code configuration defaults to `qwen2.5:14b` if `OLLAMA_MODEL` is unset. | `server/src/config/env.js:26` | **HIGH** | Benchmark reproducibility: running with `.env.example` evaluates a 7B model, while running without `.env` evaluates a 14B model, radically altering accuracy and latency. |
+| **D4** | `server/.env.example:10` | Ollama socket timeout is documented as `60000` (60s). | Code configuration defaults to `120000` (120s) if `OLLAMA_TIMEOUT_MS` is unset. | `server/src/config/env.js:27` | **MEDIUM** | Affects timeout benchmarks on slower local hardware. |
+| **D5** | `server/src/ingestion/dataset.registry.js:50` | Documentation claims credentials are kept secure and separate. | Credentials in `connection_credentials` table are stored as unencrypted, plaintext JSON. | `server/src/ingestion/dataset.registry.js:53-57, 169` | **HIGH** | Anyone with file read access to `cognicore_registry.db` can read database passwords directly. |
+| **D6** | Data policy documentation | Implies universal row-level policy enforcement across all supported SQL engines. | Row-level policies fail closed on MySQL connections; throws hard `PolicyError (403)` denying access. | `server/src/security/data.policy.js:108` | **HIGH** | Evaluation suites testing cross-database RLS will fail completely on MySQL datasets. |
+| **D7** | `server/.env.example:15` | Documents `CHUNK_OVERLAP_CHARS=150`. | `chunker.js` fallback default parameter specifies `overlapChars = 200`. | `server/src/documents/chunker.js:9` | **LOW** | Minor variance in document chunk boundary lengths if env var is missing. |
+| **D8** | `server/src/structured/sql.complexity.js:17` | `SQL_MAX_ESTIMATED_ROWS` is actively evaluated to prevent Cartesian DoS. | Completely omitted from `server/.env.example`. | `server/src/structured/sql.complexity.js:17` | **MEDIUM** | Administrators configuring the server via `.env.example` remain unaware of this tunable fan-out ceiling. |
+| **D9** | Older pipeline records | Pipeline is described as `gate.chain.js`, `ast.gate.*`, `fastIntent`, `pipeline.config.js`. | None of those files exist. Pipeline is hardcoded in `core.engine.js` and `structured.engine.js`. | `server/src/core/core.engine.js:48-135` | **MEDIUM** | Misleads engineers attempting to configure pipeline stages via modular config files. |
+| **D10**| User management documentation | Roles are assigned by administrators via the user management API. | The first registered user in the database is silently and unconditionally assigned `role: 'admin'`. | `server/src/security/auth.registry.js:72` | **HIGH** | Tests running against dirty databases fail role assertions when initial admin bootstrapping has already executed. |
+| **D11**| `server/src/documents/vector.store.js:38` | Schema comments claim `section` column is in the original DDL. | The `section` column was added via an inline migration check (`ALTER TABLE document_chunks ADD COLUMN section TEXT`). | `server/src/documents/vector.store.js:37-39` | **LOW** | DDL in registry comments omits migration history. |

@@ -1,0 +1,3599 @@
+{
+  "d1": {
+    "total_accepted_class_a": 311,
+    "inert_literal_fragments": 311,
+    "genuine_write_statements": 0,
+    "all_class_a_bypass": 0,
+    "genuine_write_bypass": 0,
+    "classified_items": [
+      {
+        "id": "att_0115",
+        "category": "syntax_smuggling",
+        "provenance": "agent-authored",
+        "sql": "sElEcT br_id, br_nm FrOm brs WhErE 1=1",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0121",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:1",
+        "sql": "SELECT * FROM brs WHERE city = '''-'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0122",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:1",
+        "sql": "SELECT * FROM brs WHERE br_id = '-'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0124",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:2",
+        "sql": "SELECT * FROM brs WHERE city = ''' '''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0125",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:2",
+        "sql": "SELECT * FROM brs WHERE br_id = ' '",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0127",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:3",
+        "sql": "SELECT * FROM brs WHERE city = '''&'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0128",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:3",
+        "sql": "SELECT * FROM brs WHERE br_id = '&'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0130",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:4",
+        "sql": "SELECT * FROM brs WHERE city = '''^'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0131",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:4",
+        "sql": "SELECT * FROM brs WHERE br_id = '^'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0133",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:5",
+        "sql": "SELECT * FROM brs WHERE city = '''*'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0134",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:5",
+        "sql": "SELECT * FROM brs WHERE br_id = '*'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0136",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:6",
+        "sql": "SELECT * FROM brs WHERE city = ''' or ''''-'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0137",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:6",
+        "sql": "SELECT * FROM brs WHERE br_id = ' or ''-'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0139",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:7",
+        "sql": "SELECT * FROM brs WHERE city = ''' or '''' '''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0140",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:7",
+        "sql": "SELECT * FROM brs WHERE br_id = ' or '' '",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0142",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:8",
+        "sql": "SELECT * FROM brs WHERE city = ''' or ''''&'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0143",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:8",
+        "sql": "SELECT * FROM brs WHERE br_id = ' or ''&'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0145",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:9",
+        "sql": "SELECT * FROM brs WHERE city = ''' or ''''^'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0146",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:9",
+        "sql": "SELECT * FROM brs WHERE br_id = ' or ''^'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0148",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:10",
+        "sql": "SELECT * FROM brs WHERE city = ''' or ''''*'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0149",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:10",
+        "sql": "SELECT * FROM brs WHERE br_id = ' or ''*'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0151",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:11",
+        "sql": "SELECT * FROM brs WHERE city = '\"-\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0152",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:11",
+        "sql": "SELECT * FROM brs WHERE br_id = \"-\"",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0154",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:12",
+        "sql": "SELECT * FROM brs WHERE city = '\" \"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0155",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:12",
+        "sql": "SELECT * FROM brs WHERE br_id = \" \"",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0157",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:13",
+        "sql": "SELECT * FROM brs WHERE city = '\"&\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0158",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:13",
+        "sql": "SELECT * FROM brs WHERE br_id = \"&\"",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0160",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:14",
+        "sql": "SELECT * FROM brs WHERE city = '\"^\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0161",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:14",
+        "sql": "SELECT * FROM brs WHERE br_id = \"^\"",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0163",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:15",
+        "sql": "SELECT * FROM brs WHERE city = '\"*\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0164",
+        "category": "public_embedded_num",
+        "provenance": "public:quick-SQLi.txt:15",
+        "sql": "SELECT * FROM brs WHERE br_id = \"*\"",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0166",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:16",
+        "sql": "SELECT * FROM brs WHERE city = '\" or \"\"-\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0169",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:17",
+        "sql": "SELECT * FROM brs WHERE city = '\" or \"\" \"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0172",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:18",
+        "sql": "SELECT * FROM brs WHERE city = '\" or \"\"&\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0175",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:19",
+        "sql": "SELECT * FROM brs WHERE city = '\" or \"\"^\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0178",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:20",
+        "sql": "SELECT * FROM brs WHERE city = '\" or \"\"*\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0196",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:26",
+        "sql": "SELECT * FROM brs WHERE city = ''' or ''x''=''x'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0199",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:27",
+        "sql": "SELECT * FROM brs WHERE city = ''') or (''x'')=(''x'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0202",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:28",
+        "sql": "SELECT * FROM brs WHERE city = ''')) or ((''x''))=((''x'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0205",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:29",
+        "sql": "SELECT * FROM brs WHERE city = '\" or \"x\"=\"x'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0208",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:30",
+        "sql": "SELECT * FROM brs WHERE city = '\") or (\"x\")=(\"x'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0211",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:31",
+        "sql": "SELECT * FROM brs WHERE city = '\")) or ((\"x\"))=((\"x'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0214",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:32",
+        "sql": "SELECT * FROM brs WHERE city = 'or 1=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0220",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:34",
+        "sql": "SELECT * FROM brs WHERE city = 'or 1=1#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0229",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:37",
+        "sql": "SELECT * FROM brs WHERE city = 'admin'' #'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0235",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:39",
+        "sql": "SELECT * FROM brs WHERE city = 'admin'' or ''1''=''1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0241",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:41",
+        "sql": "SELECT * FROM brs WHERE city = 'admin'' or ''1''=''1''#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0247",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:43",
+        "sql": "SELECT * FROM brs WHERE city = 'admin''or 1=1 or ''''='''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0250",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:44",
+        "sql": "SELECT * FROM brs WHERE city = 'admin'' or 1=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0256",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:46",
+        "sql": "SELECT * FROM brs WHERE city = 'admin'' or 1=1#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0262",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:48",
+        "sql": "SELECT * FROM brs WHERE city = 'admin'') or (''1''=''1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0268",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:50",
+        "sql": "SELECT * FROM brs WHERE city = 'admin'') or (''1''=''1''#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0274",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:52",
+        "sql": "SELECT * FROM brs WHERE city = 'admin'') or ''1''=''1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0280",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:54",
+        "sql": "SELECT * FROM brs WHERE city = 'admin'') or ''1''=''1''#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0286",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:56",
+        "sql": "SELECT * FROM brs WHERE city = '1234 '' AND 1=0 UNION ALL SELECT ''admin'', ''81dc9bdb52d04dc20036dbd8313ed055'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0292",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:58",
+        "sql": "SELECT * FROM brs WHERE city = 'admin\" #'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0298",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:60",
+        "sql": "SELECT * FROM brs WHERE city = 'admin\" or \"1\"=\"1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0304",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:62",
+        "sql": "SELECT * FROM brs WHERE city = 'admin\" or \"1\"=\"1\"#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0310",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:64",
+        "sql": "SELECT * FROM brs WHERE city = 'admin\"or 1=1 or \"\"=\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0313",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:65",
+        "sql": "SELECT * FROM brs WHERE city = 'admin\" or 1=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0319",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:67",
+        "sql": "SELECT * FROM brs WHERE city = 'admin\" or 1=1#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0325",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:69",
+        "sql": "SELECT * FROM brs WHERE city = 'admin\") or (\"1\"=\"1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0331",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:71",
+        "sql": "SELECT * FROM brs WHERE city = 'admin\") or (\"1\"=\"1\"#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0337",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:73",
+        "sql": "SELECT * FROM brs WHERE city = 'admin\") or \"1\"=\"1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0343",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:75",
+        "sql": "SELECT * FROM brs WHERE city = 'admin\") or \"1\"=\"1\"#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0349",
+        "category": "public_embedded_str",
+        "provenance": "public:quick-SQLi.txt:77",
+        "sql": "SELECT * FROM brs WHERE city = '1234 \" AND 1=0 UNION ALL SELECT \"admin\", \"81dc9bdb52d04dc20036dbd8313ed055'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0352",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:1",
+        "sql": "SELECT * FROM brs WHERE city = ')%20or%20(''x''=''x'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0355",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:2",
+        "sql": "SELECT * FROM brs WHERE city = '%20or%201=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0361",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:4",
+        "sql": "SELECT * FROM brs WHERE city = 'benchmark(10000000,MD5(1))#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0373",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:8",
+        "sql": "SELECT * FROM brs WHERE city = '||(elt(-3+5,bin(15),ord(10),hex(char(45))))'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0376",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:9",
+        "sql": "SELECT * FROM brs WHERE city = '\"hi\"\") or (\"\"a\"\"=\"\"a\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0382",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:11",
+        "sql": "SELECT * FROM brs WHERE city = 'like'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0385",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:12",
+        "sql": "SELECT * FROM brs WHERE city = '\" or sleep(__TIME__)#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0391",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:14",
+        "sql": "SELECT * FROM brs WHERE city = '*(|(objectclass=*))'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0394",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:15",
+        "sql": "SELECT * FROM brs WHERE city = 'declare @q nvarchar (200) 0x730065006c00650063 ...'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0397",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:16",
+        "sql": "SELECT * FROM brs WHERE city = 'or 0=0 #'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0403",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:18",
+        "sql": "SELECT * FROM brs WHERE city = '1) or sleep(__TIME__)#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0406",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:19",
+        "sql": "SELECT * FROM brs WHERE city = ') or (''a''=''a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0415",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:23",
+        "sql": "SELECT * FROM brs WHERE city = '1)) or benchmark(10000000,MD5(1))#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0418",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:24",
+        "sql": "SELECT * FROM brs WHERE city = 'asc'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0421",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:25",
+        "sql": "SELECT * FROM brs WHERE city = '(||6)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0427",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:27",
+        "sql": "SELECT * FROM brs WHERE city = '\" or benchmark(10000000,MD5(1))#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0436",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:31",
+        "sql": "SELECT * FROM brs WHERE city = 'or ''a''=''a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0442",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:33",
+        "sql": "SELECT * FROM brs WHERE city = 'or a = a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0445",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:34",
+        "sql": "SELECT * FROM brs WHERE city = 'UNION ALL SELECT'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0448",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:35",
+        "sql": "SELECT * FROM brs WHERE city = ') or sleep(__TIME__)='''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0451",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:36",
+        "sql": "SELECT * FROM brs WHERE city = ')) or benchmark(10000000,MD5(1))#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0454",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:37",
+        "sql": "SELECT * FROM brs WHERE city = 'hi'' or ''a''=''a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0457",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:39",
+        "sql": "SELECT * FROM brs WHERE city = '21 %'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0460",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:40",
+        "sql": "SELECT * FROM brs WHERE city = 'limit'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0463",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:41",
+        "sql": "SELECT * FROM brs WHERE city = 'or 1=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0466",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:42",
+        "sql": "SELECT * FROM brs WHERE city = 'or 2 > 1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0469",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:43",
+        "sql": "SELECT * FROM brs WHERE city = '\")) or benchmark(10000000,MD5(1))#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0472",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:44",
+        "sql": "SELECT * FROM brs WHERE city = 'PRINT'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0473",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:44",
+        "sql": "SELECT * FROM brs WHERE br_id = PRINT",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0475",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:45",
+        "sql": "SELECT * FROM brs WHERE city = 'hi'') or (''a''=''a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0478",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:46",
+        "sql": "SELECT * FROM brs WHERE city = 'or 3=3'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0490",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:50",
+        "sql": "SELECT * FROM brs WHERE city = 'or%201=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0493",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:51",
+        "sql": "SELECT * FROM brs WHERE city = '1 or sleep(__TIME__)#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0496",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:52",
+        "sql": "SELECT * FROM brs WHERE city = 'or 1=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0502",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:54",
+        "sql": "SELECT * FROM brs WHERE city = 'or ''7659''=''7659'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0505",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:55",
+        "sql": "SELECT * FROM brs WHERE city = 'or ''text'' = n''text'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0508",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:57",
+        "sql": "SELECT * FROM brs WHERE city = 'or 1=1 or ''''='''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0511",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:58",
+        "sql": "SELECT * FROM brs WHERE city = 'declare @s varchar (200) select @s = 0x73656c6 ...'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0520",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:61",
+        "sql": "SELECT * FROM brs WHERE city = '3.10E+17'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0521",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:61",
+        "sql": "SELECT * FROM brs WHERE br_id = 3.10E+17",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0529",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:65",
+        "sql": "SELECT * FROM brs WHERE city = 'admin'' or '''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0532",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:66",
+        "sql": "SELECT * FROM brs WHERE city = 'or ''unusual'' = ''unusual'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0538",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:69",
+        "sql": "SELECT * FROM brs WHERE city = '1) or benchmark(10000000,MD5(1))#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0541",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:70",
+        "sql": "SELECT * FROM brs WHERE city = '\\x27UNION SELECT'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0544",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:71",
+        "sql": "SELECT * FROM brs WHERE city = 'declare @s varchar(200) select @s = 0x77616974 ...'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0547",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:72",
+        "sql": "SELECT * FROM brs WHERE city = 'tz_offset'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0548",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:72",
+        "sql": "SELECT * FROM brs WHERE br_id = tz_offset",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0550",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:73",
+        "sql": "SELECT * FROM brs WHERE city = 'sqlvuln'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0551",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:73",
+        "sql": "SELECT * FROM brs WHERE br_id = sqlvuln",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0556",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:75",
+        "sql": "SELECT * FROM brs WHERE city = '||6'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0562",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:77",
+        "sql": "SELECT * FROM brs WHERE city = '%2A%28%7C%28objectclass%3D%2A%29%29'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0565",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:78",
+        "sql": "SELECT * FROM brs WHERE city = 'or a=a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0571",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:80",
+        "sql": "SELECT * FROM brs WHERE city = 'PRINT @@variable'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0577",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:82",
+        "sql": "SELECT * FROM brs WHERE city = '26 %'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0580",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:83",
+        "sql": "SELECT * FROM brs WHERE city = '\" or \"a\"=\"a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0583",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:84",
+        "sql": "SELECT * FROM brs WHERE city = '(sqlvuln)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0584",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:84",
+        "sql": "SELECT * FROM brs WHERE br_id = (sqlvuln)",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0592",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:87",
+        "sql": "SELECT * FROM brs WHERE city = 'and 1=( if((load_file(char(110,46,101,120,11 ...'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0595",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:88",
+        "sql": "SELECT * FROM brs WHERE city = '0x770061006900740066006F0072002000640065006C00 ...'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0598",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:89",
+        "sql": "SELECT * FROM brs WHERE city = '%20''sleep%2050'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0610",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:94",
+        "sql": "SELECT * FROM brs WHERE city = ',@variable'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0613",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:95",
+        "sql": "SELECT * FROM brs WHERE city = '(sqlattempt2)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0614",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:95",
+        "sql": "SELECT * FROM brs WHERE br_id = (sqlattempt2)",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0616",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:96",
+        "sql": "SELECT * FROM brs WHERE city = 'or (EXISTS)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0622",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:98",
+        "sql": "SELECT * FROM brs WHERE city = '%20$(sleep%2050)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0625",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:99",
+        "sql": "SELECT * FROM brs WHERE city = '1 or benchmark(10000000,MD5(1))#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0628",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:100",
+        "sql": "SELECT * FROM brs WHERE city = '%20or%20''''='''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0631",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:101",
+        "sql": "SELECT * FROM brs WHERE city = '||UTL_HTTP.REQUEST'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0640",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:104",
+        "sql": "SELECT * FROM brs WHERE city = '\") or sleep(__TIME__)=\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0641",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:104",
+        "sql": "SELECT * FROM brs WHERE br_id = \") or sleep(__TIME__)=\"",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0643",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:105",
+        "sql": "SELECT * FROM brs WHERE city = 'or ''whatever'' in (''whatever'')'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0652",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:108",
+        "sql": "SELECT * FROM brs WHERE city = '0x77616974666F722064656C61792027303A303A313027 ...'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0661",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:111",
+        "sql": "SELECT * FROM brs WHERE city = 'union select'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0664",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:112",
+        "sql": "SELECT * FROM brs WHERE city = 'or sleep(__TIME__)#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0673",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:115",
+        "sql": "SELECT * FROM brs WHERE city = 'a'' or ''a'' = ''a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0676",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:116",
+        "sql": "SELECT * FROM brs WHERE city = 'declare @s varchar(22) select @s ='",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0679",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:117",
+        "sql": "SELECT * FROM brs WHERE city = 'or 2 between 1 and 3'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0685",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:119",
+        "sql": "SELECT * FROM brs WHERE city = 'or ''1''=''1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0688",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:121",
+        "sql": "SELECT * FROM brs WHERE city = 'or sleep(__TIME__)='''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0694",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:123",
+        "sql": "SELECT * FROM brs WHERE city = 'or 0=0 #\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0697",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:124",
+        "sql": "SELECT * FROM brs WHERE city = 'having'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0703",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:127",
+        "sql": "SELECT * FROM brs WHERE city = 'declare @s varchar (8000) select @s = 0x73656c ...'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0709",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:129",
+        "sql": "SELECT * FROM brs WHERE city = 'char%4039%41%2b%40SELECT'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0712",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:130",
+        "sql": "SELECT * FROM brs WHERE city = 'order by'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0715",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:131",
+        "sql": "SELECT * FROM brs WHERE city = 'bfilename'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0716",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:131",
+        "sql": "SELECT * FROM brs WHERE br_id = bfilename",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0721",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:133",
+        "sql": "SELECT * FROM brs WHERE city = ') or benchmark(10000000,MD5(1))#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0739",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:139",
+        "sql": "SELECT * FROM brs WHERE city = 'or ''text'' > ''t'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0742",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:140",
+        "sql": "SELECT * FROM brs WHERE city = '(select top 1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0745",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:141",
+        "sql": "SELECT * FROM brs WHERE city = 'or benchmark(10000000,MD5(1))#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0760",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:146",
+        "sql": "SELECT * FROM brs WHERE city = 'or ''''='''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0766",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:148",
+        "sql": "SELECT * FROM brs WHERE city = '%20or%20x=x'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0769",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:149",
+        "sql": "SELECT * FROM brs WHERE city = 'select'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0772",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:150",
+        "sql": "SELECT * FROM brs WHERE city = '\")) or sleep(__TIME__)=\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0773",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:150",
+        "sql": "SELECT * FROM brs WHERE br_id = \")) or sleep(__TIME__)=\"",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0775",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:151",
+        "sql": "SELECT * FROM brs WHERE city = '0x730065006c0065006300740020004000400076006500 ...'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0784",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:154",
+        "sql": "SELECT * FROM brs WHERE city = '%20or%20''x''=''x'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0787",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:155",
+        "sql": "SELECT * FROM brs WHERE city = 'or ''something'' = ''some''+''thing'''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0793",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:157",
+        "sql": "SELECT * FROM brs WHERE city = '29 %'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0802",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:161",
+        "sql": "SELECT * FROM brs WHERE city = '0 or 1=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0803",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:161",
+        "sql": "SELECT * FROM brs WHERE br_id = 0 or 1=1",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0805",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:162",
+        "sql": "SELECT * FROM brs WHERE city = ') or (a=a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0814",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:165",
+        "sql": "SELECT * FROM brs WHERE city = '%27%20or%201=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0820",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:167",
+        "sql": "SELECT * FROM brs WHERE city = '%7C'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0832",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:171",
+        "sql": "SELECT * FROM brs WHERE city = 'declare @q nvarchar (200) select @q = 0x770061 ...'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0835",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:172",
+        "sql": "SELECT * FROM brs WHERE city = '1 or 1=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0836",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:172",
+        "sql": "SELECT * FROM brs WHERE br_id = 1 or 1=1",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0841",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:174",
+        "sql": "SELECT * FROM brs WHERE city = '23 OR 1=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0842",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:174",
+        "sql": "SELECT * FROM brs WHERE br_id = 23 OR 1=1",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0844",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:176",
+        "sql": "SELECT * FROM brs WHERE city = 'anything'' OR ''x''=''x'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0847",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:177",
+        "sql": "SELECT * FROM brs WHERE city = 'declare @q nvarchar (4000) select @q ='",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0853",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:179",
+        "sql": "SELECT * FROM brs WHERE city = 'desc'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0856",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:180",
+        "sql": "SELECT * FROM brs WHERE city = '||''6'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0859",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:182",
+        "sql": "SELECT * FROM brs WHERE city = '1)) or sleep(__TIME__)#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0862",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:183",
+        "sql": "SELECT * FROM brs WHERE city = 'or 0=0 #'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0865",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:184",
+        "sql": "SELECT * FROM brs WHERE city = 'select name from syscolumns where id = (sele ...'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0868",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:185",
+        "sql": "SELECT * FROM brs WHERE city = 'hi or a=a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0869",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:185",
+        "sql": "SELECT * FROM brs WHERE br_id = hi or a=a",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0871",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:186",
+        "sql": "SELECT * FROM brs WHERE city = '*(|(mail=*))'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0877",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:188",
+        "sql": "SELECT * FROM brs WHERE city = 'distinct'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0883",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:190",
+        "sql": "SELECT * FROM brs WHERE city = 'to_timestamp_tz'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0884",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:190",
+        "sql": "SELECT * FROM brs WHERE br_id = to_timestamp_tz",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0886",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:191",
+        "sql": "SELECT * FROM brs WHERE city = '\") or benchmark(10000000,MD5(1))#'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0889",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:192",
+        "sql": "SELECT * FROM brs WHERE city = 'UNION SELECT'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0892",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:193",
+        "sql": "SELECT * FROM brs WHERE city = '%2A%28%7C%28mail%3D%2A%29%29'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0895",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:194",
+        "sql": "SELECT * FROM brs WHERE city = '+sqlvuln'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0901",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:196",
+        "sql": "SELECT * FROM brs WHERE city = ')) or sleep(__TIME__)='''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0904",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:197",
+        "sql": "SELECT * FROM brs WHERE city = 'or 1=1 or \"\"='",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0911",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:199",
+        "sql": "SELECT * FROM brs WHERE br_id = sqlvuln;",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0913",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:200",
+        "sql": "SELECT * FROM brs WHERE city = 'union select * from users where login = char ...'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0916",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:201",
+        "sql": "SELECT * FROM brs WHERE city = 'x'' or 1=1 or ''x''=''y'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0919",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:202",
+        "sql": "SELECT * FROM brs WHERE city = '28 %'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0925",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:204",
+        "sql": "SELECT * FROM brs WHERE city = '@variable'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0926",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:204",
+        "sql": "SELECT * FROM brs WHERE br_id = @variable",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0934",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:208",
+        "sql": "SELECT * FROM brs WHERE city = '%2A%7C'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0946",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:215",
+        "sql": "SELECT * FROM brs WHERE city = 'or a = a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0959",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:220",
+        "sql": "SELECT * FROM brs WHERE city = ''' or 1=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0965",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:222",
+        "sql": "SELECT * FROM brs WHERE city = 'x'' OR full_name LIKE ''%Bob%'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0971",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:224",
+        "sql": "SELECT * FROM brs WHERE city = '''%20or%20''''='''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0972",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:224",
+        "sql": "SELECT * FROM brs WHERE br_id = '%20or%20''='",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0974",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:225",
+        "sql": "SELECT * FROM brs WHERE city = '''%20or%20''x''=''x'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0977",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:226",
+        "sql": "SELECT * FROM brs WHERE city = ''')%20or%20(''x''=''x'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0983",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:228",
+        "sql": "SELECT * FROM brs WHERE city = ''' or 0=0 #'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_0986",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:229",
+        "sql": "SELECT * FROM brs WHERE city = 'or 0=0 #\"'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1001",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:234",
+        "sql": "SELECT * FROM brs WHERE city = ''' or 1=1 or ''''='''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1002",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:234",
+        "sql": "SELECT * FROM brs WHERE br_id = ' or 1=1 or ''='",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1004",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:235",
+        "sql": "SELECT * FROM brs WHERE city = 'or 1=1 or \"\"='",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1010",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:237",
+        "sql": "SELECT * FROM brs WHERE city = 'or a=a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1013",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:238",
+        "sql": "SELECT * FROM brs WHERE city = ''') or (''a''=''a'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1017",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:239",
+        "sql": "SELECT * FROM brs WHERE br_id = 'hi' or 'x'='x';",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1019",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:241",
+        "sql": "SELECT * FROM brs WHERE city = 'procedure'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1020",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:241",
+        "sql": "SELECT * FROM brs WHERE br_id = procedure",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1022",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:242",
+        "sql": "SELECT * FROM brs WHERE city = 'handler'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1023",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:242",
+        "sql": "SELECT * FROM brs WHERE br_id = handler",
+        "oracle1_readonly": null,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1025",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:243",
+        "sql": "SELECT * FROM brs WHERE city = ''' or username like ''%'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1028",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:244",
+        "sql": "SELECT * FROM brs WHERE city = ''' or uname like ''%'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1031",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:245",
+        "sql": "SELECT * FROM brs WHERE city = ''' or userid like ''%'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1034",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:246",
+        "sql": "SELECT * FROM brs WHERE city = ''' or uid like ''%'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1037",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:247",
+        "sql": "SELECT * FROM brs WHERE city = ''' or user like ''%'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1052",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:252",
+        "sql": "SELECT * FROM brs WHERE city = ''' UNION SELECT'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1055",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:253",
+        "sql": "SELECT * FROM brs WHERE city = ''' UNION ALL SELECT'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1058",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:254",
+        "sql": "SELECT * FROM brs WHERE city = ''' or (EXISTS)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1061",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:255",
+        "sql": "SELECT * FROM brs WHERE city = ''' (select top 1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1064",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:256",
+        "sql": "SELECT * FROM brs WHERE city = '''||UTL_HTTP.REQUEST'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1073",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:259",
+        "sql": "SELECT * FROM brs WHERE city = '''%20or%201=1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1076",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:260",
+        "sql": "SELECT * FROM brs WHERE city = '''sqlattempt1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1079",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:261",
+        "sql": "SELECT * FROM brs WHERE city = '%28'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1082",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:262",
+        "sql": "SELECT * FROM brs WHERE city = '%29'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1085",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:263",
+        "sql": "SELECT * FROM brs WHERE city = '%26'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1088",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:264",
+        "sql": "SELECT * FROM brs WHERE city = '%21'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1091",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:265",
+        "sql": "SELECT * FROM brs WHERE city = ''' or ''''='''",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1092",
+        "category": "public_embedded_num",
+        "provenance": "public:Generic-SQLi.txt:265",
+        "sql": "SELECT * FROM brs WHERE br_id = ' or ''='",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1094",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:266",
+        "sql": "SELECT * FROM brs WHERE city = ''' or 3=3'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1100",
+        "category": "public_embedded_str",
+        "provenance": "public:Generic-SQLi.txt:268",
+        "sql": "SELECT * FROM brs WHERE city = '%C0%80%27%C0%80%C0%80%C0%80O%C0%82R%C0%80%C0%801%C0%80%C0%A11'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1105",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:7",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite Comments](#sqlite-comments)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1108",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:8",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite Enumeration](#sqlite-enumeration)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1111",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:9",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite String](#sqlite-string)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1114",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:10",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite String Methodology](#sqlite-string-methodology)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1117",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:11",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite Blind](#sqlite-blind)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1120",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:12",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite Blind Methodology](#sqlite-blind-methodology)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1123",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:13",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite Blind With Substring Equivalent](#sqlite-blind-with-substring-equivalent)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1126",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:14",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQlite Error Based](#sqlite-error-based)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1129",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:15",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQlite Time Based](#sqlite-time-based)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1132",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:16",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQlite Remote Code Execution](#sqlite-remote-code-execution)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1138",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:18",
+        "sql": "SELECT * FROM brs WHERE city = '* [Load_extension](#load_extension)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1141",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:19",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite File Manipulation](#sqlite-file-manipulation)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1144",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:20",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite Read File](#sqlite-read-file)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1147",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:21",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite Write File](#sqlite-write-file)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1150",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:22",
+        "sql": "SELECT * FROM brs WHERE city = '* [References](#references)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1153",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:26",
+        "sql": "SELECT * FROM brs WHERE city = '| Description         | Comment |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1165",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:33",
+        "sql": "SELECT * FROM brs WHERE city = '| Description  | SQL Query                  |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1174",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:41",
+        "sql": "SELECT * FROM brs WHERE city = '| Description                                          | SQL Query                                                                                              |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1178",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:43",
+        "sql": "SELECT * FROM brs WHERE city = '| Extract Database Structure                           | `SELECT sql FROM sqlite_schema`                                                                        |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1180",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:44",
+        "sql": "SELECT * FROM brs WHERE city = '| Extract Database Structure (sqlite_version > 3.33.0) | `SELECT sql FROM sqlite_master`                                                                        |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1182",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:45",
+        "sql": "SELECT * FROM brs WHERE city = '| Extract Table Name                                   | `SELECT tbl_name FROM sqlite_master WHERE type=''table''`                                                |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1184",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:46",
+        "sql": "SELECT * FROM brs WHERE city = '| Extract Table Name                                   | `SELECT group_concat(tbl_name) FROM sqlite_master WHERE type=''table'' and tbl_name NOT like ''sqlite_%''` |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1186",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:47",
+        "sql": "SELECT * FROM brs WHERE city = '| Extract Column Name                                  | `SELECT sql FROM sqlite_master WHERE type!=''meta'' AND sql NOT NULL AND name =''table_name''`             |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1190",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:49",
+        "sql": "SELECT * FROM brs WHERE city = '| Extract Column Name                                  | `SELECT MAX(sql) FROM sqlite_master WHERE tbl_name=''<TABLE_NAME>''`                                     |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1192",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:50",
+        "sql": "SELECT * FROM brs WHERE city = '| Extract Column Name                                  | `SELECT name FROM PRAGMA_TABLE_INFO(''<TABLE_NAME>'')`                                                   |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1194",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:56",
+        "sql": "SELECT * FROM brs WHERE city = '| Description             | SQL Query                                                                                                                                                                                              |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1198",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:58",
+        "sql": "SELECT * FROM brs WHERE city = '| Count Number Of Tables  | `AND (SELECT count(tbl_name) FROM sqlite_master WHERE type=''table'' AND tbl_name NOT LIKE ''sqlite_%'' ) < number_of_table`                                                                               |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1200",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:59",
+        "sql": "SELECT * FROM brs WHERE city = '| Enumerating Table Name  | `AND (SELECT length(tbl_name) FROM sqlite_master WHERE type=''table'' AND tbl_name NOT LIKE ''sqlite_%'' LIMIT 1 OFFSET 0)=table_name_length_number`                                                       |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1202",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:60",
+        "sql": "SELECT * FROM brs WHERE city = '| Extract Info            | `AND (SELECT hex(substr(tbl_name,1,1)) FROM sqlite_master WHERE type=''table'' AND tbl_name NOT LIKE ''sqlite_%'' LIMIT 1 OFFSET 0) > HEX(''some_char'')`                                                    |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1204",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:61",
+        "sql": "SELECT * FROM brs WHERE city = '| Extract Info (order by) | `CASE WHEN (SELECT hex(substr(sql,1,1)) FROM sqlite_master WHERE type=''table'' AND tbl_name NOT LIKE ''sqlite_%'' LIMIT 1 OFFSET 0) = HEX(''some_char'') THEN <order_element_1> ELSE <order_element_2> END` |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1206",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:65",
+        "sql": "SELECT * FROM brs WHERE city = '| Function    | Example                                  |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1212",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:67",
+        "sql": "SELECT * FROM brs WHERE city = '| `SUBSTRING` | `SUBSTRING(''foobar'', <START>, <LENGTH>)` |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1215",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:68",
+        "sql": "SELECT * FROM brs WHERE city = '| `SUBSTR`    | `SUBSTR(''foobar'', <START>, <LENGTH>)`    |'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1218",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:72",
+        "sql": "SELECT * FROM brs WHERE city = '```sql'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1221",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:73",
+        "sql": "SELECT * FROM brs WHERE city = 'AND CASE WHEN [BOOLEAN_QUERY] THEN 1 ELSE load_extension(1) END'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1224",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:74",
+        "sql": "SELECT * FROM brs WHERE city = '```'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1227",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:78",
+        "sql": "SELECT * FROM brs WHERE city = '```sql'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1230",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:79",
+        "sql": "SELECT * FROM brs WHERE city = 'AND [RANDNUM]=LIKE(''ABCDEFG'',UPPER(HEX(RANDOMBLOB([SLEEPTIME]00000000/2))))'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1233",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:80",
+        "sql": "SELECT * FROM brs WHERE city = 'AND 1337=LIKE(''ABCDEFG'',UPPER(HEX(RANDOMBLOB(1000000000/2))))'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1236",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:81",
+        "sql": "SELECT * FROM brs WHERE city = '```'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1241",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:89",
+        "sql": "SELECT * FROM brs WHERE city = '```sql'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1253",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:93",
+        "sql": "SELECT * FROM brs WHERE city = '```'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1256",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:95",
+        "sql": "SELECT * FROM brs WHERE city = 'First, it tells SQLite to \"treat\" a PHP file as a writable SQLite database. Then it creates a table inside that file (which is actually the future web-shell). Finally it writes malicious PHP code into the file.'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1260",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:99",
+        "sql": "SELECT * FROM brs WHERE city = '```ps1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1263",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:100",
+        "sql": "SELECT * FROM brs WHERE city = 'file shell.php'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1266",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:101",
+        "sql": "SELECT * FROM brs WHERE city = 'shell.php: SQLite 3.x database, last written using SQLite version 3051000, file counter 2, database pages 2, cookie 0x1, schema 4, UTF-8, version-valid-for 2'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1268",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:102",
+        "sql": "SELECT * FROM brs WHERE city = '```'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1273",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:106",
+        "sql": "SELECT * FROM brs WHERE city = '```sql'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1284",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:110",
+        "sql": "SELECT * FROM brs WHERE city = '```'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1287",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:112",
+        "sql": "SELECT * FROM brs WHERE city = 'This writes a new cron entry that runs every minute and connects back to the attacker.'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1290",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:116",
+        "sql": "SELECT * FROM brs WHERE city = ':warning: SQLite''s ability to load external shared libraries (extensions) is disabled by default in most environments. When enabled, SQLite can load a compiled module using the `load_extension()` SQL function:'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1292",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:118",
+        "sql": "SELECT * FROM brs WHERE city = '```sql'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1298",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:120",
+        "sql": "SELECT * FROM brs WHERE city = '```'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1301",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:122",
+        "sql": "SELECT * FROM brs WHERE city = 'In the sqlite3 command-line shell you can display runtime configuration with:'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1304",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:124",
+        "sql": "SELECT * FROM brs WHERE city = '```sql'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1307",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:125",
+        "sql": "SELECT * FROM brs WHERE city = 'sqlite> .dbconfig'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1310",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:126",
+        "sql": "SELECT * FROM brs WHERE city = 'load_extension on'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1313",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:127",
+        "sql": "SELECT * FROM brs WHERE city = '```'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1316",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:129",
+        "sql": "SELECT * FROM brs WHERE city = 'If you see `load_extension on` (or off), that indicates whether the shell''s runtime currently permits loading shared-library extensions.'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1318",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:131",
+        "sql": "SELECT * FROM brs WHERE city = 'A SQLite extension is simply a native shared library,typically a `.so` file on Linux or a `.dll` file on Windows, that exposes a special initialization function. When the extension is loaded, SQLite calls this function to register any new SQL functions, virtual tables, or other features provided by the module.'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1320",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:133",
+        "sql": "SELECT * FROM brs WHERE city = 'To compile a loadable extension on Linux, you can use:'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1323",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:135",
+        "sql": "SELECT * FROM brs WHERE city = '```ps1'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1326",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:136",
+        "sql": "SELECT * FROM brs WHERE city = 'gcc -g -fPIC -shared demo.c -o demo.so'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1329",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:137",
+        "sql": "SELECT * FROM brs WHERE city = '```'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1332",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:143",
+        "sql": "SELECT * FROM brs WHERE city = 'SQLite does not support file I/O operations by default.'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1335",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:147",
+        "sql": "SELECT * FROM brs WHERE city = '```sql'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1338",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:148",
+        "sql": "SELECT * FROM brs WHERE city = 'SELECT writefile(''/path/to/file'', column_name) FROM table_name'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1341",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:149",
+        "sql": "SELECT * FROM brs WHERE city = '```'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1344",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:153",
+        "sql": "SELECT * FROM brs WHERE city = '* [Injecting SQLite database based application - Manish Kishan Tanwar - February 14, 2017](https://web.archive.org/web/20211205031408/https://www.exploit-db.com/docs/english/41397-injecting-sqlite-database-based-applications.pdf)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1346",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:154",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite Error Based Injection for Enumeration - Rio Asmara Suryadi - February 6, 2021](https://web.archive.org/web/20210221065923/http://rioasmara.com/2021/02/06/sqlite-error-based-injection-for-enumeration/)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      },
+      {
+        "id": "att_1348",
+        "category": "public_embedded_str",
+        "provenance": "public:SQLite-Injection.md:155",
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite3 Injection Cheat sheet - Nickosaurus Hax - May 31, 2012](https://web.archive.org/web/20131208191957/https://sites.google.com/site/0x7674/home/sqlite3injectioncheatsheet)'",
+        "oracle1_readonly": true,
+        "oracle2_mutated": false,
+        "oracle3_mutated": false,
+        "classification": "inert_fragment_inside_literal"
+      }
+    ]
+  },
+  "d2": {
+    "total_fuzz": 350,
+    "total_info_false_rejections": 140,
+    "non_readonly_accepted": 0,
+    "fuzz_breakdown": {
+      "case_mixing": {
+        "total": 70,
+        "accepted": 70,
+        "rejected": 0,
+        "info_false_rejections": 0,
+        "non_readonly": 0
+      },
+      "whitespace_mutation": {
+        "total": 70,
+        "accepted": 70,
+        "rejected": 0,
+        "info_false_rejections": 0,
+        "non_readonly": 0
+      },
+      "inline_comments": {
+        "total": 70,
+        "accepted": 0,
+        "rejected": 70,
+        "info_false_rejections": 70,
+        "non_readonly": 0
+      },
+      "bracket_quoting": {
+        "total": 70,
+        "accepted": 0,
+        "rejected": 70,
+        "info_false_rejections": 70,
+        "non_readonly": 0
+      },
+      "homoglyph_substitution": {
+        "total": 70,
+        "accepted": 0,
+        "rejected": 70,
+        "info_false_rejections": 0,
+        "non_readonly": 0
+      }
+    }
+  },
+  "d3": {
+    "boundary_items": [
+      {
+        "id": "bnd_001",
+        "category": "join_boundary_6",
+        "accepted": true,
+        "rejecting_layer": null,
+        "reason": null
+      },
+      {
+        "id": "bnd_002",
+        "category": "join_boundary_7",
+        "accepted": false,
+        "rejecting_layer": "complexity_gate",
+        "reason": "Query is too expensive to run safely: it joins 7 tables (limit 6). Please simplify it."
+      },
+      {
+        "id": "bnd_003",
+        "category": "depth_boundary_4",
+        "accepted": true,
+        "rejecting_layer": null,
+        "reason": null
+      },
+      {
+        "id": "bnd_004",
+        "category": "depth_boundary_5",
+        "accepted": true,
+        "rejecting_layer": null,
+        "reason": null
+      },
+      {
+        "id": "bnd_005",
+        "category": "length_boundary_3999",
+        "accepted": false,
+        "rejecting_layer": "complexity_gate",
+        "reason": "Query is too expensive to run safely: the statement is 7961 characters long (limit 4000). Please simplify it."
+      },
+      {
+        "id": "bnd_006",
+        "category": "length_boundary_4000",
+        "accepted": false,
+        "rejecting_layer": "complexity_gate",
+        "reason": "Query is too expensive to run safely: the statement is 7963 characters long (limit 4000). Please simplify it."
+      },
+      {
+        "id": "bnd_007",
+        "category": "length_boundary_4001",
+        "accepted": false,
+        "rejecting_layer": "complexity_gate",
+        "reason": "Query is too expensive to run safely: the statement is 7965 characters long (limit 4000). Please simplify it."
+      },
+      {
+        "id": "bnd_008",
+        "category": "cross_join",
+        "accepted": false,
+        "rejecting_layer": "complexity_gate",
+        "reason": "Query is too expensive to run safely: it combines tables without a join condition (a cartesian product). Please simplify it."
+      },
+      {
+        "id": "bnd_009",
+        "category": "comma_join_no_where",
+        "accepted": false,
+        "rejecting_layer": "complexity_gate",
+        "reason": "Query is too expensive to run safely: it combines tables without a join condition (a cartesian product). Please simplify it."
+      },
+      {
+        "id": "bnd_010",
+        "category": "comma_join_with_where",
+        "accepted": true,
+        "rejecting_layer": null,
+        "reason": null
+      },
+      {
+        "id": "bnd_011",
+        "category": "fanout_large_unkeyed",
+        "accepted": false,
+        "rejecting_layer": "schema_table_conformity",
+        "reason": "Query references unknown table \"users\"."
+      },
+      {
+        "id": "bnd_012",
+        "category": "fanout_keyed_safe",
+        "accepted": true,
+        "rejecting_layer": null,
+        "reason": null
+      }
+    ],
+    "repair_failure_analysis": {
+      "failed_template": "T21",
+      "description": "Bare integer literal division (10 / 3)",
+      "root_cause": "fixIntegerDivision implementation uses AST/regex scan targeting only COUNT(...) / and SUM(...) / aggregate patterns (checking fnName === \"COUNT\" || fnName === \"SUM\"). Bare integer literals (e.g. 10 / 3) and unaggregated column divisions (a / b) are not promoted with \"1.0 *\", preserving SQLite native truncating integer division.",
+      "semantic_shift_template": "T22",
+      "semantic_shift_desc": "CASE WHEN conditional evaluating aggregate division: raw query returned \"Empty\" due to 0-truncation (COUNT / COUNT = 0, 0 > 0 is FALSE), while repaired query evaluated to \"HasData\" (1.0 * COUNT / COUNT = 0.8, 0.8 > 0 is TRUE)."
+    }
+  },
+  "d4": {
+    "audit_date": "2026-10-15T06:00:55.415Z",
+    "sample_size": 30,
+    "exact_matches": 30,
+    "upstream_sources": [
+      {
+        "name": "quick-SQLi.txt",
+        "url": "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Fuzzing/Databases/SQLi/quick-SQLi.txt",
+        "sha256": "99301faba9413833c02cf9d74a5a32a06482aea5b373f8e843edbca3ca2b0b7e",
+        "byte_count": 1180,
+        "retrieval_date": "2026-10-15",
+        "status": "FETCH_SUCCESS"
+      },
+      {
+        "name": "Generic-SQLi.txt",
+        "url": "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Fuzzing/Databases/SQLi/Generic-SQLi.txt",
+        "sha256": "09e5930609e4ce0663505168432796881f493ec0e63643300166d36ed57d40ec",
+        "byte_count": 5383,
+        "retrieval_date": "2026-10-15",
+        "status": "FETCH_SUCCESS"
+      },
+      {
+        "name": "SQLite-Injection.md",
+        "url": "https://raw.githubusercontent.com/swisskyrepo/PayloadsAllTheThings/master/SQL%20Injection/SQLite%20Injection.md",
+        "sha256": "f6bad93117b22ac5575260d55967cb030f2780d8dcb70f5a9a5e16e82f1dbf36",
+        "byte_count": 8703,
+        "retrieval_date": "2026-10-15",
+        "status": "FETCH_SUCCESS"
+      }
+    ],
+    "audit_samples": [
+      {
+        "id": "att_1141",
+        "provenance": "public:SQLite-Injection.md:19",
+        "claimed_file": "SQLite-Injection.md",
+        "claimed_line": 19,
+        "sql": "SELECT * FROM brs WHERE city = '* [SQLite File Manipulation](#sqlite-file-manipulation)'",
+        "actual_line_content": "* [SQLite File Manipulation](#sqlite-file-manipulation)",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0473",
+        "provenance": "public:Generic-SQLi.txt:44",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 44,
+        "sql": "SELECT * FROM brs WHERE br_id = PRINT",
+        "actual_line_content": "PRINT",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0320",
+        "provenance": "public:quick-SQLi.txt:67",
+        "claimed_file": "quick-SQLi.txt",
+        "claimed_line": 67,
+        "sql": "SELECT * FROM brs WHERE br_id = admin\" or 1=1#",
+        "actual_line_content": "admin\" or 1=1#",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0164",
+        "provenance": "public:quick-SQLi.txt:15",
+        "claimed_file": "quick-SQLi.txt",
+        "claimed_line": 15,
+        "sql": "SELECT * FROM brs WHERE br_id = \"*\"",
+        "actual_line_content": "\"*\"",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0189",
+        "provenance": "public:quick-SQLi.txt:24",
+        "claimed_file": "quick-SQLi.txt",
+        "claimed_line": 24,
+        "sql": "\") or true--",
+        "actual_line_content": "\") or true--",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0354",
+        "provenance": "public:Generic-SQLi.txt:2",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 2,
+        "sql": "%20or%201=1",
+        "actual_line_content": "%20or%201=1",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0355",
+        "provenance": "public:Generic-SQLi.txt:2",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 2,
+        "sql": "SELECT * FROM brs WHERE city = '%20or%201=1'",
+        "actual_line_content": "%20or%201=1",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0170",
+        "provenance": "public:quick-SQLi.txt:17",
+        "claimed_file": "quick-SQLi.txt",
+        "claimed_line": 17,
+        "sql": "SELECT * FROM brs WHERE br_id = \" or \"\" \"",
+        "actual_line_content": "\" or \"\" \"",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0359",
+        "provenance": "public:Generic-SQLi.txt:3",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 3,
+        "sql": "SELECT * FROM brs WHERE br_id = ; execute immediate 'sel' || 'ect us' || 'er'",
+        "actual_line_content": "; execute immediate 'sel' || 'ect us' || 'er'",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0177",
+        "provenance": "public:quick-SQLi.txt:20",
+        "claimed_file": "quick-SQLi.txt",
+        "claimed_line": 20,
+        "sql": "\" or \"\"*\"",
+        "actual_line_content": "\" or \"\"*\"",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0380",
+        "provenance": "public:Generic-SQLi.txt:10",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 10,
+        "sql": "SELECT * FROM brs WHERE br_id = delete",
+        "actual_line_content": "delete",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0208",
+        "provenance": "public:quick-SQLi.txt:30",
+        "claimed_file": "quick-SQLi.txt",
+        "claimed_line": 30,
+        "sql": "SELECT * FROM brs WHERE city = '\") or (\"x\")=(\"x'",
+        "actual_line_content": "\") or (\"x\")=(\"x",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0376",
+        "provenance": "public:Generic-SQLi.txt:9",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 9,
+        "sql": "SELECT * FROM brs WHERE city = '\"hi\"\") or (\"\"a\"\"=\"\"a\"'",
+        "actual_line_content": "\"hi\"\") or (\"\"a\"\"=\"\"a\"",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0404",
+        "provenance": "public:Generic-SQLi.txt:18",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 18,
+        "sql": "SELECT * FROM brs WHERE br_id = 1) or sleep(__TIME__)#",
+        "actual_line_content": "1) or sleep(__TIME__)#",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0417",
+        "provenance": "public:Generic-SQLi.txt:24",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 24,
+        "sql": "asc",
+        "actual_line_content": "asc",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0263",
+        "provenance": "public:quick-SQLi.txt:48",
+        "claimed_file": "quick-SQLi.txt",
+        "claimed_line": 48,
+        "sql": "SELECT * FROM brs WHERE br_id = admin') or ('1'='1",
+        "actual_line_content": "admin') or ('1'='1",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0239",
+        "provenance": "public:quick-SQLi.txt:40",
+        "claimed_file": "quick-SQLi.txt",
+        "claimed_line": 40,
+        "sql": "SELECT * FROM brs WHERE br_id = admin' or '1'='1'--",
+        "actual_line_content": "admin' or '1'='1'--",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0269",
+        "provenance": "public:quick-SQLi.txt:50",
+        "claimed_file": "quick-SQLi.txt",
+        "claimed_line": 50,
+        "sql": "SELECT * FROM brs WHERE br_id = admin') or ('1'='1'#",
+        "actual_line_content": "admin') or ('1'='1'#",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0209",
+        "provenance": "public:quick-SQLi.txt:30",
+        "claimed_file": "quick-SQLi.txt",
+        "claimed_line": 30,
+        "sql": "SELECT * FROM brs WHERE br_id = \") or (\"x\")=(\"x",
+        "actual_line_content": "\") or (\"x\")=(\"x",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0190",
+        "provenance": "public:quick-SQLi.txt:24",
+        "claimed_file": "quick-SQLi.txt",
+        "claimed_line": 24,
+        "sql": "SELECT * FROM brs WHERE city = '\") or true--'",
+        "actual_line_content": "\") or true--",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0390",
+        "provenance": "public:Generic-SQLi.txt:14",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 14,
+        "sql": "*(|(objectclass=*))",
+        "actual_line_content": "*(|(objectclass=*))",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0693",
+        "provenance": "public:Generic-SQLi.txt:123",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 123,
+        "sql": "or 0=0 #\"",
+        "actual_line_content": "or 0=0 #\"",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0157",
+        "provenance": "public:quick-SQLi.txt:13",
+        "claimed_file": "quick-SQLi.txt",
+        "claimed_line": 13,
+        "sql": "SELECT * FROM brs WHERE city = '\"&\"'",
+        "actual_line_content": "\"&\"",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0358",
+        "provenance": "public:Generic-SQLi.txt:3",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 3,
+        "sql": "SELECT * FROM brs WHERE city = '; execute immediate ''sel'' || ''ect us'' || ''er'''",
+        "actual_line_content": "; execute immediate 'sel' || 'ect us' || 'er'",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0369",
+        "provenance": "public:Generic-SQLi.txt:7",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 7,
+        "sql": "1) or pg_sleep(__TIME__)--",
+        "actual_line_content": "1) or pg_sleep(__TIME__)--",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0718",
+        "provenance": "public:Generic-SQLi.txt:132",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 132,
+        "sql": "SELECT * FROM brs WHERE city = 'having 1=1--'",
+        "actual_line_content": " having 1=1--",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0373",
+        "provenance": "public:Generic-SQLi.txt:8",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 8,
+        "sql": "SELECT * FROM brs WHERE city = '||(elt(-3+5,bin(15),ord(10),hex(char(45))))'",
+        "actual_line_content": "||(elt(-3+5,bin(15),ord(10),hex(char(45))))",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0935",
+        "provenance": "public:Generic-SQLi.txt:208",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 208,
+        "sql": "SELECT * FROM brs WHERE br_id = %2A%7C",
+        "actual_line_content": "%2A%7C",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0412",
+        "provenance": "public:Generic-SQLi.txt:22",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 22,
+        "sql": "SELECT * FROM brs WHERE city = '@var select @var as var into temp end --'",
+        "actual_line_content": "@var select @var as var into temp end --",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      },
+      {
+        "id": "att_0827",
+        "provenance": "public:Generic-SQLi.txt:169",
+        "claimed_file": "Generic-SQLi.txt",
+        "claimed_line": 169,
+        "sql": "SELECT * FROM brs WHERE br_id = &apos;%20OR",
+        "actual_line_content": "&apos;%20OR",
+        "verified": true,
+        "match_type": "EXACT_MATCH"
+      }
+    ]
+  },
+  "d5": {
+    "db_matches": 15,
+    "db_total": 15,
+    "db_mismatches": 0,
+    "csv_matches": 5,
+    "csv_total": 5,
+    "csv_mismatches": 0
+  }
+}

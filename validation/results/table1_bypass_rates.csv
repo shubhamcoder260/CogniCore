@@ -1,0 +1,9 @@
+stratum,total_evaluated,gate_accepted,driver_non_readonly,database_mutations,filesystem_mutations,bypass_events,bypass_rate_pct,ci_95_wilson,exact_upper_95_pct,rule_of_three_pct
+Step 2: Class A (All Items),1348,311,0,0,0,0,0.00,"[0.00%, 1.22%]",0.96,0.96
+Step 2: Class A (Genuine Write Statements),119,0,0,0,0,0,0.00,N/A (0 accepted),N/A (0 accepted),N/A (0 accepted)
+Step 2: Class B (Unspecified SELECT Probes),250,113,0,0,0,0,0.00,"[0.00%, 3.29%]",2.62,2.65
+Step 2: Class C (Benign Queries Baseline),220,200,0,0,0,0,0.00,"[0.00%, 1.88%]",1.49,1.50
+Step 2b: Class B2 (Embedded SELECT Probes),352,224,0,0,0,0,0.00,"[0.00%, 1.69%]",1.33,1.34
+Step 2b: Class D2 (Boundary Redo),27,18,0,0,0,0,0.00,"[0.00%, 17.59%]",15.33,16.67
+Step 2b: Class C2 (SQLite Idiom Benign),465,180,0,0,0,0,0.00,"[0.00%, 2.09%]",1.65,1.67
+POOLED TOTAL (All Accepted Across Harness),2774,1191,0,0,0,0,0.00,"[0.00%, 0.32%]",0.25,0.25

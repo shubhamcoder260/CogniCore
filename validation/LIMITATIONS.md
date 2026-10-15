@@ -26,6 +26,21 @@ This document tracks all hypotheses that did not hold, planned experiments that 
    - *Observed Reality*: The gate uses naive string regex checks (`sql.includes(';')` and `/--|\/\*/.test(sql)`). These patterns over-reject benign queries where semicolons or comment tokens appear inside valid string literals (e.g. `WHERE city = 'NY; LA'` or `WHERE note = 'Branch -- North'`), producing false rejections on legitimate analytical queries.
    - *Reference*: Verified in Phase E and Phase G.
 
+5. **PostgreSQL Grammar Dialect Mismatch on SQLite Bracket Identifiers**:
+   - *Claim*: `server/src/structured/sql.validator.js:38-48` notes that SQLite datasets use `postgresql` parser grammar deliberately to allow scalar subqueries without weakening security.
+   - *Observed Reality*: `node-sql-parser` in PostgreSQL mode does not recognize SQLite's native square-bracket identifier quoting (`SELECT [col] FROM [table]`), resulting in 100% false-positive rejection of valid bracketed queries (confirmed in C2 construct analysis and fuzz differential).
+   - *Reference*: Verified in Step 2b (Table 2 and Table 6).
+
+6. **Integer Literal Division Promotion Coverage**:
+   - *Claim*: `server/src/structured/sql.repair.js:88-106` claims deterministic repair for integer division issues by promoting integer operations to float division (`1.0 *`).
+   - *Observed Reality*: The implementation targets only division preceded by `COUNT(...)` or `SUM(...)` aggregates. Bare integer literal divisions (e.g. `10 / 3`) and unaggregated column divisions (`a / b`) are untouched, failing float equivalence (Template T21 in repair property tests).
+   - *Reference*: Verified in Step 2b Phase D3.
+
+7. **Keyword Denylist Word-Boundary Screening on Literals & Aliases**:
+   - *Claim*: `BLOCKED_KEYWORDS` filters dangerous operations (`DROP`, `DELETE`, `UPDATE`, `CREATE`, etc.).
+   - *Observed Reality*: The gate applies a naive word-boundary regex (`new RegExp('\\b' + kw + '\\b')`) against the uppercase SQL string before parsing. This causes 100% false rejection of valid analytical queries where keywords appear legitimately inside string literals (e.g. `WHERE status = 'DROP'`) or quoted column aliases (e.g. `SELECT id AS "delete"`).
+   - *Reference*: Verified in Step 2b Phase C1 and Table 2.
+
 ---
 
 # Skipped / NOT RUN (planned experiments not executed, with concrete reason)

@@ -25,10 +25,11 @@ node validation/manifest.js
 ```
 
 ### Verify Preregistration & Corpus Immutability
-To guarantee that the preregistered evaluation protocol and frozen corpus have not been modified since tags `prereg-v1` and `v4-corpus-v1`:
+To guarantee that the preregistered evaluation protocol and frozen corpora have not been modified since tags `prereg-v1`, `v4-corpus-v1`, and `v4b-corpus-v1`:
 ```bash
 git diff prereg-v1 -- validation/PREREGISTRATION.md
 git diff v4-corpus-v1 -- validation/data/v4
+git diff v4b-corpus-v1 -- validation/data/v4b
 ```
 *(Expected output: empty / exit code 0)*
 
@@ -48,6 +49,24 @@ git diff v4-corpus-v1 -- validation/data/v4
 4. **Generate Statistical Analysis & Results** (calculates Wilson CIs, Rule of Three, CSVs, and `V4_RESULTS.md`):
    ```bash
    node validation/analysis_v4.js
+   ```
+
+### Step 2b (V4 Evidence Gap Closure & Extended Evaluation) Commands
+1. **Generate Deterministic V4b Corpus** (builds `b2_probes.jsonl`, `d2_boundary.jsonl`, `c2_benign.jsonl`, `e_benchmark_status.json`):
+   ```bash
+   node validation/experiments/v4b_build_corpus.js
+   ```
+2. **Execute Phase C Experiments** (runs gate C1, oracles C2, child resource runner C3, defense hardening C4):
+   ```bash
+   node validation/experiments/v4b_run_experiments.js
+   ```
+3. **Run Phase D Evidence Gap Audit** (Class A decomposition, fuzz breakdown, T21/T22 repair failure, provenance sampling, fixture hashes):
+   ```bash
+   node validation/experiments/v4_audit_gaps.js
+   ```
+4. **Generate Final Step 2b Analysis & Scorecard** (produces Tables 1-6 CSVs and `V4b_RESULTS.md`):
+   ```bash
+   node validation/analysis_v4b.js
    ```
 
 ---
