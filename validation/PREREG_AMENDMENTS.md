@@ -356,5 +356,54 @@ To close the evidence gap identified in Step 3c Phase E (where row-variant trans
 | `validation/data/v3c/v3c_queries.jsonl` | 46,920 | `961bcd6c73b2866400e5cf0d61efeefc7ca883c809283258610d1fe1352ac108` |
 | **Total V3c Corpus** | **46,920** | — |
 
+---
 
+## Amendment V12-V15: Evaluation Protocol for V12 (File Validation), V13 (Input Guard, Rate Limiter, Injection Neutralizer), V14 (Authn/Authz Route Sweep), and V15 (PII Redaction)
 
+This amendment establishes the formal evaluation protocols, item classes, and pass/fail criteria for Step 4 of the CogniCore validation:
+
+### 1. V12 (File Validation Gate)
+- **Hard Pass/Fail Criteria**:
+  - Accepted malicious files per malicious category: **EXACTLY 0** (exact Clopper-Pearson 95% upper bound $1 - 0.05^{1/n}$ reported when $k = 0$).
+  - System resilience: **0 crashes, 0 process hangs > 15 s, 0 memory spikes with RSS > 2 GB** on any zip bomb, nested archive, pathological recursion, or fuzz input.
+  - Path traversal containment: Every accepted file written through the project's upload path must remain strictly contained within the designated upload directory; no file may land outside, and sanitized filenames must not escape the upload boundary.
+- **Reporting Metrics**:
+  - False-rejection rate per valid file format (XLSX, DOCX, PPTX, SQLite, CSV, JSON, Unicode names, boundary-size legit files, cells containing script/executable tokens) reported with Wilson score 95% confidence intervals.
+  - False-acceptance rate per malicious category (extension x magic byte mismatch, EICAR string, executable headers MZ/ELF/Mach-O/CAFEBABE/shebang/PHP/script at offset 0 and post-BOM/whitespace, zip bombs [ratio, nested, many entries, overlapping entries, declared vs actual size, zip64], Zip-Slip [../, absolute, backslash, drive letter], polyglots [GIF/JS, PDF/HTML, ZIP/JAR, SQLite with trailing script], 500 truncations/bit-flips, SQLite with triggers/views/virtual tables, JSON depth bombs/BOM/UTF-16, CSV with NUL bytes, 1e6 columns, formula cells [=cmd|...], and malicious filenames [traversal, reserved Windows names, ADS, RTL, long names]).
+  - Per-item execution wall-clock time and peak RSS memory usage.
+
+### 2. V13 (Input Guard, Rate Limiter, and Injection Neutralization)
+- **Input Guard & Direct Injection**:
+  - Detection recall per injection category across public benchmark (`deepset/prompt-injections`), the 10-item `INJECTION_CORPUS`, and deterministically generated adaptive variants (paraphrases, multilingual Hindi/Tamil/German, base64, leetspeak, homoglyphs, zero-width splitting, markdown/HTML/JSON wrappers, multi-turn splits).
+  - False-positive rate per benign trigger-word class across >=300 benign analytical questions containing trigger words (`reveal`, `bypass`, `override`, `ignore`, `admin`, `system`, `union`, `drop`, `developer`, `instructions`, `previous`, `forget`, `act as`) and test suite questions.
+  - Reported without arbitrary pass/fail threshold, with two-sided 95% Wilson score confidence intervals; no pooled headline rate.
+  - Exact oversize boundary evaluation at 3999, 4000, and 4001 across ASCII, multibyte UTF-8, emoji, and combining marks, verifying the precise length unit enforced by the code (UTF-16 code units at `input.guard.js:35`). HTTP body size limit evaluated separately.
+- **Rate Limiter**:
+  - Exact enforcement: exactly 30 allowed requests per 60s sliding window per key; the 31st request must be denied with HTTP 429.
+  - Key isolation: verify no cross-key interference between distinct keys.
+  - Scalability & memory: memory footprint measured across 100,000 distinct keys under rapid insertion and eviction cleanup.
+  - Concurrency & robustness: 100 parallel concurrent requests; clock jump backward resilience; IP derivation under `trust proxy` (true vs false) and `X-Forwarded-For` spoofing.
+- **Indirect Injection Neutralization**:
+  - Evaluated on (a) document chunks and (b) SQL query result cell values.
+  - Neutralization recall per injection family on >=200 poisoned items carrying canary goals (`CANARY_n`, role-play, `<system>`, `[INST]`, markdown/HTML comments, base64, unicode, multilingual).
+  - Share of surviving injected instruction text reported.
+  - False-neutralization rate on 200 benign document chunks and SQL cells.
+  - Real attack success rate against models deferred to Step 5.
+
+### 3. V14 (Authentication & Authorization Route Sweep)
+- **Hard Pass/Fail Criteria**:
+  - Unauthenticated requests to protected endpoints: **EXACTLY 0** HTTP 2xx responses (must return HTTP 401 or 403).
+  - Cross-user data isolation: **EXACTLY 0** cross-user unauthorized reads across datasets, sessions, trace/audit logs, conversation IDs, and file download paths (IDOR).
+  - RBAC policy alignment: **EXACTLY 0** mismatches between handler behavior and the user-supplied expected permissions matrix (`validation/data/rbac/expected.csv`). If `expected.csv` is absent, the matrix check is formally designated **NOT RUN**, and `validation/data/rbac/expected_TEMPLATE.csv` is emitted with an empty `expected_allow` column.
+- **Reporting Metrics**:
+  - Complete enumeration of every Express route, HTTP method, and middleware chain.
+  - Full matrix sweep across all defined roles (`admin`, `manager`, `analyst`, `employee`, `viewer`, `unauthenticated`).
+  - JWT token tamper testing (expired, forged signature, none algorithm, cross-user replay).
+  - Catalog of any data-returning route reachable without expected role enforcement.
+
+### 4. V15 (PII Redaction Engine)
+- **Hard Pass/Fail Criteria**:
+  - Unredacted in-scope PII instances (emails, phone numbers, SSNs, credit cards) in user-facing responses for `viewer` and `employee` roles across all output channels (response text, tables, chart data, CSV/XLSX export, PDF report, logs, traces, errors): **EXACTLY 0**.
+- **Reporting Metrics**:
+  - Redaction recall and precision per PII type and format (emails with subdomains/plus-addressing/obfuscation; phones +91/US/international/dashes/parens; SSNs valid vs invalid; credit cards Luhn-valid vs Luhn-invalid; benign numbers for false positives) reported with Wilson score 95% confidence intervals.
+  - Scope gap analysis: Indian PAN and Aadhaar formats, person names, and unmasked export channels explicitly cataloged as architectural scope limits.

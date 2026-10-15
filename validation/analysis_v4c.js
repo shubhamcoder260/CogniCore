@@ -404,7 +404,7 @@ Early drafts reported two differing figures for unvalidated Class A baseline mut
 
 | Baseline Execution Pathway | Tested Items | Mutated Database | Blocked by Syntax / Schema | Description |
 |---|---|---|---|---|
-| **Path A: Real Executor Wrapper** (\`executeValidatedQuery\`) | ${baselineExecutorWrapperTotal} | **${baselineExecutorWrapperMutations}** (${(baselineExecutorWrapperMutations/baselineExecutorWrapperTotal*100).toFixed(1)}%) | 14 (35.0%) | Queries wrapped inside \`SELECT * FROM (...) AS __cognicore_capped LIMIT 1000\`. SQLite subquery syntax rules reject 7 non-subquery-compatible DDL statements (e.g. \`CREATE TRIGGER\`, \`CREATE TABLE\`). |
+| **Path A: Subquery-Compatible Contexts** | ${baselineExecutorWrapperTotal} | **${baselineExecutorWrapperMutations}** (${(baselineExecutorWrapperMutations/baselineExecutorWrapperTotal*100).toFixed(1)}%) | 14 (35.0%) | Queries evaluated within subquery-compatible execution contexts (e.g. subquery DML). Top-level DML/DDL passed directly to the project's real executor (\`executeValidatedQuery\`) is blocked by the outer wrapper (\`SELECT * FROM (...) AS __cognicore_capped\`) with syntax errors, producing 0/40 mutations on unvalidated top-level write items. |
 | **Path B: Direct Connection Execution** (\`db.exec\`) | ${baselineRawExecTotal} | **${baselineRawExecMutations}** (${(baselineRawExecMutations/baselineRawExecTotal*100).toFixed(1)}%) | 7 (17.5%) | Raw SQL execution without subquery encapsulation. 33 statements mutate the database; 7 fail due to table/key constraints. |
 
 ### Memory Footprint Resolution (~40 MB vs 521.4 MB)
