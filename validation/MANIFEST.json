@@ -180,6 +180,9 @@
     },
     "corpus_v4c": {
       "validation/data/v4c/dos_items.jsonl": "7c9414b980105ac6b145a8a886c1c41ee8a742cd786c7fa91f23fc55e0005c1f"
+    },
+    "corpus_v3": {
+      "validation/data/v3/v3_queries.jsonl": "67b4ad014d4a8ee017171f706c67b0c7df71556d25b47e58da46764f2922481c"
     }
   },
   "sqlite_driver": {

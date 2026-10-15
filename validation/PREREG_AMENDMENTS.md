@@ -254,3 +254,15 @@ Evaluation must explicitly test and report outcomes across all non-SQL informati
 - **Empty-Result Probing**: Probing queries generated during empty result diagnosis.
 - **Preview & Metadata Routes**: Data returned by `/api/datasets/:id/preview`, `/api/datasets/:id`, `/api/schema/:datasetId`, and `/api/analytics/:datasetId/tool/profile`.
 - **Egress PII & Exports**: Export file contents (`/api/tools/export`, `/api/tools/report`) for unmasked sensitive fields.
+
+
+---
+
+## Amendment V3-A2: Frozen Corpus Checksums (V3 Corpus v1)
+
+The systematic Row-Level Security and Column Denial evaluation corpus generated in Step 3 is immutably frozen under git tag `v3-corpus-v1`. Any alteration to these files invalidates the evaluation run:
+
+| File Path | Item Count | SHA-256 Checksum |
+|---|---|---|
+| `validation/data/v3/v3_queries.jsonl` | 510 | `67b4ad014d4a8ee017171f706c67b0c7df71556d25b47e58da46764f2922481c` |
+| **Total V3 Corpus** | **510** | — |
