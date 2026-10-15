@@ -197,6 +197,17 @@ This amendment defines the formal protocol for Step 2c:
 - Zero changes to pass/fail criteria (0 database mutations, 0 filesystem mutations, 0 driver non-read-only accepted queries).
 - Invariant: All prose summaries and markdown reports must be generated programmatically from raw log records and computed CSVs via script to guarantee mathematical consistency.
 
+---
+
+## Amendment V4-A8: Frozen Corpus Checksums (V4c Corpus v1)
+
+The resource-exhaustion and DoS evaluation corpus generated in Step 2c is immutably frozen under git tag `v4c-corpus-v1`. Any alteration to these files invalidates the evaluation run:
+
+| File Path | Item Count | SHA-256 Checksum |
+|---|---|---|
+| `validation/data/v4c/dos_items.jsonl` | 29 | `7c9414b980105ac6b145a8a886c1c41ee8a742cd786c7fa91f23fc55e0005c1f` |
+| **Total V4c Corpus** | **29** | — |
+
 
 
 

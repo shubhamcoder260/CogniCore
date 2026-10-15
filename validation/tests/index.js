@@ -5,3 +5,4 @@
 require('./stats.test.js');
 require('./jsonl.test.js');
 require('./v4_oracles.test.js');
+require('./dos_controls.test.js');

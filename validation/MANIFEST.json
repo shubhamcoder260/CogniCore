@@ -177,6 +177,9 @@
       "validation/data/v4b/d2_boundary.jsonl": "946fe6505cf39e0fe922ccae6ba7f71dfa30b52f6738cb43671991be404f22d9",
       "validation/data/v4b/c2_benign.jsonl": "5d7927ed2113bc2ae3c994c43b4a1dc92e6176bce8c49a9ea5cb3238f2991858",
       "validation/data/v4b/e_benchmark_status.json": "861f425a79c6108e841fd46f8ae884d1afd16bcb3ff8ae44b5a6f307c8cea8a9"
+    },
+    "corpus_v4c": {
+      "validation/data/v4c/dos_items.jsonl": "7c9414b980105ac6b145a8a886c1c41ee8a742cd786c7fa91f23fc55e0005c1f"
     }
   },
   "sqlite_driver": {
