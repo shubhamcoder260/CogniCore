@@ -91,6 +91,36 @@ This document tracks all hypotheses that did not hold, planned experiments that 
     - *Observed Reality*: When evaluated directly at the policy layer, `assertColumnAccess` checks only token identifier occurrences in SQL. PRAGMA queries like `SELECT name, type FROM pragma_table_info('t')` do not name the denied columns in the SQL text, bypassing the check and disclosing the denied column names in 15 / 15 fixtures (100.00%).
     - *Reference*: Verified in Step 3 Phase E2 and Table 2.
 
+18. **Runtime Verification of Dataset Preview Zero-Policy Bypass (D1)**:
+    - *Claim*: Dossier asserts all query access paths pass through row/column security policies.
+    - *Observed Reality*: Empirically verified against running server handler code (`server/src/routes/datasets.js:33-40`). `GET /api/datasets/:id/preview` invokes `adapter.preview()` directly with zero policy checks, leaking unauthorized rows and denied columns to viewer roles.
+    - *Reference*: Verified in Step 3b Phase D1 (`validation/raw/v3_phase_d_evidence.json`).
+
+19. **Runtime Diagnostic Probing of Forbidden Row Values (D2)**:
+    - *Claim*: Repair and diagnostic modules operate securely within tenant isolation boundaries.
+    - *Observed Reality*: Empirically verified in `server/src/structured/sql.repair.js:140-160`. `diagnoseEmptyResult` issues raw un-filtered queries against the database probing for alternative filter values. In runtime testing, it leaked forbidden values (`['Pune', 'Mumbai', 'Delhi']`).
+    - *Reference*: Verified in Step 3b Phase D2 (`validation/raw/v3_phase_d_evidence.json`).
+
+20. **Runtime Tool Export PII Egress (D3)**:
+    - *Claim*: API egress endpoints sanitize and scrub PII before transmission.
+    - *Observed Reality*: Empirically verified in `server/src/routes/tools.js`. `/api/tools/export` and `/api/tools/report` stream raw query results directly into CSV/XLSX/PDF files without invoking `redactEvidence()`, emitting unmasked customer names.
+    - *Reference*: Verified in Step 3b Phase D3 (`validation/raw/v3_phase_d_evidence.json`).
+
+21. **Low-Entropy Session ID & Unscoped Context Exposure (D4)**:
+    - *Claim*: Multi-tenant sessions and conversation context are securely isolated per user.
+    - *Observed Reality*: Empirically verified in `server/src/conversation/session.manager.js`. Session IDs have only 32 bits of entropy (`sess_` + 8 hex chars), and session context retrieval is unscoped by `userId` or role. User B supplying User A's session ID successfully reads User A's private query turn context.
+    - *Reference*: Verified in Step 3b Phase D4 (`validation/raw/v3_phase_d_evidence.json`).
+
+22. **Unfiltered Prompt Compilation Leaking Canaries & Denied Columns (D5)**:
+    - *Claim*: Schema and semantic context sent to LLM provider enforces zero-trust boundaries.
+    - *Observed Reality*: Empirically verified in `server/src/structured/sql.generator.js:48-56`. `buildPrompt` compiles unfiltered schema tables, column definitions, and min/max stats. Planted canary tokens (`CANARY_BAL_SECRET_77777`) were echoed directly into candidate SQL generation prompts.
+    - *Reference*: Verified in Step 3b Phase D5 (`validation/raw/v3_phase_d_evidence.json`).
+
+23. **Non-Deterministic Cartesian Join Tie-Breaks under Un-ordered LIMIT**:
+    - *Claim*: Benign queries produce identical ground truth row subsets between physical clone and CTE shadowing.
+    - *Observed Reality*: 11 benign Cartesian join queries (`JOIN ... ON 1=1 LIMIT 5`) in the expanded V3b corpus produced row discrepancies against purged clones due to arbitrary B-tree traversal ordering in SQLite when `ORDER BY` is omitted.
+    - *Reference*: Verified in Step 3b Phase C (`V3b_RESULTS.md`).
+
 ---
 
 # Skipped / NOT RUN (planned experiments not executed, with concrete reason)

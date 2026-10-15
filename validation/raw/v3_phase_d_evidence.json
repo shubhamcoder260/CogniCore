@@ -1,0 +1,251 @@
+{
+  "d1_preview_route": {
+    "description": "GET /api/datasets/:id/preview policy bypass",
+    "table_brs_preview": {
+      "columns": [
+        "br_id",
+        "br_nm",
+        "city"
+      ],
+      "rows": [
+        {
+          "br_id": 1,
+          "br_nm": "BR_01",
+          "city": "Bangalore"
+        },
+        {
+          "br_id": 2,
+          "br_nm": "BR_02",
+          "city": "Mumbai"
+        },
+        {
+          "br_id": 3,
+          "br_nm": "BR_03",
+          "city": "Pune"
+        },
+        {
+          "br_id": 4,
+          "br_nm": "BR_04",
+          "city": "Pune"
+        },
+        {
+          "br_id": 5,
+          "br_nm": "BR_05",
+          "city": "Delhi"
+        },
+        {
+          "br_id": 6,
+          "br_nm": "BR_06",
+          "city": "Mumbai"
+        }
+      ]
+    },
+    "table_accts_preview": {
+      "columns": [
+        "acct_id",
+        "holder_nm",
+        "br_id",
+        "acct_typ",
+        "status",
+        "bal",
+        "opn_yr"
+      ],
+      "rows": [
+        {
+          "acct_id": 1,
+          "holder_nm": "Khan, Priya",
+          "br_id": 2,
+          "acct_typ": "Current",
+          "status": "Frozen",
+          "bal": 346188,
+          "opn_yr": 2022
+        },
+        {
+          "acct_id": 2,
+          "holder_nm": "Rossi, Diego",
+          "br_id": 4,
+          "acct_typ": "Salary",
+          "status": "Active",
+          "bal": 333045,
+          "opn_yr": 2022
+        },
+        {
+          "acct_id": 3,
+          "holder_nm": "Haddad, Maya",
+          "br_id": 4,
+          "acct_typ": "Fixed Deposit",
+          "status": "Active",
+          "bal": -2181,
+          "opn_yr": 2020
+        },
+        {
+          "acct_id": 4,
+          "holder_nm": "Kim, Kiran",
+          "br_id": 6,
+          "acct_typ": "Savings",
+          "status": "Active",
+          "bal": 79087,
+          "opn_yr": 2020
+        },
+        {
+          "acct_id": 5,
+          "holder_nm": "Okafor, Tariq",
+          "br_id": 4,
+          "acct_typ": "Savings",
+          "status": "Active",
+          "bal": 293595,
+          "opn_yr": 2020
+        },
+        {
+          "acct_id": 6,
+          "holder_nm": "Tanaka, Diego",
+          "br_id": 3,
+          "acct_typ": "Salary",
+          "status": "Active",
+          "bal": 49023,
+          "opn_yr": 2024
+        },
+        {
+          "acct_id": 7,
+          "holder_nm": "Rossi, Tariq",
+          "br_id": 4,
+          "acct_typ": "Savings",
+          "status": "Active",
+          "bal": 359882,
+          "opn_yr": 2024
+        },
+        {
+          "acct_id": 8,
+          "holder_nm": "Weber, Tariq",
+          "br_id": 2,
+          "acct_typ": "Savings",
+          "status": "Dormant",
+          "bal": 100809,
+          "opn_yr": 2022
+        },
+        {
+          "acct_id": 9,
+          "holder_nm": "Khan, Hana",
+          "br_id": 3,
+          "acct_typ": "Savings",
+          "status": "Active",
+          "bal": 87628,
+          "opn_yr": 2021
+        },
+        {
+          "acct_id": 10,
+          "holder_nm": "Okafor, Ingrid",
+          "br_id": 5,
+          "acct_typ": "Current",
+          "status": "Frozen",
+          "bal": 389907,
+          "opn_yr": 2022
+        }
+      ]
+    },
+    "leaked_forbidden_rows": true,
+    "leaked_denied_columns": true,
+    "verdict": "CONFIRMED_VULNERABILITY"
+  },
+  "d2_diagnose_empty_result": {
+    "description": "diagnoseEmptyResult un-filtered database probing",
+    "trigger_sql": "SELECT * FROM brs WHERE city = 'Atlantis'",
+    "diagnostics_returned": {
+      "repairedSql": null,
+      "findings": [
+        {
+          "column": "city",
+          "literal": "Atlantis",
+          "type": "value_not_found",
+          "available": [
+            "Pune",
+            "Mumbai",
+            "Delhi",
+            "Bangalore"
+          ]
+        }
+      ]
+    },
+    "probed_raw_values": [
+      "Pune",
+      "Mumbai",
+      "Delhi",
+      "Bangalore"
+    ],
+    "leaked_forbidden_row_values": [
+      "Pune",
+      "Mumbai",
+      "Delhi"
+    ],
+    "verdict": "CONFIRMED_VULNERABILITY"
+  },
+  "d3_export_pii": {
+    "description": "Tool export / report PII egress redaction audit",
+    "raw_csv_export": "acct_id,holder_nm,city\n101,Alice Johnson,Bangalore\n102,Bob Smith,Mumbai",
+    "contains_unmasked_pii_names": true,
+    "viewer_redacted_evidence": {
+      "evidence": {
+        "source_type": "database",
+        "columns": [
+          "acct_id",
+          "holder_nm",
+          "city"
+        ],
+        "rows": [
+          {
+            "acct_id": 101,
+            "holder_nm": "Alice Johnson",
+            "city": "Bangalore"
+          },
+          {
+            "acct_id": 102,
+            "holder_nm": "Bob Smith",
+            "city": "Mumbai"
+          }
+        ],
+        "row_count": 2,
+        "sample_rows": []
+      },
+      "redacted": 0
+    },
+    "verdict": "CONFIRMED_VULNERABILITY (Export tools emit raw unredacted data)"
+  },
+  "d4_session_isolation": {
+    "description": "Session ID entropy and cross-user context isolation",
+    "session_id_format": "sess_65288228",
+    "session_id_length": 13,
+    "hex_entropy_bits": 32,
+    "user_b_retrieved_user_a_session": true,
+    "user_b_captured_user_a_context": "Assistant: Customer 101 password is P@ssw0rd999\nUser: SHOW ME SECRET CUSTOMER PASSWORDS FOR ACCT 101",
+    "cross_user_leak_confirmed": true,
+    "verdict": "CONFIRMED_VULNERABILITY (Unscoped session turns disclose data across users)"
+  },
+  "d5_prompt_leak": {
+    "description": "Candidate SQL generation prompt payload leak and canary echo test",
+    "prompt_length": 1913,
+    "denied_column_in_prompt": true,
+    "canary_in_prompt": true,
+    "canary_reached_response": true,
+    "sample_prompt_snippet": "You are a SQL generation engine for SQLite. You have NO knowledge of what domain this data represents - only use the schema given below.\n\nSCHEMA:\nTable \"brs\" [6 rows]: br_id (INTEGER), br_nm (TEXT), city (TEXT)\nTable \"accts\" [200 rows]: acct_id (INTEGER), holder_nm (TEXT), br_id (INTEGER), acct_typ (TEXT), status (TEXT), bal (REAL), opn_yr (INTEGER)\nTable \"txns\" [2519 rows]: txn_id (INTEGER), acct_id (INTEGER), txn_typ (TEXT), amt (REAL), txn_dt (TEXT)\nTable \"lns\" [38 rows]: ln_id (INTEGER), acc",
+    "verdict": "CONFIRMED_VULNERABILITY (Prompt compiles unfiltered column schema and semantic facts)"
+  },
+  "d6_other_channels": {
+    "description": "Error messages, traces, and profiling disclosure",
+    "error_message_reflection": "Your role does not have access to the column \"bal\".",
+    "echoes_denied_column_name": true,
+    "verdict": "VERIFIED (Error message echoes denied column name in 403 Forbidden)"
+  },
+  "d7_dialect_guard": {
+    "description": "MySQL fail-closed and PostgreSQL rewriting verification",
+    "mysql_result": {
+      "threw_policy_error": true,
+      "verbatim_error": "Row-level restrictions are not supported on MySQL connections; access denied to protect restricted rows."
+    },
+    "postgres_rewritten": "WITH \"brs\" AS (SELECT * FROM \"brs\" WHERE \"city\" = 'Bangalore') SELECT * FROM brs",
+    "sqlite_rewritten": "WITH \"brs\" AS (SELECT * FROM main.\"brs\" WHERE \"city\" = 'Bangalore') SELECT * FROM brs",
+    "postgres_omits_main_prefix": true,
+    "sqlite_includes_main_prefix": true,
+    "verbatim_main_prefix_row": "WITH \"brs\" AS (SELECT * FROM main.\"brs\" WHERE \"city\" = 'Bangalore') SELECT * FROM brs",
+    "verdict": "VERIFIED (MySQL fails closed; SQLite main. prefix confirmed as root cause of bypass)"
+  }
+}

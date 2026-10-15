@@ -125,3 +125,17 @@ This document records all methodological decisions, architectural invariants, an
 
 6. **Deterministic Multi-Column ORDER BY in Evaluation Corpus**:
    - In SQLite, executing queries with `LIMIT` without an explicit unique ordering produces non-deterministic row subsets depending on physical page order and B-tree traversal. To eliminate false-positive discrepancy reports between the baseline clone and the shadowed CTE queries, all queries featuring `LIMIT` in multi-row joins or subqueries include explicit multi-column `ORDER BY` clauses.
+
+---
+
+## Step 3b Decisions (V3/V4 Coverage Expansion, Runtime Verification, and Executable-Write Bound)
+
+1. **Reusable Database Clone Pooling for V3b**:
+   - To scale the expanded 1,430-item evaluation without disk I/O thrashing or file lock collisions on Windows, all 15 fixture databases are cloned and pre-purged (one per user/fixture policy pair) and column-dropped once before the run into `scratch/v3b_clones/`. Read-only connections (`{ readonly: true }`) are pooled and reused across queries, reducing total evaluation time to ~11 seconds across 2,860 total executions.
+
+2. **Cluster Bootstrap Resampling Strategy**:
+   - Because queries derived from the same base query or fixture exhibit intra-cluster correlation, variance and 95% confidence intervals for pooled leak rates are computed using cluster bootstrapping over 920 distinct base query clusters (1,000 resamples seeded by `MASTER_SEED`).
+
+3. **Verified Executable-Write Corpus Expansion (Corpus v4d)**:
+   - To establish a sub-0.5% upper bound on executable-write acceptance, Corpus v4d generated 640 diverse write statements across all 15 fixture databases (DML `INSERT/UPDATE/DELETE/REPLACE`, DDL `CREATE/DROP/ALTER`, and ATTACH/DETACH operations). Every item was independently verified using `better-sqlite3` on an isolated DB clone to confirm `db.prepare(sql)` succeeds and `stmt.readonly === false`. Gate acceptance was 0 / 640 (0.00%, exact 95% upper bound 0.47%). Pooled with Phase 0, overall write acceptance is 0 / 696 (0.00%, exact upper bound 0.43%).
+

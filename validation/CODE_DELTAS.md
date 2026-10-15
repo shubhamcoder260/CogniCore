@@ -154,3 +154,85 @@ In accordance with validation protocol rules, **NO CHANGES HAVE BEEN APPLIED** t
 - **Proposed Change**: Wrap diagnostic queries in `enforcePolicy` or restrict diagnostic sampling to the user's authorized CTE view.
 - **Rationale**: When a user query returns 0 rows, `diagnoseEmptyResult` probes the database with un-filtered queries, disclosing distinct data values across forbidden rows to low-privilege users.
 
+---
+
+## Step 3b Proposed Deltas (Runtime Non-SQL Verification Hardening)
+
+### Delta V3b-01: Scope Multi-Turn Conversation Context by (sessionId, userId)
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/conversation/session.manager.js:45-65`
+- **Current Code**:
+  ```javascript
+  getSession(sessionId) {
+    return this.sessions.get(sessionId);
+  }
+  ```
+- **Proposed Change**:
+  ```javascript
+  getSession(sessionId, userId) {
+    const session = this.sessions.get(sessionId);
+    if (!session || session.userId !== userId) {
+      return null;
+    }
+    return session;
+  }
+  ```
+- **Rationale**: Phase D runtime verification confirmed that supplying an existing `sessionId` belonging to another user retrieves that user's private query turn context across role boundaries. Session retrieval must enforce strict ownership checks.
+
+---
+
+### Delta V3b-02: Cryptographically Secure 128-Bit Session Identifier Entropy
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/conversation/session.manager.js:18-22`
+- **Current Code**:
+  ```javascript
+  generateSessionId() {
+    return 'sess_' + Math.random().toString(16).substring(2, 10);
+  }
+  ```
+- **Proposed Change**:
+  ```javascript
+  const { randomUUID } = require('crypto');
+  generateSessionId() {
+    return 'sess_' + randomUUID();
+  }
+  ```
+- **Rationale**: Currently generated session IDs offer only 32 bits of entropy ($16^8 \approx 4.29 \times 10^9$ possibilities), making them vulnerable to brute-force session enumeration in multi-user deployments. Using standard UUID v4 provides 122 bits of cryptographically secure entropy.
+
+---
+
+### Delta V3b-03: Filter Column Definitions and Canary Values from Candidate SQL Generator
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/structured/sql.generator.js:48-75`
+- **Current Code**: Dumps complete `schema.tables` and column profiling statistics into the system prompt.
+- **Proposed Change**: Strip denied columns and un-authorized table metadata prior to building prompt messages. Replace denied columns with masked placeholders or remove them entirely from table schemas passed to the LLM.
+- **Rationale**: Phase D empirical testing demonstrated that secret canary values (`CANARY_BAL_SECRET_77777`) embedded in semantic metadata and denied column names were echoed directly into LLM prompts and candidate SQL responses.
+
+---
+
+### Delta V3b-04: Enforce Policy Wrapper on Dataset Preview Route
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/routes/datasets.js:33-40`
+- **Current Code**:
+  ```javascript
+  const preview = await adapter.preview(limit);
+  res.json({ preview });
+  ```
+- **Proposed Change**:
+  ```javascript
+  const preview = await adapter.preview(limit);
+  const sanitized = redactEvidence(preview, req.user);
+  res.json({ preview: sanitized });
+  ```
+- **Rationale**: `GET /api/datasets/:id/preview` executes raw `adapter.preview()` without policy enforcement, leaking unauthorized rows and denied columns to viewer roles.
+
+---
+
+### Delta V3b-05: Redact PII in Export and Reporting Serializers
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/routes/tools.js:80-120`
+- **Current Code**: Emits raw query results directly into CSV, XLSX, and PDF serializers.
+- **Proposed Change**: Pipe query results through `redactEvidence(rows, req.user)` before streaming into export formatters.
+- **Rationale**: Phase D verified that customer PII (e.g., `'Rajesh Sharma'`) is streamed directly into export files for low-privilege roles without scrubbing.
+
+

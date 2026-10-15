@@ -83,6 +83,42 @@ git diff v4b-corpus-v1 -- validation/data/v4b
    node validation/analysis_v3.js
    ```
 
+### Step 3b (V3b & V4d Evidence Gap Closure, Runtime Audit, and Executable-Write Expansion) Commands
+1. **Reproduce V3 Log Differences & First-Run Definitions**:
+   ```bash
+   node validation/experiments/reproduce_v3_log.js
+   ```
+2. **Execute Coverage Audit**:
+   ```bash
+   node validation/experiments/coverage_audit.js
+   ```
+3. **Generate Deterministic V3b Corpus** (1,430 items across 15 fixtures, tagged `v3b-corpus-v1`):
+   ```bash
+   node validation/experiments/v3b_build_corpus.js
+   ```
+4. **Execute V3b Expanded Data Isolation Suite** (runs E1 End-to-End and E2 Policy-Alone on 1,430 items):
+   ```bash
+   node validation/experiments/run_v3b_evaluation.js
+   ```
+5. **Execute Phase D Runtime Verification of Non-SQL Surfaces** (tests live D1-D7 endpoints and handlers):
+   ```bash
+   node validation/experiments/run_phase_d_verification.js
+   ```
+6. **Generate V3b Analysis & Report** (`V3b_RESULTS.md`):
+   ```bash
+   node validation/analysis_v3b.js
+   ```
+7. **Generate Deterministic V4d Corpus & Execute Gate** (640 verified write items, tagged `v4d-corpus-v1`):
+   ```bash
+   node validation/experiments/v4d_build_corpus.js
+   node validation/experiments/v4d_run_gate.js
+   node validation/analysis_v4d.js
+   ```
+8. **Print Phase 0 Reconciled Ledger Table**:
+   ```bash
+   node validation/experiments/print_phase0_table.js
+   ```
+
 ---
 
 ## 2. Directory & File Index
