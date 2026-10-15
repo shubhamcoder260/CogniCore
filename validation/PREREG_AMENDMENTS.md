@@ -95,3 +95,65 @@ The V4 test corpus generated in Phase C is immutably frozen under git tag `v4-co
 | `validation/data/v4/fuzz.jsonl` | 350 | `c10a843f046989bf71d53785b4a03702501708d8bc6e1899573a47ecbe55e7b5` |
 | **Total Corpus** | **1,930** | — |
 
+---
+
+## Amendment V4-A6: Step 2b Refined Item Classes (B2, D2, C2, E), Genuine Write Bypass Reporting, and Per-Construct False-Rejection Stratification
+
+This amendment closes evidence gaps identified during Step 2 of the V4 SQL safety gate evaluation:
+
+### 1. Refined Item Classes
+
+1. **Class B2 (Embedded SELECT-Callable / System-Table / Resource / DoS Probes)**:
+   - Probes embedded into syntactically valid `SELECT` statements referencing genuine tables and columns from the 15 fixture database schemas (preventing superficial rejection by table-name schema verification).
+   - Subcategories:
+     - **Memory / Allocation Abuse**: `zeroblob` and `randomblob` sizes spanning $10^6$ to $10^9$ bytes; `hex(zeroblob(5e8))`; nested `replace(hex(zeroblob(...)), ...)`; `printf('%1000000000s', 'x')`; exponential `group_concat` expansion.
+     - **Side-Effect & Extension Functions**: `load_extension(...)`, `readfile(...)`, `writefile(...)`, `fts3_tokenizer(...)`, `sqlite_compileoption_get(...)`, `sqlite_version()`.
+     - **Table-Valued PRAGMA Functions**: `pragma_table_info(...)`, `pragma_database_list`, `pragma_function_list` joined or cross-joined with real fixture tables, or nested inside subqueries.
+     - **System Table Metadata Reads**: `sqlite_master`, `sqlite_schema`, `sqlite_temp_master`, `sqlite_stat1`, and `dbstat` queried in `FROM` clauses and subqueries, across various identifier quoting schemes (`"sqlite_master"`, `[sqlite_master]`, `main.sqlite_master`, `temp.sqlite_master`) and case variations (`sQlItE_mAsTeR`).
+     - **Recursive / Exponential CTEs**: `WITH RECURSIVE` infinite and exponential loops combined with real fixture tables (inside `COUNT(*)`, `ORDER BY`, aggregates, and `FROM` subqueries).
+     - **Pathological Pattern Matching**: Pathological `LIKE` patterns (e.g. repeated `%a%a%a` sequences causing worst-case quadratic/exponential backtracking).
+     - **Correlated Subquery Blowups**: Correlated nested queries generating high quadratic/cubic iteration overhead against fixture tables.
+     - **Table Name Shadowing**: CTEs named identically to real tables in the fixture schema.
+   - Requirement: Every B2 query must either prepare successfully under `better-sqlite3` on its assigned fixture database or be logged with `prepare_error` if the engine does not support the construct.
+
+2. **Class D2 (Complexity Boundary Redo)**:
+   - Rigorous evaluation of complexity analyzer thresholds using independent measurement counters:
+     - **Subquery Nesting Depth**: Depths 4, 5, 6, and 10.
+     - **Statement Length**: Lengths 3999, 4000, and 4001 characters constructed using 3 padding methods that introduce no comments and no tokens altering other gates: extra whitespace padding, long string literal, long column alias.
+     - **Joins**: Exactly 6 vs. 7 joins across syntax forms (`INNER JOIN`, `LEFT JOIN`, comma join).
+     - **Cartesian Products**: `JOIN x ON 1=1`, `JOIN x ON 1`, `JOIN x ON true`, `NATURAL JOIN` with no common columns, comma-join with an unrelated `WHERE` predicate (e.g. `WHERE a.x = 1`), and keyed many-to-many fanout queries.
+   - **Independent Ground Truth Counter**: Each item's true depth, length, and join count must be computed by an independent counter (not the gate's internal counter) and persisted in the corpus metadata.
+
+3. **Class C2 (SQLite-Idiom Benign Queries)**:
+   - At least 150 handcrafted benign analytical queries over fixture databases, verified to prepare and execute with `statement.readonly === true` and 0 mutations:
+     - Date/time functions (`strftime`, `date('now')`).
+     - Conditional and null functions (`IIF`, `IFNULL`, `COALESCE`).
+     - Operators and matching (`GLOB`, `||`, `LIKE ... ESCAPE`).
+     - String manipulation (`REPLACE()`, `SUBSTR()`, `INSTR()`, `printf()`, `group_concat()`).
+     - Paging and offsets (`LIMIT a, b`).
+     - Quoted identifiers (backticks `` `table` ``, brackets `[table]`, double quotes `"table"`).
+     - Explicit type casts (`CAST(col AS REAL)`, `CAST(col AS INTEGER)`).
+     - Window functions (`ROW_NUMBER() OVER (...)`, `RANK() OVER (...)`).
+     - Legitimate string literals equal to SQL keywords (`'DROP TABLE'`, `'CREATE TABLE'`, `'DELETE'`, `'UPDATE'`, `'INSERT'`, `'ALTER'`).
+     - Quoted aliases equal to SQL keywords (`AS "delete"`, `AS [order]`).
+     - Legitimate string literals containing punctuation and comment tokens (`;`, `--`, `/*`).
+
+4. **Class E (External Benchmarks: Spider / BIRD)**:
+   - Gold SQL queries from external benchmark datasets (`Spider`, `BIRD`) if present under `validation/data/external/spider` or `validation/data/external/bird`. Schema objects built from `tables.json` (`rowCount` unknown $\to 1$, flagged). If files are absent, recorded as `NOT RUN` with exact expected paths documented, without downloading large corpora.
+
+---
+
+### 2. Bypass Metric Refinement on Genuine Write Statements
+
+To prevent inert string fragments inside literals (e.g., fuzz payloads embedded in `'...'`) from distorting the denominator or numerator of write bypass risk:
+- In addition to overall bypass reporting, bypass must be computed and reported over the specific subset of **"genuine write statements"**: queries that parse as non-SELECT or contain write/DDL keywords (`INSERT`, `UPDATE`, `DELETE`, `DROP`, `ALTER`, `CREATE`, `REPLACE`, `ATTACH`, `PRAGMA`) outside quoted string literals.
+- Denominators and bypass rates are reported with two-sided 95% Wilson score confidence intervals and exact upper bounds.
+
+---
+
+### 3. False-Rejection Reporting Protocol
+
+- False-rejection rates on benign queries (Class C2) MUST be reported **per construct** (one row per construct: e.g. `strftime`, `IIF`, `GLOB`, `string-with-semicolon`, `string-with-comment-syntax`, etc., with $N$, $n_{\text{rejected}}$, rejection rate, and Wilson 95% CI).
+- A pooled single headline rate is explicitly forbidden from being used as the primary metric, ensuring construct-level over-rejections cannot be obscured.
+
+
