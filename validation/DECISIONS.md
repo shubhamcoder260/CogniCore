@@ -99,3 +99,26 @@ This document records all methodological decisions, architectural invariants, an
 
 
 
+
+
+---
+
+## Step 3 Decisions (V3: RLS, Column Denial, Non-SQL Leak Channels, and Phase 0 Reconciliations)
+
+1. **Phase 0 V4 Loose Ends Reconciliation**:
+   - Reconciled the draft 250-item / 113-accepted placeholder: verified from raw JSONL logs that `v4_gate.jsonl` contains 23 Class B items (0 accepted) and `v4b_gate.jsonl` contains 352 Class B2 items (224 accepted). Class C (220 items, 200 accepted) is formally included in the ledger. Total pooled items across all frozen corpora: 2,803 items / 1,107 accepted.
+   - Independent Driver-Level Classification: Evaluated across all 2,803 frozen corpus items on an isolated database clone. 2,096 items were `not_executable` (prepare errors), 651 were `executable_readonly` (`statement.readonly === true`), and 56 were `executable_write` (`statement.readonly === false`). Across all 56 genuine executable write statements, gate acceptance was **0 / 56 (0.00%)**, yielding an exact 95% Clopper-Pearson upper bound of **5.21%** (Rule of Three: **5.36%**).
+   - Real Executor Wrapper Proof: Proved that `server/src/structured/sql.executor.js` wraps SQL in `SELECT * FROM (...) AS __cognicore_capped LIMIT 1000`. This explains why direct `db.exec(sql)` produces 33 mutations whereas the real executor wrapper produces 26 mutations (due to SQLite subquery compilation errors on DDL/DML statements).
+   - Filesystem Coordination File Exclusion: The filesystem mutation oracle explicitly excludes SQLite internal coordination files (`-wal`, `-shm`, `-journal`) when evaluating database and filesystem mutations, confirming that `VACUUM INTO` creates an exfiltrated file under Config 3 (`readonly: true` alone) but is blocked under Config 4 (`readonly: true` + `query_only = ON`).
+
+2. **In-Process Stub LLM Provider**:
+   - In accordance with the zero-LLM-call invariant, all end-to-end pipeline evaluations use an in-process stub `llmProvider` that records 100% of incoming prompt text and returns harness-supplied SQL or text responses. No external network requests or LLM API calls are permitted.
+
+3. **Multiset Row Oracle Comparison**:
+   - Ground truth row filter verification compares multiset equality between CogniCore's returned rows and the physically purged database clone (`DELETE FROM t WHERE NOT COALESCE((filter), 0)`). Floating-point comparisons enforce relative tolerance $\epsilon = 10^{-9}$.
+
+4. **Column Denial Physical Verification**:
+   - To verify column denial independently of the parser, the harness utilizes a Column Drop Oracle: dropping the denied column (`ALTER TABLE t DROP COLUMN c`) on an isolated copy of the fixture schema. Any query whose result or execution depends on $c$ fails or changes output, confirming functional dependence.
+
+5. **Stratification: End-to-End vs Policy-Alone**:
+   - Queries are evaluated both end-to-end through the complete CogniCore stack and directly against `enforcePolicy` on a read-only SQLite connection. This decouples upstream gate rejections from underlying policy rewriter defects (such as `main.table` CTE shadowing circumvention).

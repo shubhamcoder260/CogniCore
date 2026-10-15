@@ -207,7 +207,50 @@ The resource-exhaustion and DoS evaluation corpus generated in Step 2c is immuta
 |---|---|---|
 | `validation/data/v4c/dos_items.jsonl` | 29 | `7c9414b980105ac6b145a8a886c1c41ee8a742cd786c7fa91f23fc55e0005c1f` |
 | **Total V4c Corpus** | **29** | — |
+---
 
+## Amendment V3-A1: Evaluation Protocol for V3 (Row-Level Security, Column Denial, and Non-SQL Leak Channels)
 
+This amendment establishes the formal evaluation protocol, definitions, and pass/fail criteria for Step 3 (V3: Row-Level Security, Column Denial, and Non-SQL Leak Channels).
 
+### 1. Formal Definitions
 
+1. **Row Leak (Multiset Excess Rows)**:
+   - Let $Q$ be an analytical query executed on behalf of user $u$ with effective data policy $\pi(u) = (\mathcal{D}, \mathcal{R})$, where $\mathcal{D}$ is the set of denied columns and $\mathcal{R}$ is the set of row filter predicates.
+   - **Ground Truth Row Oracle ($R_{\text{oracle}}$)**: Evaluated by physically deleting all disallowed rows on an isolated copy of the fixture database:
+     $$\text{DELETE FROM } t \text{ WHERE NOT COALESCE}((\text{predicate}), 0)$$
+     with `PRAGMA foreign_keys = OFF`, and executing the original query $Q$ directly against the purged database.
+   - **Actual Result ($R_{\text{actual}}$)**: The multiset of rows returned by CogniCore (either end-to-end or via the policy layer).
+   - **Row Leak Event**:
+     $$\text{Row Leak} \iff R_{\text{actual}} \not\subseteq R_{\text{oracle}} \lor |R_{\text{actual}}| > |R_{\text{oracle}}|$$
+     where multiset containment and row equality are evaluated with floating-point values compared within relative tolerance $\epsilon = 10^{-9}$.
+
+2. **Column Leak (Dependence on Denied Columns)**:
+   - Let $\mathcal{D}$ be the set of denied columns for user $u$.
+   - **Column Leak Event**: A query or execution path leaks a denied column if and only if:
+     1. **Structural Inclusion**: The returned result table includes any column name $c \in \mathcal{D}$.
+     2. **Functional Dependence**: The query result or execution outcome depends on data stored in $c \in \mathcal{D}$. Verified via the **Column Drop Oracle**: on an isolated database copy where column $c$ is physically removed (`ALTER TABLE t DROP COLUMN c`), executing $Q$ produces a syntax/prepare error, an altered result set, or SQLite driver metadata (`sqlite3_column_origin_name`) traces output to $c$.
+     3. **Metadata / Introspection Disclosure**: Denied column names, SQL types, or aggregated statistics (`min`, `max`, `avg`, `distinct`) appear in user-facing API responses or metadata endpoints.
+
+### 2. Pass / Fail Criteria (Hard Invariants)
+
+1. **Zero Leaked Rows**:
+   - Number of queries where $R_{\text{actual}}$ contains any row forbidden by the active row filter must be **EXACTLY 0** across all evaluated fixtures and user profiles.
+2. **Zero Leaked Columns**:
+   - Number of queries where any denied column is accessed, returned, or functionally depended upon must be **EXACTLY 0**.
+
+Any observed leak constitutes a policy gate violation and must be cataloged with its exact mechanism and exploit vector.
+
+### 3. Stratification: End-to-End vs. Policy-Alone Reporting
+
+To decouple the performance of the upstream SQL safety gate (`validateSql`) from the data policy engine (`enforcePolicy`), results are evaluated and reported across two distinct strata:
+1. **End-to-End Pipeline**: Full execution chain (`prepareSql` $\rightarrow$ `validateSql` $\rightarrow$ `enforcePolicy` $\rightarrow$ `executeValidatedQuery`). Evaluates whether CogniCore as a whole prevents data leakage under realistic client workflows.
+2. **Policy-Alone Layer**: Direct evaluation of `enforcePolicy` followed by read-only SQLite execution, bypassing the AST safety gate. This isolates internal vulnerabilities within the policy rewriter itself (e.g. `main.table` CTE shadowing circumvention, CTE name collisions, complex alias interactions).
+
+### 4. Non-SQL Leak Channels
+
+Evaluation must explicitly test and report outcomes across all non-SQL information disclosure surfaces:
+- **LLM Prompt Payloads**: Captured by an in-process stub LLM provider to detect transmission of denied column schemas or sample values.
+- **Empty-Result Probing**: Probing queries generated during empty result diagnosis.
+- **Preview & Metadata Routes**: Data returned by `/api/datasets/:id/preview`, `/api/datasets/:id`, `/api/schema/:datasetId`, and `/api/analytics/:datasetId/tool/profile`.
+- **Egress PII & Exports**: Export file contents (`/api/tools/export`, `/api/tools/report`) for unmasked sensitive fields.

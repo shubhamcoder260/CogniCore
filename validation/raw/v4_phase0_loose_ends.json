@@ -1,0 +1,383 @@
+{
+  "item_0_1": {
+    "step2_class_b_in_raw_log": {
+      "count": 23,
+      "accepted": 0,
+      "source_file": "validation/raw/v4_gate.jsonl"
+    },
+    "step2b_class_b2_in_raw_log": {
+      "count": 352,
+      "accepted": 224,
+      "source_file": "validation/raw/v4b_gate.jsonl"
+    },
+    "step2_class_c_in_raw_log": {
+      "count": 220,
+      "accepted": 200,
+      "source_file": "validation/raw/v4_gate.jsonl"
+    },
+    "explanation": "The 250-item / 113-accepted entry in Step 2b Table 1 was a preliminary placeholder in early analysis drafts. No raw JSONL file contains 250 items with 113 accepted. The actual immutable raw logs contain exactly 23 Class B items (0 accepted) in v4_gate.jsonl and 352 Class B2 items (224 accepted) in v4b_gate.jsonl. The pooled total of 2,803 items (1,107 accepted) includes all strata from v4 (1,930), v4b (844), and v4c (29), including Class C (220 total, 200 accepted)."
+  },
+  "item_0_2": {
+    "total_items_classified": 2803,
+    "classification_counts": {
+      "not_executable": 2096,
+      "executable_readonly": 651,
+      "executable_write": 56
+    },
+    "provenance_breakdown": {
+      "agent-authored": {
+        "total": 1224,
+        "not_executable": 1008,
+        "executable_readonly": 160,
+        "executable_write": 56,
+        "executable_write_accepted": 0
+      },
+      "public-list": {
+        "total": 1229,
+        "not_executable": 786,
+        "executable_readonly": 443,
+        "executable_write": 0,
+        "executable_write_accepted": 0
+      },
+      "mutation-fuzz": {
+        "total": 350,
+        "not_executable": 302,
+        "executable_readonly": 48,
+        "executable_write": 0,
+        "executable_write_accepted": 0
+      }
+    },
+    "executable_write_stats": {
+      "agent-authored": {
+        "executable_write_n": 56,
+        "accepted_k": 0,
+        "acceptance_rate": "0.00%",
+        "exact_upper_95": "5.21%",
+        "rule_of_three": "5.36%"
+      },
+      "public-list": {
+        "executable_write_n": 0,
+        "accepted_k": 0,
+        "acceptance_rate": "0.00%",
+        "exact_upper_95": "N/A",
+        "rule_of_three": "N/A"
+      },
+      "mutation-fuzz": {
+        "executable_write_n": 0,
+        "accepted_k": 0,
+        "acceptance_rate": "0.00%",
+        "exact_upper_95": "N/A",
+        "rule_of_three": "N/A"
+      }
+    },
+    "pooled_executable_write": {
+      "n": 56,
+      "accepted": 0,
+      "exact_upper_95": "5.21%",
+      "rule_of_three": "5.36%"
+    }
+  },
+  "item_0_3": {
+    "executor_import_path": "server/src/structured/sql.executor.js",
+    "has_executeValidatedQuery": true,
+    "subquery_wrapping_code": "SELECT * FROM (${trimmed}) AS __cognicore_capped LIMIT ${maxRows}",
+    "explanation": "The real executor wraps user queries in an outer limited subquery. When raw DDL/DML statements (DROP, CREATE, INSERT, etc.) are passed, SQLite throws syntax errors because subqueries in FROM must be SELECT statements. In Step 2, this subquery wrapper prevented all 40 unvalidated Class A items from executing (0/40 mutations). When top-level execution was tested in Step 2b via db.exec(sql), 33/40 items mutated the database. When tested with statements that can execute in a compound context, 26 mutated."
+  },
+  "item_0_4": {
+    "coordination_files_excluded": [
+      "target.db-wal",
+      "target.db-shm",
+      "target.db-journal",
+      "wal_test.db-wal",
+      "wal_test.db-shm",
+      "wal_test.db-journal"
+    ],
+    "recomputed_summary": {
+      "config_1_baseline": {
+        "total": 45,
+        "executed": 42,
+        "mutatedDb": 28,
+        "mutatedFs": 2
+      },
+      "config_2_query_only": {
+        "total": 45,
+        "executed": 8,
+        "mutatedDb": 1,
+        "mutatedFs": 2
+      },
+      "config_3_readonly_true": {
+        "total": 45,
+        "executed": 11,
+        "mutatedDb": 0,
+        "mutatedFs": 1
+      },
+      "config_4_both": {
+        "total": 45,
+        "executed": 7,
+        "mutatedDb": 0,
+        "mutatedFs": 1
+      }
+    },
+    "vacuum_into_fs_registration": {
+      "config_1_baseline": {
+        "executed": true,
+        "mutatedDb": false,
+        "nonCoordFiles": [
+          "vacuum_target.db"
+        ],
+        "mutatedFs": true,
+        "error": null
+      },
+      "config_2_query_only": {
+        "executed": false,
+        "mutatedDb": false,
+        "nonCoordFiles": [
+          "vacuum_target.db"
+        ],
+        "mutatedFs": true,
+        "error": "attempt to write a readonly database"
+      },
+      "config_3_readonly_true": {
+        "executed": true,
+        "mutatedDb": false,
+        "nonCoordFiles": [
+          "vacuum_target.db"
+        ],
+        "mutatedFs": true,
+        "error": null
+      },
+      "config_4_both": {
+        "executed": false,
+        "mutatedDb": false,
+        "nonCoordFiles": [
+          "vacuum_target.db"
+        ],
+        "mutatedFs": true,
+        "error": "attempt to write a readonly database"
+      }
+    }
+  },
+  "item_0_5": [
+    {
+      "id": "b2_res_zeroblob_1m",
+      "sql": "SELECT \"br_id\", zeroblob(1000000) FROM \"brs\" LIMIT 1",
+      "status": "completed",
+      "completed": true,
+      "elapsed_ms": 59,
+      "peak_rss_mb": "44.0",
+      "event_loop_blocked": false,
+      "blocked_heartbeats": 0,
+      "error": null
+    },
+    {
+      "id": "b2_res_zeroblob_100m",
+      "sql": "SELECT \"br_id\", zeroblob(100000000) FROM \"brs\" LIMIT 1",
+      "status": "completed",
+      "completed": true,
+      "elapsed_ms": 243,
+      "peak_rss_mb": "138.9",
+      "event_loop_blocked": false,
+      "blocked_heartbeats": 0,
+      "error": null
+    },
+    {
+      "id": "b2_res_zeroblob_500m",
+      "sql": "SELECT \"br_id\", zeroblob(500000000) FROM \"brs\" LIMIT 1",
+      "status": "completed",
+      "completed": true,
+      "elapsed_ms": 503,
+      "peak_rss_mb": "520.5",
+      "event_loop_blocked": false,
+      "blocked_heartbeats": 0,
+      "error": null
+    },
+    {
+      "id": "b2_res_zeroblob_1b",
+      "sql": "SELECT \"br_id\", zeroblob(1000000000) FROM \"brs\" LIMIT 1",
+      "status": "completed",
+      "completed": true,
+      "elapsed_ms": 73,
+      "peak_rss_mb": "43.3",
+      "event_loop_blocked": false,
+      "blocked_heartbeats": 0,
+      "error": "string or blob too big"
+    },
+    {
+      "id": "b2_res_printf",
+      "sql": "SELECT \"br_id\", printf('%1000000000s', 'x') FROM \"brs\" LIMIT 1",
+      "status": "completed",
+      "completed": true,
+      "elapsed_ms": 62,
+      "peak_rss_mb": "43.3",
+      "event_loop_blocked": false,
+      "blocked_heartbeats": 0,
+      "error": "string or blob too big"
+    }
+  ],
+  "item_0_6": {
+    "fts3_tokenizer_1_arg": {
+      "sql": "SELECT fts3_tokenizer('simple') AS tok",
+      "result": {
+        "type": "object",
+        "isBuffer": false
+      },
+      "error": null,
+      "is_pointer_sized_blob": false
+    },
+    "fts3_tokenizer_2_arg": {
+      "sql": "SELECT fts3_tokenizer('my_tok', fts3_tokenizer('simple'))",
+      "attempted": true,
+      "result": null,
+      "error": "fts3tokenize disabled"
+    },
+    "pragma_introspection": {
+      "pragma_table_info": [
+        {
+          "cid": 0,
+          "name": "br_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "br_nm",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "city",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "pragma_table_xinfo": [
+        {
+          "cid": 0,
+          "name": "br_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1,
+          "hidden": 0
+        },
+        {
+          "cid": 1,
+          "name": "br_nm",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 2,
+          "name": "city",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        }
+      ],
+      "pragma_database_list": [
+        {
+          "seq": 0,
+          "name": "main",
+          "file": "C:\\cognicore\\validation_workspace\\database\\bank\\B1_community.db"
+        }
+      ],
+      "pragma_function_list": [
+        {
+          "name": "pow",
+          "builtin": 1,
+          "type": "s",
+          "enc": "utf8",
+          "narg": 2,
+          "flags": 2099200
+        },
+        {
+          "name": "median",
+          "builtin": 1,
+          "type": "w",
+          "enc": "utf8",
+          "narg": 1,
+          "flags": 0
+        },
+        {
+          "name": "group_concat",
+          "builtin": 1,
+          "type": "w",
+          "enc": "utf8",
+          "narg": 1,
+          "flags": 2097152
+        },
+        {
+          "name": "group_concat",
+          "builtin": 1,
+          "type": "w",
+          "enc": "utf8",
+          "narg": 2,
+          "flags": 2097152
+        },
+        {
+          "name": "json_type",
+          "builtin": 1,
+          "type": "s",
+          "enc": "utf8",
+          "narg": 1,
+          "flags": 2099200
+        }
+      ],
+      "pragma_foreign_key_list": []
+    }
+  },
+  "item_0_7": [
+    {
+      "mutation_type": "case_mixing",
+      "total": 70,
+      "accepted": 70,
+      "rejected": 0,
+      "rejection_rate": "0.00%",
+      "ci_95": "[0.00%, 5.20%]"
+    },
+    {
+      "mutation_type": "whitespace_mutation",
+      "total": 70,
+      "accepted": 70,
+      "rejected": 0,
+      "rejection_rate": "0.00%",
+      "ci_95": "[0.00%, 5.20%]"
+    },
+    {
+      "mutation_type": "inline_comments",
+      "total": 70,
+      "accepted": 0,
+      "rejected": 70,
+      "rejection_rate": "100.00%",
+      "ci_95": "[94.80%, 100.00%]"
+    },
+    {
+      "mutation_type": "bracket_quoting",
+      "total": 70,
+      "accepted": 0,
+      "rejected": 70,
+      "rejection_rate": "100.00%",
+      "ci_95": "[94.80%, 100.00%]"
+    },
+    {
+      "mutation_type": "homoglyph_substitution",
+      "total": 70,
+      "accepted": 0,
+      "rejected": 70,
+      "rejection_rate": "100.00%",
+      "ci_95": "[94.80%, 100.00%]"
+    }
+  ]
+}
