@@ -7,3 +7,4 @@ require('./jsonl.test.js');
 require('./v4_oracles.test.js');
 require('./dos_controls.test.js');
 require('./v3_oracles.test.js');
+require('./v12_v15_controls.test.js');

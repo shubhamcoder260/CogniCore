@@ -169,4 +169,29 @@ This document records all methodological decisions, architectural invariants, an
    - Defined blocked event-loop threshold as `gap > 1000 ms` (missed 10 heartbeats on a 100ms interval).
    - Maximum event-loop gap on B2 resource queries was 695ms on `printf_expansion` (0 blocked), whereas v4c DoS queries registered gaps up to 15,235ms (16 blocked).
 
+---
+
+## Step 4 Decisions (V12 File Validator, V13 Input Guard, V14 Authn/Authz, V15 PII Redaction)
+
+1. **Module V12 (File Validator) Evaluation Protocols**:
+   - Magic signature verification evaluated strictly at buffer offset 0 vs post-BOM and post-whitespace offsets.
+   - Independent central directory zip parser built into harness to verify declared vs actual uncompressed entry sizes and compression ratios.
+   - Sandbox directory write containment verified for all accepted uploads via filesystem snapshots, ensuring sanitized filenames remain strictly within the target upload directory.
+
+2. **Module V13 (Input Guard & Rate Limiter) Evaluation Protocols**:
+   - Prompt length boundary verified against UTF-16 code units (enforced by `q.length > 4000` at `server/src/guardrails/input.guard.js:35`).
+   - Sourced external test split from `deepset/prompt-injections` (116 items) directly from Hugging Face hub with verified SHA-256 hash.
+   - Sliding window rate limiter evaluated under real local HTTP loop and mock timers; memory scaling tested across 100,000 unique keys.
+
+3. **Module V14 (Authentication & Authorization) Route Sweep Protocols**:
+   - Comprehensive route sweep executed across all 63 routes and 15 router modules discovered in `server/src/api/routes/`.
+   - Since `validation/data/rbac/expected.csv` is absent, emitted `expected_TEMPLATE.csv` with blank `expected_allow` column and formally marked RBAC matrix check as **NOT RUN**.
+   - Swept IDOR vectors on dataset access, conversational sessions, trace audit logs, and file downloads.
+
+4. **Module V15 (PII Redaction) Evaluation Protocols**:
+   - Evaluated redaction performance across all 5 roles (`viewer`, `employee`, `analyst`, `manager`, `admin`) and all 9 API/system egress channels.
+   - Evaluated precision against 120 benign numerical identifiers (order IDs, 16-digit tracking codes, dates, currencies) to detect false masking.
+   - Documented out-of-scope identifier formats (Aadhaar, PAN, person names) and unmasked export channels (CSV/XLSX/PDF) as verified architectural scope gaps.
+
+
 

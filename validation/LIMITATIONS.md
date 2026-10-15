@@ -121,6 +121,41 @@ This document tracks all hypotheses that did not hold, planned experiments that 
     - *Observed Reality*: 11 benign Cartesian join queries (`JOIN ... ON 1=1 LIMIT 5`) in the expanded V3b corpus produced row discrepancies against purged clones due to arbitrary B-tree traversal ordering in SQLite when `ORDER BY` is omitted.
     - *Reference*: Verified in Step 3b Phase C (`V3b_RESULTS.md`).
 
+24. **File Validator Magic Signature Verification at Offset 0 Only**:
+    - *Claim*: File validator checks file type signatures to reject disguised executables and malicious payloads.
+    - *Observed Reality*: `server/src/ingestion/file.validator.js:14-22` inspects magic bytes strictly starting at buffer offset 0. Any file prefixed with BOM, whitespace, or comments bypasses signature checks. Furthermore, plain text files lacking NUL bytes pass `looksLikeText`, permitting executable shell scripts (`#!/bin/bash`), PHP scripts (`<?php`), or EICAR strings to be accepted under `.csv` or `.json` extensions.
+    - *Reference*: Verified in Step 4 Phase B (`V12_RESULTS.md`).
+
+25. **Input Guard Character Count vs UTF-16 Code Units**:
+    - *Claim*: Input guard enforces a hard 4,000 character length ceiling on incoming prompts.
+    - *Observed Reality*: `server/src/guardrails/input.guard.js:35` checks `q.length > 4000`. JavaScript `String.prototype.length` evaluates UTF-16 code units rather than Unicode characters. 4-byte astral emojis count as 2 units, reducing the true character boundary to 2,000 characters for emoji-dense prompts.
+    - *Reference*: Verified in Step 4 Phase C (`V13_RESULTS.md`).
+
+26. **Rate Limiter Memory Growth and O(N) Cleanup Scan**:
+    - *Claim*: Sliding window rate limiter bounds abuse without performance degradation.
+    - *Observed Reality*: `server/src/guardrails/rate.limit.js:19-25` maintains an in-memory `Map` of rate limit buckets per Node process. When `buckets.size > 5000`, the handler iterates synchronously through all entries on *every* incoming request, introducing an $O(N)$ event-loop delay under high-cardinality IP/user floods.
+    - *Reference*: Verified in Step 4 Phase C (`V13_RESULTS.md`).
+
+27. **Session IDOR via Arbitrary Client Session ID**:
+    - *Claim*: Multi-tenant sessions and conversation context are securely isolated per user.
+    - *Observed Reality*: `server/src/core/session.manager.js:8-14` allows a client to supply an arbitrary `sessionId` in `POST /api/chat`. If the session exists, it attaches the requester to the session without verifying `existing.user_id === req.user.user_id`, permitting full conversational context hijacking.
+    - *Reference*: Verified in Step 4 Phase D (`V14_RESULTS.md`).
+
+28. **Absence of Authentication Rate Limiting and Account Lockout**:
+    - *Claim*: Production authentication routes enforce brute-force protection.
+    - *Observed Reality*: `POST /api/auth/login` (`server/src/api/routes/auth.js:20-35`) has no rate limiting middleware (`rateLimit()` is not mounted on auth router) and lacks brute-force account lockout. Repeated invalid login attempts never lock the account.
+    - *Reference*: Verified in Step 4 Phase D (`V14_RESULTS.md`).
+
+29. **Credit Card Luhn Check Absence & High False Positives**:
+    - *Claim*: PII redaction accurately scrubs credit card numbers.
+    - *Observed Reality*: `server/src/guardrails/pii.js:12` regex `/\b(?:\d[ -]?){13,19}\b/g` masks any 13 to 19 digit sequence without verifying Luhn checksums, resulting in a 25.0% false-positive rate on benign numeric sequences (such as 16-digit order or tracking numbers).
+    - *Reference*: Verified in Step 4 Phase E (`V15_RESULTS.md`).
+
+30. **Egress Channel PII Leaks across Chat execResult, Preview, Export, and Report**:
+    - *Claim*: PII masking for low-privilege roles on all API egress data.
+    - *Observed Reality*: While `maskText` and `redactEvidence` scrub response text and sample rows, `POST /api/chat` exposes raw unmasked database query results in `publicResult.execResult.rows`, `GET /api/datasets/:id/preview` returns unmasked database rows, and `POST /api/tools/export` / `POST /api/tools/report` write unmasked PII directly to CSV, XLSX, and PDF files.
+    - *Reference*: Verified in Step 4 Phase E (`V15_RESULTS.md`).
+
 ---
 
 # Skipped / NOT RUN (planned experiments not executed, with concrete reason)
@@ -136,6 +171,13 @@ This document tracks all hypotheses that did not hold, planned experiments that 
 
 4. **PRAGMA Table-Valued Function Gate Bypass & Introspection**:
    - *Observed Reality*: `BLOCKED_KEYWORDS` includes `'PRAGMA'`, checked via `new RegExp('\\b' + kw + '\\b')` on uppercase SQL. Because underscore `_` is a word character (`\w`), `\bPRAGMA\b` fails to match `PRAGMA_TABLE_INFO`, `PRAGMA_TABLE_XINFO`, `PRAGMA_DATABASE_LIST`, `PRAGMA_FUNCTION_LIST`, etc. Furthermore, `node-sql-parser` in PostgreSQL mode treats table-valued PRAGMA functions in `FROM` clauses as function calls rather than table references, bypassing table schema verification. In E1 end-to-end execution, these queries pass the gate, pass policy, and execute on SQLite, disclosing denied column names and host filesystem paths.
+
+5. **RBAC Expected Matrix Verification (`validation/data/rbac/expected.csv`)**:
+   - *Reason*: The user-supplied expected permissions file `validation/data/rbac/expected.csv` is absent from the workspace repository. In accordance with preregistration Amendment V12-V15, `expected_TEMPLATE.csv` was generated with a blank `expected_allow` column, and the automated matrix comparison is formally designated **NOT RUN**.
+
+6. **Model-Facing Direct Attack Success Rate (Deferred to Step 5)**:
+   - *Reason*: While regex detection recall and injection neutralizer behavior were evaluated offline against public and synthetic suites in Step 4 Phase C, evaluating end-to-end LLM jailbreak success against live reasoning models is preregistered for Step 5.
+
 
 
 ---

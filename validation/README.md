@@ -119,7 +119,29 @@ git diff v4b-corpus-v1 -- validation/data/v4b
    node validation/experiments/print_phase0_table.js
    ```
 
+### Step 4 (V12 File Validator, V13 Input Guard, V14 Authn/Authz, V15 PII Redaction) Commands
+1. **Module V12 (File Validation & Upload Protection)**:
+   ```bash
+   node validation/experiments/generate_v12_corpus.js
+   node validation/experiments/run_v12_evaluation.js
+   ```
+2. **Module V13 (Input Guard, Rate Limiter & Indirect Injection)**:
+   ```bash
+   node validation/experiments/generate_v13_corpus.js
+   node validation/experiments/run_v13_evaluation.js
+   ```
+3. **Module V14 (Authentication & Authorization Route Sweep)**:
+   ```bash
+   node validation/experiments/run_v14_evaluation.js
+   ```
+4. **Module V15 (PII Redaction & Egress Exposure Control)**:
+   ```bash
+   node validation/experiments/generate_v15_corpus.js
+   node validation/experiments/run_v15_evaluation.js
+   ```
+
 ---
+
 
 ## 2. Directory & File Index
 

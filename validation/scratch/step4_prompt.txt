@@ -1,0 +1,53 @@
+<USER_REQUEST>
+ROLE
+STEP 4 of the CogniCore validation: Phase 0 (V3c loose ends) plus new modules V12 file validation, V13 input guard / rate limiter / injection neutralization, V14 authn/authz route sweep, V15 PII redaction. Work only in C:\cognicore\validation_workspace (branch validation). Never modify the original repo, server/, src/, PREREGISTRATION.md or any frozen corpus. No real LLM calls. Network only for the named public sources: record URL, date, commit and sha256, or mark NOT RUN with the verbatim error. Never fabricate. No questions; log defaults in DECISIONS.md. All report numbers GENERATED from data.
+
+PHASE 0: V3c loose ends
+0.1 schema_qualified_main: leak rate among DETECTABLE items (a: the user's policy filters a table the query references; b: the unfiltered result differs from the oracle result), plus the unconditional rate.
+0.2 List the 14 base queries behind the identical 14 leaks in table_alias, subquery_from, subquery_where_in, subquery_exists, union_all, self_join and left_join; show whether their base text already contains `main.`; confirm or refute "no new mechanism".
+0.3 Introspection table for all six pragma forms: gate layer reached, E1 outcome, returned content class (column names / host paths / function names).
+0.4 D1: for a restricted user whose row_filter excludes rows, report preview rows returned outside the filter and whether a denied column appears, vs the oracle. D3: seeded emails, phones, SSNs and cards for a viewer role in CSV, XLSX and PDF exports; whether redactEvidence is invoked (runtime trace).
+0.5 Max event-loop gap per item (ms) for all B2 and v4c items as CSV; list items > 250 ms.
+0.6 Extend reproduce_all_tables.js to check EVERY number in every table of every committed report; print checked/total per report.
+0.7 Relabel the Step 2c hardening table: the "Path A" rows measured subquery-compatible contexts, not the real executor; regenerate.
+
+PHASE A: Amendment V12-V15 BEFORE building anything
+V12: 0 accepted files per malicious category (exact bound); false-rejection per valid type reported; no crash, no hang > 15 s, no RSS > 2 GB on any bomb or fuzz input.
+V13: detection recall per injection category and false-positive rate per benign trigger-word class reported (no threshold); oversize limit exact at 4000 in the unit the code uses; rate limiter allows exactly 30 per window per key, the 31st is denied, no cross-key interference, memory growth under key flood reported; neutralizer recall per injection family reported (real attack success rate is Step 5).
+V14: 0 unauthenticated 2xx on protected routes; 0 cross-user dataset/session/trace reads; RBAC matrix mismatches = 0 against the user-supplied expected file (NOT RUN if absent).
+V15: recall and precision per PII type and format reported; 0 unredacted in-scope instances (emails, phones, SSNs, cards) for viewer and employee in every output channel.
+Commit, tag prereg-v1-amend-v12-15, print the empty prereg diff.
+
+PHASE B: V12 file validator
+B1 code facts (file:line, verbatim): file.validator.js, zip.reader.js, sanitizeFilename; every magic signature, size and ratio limit, entry-structure check, and the upload route that calls them.
+B2 corpus (frozen v12-corpus-v1):
+ valid: xlsx/docx/pptx built with libraries already in the repo or a hand-written Node zlib zip writer including the required entry structures; sqlite via better-sqlite3; csv/json from sample-data; unicode filenames; large legit files up to the documented limit; CSV/JSON cells containing `<script`, `#!`, `<?php` and MZ-looking text.
+ malicious: full extension x content matrix (every allowed extension with every other type's magic bytes); EICAR string; MZ/ELF/Mach-O/CAFEBABE/shebang/PHP/script content at offset 0 and after BOM or whitespace; zip bombs (high ratio, nested, many entries, overlapping entries, declared size vs actual, zip64); Zip-Slip entries (../, absolute, backslash, drive letter); polyglots (GIF/JS, PDF/HTML, ZIP/JAR, SQLite with trailing script); 500 seeded truncations and bit-flips of valid files; SQLite files with triggers, views and virtual tables; JSON depth bombs, BOM, UTF-16; CSV with NUL bytes, 1e6 columns and formula cells (=cmd|...).
+ filenames: ../, ..\, %2e%2e, double-encoded, unicode dots, NUL byte, Windows reserved names (CON, NUL, COM1, LPT1), trailing dots and spaces, NTFS alternate data streams (file.csv:stream), 255+ characters, RTL override, empty, extension only, double extensions, case variants.
+B3 oracles: an independent signature table written in the harness; an independent zip central-directory parser for ratios and entries; run every item in a child process (15 s kill, RSS watch) through the real validator exactly as the upload route does; for accepted items store through the real upload path into a sandbox directory and snapshot it (nothing may land outside the upload directory; the sanitized name must stay inside).
+B4 report: false-reject per valid type (Wilson), false-accept per malicious category (n, accepted, exact bound), per-item time and peak RSS, every accepted malicious item listed with the reason.
+
+PHASE C: V13 input guard, rate limiter, indirect injection
+C1 code facts: input.guard.js (INJECTION patterns, the length-limit unit at :35), rate.limit.js (key derivation, trust-proxy handling, cleanup), neutralizeInjection, every call site.
+C2 direct injection (frozen): deepset/prompt-injections from the Hugging Face hub; the 10-item INJECTION_CORPUS; adaptive variants generated deterministically from the injection phrases (paraphrase templates, Hindi/Tamil/German phrase tables, base64, leetspeak, homoglyphs, zero-width splitting, markdown/HTML/JSON wrappers, split across two turns); label provenance (public / agent-authored / mutation). Benign: suite.js questions, Spider/BIRD questions if present, and >=300 agent-authored benign analytical questions containing trigger words (reveal, bypass, override, ignore, admin, system, union, drop, developer, instructions, previous, forget, act as). Report recall per category and provenance and false-positive rate per trigger-word class with Wilson CIs; no pooled headline.
+C3 oversize: lengths 3999/4000/4001 in ASCII, multibyte, emoji and combining marks; determine whether the code counts characters, UTF-16 units or bytes; test the HTTP body-size limit separately.
+C4 rate limiter (mock timers plus a real local HTTP loop): 30 allowed and the 31st denied; window slide; per-user vs per-IP; X-Forwarded-For spoofing with and without trust proxy; 100,000 distinct keys (memory growth, cleanup); 100 parallel requests; clock jump backwards; behaviour across two worker processes. Report each fact.
+C5 indirect injection: neutralizeInjection on (a) document chunks and (b) SQL result cell values; >=200 poisoned items from templates with canary goals (output CANARY_n, role-play, <system> and [INST] delimiters, markdown/HTML comments, base64, unicode tricks, multilingual); if validation/data/external/bipia exists add its table/email/web QA samples. Report per-family neutralization recall, the share of injected instruction text surviving, and false-neutralization on 200 benign chunks.
+
+PHASE D: V14 authn/authz
+D1 enumerate every route and its middleware chain from the code; write validation/data/rbac/expected_TEMPLATE.csv (roles x capabilities x dataset relation {owner, shared-read, shared-manage, none}) with a BLANK expected_allow column. If validation/data/rbac/expected.csv exists, run the full matrix against the running handlers and report every mismatch; otherwise mark the matrix NOT RUN.
+D2 without an expected table: unauthenticated request to every route (expect 401/403); every route as each role; cross-user IDOR sweep on dataset, session, trace/audit, conversation IDs and file download paths; token handling (expired, tampered, wrong signature, alg none, reused across users); lockout if claimed.
+D3 list every data-returning route reachable without the expected role.
+
+PHASE E: V15 PII
+E1 code facts: pii.js patterns and every place redaction is applied (response text, tables, chart data, export, report, logs, traces, errors).
+E2 corpus (frozen): deterministic generator for emails (plus-addressing, subdomains, uppercase, obfuscated "name at host dot com"), phones (+91, US, international, spaces, dashes, parentheses, extensions), SSNs (valid patterns and near-misses), credit cards (Luhn-valid Visa/MC/Amex test numbers, spaced and dashed, plus Luhn-INVALID look-alikes), Aadhaar and PAN formats (out of scope, report as scope gap), names; embedded in sentences, CSV cells, JSON and tables; plus benign numbers (order ids, 16-digit ids, dates, amounts) for precision.
+E3 run the real redaction for viewer, employee, analyst, manager, admin across every output channel from E1; recall and precision per type and format (Wilson), unredacted in-scope instances by role and channel, scope gaps listed.
+
+PHASE F: report
+V12_RESULTS.md, V13_RESULTS.md, V14_RESULTS.md, V15_RESULTS.md and a Phase 0 summary, all generated. Update LIMITATIONS.md, DECISIONS.md, README.md, MANIFEST.json (corpus hashes, source URLs, commits), CODE_DELTAS.md (PROPOSED, NOT APPLIED only). Freeze each corpus with tags v12-corpus-v1 to v15-corpus-v1 BEFORE running it. Commit.
+FINAL VERIFICATION (print everything): tests pass including new positive controls (a known-bad file must be flagged by the oracles; a known-leaky PII string must be detected); prereg and all frozen-corpus diffs empty; original repo matches ORIGINAL_STATE.txt; server/ and src/ clean; fixture hashes re-verified. Print the Phase 0 summary, all four results files, and everything NOT RUN. Stop; do not start Step 5.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-15T22:25:47+05:30.
+</ADDITIONAL_METADATA>

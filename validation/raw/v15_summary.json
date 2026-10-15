@@ -1,0 +1,778 @@
+{
+  "total_items": 620,
+  "in_scope_count": 380,
+  "categories": {
+    "email": {
+      "n": 100,
+      "tp": 90,
+      "fn": 10,
+      "fp": 0,
+      "tn": 0,
+      "masked_count": 90,
+      "recall": {
+        "p": 0.9,
+        "lo": 0.8256343377898756,
+        "hi": 0.9447708631949274
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.9590643738163189,
+        "hi": 0.9999999999999998
+      },
+      "fp_rate": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "phone": {
+      "n": 100,
+      "tp": 100,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "masked_count": 100,
+      "recall": {
+        "p": 1,
+        "lo": 0.9630065012310038,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.9630065012310038,
+        "hi": 1
+      },
+      "fp_rate": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "ssn": {
+      "n": 80,
+      "tp": 65,
+      "fn": 15,
+      "fp": 0,
+      "tn": 0,
+      "masked_count": 65,
+      "recall": {
+        "p": 0.8125,
+        "lo": 0.7134167728383539,
+        "hi": 0.8829468957708809
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.944198467845955,
+        "hi": 0.9999999999999998
+      },
+      "fp_rate": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "credit_card": {
+      "n": 100,
+      "tp": 100,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "masked_count": 100,
+      "recall": {
+        "p": 1,
+        "lo": 0.9630065012310038,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.9630065012310038,
+        "hi": 1
+      },
+      "fp_rate": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "aadhaar": {
+      "n": 40,
+      "tp": 40,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "masked_count": 40,
+      "recall": {
+        "p": 1,
+        "lo": 0.9123783975415363,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.9123783975415363,
+        "hi": 1
+      },
+      "fp_rate": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "pan": {
+      "n": 30,
+      "tp": 0,
+      "fn": 30,
+      "fp": 0,
+      "tn": 0,
+      "masked_count": 0,
+      "recall": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0.11351339476145206
+      },
+      "precision": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      },
+      "fp_rate": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "name": {
+      "n": 50,
+      "tp": 0,
+      "fn": 50,
+      "fp": 0,
+      "tn": 0,
+      "masked_count": 0,
+      "recall": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0.07134760017861413
+      },
+      "precision": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      },
+      "fp_rate": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "benign": {
+      "n": 120,
+      "tp": 0,
+      "fn": 0,
+      "fp": 30,
+      "tn": 90,
+      "masked_count": 30,
+      "recall": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      },
+      "precision": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0.11351339476145206
+      },
+      "fp_rate": {
+        "p": 0.25,
+        "lo": 0.18109821609474103,
+        "hi": 0.33441136735169624
+      }
+    }
+  },
+  "subtypes": {
+    "email:standard": {
+      "n": 25,
+      "tp": 25,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.866807747239609,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.866807747239609,
+        "hi": 1
+      }
+    },
+    "email:plus_addressing": {
+      "n": 25,
+      "tp": 25,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.866807747239609,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.866807747239609,
+        "hi": 1
+      }
+    },
+    "email:subdomain": {
+      "n": 25,
+      "tp": 25,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.866807747239609,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.866807747239609,
+        "hi": 1
+      }
+    },
+    "email:uppercase": {
+      "n": 15,
+      "tp": 15,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      }
+    },
+    "email:obfuscated": {
+      "n": 10,
+      "tp": 0,
+      "fn": 10,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0.2775328030260577
+      },
+      "precision": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "phone:us_standard": {
+      "n": 25,
+      "tp": 25,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.866807747239609,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.866807747239609,
+        "hi": 1
+      }
+    },
+    "phone:india_91": {
+      "n": 25,
+      "tp": 25,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.866807747239609,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.866807747239609,
+        "hi": 1
+      }
+    },
+    "phone:international": {
+      "n": 20,
+      "tp": 20,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.8388748398148704,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.8388748398148704,
+        "hi": 1
+      }
+    },
+    "phone:us_parentheses": {
+      "n": 15,
+      "tp": 15,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      }
+    },
+    "phone:extension": {
+      "n": 15,
+      "tp": 15,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      }
+    },
+    "ssn:valid_hyphenated": {
+      "n": 40,
+      "tp": 40,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.9123783975415363,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.9123783975415363,
+        "hi": 1
+      }
+    },
+    "ssn:unhyphenated": {
+      "n": 15,
+      "tp": 0,
+      "fn": 15,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0.2038833035964871
+      },
+      "precision": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "ssn:space_separated": {
+      "n": 15,
+      "tp": 15,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      }
+    },
+    "ssn:dot_separated": {
+      "n": 10,
+      "tp": 10,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.7224671969739421,
+        "hi": 0.9999999999999999
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.7224671969739421,
+        "hi": 0.9999999999999999
+      }
+    },
+    "credit_card:visa_luhn_valid": {
+      "n": 20,
+      "tp": 20,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.8388748398148704,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.8388748398148704,
+        "hi": 1
+      }
+    },
+    "credit_card:mastercard_luhn_valid": {
+      "n": 15,
+      "tp": 15,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      }
+    },
+    "credit_card:amex_luhn_valid": {
+      "n": 15,
+      "tp": 15,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      }
+    },
+    "credit_card:luhn_invalid_lookalike": {
+      "n": 50,
+      "tp": 50,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.9286523998213857,
+        "hi": 0.9999999999999999
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.9286523998213857,
+        "hi": 0.9999999999999999
+      }
+    },
+    "aadhaar:spaced_4_4_4": {
+      "n": 15,
+      "tp": 15,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      }
+    },
+    "aadhaar:unspaced_12_digit": {
+      "n": 15,
+      "tp": 15,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.7961166964035129,
+        "hi": 1
+      }
+    },
+    "aadhaar:dashed_4_4_4": {
+      "n": 10,
+      "tp": 10,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 1,
+        "lo": 0.7224671969739421,
+        "hi": 0.9999999999999999
+      },
+      "precision": {
+        "p": 1,
+        "lo": 0.7224671969739421,
+        "hi": 0.9999999999999999
+      }
+    },
+    "pan:indian_pan": {
+      "n": 30,
+      "tp": 0,
+      "fn": 30,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0.11351339476145206
+      },
+      "precision": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "name:person_name": {
+      "n": 50,
+      "tp": 0,
+      "fn": 50,
+      "fp": 0,
+      "tn": 0,
+      "recall": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0.07134760017861413
+      },
+      "precision": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "benign:order_id": {
+      "n": 30,
+      "tp": 0,
+      "fn": 0,
+      "fp": 0,
+      "tn": 30,
+      "recall": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      },
+      "precision": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "benign:digit_16_tracking": {
+      "n": 30,
+      "tp": 0,
+      "fn": 0,
+      "fp": 30,
+      "tn": 0,
+      "recall": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      },
+      "precision": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0.11351339476145206
+      }
+    },
+    "benign:date_string": {
+      "n": 30,
+      "tp": 0,
+      "fn": 0,
+      "fp": 0,
+      "tn": 30,
+      "recall": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      },
+      "precision": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    },
+    "benign:currency_amount": {
+      "n": 30,
+      "tp": 0,
+      "fn": 0,
+      "fp": 0,
+      "tn": 30,
+      "recall": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      },
+      "precision": {
+        "p": 0,
+        "lo": 0,
+        "hi": 0
+      }
+    }
+  },
+  "formats": {
+    "csv_cell": {
+      "n": 178,
+      "tp": 118,
+      "fn": 29,
+      "fp": 6,
+      "tn": 25,
+      "recall": {
+        "p": 0.8027210884353742,
+        "lo": 0.7310401344059358,
+        "hi": 0.8589833290374809
+      },
+      "precision": {
+        "p": 0.9516129032258065,
+        "lo": 0.898447531615991,
+        "hi": 0.9776375895964853
+      }
+    },
+    "json_field": {
+      "n": 154,
+      "tp": 103,
+      "fn": 25,
+      "fp": 9,
+      "tn": 17,
+      "recall": {
+        "p": 0.8046875,
+        "lo": 0.7275592794317286,
+        "hi": 0.8640603875671599
+      },
+      "precision": {
+        "p": 0.9196428571428571,
+        "lo": 0.8543044466297202,
+        "hi": 0.9571494223717295
+      }
+    },
+    "sentence": {
+      "n": 158,
+      "tp": 98,
+      "fn": 24,
+      "fp": 9,
+      "tn": 27,
+      "recall": {
+        "p": 0.8032786885245902,
+        "lo": 0.7239527933719785,
+        "hi": 0.8640887046990418
+      },
+      "precision": {
+        "p": 0.9158878504672897,
+        "lo": 0.8478305973558186,
+        "hi": 0.9551180546942525
+      }
+    },
+    "table_row": {
+      "n": 130,
+      "tp": 76,
+      "fn": 27,
+      "fp": 6,
+      "tn": 21,
+      "recall": {
+        "p": 0.7378640776699029,
+        "lo": 0.645481328786986,
+        "hi": 0.8131421354848791
+      },
+      "precision": {
+        "p": 0.926829268292683,
+        "lo": 0.8494215611371225,
+        "hi": 0.9660352229419784
+      }
+    }
+  },
+  "channel_leaks": {
+    "viewer": {
+      "response_text": 25,
+      "evidence_sample_rows": 18,
+      "exec_result_rows": 380,
+      "dataset_preview": 380,
+      "export_csv": 380,
+      "export_xlsx": 380,
+      "report_pdf": 380,
+      "audit_logs": 380,
+      "app_logs_errors": 380
+    },
+    "employee": {
+      "response_text": 25,
+      "evidence_sample_rows": 18,
+      "exec_result_rows": 380,
+      "dataset_preview": 380,
+      "export_csv": 380,
+      "export_xlsx": 380,
+      "report_pdf": 380,
+      "audit_logs": 380,
+      "app_logs_errors": 380
+    },
+    "analyst": {
+      "response_text": 380,
+      "evidence_sample_rows": 380,
+      "exec_result_rows": 380,
+      "dataset_preview": 380,
+      "export_csv": 380,
+      "export_xlsx": 380,
+      "report_pdf": 380,
+      "audit_logs": 380,
+      "app_logs_errors": 380
+    },
+    "manager": {
+      "response_text": 380,
+      "evidence_sample_rows": 380,
+      "exec_result_rows": 380,
+      "dataset_preview": 380,
+      "export_csv": 380,
+      "export_xlsx": 380,
+      "report_pdf": 380,
+      "audit_logs": 380,
+      "app_logs_errors": 380
+    },
+    "admin": {
+      "response_text": 380,
+      "evidence_sample_rows": 380,
+      "exec_result_rows": 380,
+      "dataset_preview": 380,
+      "export_csv": 380,
+      "export_xlsx": 380,
+      "report_pdf": 380,
+      "audit_logs": 380,
+      "app_logs_errors": 380
+    }
+  }
+}

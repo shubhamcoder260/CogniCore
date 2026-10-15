@@ -235,4 +235,71 @@ In accordance with validation protocol rules, **NO CHANGES HAVE BEEN APPLIED** t
 - **Proposed Change**: Pipe query results through `redactEvidence(rows, req.user)` before streaming into export formatters.
 - **Rationale**: Phase D verified that customer PII (e.g., `'Rajesh Sharma'`) is streamed directly into export files for low-privilege roles without scrubbing.
 
+---
+
+## Step 4 Proposed Deltas (V12 File Validator, V13 Input Guard, V14 Authn/Authz, V15 PII Redaction)
+
+### Delta V12-01: Offset-Independent Signature Verification & Executable Text Screening
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/ingestion/file.validator.js:14-35`
+- **Current Code**: Inspects magic bytes strictly at offset 0 (`buffer.indexOf(...) === 0`) and allows any file without NUL bytes as text.
+- **Proposed Change**: Strip leading BOM and whitespace before checking magic signatures. Screen text-like uploads for executable headers (`#!`, `<?php`, `<script`) and spreadsheet formula triggers (`=`, `+`, `-`, `@`) even when labeled `.csv` or `.json`.
+- **Rationale**: Step 4 Phase B evaluations revealed that files prefixed with whitespace or comments bypass offset-0 signature screening, and plain text files with shell scripts or EICAR strings are falsely accepted under `.csv`.
+
+---
+
+### Delta V13-01: Optimize Rate Limiter Cleanup Scan & Multi-Worker Coordination
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/guardrails/rate.limit.js:19-25`
+- **Current Code**: Synchronously loops over all entries in `buckets` on every incoming request when `buckets.size > 5000`.
+- **Proposed Change**: Replace full Map iteration with an incremental TTL-ordered queue or periodic `setInterval` cleanup (e.g. every 60s). For production, back rate limiting with Redis/Valkey to support multi-worker processes.
+- **Rationale**: Step 4 Phase C key-flood evaluations proved that 100,000 unique keys cause $O(N)$ latency spikes per request.
+
+---
+
+### Delta V14-01: Remediate Session IDOR in Session Manager
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/core/session.manager.js:8-14`
+- **Current Code**:
+  ```javascript
+  const existing = SESSIONS.get(sessionId);
+  if (existing) return existing;
+  ```
+- **Proposed Change**:
+  ```javascript
+  const existing = SESSIONS.get(sessionId);
+  if (existing) {
+    if (existing.user_id !== userId) {
+      throw new Error('Access denied: session belongs to another user.');
+    }
+    return existing;
+  }
+  ```
+- **Rationale**: Step 4 Phase D IDOR evaluations proved that an authenticated attacker supplying a victim's `sessionId` in `POST /api/chat` attaches to the victim's session and reads their prior conversational turns.
+
+---
+
+### Delta V14-02: Implement Login Rate Limiting and Account Lockout
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/api/routes/auth.js:20-35`
+- **Current Code**: `POST /api/auth/login` accepts unlimited requests with no rate limiter and no lockout counter.
+- **Proposed Change**: Mount `rateLimit()` middleware on the auth router and add a failed-attempt counter in `AuthRegistry` to lock user accounts after 5 consecutive bad passwords for 15 minutes.
+- **Rationale**: Step 4 Phase D brute-force testing executed 20 rapid invalid logins without triggering any rate limit (429) or account lockout.
+
+---
+
+### Delta V15-01: Credit Card Luhn Verification and Comprehensive Egress Redaction
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/guardrails/pii.js:12`, `server/src/core/core.engine.js:195`, `server/src/api/routes/tools.js:50-75`
+- **Current Code**:
+  - `pii.js:12` regex masks all 13-19 digit strings without checking Luhn algorithm.
+  - `core.engine.js:195` returns raw `execResult: extra.execResult` in `POST /api/chat`.
+  - `tools.js` exports raw query results to CSV, XLSX, and PDF without calling `redactEvidence`.
+- **Proposed Change**:
+  1. Add Luhn algorithm check to `PATTERNS[1]` in `pii.js` so only genuine credit card numbers are masked.
+  2. Redact `publicResult.execResult.rows` before returning chat API responses.
+  3. Pass `result.rows` through `redactEvidence` before streaming to `toCsvBuffer`, `toXlsxBuffer`, and `buildPdfReport`.
+- **Rationale**: Step 4 Phase E evaluations demonstrated 25.0% false positives on 16-digit tracking IDs, and 100% PII leakage across `execResult.rows`, dataset preview, and tool exports.
+
+
 
