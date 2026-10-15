@@ -1,0 +1,11 @@
+channel,tested,leaked,mechanism,severity
+"LLM Candidate SQL Prompt",true,true,"Raw schema & semantic profile sent to LLM before policy enforcement",CRITICAL
+"Dataset Preview Route (/api/datasets/:id/preview)",true,true,"adapter.preview() executed without policy enforcement",HIGH
+"Dataset Schema Route (/api/schema/:datasetId)",true,true,"analyzeSchema() disclosures without column denial filtering",HIGH
+"Tool Export Endpoints (/api/tools/export, /report)",true,true,"Raw CSV/XLSX/PDF generated without calling redactEvidence()",MEDIUM
+"Empty-Result Probing Queries",true,true,"diagnoseEmptyResult runs raw un-filtered adapter.executeQuery()",HIGH
+"KPI Metric Direct Computation",true,true,"generateKpis executes SQL on denied columns prior to in-memory filter",MEDIUM
+"SQLite PRAGMA Introspection (Policy Layer)",true,true,"assertColumnAccess misses PRAGMA table-info reads",HIGH
+"Data Quality Outlier Banners",true,false,"policyRestrictsAggregates returns 403; denied columns filtered",NONE (PASS)
+"Error Message Reflection",true,true,"PolicyError echoes denied column name in 403 message",LOW
+"Multi-Turn Session Turn Log",true,true,"buildConversationContext retrieves unscoped session turns into prompts",MEDIUM

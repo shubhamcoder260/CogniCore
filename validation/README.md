@@ -69,6 +69,20 @@ git diff v4b-corpus-v1 -- validation/data/v4b
    node validation/analysis_v4b.js
    ```
 
+### Step 3 (V3 Row-Level Security, Column Denial, and Non-SQL Leak Channels) Commands
+1. **Generate Deterministic V3 Corpus** (builds `v3_queries.jsonl`, 510 items across 15 SQLite database fixtures):
+   ```bash
+   node validation/experiments/v3_build_corpus.js
+   ```
+2. **Execute V3 Evaluation Pipeline** (runs E1 End-to-End, E2 Policy Alone, E3 Non-SQL Leaks, E4 Dialect Guard):
+   ```bash
+   node validation/experiments/run_v3_evaluation.js
+   ```
+3. **Generate Final Step 3 Analysis & Scorecard** (produces Tables 1-5 CSVs and `V3_RESULTS.md`):
+   ```bash
+   node validation/analysis_v3.js
+   ```
+
 ---
 
 ## 2. Directory & File Index
@@ -122,9 +136,11 @@ All experiment scripts below will write output to `validation/raw/<experiment_id
 - **Scope**: Measure cumulative accuracy gains and component flips (wrong $\to$ right, right $\to$ wrong) across C0 (raw), C1 (schema prune), C2 (+ repair), C3 (+ complexity), and C4 (+ validation).
 
 ### V3: Zero-Leak Data Isolation & Non-SQL Channel Auditing
-- **Script**: `validation/experiments/v3_leakage.js`
-- **Status**: NOT YET WRITTEN
-- **Scope**: Verify row-level security and column denial across 7 channels: prompt text, memory cache, RAG retrieved docs, profiler warnings, analytics tools, server logs, and error masks. Must observe 0 leaks ($1 - 0.05^{1/n}$ upper bound).
+- **Script**: `validation/experiments/run_v3_evaluation.js` & `validation/analysis_v3.js`
+- **Status**: COMPLETED (October 2026)
+- **Scope**: Evaluated 510 systematic queries across 15 reference SQLite database fixtures for Row-Level Security (CTE shadowing), Column Denial (`assertColumnAccess`), and Non-SQL information disclosure surfaces (prompts, preview endpoint, tool export, empty-result diagnostic probes, PRAGMA introspection).
+- **Outcome**: **FAIL on Row-Level Security** (15 / 15 fixtures leaked unauthorized rows via SQLite `main.t` schema-qualification bypass, leaking 524 rows). **PASS on Column Denial in End-to-End pipeline** (0 direct column leaks). Disclosed non-SQL leaks in prompt compilation (255 prompts), preview endpoint, tool exports, and empty result diagnostic probes.
+- **Report**: [V3_RESULTS.md](file:///C:/cognicore/validation_workspace/validation/results/V3_RESULTS.md)
 
 ### V4: Destructive SQL & Injection Rejection
 - **Script**: `validation/experiments/v4_sql_gate.js`

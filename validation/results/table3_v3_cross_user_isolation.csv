@@ -1,0 +1,7 @@
+actor,queries,leaks,leaked_rows,isolation_mechanism,verdict
+"User U1 (Viewer / Categorical Filter)",270,15,524,"Single-table CTE Shadowing",LEAK (main.t)
+"User U2 (Viewer / Two-Table Filters)",15,0,0,"Multi-table CTE Shadowing",SECURE
+"User U3 (Viewer / Column Denial + Filter)",225,0,0,"assertColumnAccess + CTE Shadowing",SECURE
+"Admin User (Unrestricted Role)",15,0,0,"Full Bypass (data.policy.js:59)",EXEMPT_BY_SPEC
+"Cross-User Result Cache",0,0,0,"None (No query cache implemented)",NOT_APPLICABLE
+"Multi-Turn Conversation Memory",600,1,0,"Unscoped Session Turn Log",LEAK_RISK (Unscoped turns)

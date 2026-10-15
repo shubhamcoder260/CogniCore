@@ -92,3 +92,65 @@ In accordance with validation protocol rules, **NO CHANGES HAVE BEEN APPLIED** t
   1. Count comma-separated tables in the `FROM` list as distinct joins: each table beyond the first adds 1 to `joinCount`.
   2. Validate that `WHERE` predicates actually relate the joined tables (e.g. `t1.id = t2.id`) rather than treating ANY keyword `WHERE` (e.g. `WHERE a.id > 0`) as a join condition.
 - **Rationale**: Phase D evaluations demonstrated that 7-table comma joins with unrelated WHERE clauses completely bypass the complexity gate (`joinCount: 0`, `unkeyedJoin: false`), resulting in 2.025-billion row Cartesian explosions that crash or hang the Node.js process.
+
+---
+
+## Step 3 Proposed Deltas (V3: RLS, Column Denial, and Non-SQL Leak Channels)
+
+### Delta V3-01: Disallow Schema-Qualified Table Names & Remap CTE References
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/security/data.policy.js:117-124` & `server/src/structured/sql.validator.js`
+- **Current Code**:
+  ```javascript
+  const cteDefs = Object.entries(tableConditions).map(([table, conds]) => {
+    return `"${table}" AS (SELECT * FROM main."${table}" WHERE ${conds.join(' AND ')})`;
+  });
+  ```
+- **Proposed Change**:
+  1. In `sql.validator.js`, disallow schema-qualified table names (`main.`, `temp.`) in analytical queries, OR
+  2. In `data.policy.js`, normalize and rewrite any `main."table"` references in the user query body to point to the shadowed CTE `"table"`.
+- **Rationale**: In SQLite, when a query explicitly qualifies a table name as `main.table` (e.g. `SELECT * FROM main.employees`), SQLite resolves the reference directly to the base physical table in schema `main`, completely bypassing the unqualified CTE shadowing construct. This resulted in a 100.00% leak rate (15 / 15 fixtures, 524 leaked rows) in Step 3 empirical testing.
+
+---
+
+### Delta V3-02: Pre-Filter Schema & Semantic Profiles in LLM Prompt Generator
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/structured/sql.generator.js` and `server/src/core/core.engine.js:48-56`
+- **Current Code**: Raw, unfiltered `schema` and `semantic` profiling dictionaries are injected directly into candidate SQL generation prompts.
+- **Proposed Change**: Filter `schema.tables[].columns` and semantic profiling metadata against `policy.deniedColumns` before formatting prompt templates.
+- **Rationale**: Testing revealed that denied column names were transmitted to the LLM in 255 prompts during candidate SQL generation, violating zero-knowledge prompt isolation invariants.
+
+---
+
+### Delta V3-03: Wrap Dataset Preview Route with Policy Enforcement
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/routes/datasets.js:33-40`
+- **Current Code**:
+  ```javascript
+  const preview = await adapter.preview(limit);
+  res.json({ preview });
+  ```
+- **Proposed Change**: Pass the preview query through `enforcePolicy(query, user, policy)` before execution, or apply column denial and row filtering to the preview result set.
+- **Rationale**: `GET /api/datasets/:id/preview` executes raw database preview queries without policy checks, exposing unauthorized rows and denied columns to low-privilege viewers.
+
+---
+
+### Delta V3-04: Apply PII Redaction to Tool Export Endpoints
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/routes/tools.js`
+- **Current Code**: Export and report routes stream raw analytical query results directly into CSV, XLSX, and PDF serializers without redaction.
+- **Proposed Change**: Call `redactEvidence(rows, user)` on data records before passing them to export serializers.
+- **Rationale**: Dossier Part 11 claims PII masking for low-privilege roles on all egress data, but export endpoints omit `redactEvidence()`, leaking unmasked PII.
+
+---
+
+### Delta V3-05: Enforce Data Policy on Empty-Result Diagnostic Probes
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/structured/sql.repair.js:140-160`
+- **Current Code**:
+  ```javascript
+  const probe = await adapter.executeQuery(`SELECT DISTINCT "${col}" FROM "${table}" LIMIT 5`);
+  ```
+- **Proposed Change**: Wrap diagnostic queries in `enforcePolicy` or restrict diagnostic sampling to the user's authorized CTE view.
+- **Rationale**: When a user query returns 0 rows, `diagnoseEmptyResult` probes the database with un-filtered queries, disclosing distinct data values across forbidden rows to low-privilege users.
+

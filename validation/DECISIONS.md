@@ -122,3 +122,6 @@ This document records all methodological decisions, architectural invariants, an
 
 5. **Stratification: End-to-End vs Policy-Alone**:
    - Queries are evaluated both end-to-end through the complete CogniCore stack and directly against `enforcePolicy` on a read-only SQLite connection. This decouples upstream gate rejections from underlying policy rewriter defects (such as `main.table` CTE shadowing circumvention).
+
+6. **Deterministic Multi-Column ORDER BY in Evaluation Corpus**:
+   - In SQLite, executing queries with `LIMIT` without an explicit unique ordering produces non-deterministic row subsets depending on physical page order and B-tree traversal. To eliminate false-positive discrepancy reports between the baseline clone and the shadowed CTE queries, all queries featuring `LIMIT` in multi-row joins or subqueries include explicit multi-column `ORDER BY` clauses.

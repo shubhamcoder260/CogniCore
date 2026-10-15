@@ -56,6 +56,41 @@ This document tracks all hypotheses that did not hold, planned experiments that 
    - *Observed Reality*: While `readonly: true` prevents mutation to the opened database file, SQLite's query engine permits `VACUUM INTO '<new_path>'` and `CREATE TEMP TABLE` on read-only connections. An attacker bypassing the AST gate could dump the entire database to an arbitrary server file path. Only the combined application of `readonly: true` and `PRAGMA query_only = ON` prevents both data modification and VACUUM exfiltration.
    - *Reference*: Verified in Step 2c Phase E.
 
+11. **SQLite Schema-Qualification Bypass of CTE Shadowing (`main.t`)**:
+    - *Claim*: `docs/dossier/part-11-paper-mapping.md:15-16, 51-55` claims "Transparent Zero-Trust Policy Enforcement via CTE Shadowing isolates entire base table at scoping root".
+    - *Observed Reality*: `server/src/security/data.policy.js:117-124` rewrites user queries by prepending a CTE: `"${table}" AS (SELECT * FROM main."${table}" WHERE ${conds.join(' AND ')})`. In SQLite, when an incoming query references a schema-qualified table name (e.g. `SELECT * FROM main.employees`), SQLite resolves the qualified reference directly to the base physical table in schema `main`, completely bypassing the unqualified CTE shadowing construct. In Step 3 empirical testing across all 15 database fixtures, schema-qualified queries achieved a 100.00% leak rate (15 / 15 fixtures, Wilson 95% CI: [79.61%, 100.00%]), leaking 524 unauthorized rows.
+    - *Reference*: Verified in Step 3 Phase E1, E2, and Table 1.
+
+12. **Unfiltered LLM Prompt Payload Leakage**:
+    - *Claim*: `server/src/security/data.policy.js:3-4` asserts "The LLM is never the security layer; data-level security enforced in plain code after SQL is generated".
+    - *Observed Reality*: While SQL execution is checked after generation, the candidate SQL generator (`server/src/structured/sql.generator.js:48-56` and `core.engine.js`) transmits unfiltered schema profiles and semantic column facts into the system prompt sent to the LLM before policy enforcement. Denied column names were leaked into 255 prompts evaluated during Step 3 testing.
+    - *Reference*: Verified in Step 3 Phase E3 and Table 4.
+
+13. **Unprotected Dataset Preview Endpoint**:
+    - *Claim*: Dossier claims complete zero safety leakage across all execution routes.
+    - *Observed Reality*: `GET /api/datasets/:id/preview` (`server/src/routes/datasets.js:33-40`) invokes `adapter.preview()` directly against the database adapter with zero policy enforcement, returning live rows including denied columns and unauthorized rows to any viewer role.
+    - *Reference*: Verified in Step 3 Phase E3 and Table 4.
+
+14. **Export Endpoints Bypass PII Redaction**:
+    - *Claim*: Dossier Part 11 and `core.engine.js:166-170` claim PII masking for low-privilege roles on all API egress data.
+    - *Observed Reality*: `/api/tools/export` and `/api/tools/report` (`server/src/routes/tools.js`) export raw CSV, XLSX, and PDF files directly from raw query results without invoking `redactEvidence()`, leaking unmasked PII.
+    - *Reference*: Verified in Step 3 Phase E3 and Table 4.
+
+15. **Unenforced Diagnostic Probes (`diagnoseEmptyResult`)**:
+    - *Claim*: Dossier Part 7 claims every query and sub-query goes through the full deterministic pipeline.
+    - *Observed Reality*: `diagnoseEmptyResult` (`server/src/structured/sql.repair.js:140-160`) issues raw un-filtered database queries (`SELECT ... FROM table`) directly to inspect empty results, bypassing `enforcePolicy` and disclosing data values across forbidden rows.
+    - *Reference*: Verified in Step 3 Phase E3 and Table 4.
+
+16. **CTE Table Name Collision Syntax Failures**:
+    - *Claim*: `applyRowFilters` transparently handles arbitrary analytical queries.
+    - *Observed Reality*: If a user query defines an explicit CTE matching the name of a filtered table (e.g. `WITH employees AS (SELECT ...) SELECT ... FROM employees`), SQLite rejects the query with `duplicate WITH table name: employees` because `applyRowFilters` prepends its own CTE with the identical name without namespace resolution.
+    - *Reference*: Verified in Step 3 Phase E1 and Table 1.
+
+17. **PRAGMA Schema Introspection at Policy Layer**:
+    - *Claim*: `assertColumnAccess` prevents access to unauthorized column metadata.
+    - *Observed Reality*: When evaluated directly at the policy layer, `assertColumnAccess` checks only token identifier occurrences in SQL. PRAGMA queries like `SELECT name, type FROM pragma_table_info('t')` do not name the denied columns in the SQL text, bypassing the check and disclosing the denied column names in 15 / 15 fixtures (100.00%).
+    - *Reference*: Verified in Step 3 Phase E2 and Table 2.
+
 ---
 
 # Skipped / NOT RUN (planned experiments not executed, with concrete reason)
