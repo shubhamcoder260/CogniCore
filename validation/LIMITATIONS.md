@@ -41,6 +41,21 @@ This document tracks all hypotheses that did not hold, planned experiments that 
    - *Observed Reality*: The gate applies a naive word-boundary regex (`new RegExp('\\b' + kw + '\\b')`) against the uppercase SQL string before parsing. This causes 100% false rejection of valid analytical queries where keywords appear legitimately inside string literals (e.g. `WHERE status = 'DROP'`) or quoted column aliases (e.g. `SELECT id AS "delete"`).
    - *Reference*: Verified in Step 2b Phase C1 and Table 2.
 
+8. **Disguised Comma-Join Cartesian Product Bypass in Complexity Analyzer**:
+   - *Claim*: `sql.complexity.js:65` claims to detect and reject cartesian products ("it combines tables without a join condition").
+   - *Observed Reality*: `sql.complexity.js:58` defines `unkeyedJoin = (crossJoin || (commaJoin && !hasWhereOrOn))`. The mere presence of any `WHERE` token (e.g. `WHERE a.order_id > 0`) sets `hasWhereOrOn = true` and disables cartesian detection, even when the WHERE condition does not relate the tables. Furthermore, `joinCount` only counts the word `join`, treating 7 comma-joined tables as having 0 joins. This allows queries producing 2.025-billion intermediate rows to pass the gate with low complexity scores, locking up the Node.js event loop.
+   - *Reference*: Verified in Step 2c (Corpus v4c, Table 2).
+
+9. **PRAGMA query_only=ON Reversible via SQL Injection**:
+   - *Claim*: PRAGMA-level hardening provides execution defense-in-depth.
+   - *Observed Reality*: `PRAGMA query_only = ON` is an in-band SQLite session setting that can be overridden by executing `PRAGMA query_only = OFF; <write_payload>`. Tested in Phase E, this completely neutralized `query_only = ON` and allowed database mutation. Standalone PRAGMA hardening fails without OS-handle level `readonly: true`.
+   - *Reference*: Verified in Step 2c Phase E.
+
+10. **Driver readonly: true Alone Allows Filesystem Exfiltration via VACUUM INTO**:
+   - *Claim*: Opening SQLite with `readonly: true` prevents all file modifications.
+   - *Observed Reality*: While `readonly: true` prevents mutation to the opened database file, SQLite's query engine permits `VACUUM INTO '<new_path>'` and `CREATE TEMP TABLE` on read-only connections. An attacker bypassing the AST gate could dump the entire database to an arbitrary server file path. Only the combined application of `readonly: true` and `PRAGMA query_only = ON` prevents both data modification and VACUUM exfiltration.
+   - *Reference*: Verified in Step 2c Phase E.
+
 ---
 
 # Skipped / NOT RUN (planned experiments not executed, with concrete reason)

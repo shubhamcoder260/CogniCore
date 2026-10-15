@@ -53,3 +53,42 @@ In accordance with validation protocol rules, **NO CHANGES HAVE BEEN APPLIED** t
 - **Current Code**: `config.query.timeoutMs = 15000` is defined in `server/src/config/env.js:41` but is never passed to SQLite or wrapped in an asynchronous execution deadline.
 - **Proposed Change**: Implement an execution timer or SQLite progress handler (`sqlite3_progress_handler` via better-sqlite3) to abort queries that exceed `timeoutMs`.
 - **Rationale**: Unbounded recursive CTEs or CPU-heavy queries can block the Node.js event loop indefinitely.
+
+---
+
+### Delta V4-05: Dual-Layer Defense Connection Hardening (OS Handle + Engine PRAGMA)
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/ingestion/adapters/sqlite.adapter.js:10-14`
+- **Current Code**:
+  ```javascript
+  this.db = new Database(this.location, { readonly: false, fileMustExist: true });
+  this.db.pragma('journal_mode = WAL');
+  ```
+- **Proposed Change**:
+  ```javascript
+  this.db = new Database(this.location, { readonly: true, fileMustExist: true });
+  this.db.pragma('query_only = ON');
+  this.db.pragma('journal_mode = WAL');
+  ```
+- **Rationale**: Phase E empirical evaluations proved that neither defense alone is sufficient:
+  1. `readonly: true` alone allows `VACUUM INTO 'target.db'` (exfiltrating database data to an arbitrary server path) and `CREATE TEMP TABLE`.
+  2. `PRAGMA query_only = ON` alone can be bypassed and flipped back by executing `PRAGMA query_only = OFF; <write>`.
+  3. Only the combination of both (`readonly: true` + `PRAGMA query_only = ON`) completely prevents mutation, exfiltration via `VACUUM INTO`, and PRAGMA reset bypasses, while retaining full compatibility with WAL mode and analytical queries.
+
+---
+
+### Delta V4-06: Fix Comma-Join Disguised Cartesian Products in Complexity Gate
+- **Status**: PROPOSED, NOT APPLIED
+- **Target File**: `server/src/structured/sql.complexity.js:29, 58, 63`
+- **Current Code**:
+  ```javascript
+  const joinCount = words.filter((w) => w === 'join').length;
+  // ...
+  const unkeyedJoin = (crossJoin || (commaJoin && !hasWhereOrOn));
+  // ...
+  if (joinCount + (commaJoin ? 1 : 0) > LIMITS.maxJoins) ...
+  ```
+- **Proposed Change**:
+  1. Count comma-separated tables in the `FROM` list as distinct joins: each table beyond the first adds 1 to `joinCount`.
+  2. Validate that `WHERE` predicates actually relate the joined tables (e.g. `t1.id = t2.id`) rather than treating ANY keyword `WHERE` (e.g. `WHERE a.id > 0`) as a join condition.
+- **Rationale**: Phase D evaluations demonstrated that 7-table comma joins with unrelated WHERE clauses completely bypass the complexity gate (`joinCount: 0`, `unkeyedJoin: false`), resulting in 2.025-billion row Cartesian explosions that crash or hang the Node.js process.
