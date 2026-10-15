@@ -9,9 +9,11 @@
 const path = require('path');
 
 const WORKSPACE_ROOT = path.resolve(__dirname, '../..');
+const TARGET_REPO = process.env.TARGET_REPO ? path.resolve(process.env.TARGET_REPO) : WORKSPACE_ROOT;
 
 module.exports = {
   MASTER_SEED: 20261015,
+  TARGET_REPO,
 
   TEMPERATURE: {
     PRIMARY: 0.0,
@@ -32,13 +34,14 @@ module.exports = {
 
   PATHS: {
     WORKSPACE_ROOT,
-    VALIDATION_ROOT: path.resolve(WORKSPACE_ROOT, 'validation'),
-    RAW_DIR: path.resolve(WORKSPACE_ROOT, 'validation/raw'),
-    RESULTS_DIR: path.resolve(WORKSPACE_ROOT, 'validation/results'),
-    EXPERIMENTS_DIR: path.resolve(WORKSPACE_ROOT, 'validation/experiments'),
-    DATABASE_DIR: path.resolve(WORKSPACE_ROOT, 'database'),
-    SAMPLE_DATA_DIR: path.resolve(WORKSPACE_ROOT, 'sample-data'),
-    SERVER_DIR: path.resolve(WORKSPACE_ROOT, 'server'),
+    TARGET_REPO,
+    VALIDATION_ROOT: path.resolve(TARGET_REPO, 'validation'),
+    RAW_DIR: path.resolve(TARGET_REPO, 'validation/raw'),
+    RESULTS_DIR: path.resolve(TARGET_REPO, 'validation/results'),
+    EXPERIMENTS_DIR: path.resolve(TARGET_REPO, 'validation/experiments'),
+    DATABASE_DIR: path.resolve(TARGET_REPO, 'database'),
+    SAMPLE_DATA_DIR: path.resolve(TARGET_REPO, 'sample-data'),
+    SERVER_DIR: path.resolve(TARGET_REPO, 'server'),
   },
 
   CONFIDENCE: {

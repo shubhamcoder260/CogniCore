@@ -317,4 +317,44 @@ To close the coverage gap identified in Step 3b Phase B, the V3 evaluation suite
 | `validation/data/v3b/v3b_queries.jsonl` | 1430 | `5395fc8f432194b91be49d743f97780c4f1910d61f4ad904e1f74bf0fba157ce` |
 | **Total V3b Corpus** | **1430** | — |
 
+---
+
+## Amendment V3-A4: Expanded Systematic Row-Variant Corpus (V3c Corpus v1)
+
+To close the evidence gap identified in Step 3c Phase E (where row-variant transforms were historically evaluated on only 1 base query per fixture), the V3 evaluation suite is expanded to systematically cross-apply all row-variant transforms across all base queries and user policies:
+
+1. **Base Queries (n = 920 clusters)**:
+   - 380 gate-accepted benign queries from Class C and Class C2 touching filtered tables.
+   - 15 systematic fixture base queries (1 per fixture).
+   - 525 seeded grammar-generated queries (35 per fixture across 15 fixtures).
+2. **Systematic Row-Variant Transforms (17 forms)**:
+   - `plain_base`: Unmodified base query.
+   - `table_alias`: Query aliased via subquery or table AS clause.
+   - `schema_qualified_main`: Table qualified with `main.`.
+   - `schema_qualified_temp`: Table qualified with `temp.`.
+   - `bracket_quoted`: Table identifier quoted with `[...]`.
+   - `backtick_quoted`: Table identifier quoted with `` `...` ``.
+   - `double_quoted`: Table identifier quoted with `"..."`.
+   - `cte_collision`: Prepending CTE with identical name to filtered table.
+   - `existing_cte`: Prepending non-colliding CTE (`WITH __dummy_cte ...`).
+   - `with_recursive`: Prepending recursive CTE (`WITH RECURSIVE __rec_cnt ...`).
+   - `subquery_from`: Table referenced inside `FROM (SELECT ...)` subquery.
+   - `subquery_where_in`: Table referenced inside `WHERE 1 IN (SELECT 1 FROM ...)` subquery.
+   - `subquery_exists`: Table referenced inside `WHERE EXISTS (SELECT 1 FROM ...)` subquery.
+   - `union_all`: Table referenced inside compound `UNION ALL` branches.
+   - `self_join`: Table self-joined with alias.
+   - `left_join`: Table referenced in `LEFT JOIN`.
+   - `aggregate`: Aggregation (`COUNT(*)`) over filtered table.
+3. **Multi-User Policy Matrix (3 users)**:
+   - Evaluated under `user_u1` (single categorical row filter), `user_u2` (two table row filters), and `user_u3` (row filter + column denial).
+4. **Leak Evaluation**: Evaluated under E1 and E2 using the subset-containment rule for queries with LIMIT and no total ORDER BY.
+
+### Frozen File Checksum
+
+| File Path | Item Count | SHA-256 Checksum |
+|---|---|---|
+| `validation/data/v3c/v3c_queries.jsonl` | 46,920 | `961bcd6c73b2866400e5cf0d61efeefc7ca883c809283258610d1fe1352ac108` |
+| **Total V3c Corpus** | **46,920** | — |
+
+
 

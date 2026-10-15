@@ -189,6 +189,9 @@
     },
     "corpus_v4d": {
       "validation/data/v4d/executable_writes.jsonl": "c60eb48d1e88da820527a264614af22dc9d30f37245d625890dbb82aebbf6a6b"
+    },
+    "corpus_v3c": {
+      "validation/data/v3c/v3c_queries.jsonl": "961bcd6c73b2866400e5cf0d61efeefc7ca883c809283258610d1fe1352ac108"
     }
   },
   "sqlite_driver": {
