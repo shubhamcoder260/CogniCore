@@ -1,0 +1,393 @@
+{
+  "total_evaluated": 972,
+  "direct_injections": {
+    "total": 162,
+    "breakdown": {
+      "public_deepset_injection": {
+        "total": 60,
+        "detected": 0,
+        "provenance": "public:deepset/prompt-injections:test"
+      },
+      "suite_10_item": {
+        "total": 10,
+        "detected": 10,
+        "provenance": "server/benchmark/suite.js:81"
+      },
+      "adaptive_paraphrase": {
+        "total": 10,
+        "detected": 3,
+        "provenance": "mutation:paraphrase:seed_20262315"
+      },
+      "multilingual_hindi": {
+        "total": 4,
+        "detected": 0,
+        "provenance": "agent-authored:multilingual_hindi"
+      },
+      "multilingual_tamil": {
+        "total": 4,
+        "detected": 0,
+        "provenance": "agent-authored:multilingual_tamil"
+      },
+      "multilingual_german": {
+        "total": 4,
+        "detected": 0,
+        "provenance": "agent-authored:multilingual_german"
+      },
+      "encoding_base64": {
+        "total": 10,
+        "detected": 0,
+        "provenance": "mutation:base64:suite_0"
+      },
+      "obfuscation_leetspeak": {
+        "total": 10,
+        "detected": 0,
+        "provenance": "mutation:leetspeak:suite_0"
+      },
+      "obfuscation_homoglyphs": {
+        "total": 10,
+        "detected": 1,
+        "provenance": "mutation:homoglyphs:suite_0"
+      },
+      "obfuscation_zero_width": {
+        "total": 10,
+        "detected": 0,
+        "provenance": "mutation:zero_width:suite_0"
+      },
+      "wrapper_markdown_html_json": {
+        "total": 20,
+        "detected": 20,
+        "provenance": "mutation:wrapper:suite_0"
+      },
+      "split_across_turns": {
+        "total": 10,
+        "detected": 10,
+        "provenance": "mutation:split_turns:suite_0"
+      }
+    }
+  },
+  "benign_questions": {
+    "total": 385,
+    "breakdown": {
+      "public_deepset_benign": {
+        "total": 56,
+        "false_positives": 0,
+        "provenance": "public:deepset/prompt-injections:test"
+      },
+      "suite_safe_corpus": {
+        "total": 4,
+        "false_positives": 0,
+        "provenance": "server/benchmark/suite.js:93"
+      },
+      "trigger_word_reveal": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_reveal"
+      },
+      "trigger_word_bypass": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_bypass"
+      },
+      "trigger_word_override": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_override"
+      },
+      "trigger_word_ignore": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_ignore"
+      },
+      "trigger_word_admin": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_admin"
+      },
+      "trigger_word_system": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_system"
+      },
+      "trigger_word_union": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_union"
+      },
+      "trigger_word_drop": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_drop"
+      },
+      "trigger_word_developer": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_developer"
+      },
+      "trigger_word_instructions": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_instructions"
+      },
+      "trigger_word_previous": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_previous"
+      },
+      "trigger_word_forget": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_forget"
+      },
+      "trigger_word_act as": {
+        "total": 25,
+        "false_positives": 0,
+        "provenance": "agent-authored:trigger_act as"
+      }
+    }
+  },
+  "oversize_boundary": [
+    {
+      "id": "v13_0548",
+      "subcategory": "oversize_ascii",
+      "target_length": 3999,
+      "actual_utf16_units": 3999,
+      "actual_utf8_bytes": 3999,
+      "actual_code_points": 3999,
+      "blocked": false,
+      "oversized_flag": false,
+      "expected_blocked": false,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0549",
+      "subcategory": "oversize_ascii",
+      "target_length": 4000,
+      "actual_utf16_units": 4000,
+      "actual_utf8_bytes": 4000,
+      "actual_code_points": 4000,
+      "blocked": false,
+      "oversized_flag": false,
+      "expected_blocked": false,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0550",
+      "subcategory": "oversize_ascii",
+      "target_length": 4001,
+      "actual_utf16_units": 4001,
+      "actual_utf8_bytes": 4001,
+      "actual_code_points": 4001,
+      "blocked": true,
+      "oversized_flag": true,
+      "expected_blocked": true,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0551",
+      "subcategory": "oversize_multibyte_latin_accents",
+      "target_length": 3999,
+      "actual_utf16_units": 3999,
+      "actual_utf8_bytes": 7998,
+      "actual_code_points": 3999,
+      "blocked": false,
+      "oversized_flag": false,
+      "expected_blocked": false,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0552",
+      "subcategory": "oversize_multibyte_latin_accents",
+      "target_length": 4000,
+      "actual_utf16_units": 4000,
+      "actual_utf8_bytes": 8000,
+      "actual_code_points": 4000,
+      "blocked": false,
+      "oversized_flag": false,
+      "expected_blocked": false,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0553",
+      "subcategory": "oversize_multibyte_latin_accents",
+      "target_length": 4001,
+      "actual_utf16_units": 4001,
+      "actual_utf8_bytes": 8002,
+      "actual_code_points": 4001,
+      "blocked": true,
+      "oversized_flag": true,
+      "expected_blocked": true,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0554",
+      "subcategory": "oversize_multibyte_greek",
+      "target_length": 3999,
+      "actual_utf16_units": 3999,
+      "actual_utf8_bytes": 7998,
+      "actual_code_points": 3999,
+      "blocked": false,
+      "oversized_flag": false,
+      "expected_blocked": false,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0555",
+      "subcategory": "oversize_multibyte_greek",
+      "target_length": 4000,
+      "actual_utf16_units": 4000,
+      "actual_utf8_bytes": 8000,
+      "actual_code_points": 4000,
+      "blocked": false,
+      "oversized_flag": false,
+      "expected_blocked": false,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0556",
+      "subcategory": "oversize_multibyte_greek",
+      "target_length": 4001,
+      "actual_utf16_units": 4001,
+      "actual_utf8_bytes": 8002,
+      "actual_code_points": 4001,
+      "blocked": true,
+      "oversized_flag": true,
+      "expected_blocked": true,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0557",
+      "subcategory": "oversize_astral_emoji",
+      "target_length": 3999,
+      "actual_utf16_units": 3999,
+      "actual_utf8_bytes": 7997,
+      "actual_code_points": 2000,
+      "blocked": false,
+      "oversized_flag": false,
+      "expected_blocked": false,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0558",
+      "subcategory": "oversize_astral_emoji",
+      "target_length": 4000,
+      "actual_utf16_units": 4000,
+      "actual_utf8_bytes": 8000,
+      "actual_code_points": 2000,
+      "blocked": false,
+      "oversized_flag": false,
+      "expected_blocked": false,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0559",
+      "subcategory": "oversize_astral_emoji",
+      "target_length": 4001,
+      "actual_utf16_units": 4001,
+      "actual_utf8_bytes": 8001,
+      "actual_code_points": 2001,
+      "blocked": true,
+      "oversized_flag": true,
+      "expected_blocked": true,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0560",
+      "subcategory": "oversize_combining_mark",
+      "target_length": 3999,
+      "actual_utf16_units": 3999,
+      "actual_utf8_bytes": 5998,
+      "actual_code_points": 3999,
+      "blocked": false,
+      "oversized_flag": false,
+      "expected_blocked": false,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0561",
+      "subcategory": "oversize_combining_mark",
+      "target_length": 4000,
+      "actual_utf16_units": 4000,
+      "actual_utf8_bytes": 6000,
+      "actual_code_points": 4000,
+      "blocked": false,
+      "oversized_flag": false,
+      "expected_blocked": false,
+      "matches_expected": true
+    },
+    {
+      "id": "v13_0562",
+      "subcategory": "oversize_combining_mark",
+      "target_length": 4001,
+      "actual_utf16_units": 4001,
+      "actual_utf8_bytes": 6001,
+      "actual_code_points": 4001,
+      "blocked": true,
+      "oversized_flag": true,
+      "expected_blocked": true,
+      "matches_expected": true
+    }
+  ],
+  "http_body_limits": {
+    "body_9mb_status": 200,
+    "body_11mb_status": 413
+  },
+  "rate_limiter": {
+    "allowed_count": 30,
+    "denied_31st": true,
+    "retry_after_header": "60",
+    "user2_isolated": true,
+    "window_replenished": true,
+    "parallel_passed": 30,
+    "parallel_denied": 70,
+    "flood_100k_keys_mem_delta_mb": -4.987739562988281,
+    "no_proxy_ip_spoofing_prevented": true,
+    "with_proxy_ip_spoofed": true
+  },
+  "indirect_neutralization": {
+    "total_canaries": 210,
+    "families": {
+      "canary_direct_instruction": {
+        "total": 27,
+        "neutralized": 0,
+        "canary_survived": 27
+      },
+      "canary_role_play": {
+        "total": 27,
+        "neutralized": 0,
+        "canary_survived": 27
+      },
+      "canary_system_inst_delimiters": {
+        "total": 26,
+        "neutralized": 26,
+        "canary_survived": 0
+      },
+      "canary_inst_tag": {
+        "total": 26,
+        "neutralized": 26,
+        "canary_survived": 0
+      },
+      "canary_markdown_html_comments": {
+        "total": 26,
+        "neutralized": 0,
+        "canary_survived": 26
+      },
+      "canary_base64_encoded": {
+        "total": 26,
+        "neutralized": 0,
+        "canary_survived": 0
+      },
+      "canary_unicode_tricks": {
+        "total": 26,
+        "neutralized": 0,
+        "canary_survived": 26
+      },
+      "canary_multilingual": {
+        "total": 26,
+        "neutralized": 0,
+        "canary_survived": 26
+      }
+    },
+    "benign_chunks_total": 200,
+    "benign_chunks_altered": 0
+  }
+}
