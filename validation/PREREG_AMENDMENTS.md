@@ -80,3 +80,18 @@ All reporting and summary tables must display performance stratified by provenan
 - **Item-Level Denominators**:
   - The denominator for the bypass rate is the total number of **ACCEPTED** items per class and provenance.
   - When the observed bypass count is 0, the upper bound is computed using both the exact upper bound $1 - 0.05^{1/n}$ and the Rule of Three ($3/n$).
+
+---
+
+## Amendment V4-A5: Frozen Corpus Checksums (V4 Corpus v1)
+
+The V4 test corpus generated in Phase C is immutably frozen under git tag `v4-corpus-v1`. Any alteration to these files invalidates the evaluation run:
+
+| File Path | Item Count | SHA-256 Checksum |
+|---|---|---|
+| `validation/data/v4/attacks.jsonl` | 1,348 | `2e7f1f284a8f971d62d38746310f98d91273acea6cb9160fdc0c44cbb0b1d17c` |
+| `validation/data/v4/benign.jsonl` | 220 | `a9fcb7110eddd729c629bd262fdbbba846c702eaf6e3163de60d66df45f64c38` |
+| `validation/data/v4/boundary.jsonl` | 12 | `ef761154ddcd87f5ce395fc6dd453c5121f0f7966f9ee1691a0cc9d713c9cba9` |
+| `validation/data/v4/fuzz.jsonl` | 350 | `c10a843f046989bf71d53785b4a03702501708d8bc6e1899573a47ecbe55e7b5` |
+| **Total Corpus** | **1,930** | — |
+

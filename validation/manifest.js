@@ -234,6 +234,9 @@ function generateManifest() {
     packageLockHashes['package-lock.json'] = getSha256(packageLockRoot);
   }
 
+  const corpusDir = path.resolve(config.PATHS.VALIDATION_ROOT, 'data/v4');
+  const corpusHashes = fs.existsSync(corpusDir) ? getFilesChecksum(corpusDir, '.jsonl') : {};
+
   const sourceParameterCitations = {
     temperature: [
       {
@@ -339,6 +342,7 @@ function generateManifest() {
       databases: databaseHashes,
       sample_data: sampleDataHashes,
       package_lock: packageLockHashes,
+      corpus: corpusHashes,
     },
     sqlite_driver: getSqliteDriverInfo(),
   };

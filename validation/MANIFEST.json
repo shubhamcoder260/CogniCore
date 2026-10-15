@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-15T04:48:46.800Z",
+  "generated_at": "2026-10-15T04:57:11.585Z",
   "git": {
-    "copy_head": "ce6d3ba64e2131c3e5ffcdbb3b80745d4a4f504b",
+    "copy_head": "078f814cd688fee6c5d057402261fa1d811dce32",
     "original_head": "6f2dd4c004e555b83587c3e0c195f7882432ad9b",
     "prereg_commit": "20a21643d7fc31a3811abc6927b17296b9c8df0e",
     "prereg_tag": "prereg-v1"
@@ -140,7 +140,7 @@
   },
   "checksums": {
     "databases": {
-      "database/bank/B1_community.db": "221d6dd967f32f6c82b13ac176da4eabba436b03161f1ae6e9b223568e2d7c41",
+      "database/bank/B1_community.db": "17f576f11810884dbbc18a12ec66d3d608aa0e1db1e695846334ab13945b51a0",
       "database/bank/B2_district.db": "060a3893e42432ea47bf2b2d49c4b41371a3441628a217320d4052bd0ff491ad",
       "database/bank/B3_metro.db": "e2ef3c591dd90916009ab48c381651f2f45df1f299638fd60ad8aad50fbdfc5e",
       "database/fooddelivery/F1_quickbite.db": "d355acedfe33447924971a947d2aff0602456ab2db507789dd7bb476448b3d76",
@@ -165,6 +165,12 @@
     },
     "package_lock": {
       "server/package-lock.json": "5b2e1535506c51822a6df46c564684363a6c37231523d950e0d815657fe832d3"
+    },
+    "corpus": {
+      "validation/data/v4/attacks.jsonl": "2e7f1f284a8f971d62d38746310f98d91273acea6cb9160fdc0c44cbb0b1d17c",
+      "validation/data/v4/benign.jsonl": "a9fcb7110eddd729c629bd262fdbbba846c702eaf6e3163de60d66df45f64c38",
+      "validation/data/v4/boundary.jsonl": "ef761154ddcd87f5ce395fc6dd453c5121f0f7966f9ee1691a0cc9d713c9cba9",
+      "validation/data/v4/fuzz.jsonl": "c10a843f046989bf71d53785b4a03702501708d8bc6e1899573a47ecbe55e7b5"
     }
   },
   "sqlite_driver": {
