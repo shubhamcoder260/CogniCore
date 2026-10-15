@@ -66,3 +66,36 @@ This document records all methodological decisions, architectural invariants, an
 3. **Multi-Oracle Consensus**:
    - Any query accepted by the gate that triggers non-readonly in Oracle 1 (`statement.readonly === false`), or filesystem/data changes in Oracle 2 (`mutationOracle`), or executor mutation in Oracle 3 (`defenseInDepthOracle`) is recorded as a security bypass.
 
+---
+
+## Step 2b Decisions (Evidence Gap Closure & Extended Analysis)
+
+1. **Genuine Write Statement Stratification**:
+   - In addition to reporting overall bypass rate across all accepted items, the bypass metric is additionally computed and reported over the specific subset of **genuine write statements** (queries that parse as non-SELECT or contain write/DDL keywords outside quoted string literals). This prevents harmless inert string literals from distorting the denominator or numerator of write execution bypass risk.
+
+2. **Per-Construct False-Rejection Reporting**:
+   - False-rejection rates on benign queries (Class C2) are reported strictly per construct (29 distinct language constructs) rather than a single pooled headline rate. This ensures construct-level over-rejection (e.g. 100% rejection on bracket quoting or string literals with comment tokens) cannot be obscured by high acceptance on basic queries.
+
+3. **Strict Child Process Resource Isolation**:
+   - All resource-heavy queries (Class B2) are evaluated exclusively in isolated child processes with `--max-old-space-size=1024`, an asynchronous 100ms event-loop heartbeat monitor, and a hard 15-second tree termination deadline (`taskkill /T /F`). In-process execution of unbounded or DoS queries is strictly prohibited to guarantee evaluator host stability.
+
+---
+
+## Step 2c Decisions (Reconciliation, Positive Controls, DoS Corpus v4c, and Hardening)
+
+1. **Script-Generated Reporting Invariant**:
+   - To guarantee 100% mathematical consistency and eliminate discrepancies between narrative prose and tables, all Markdown report text in `V4c_RESULTS.md` is generated programmatically from raw log records and computed summary objects via template strings.
+
+2. **Baseline Mutation Dual-Definition**:
+   - Baseline mutations for Class A unvalidated bypass items are reported under both execution paths:
+     - Path A: Real executor wrapper (`SELECT * FROM (...) AS __cognicore_capped LIMIT 1000`), where SQLite subquery syntax rules reject 7 non-subquery-compatible statements, yielding 26 mutations out of 40 items.
+     - Path B: Direct execution (`db.exec(sql)`), yielding 33 mutations out of 40 items.
+
+3. **Positive Controls Prerequisite**:
+   - Positive controls must be executed and passing in `validation/tests/` prior to running the v4c evaluation suite: verifying that a 2-second busy-loop registers $\ge 1$ blocked event-loop interval, and a 600 MB native allocation registers peak RSS $\ge 600$ MB in the monitor.
+
+4. **Resource Cap & Hard Kill Deadline**:
+   - All v4c DoS runs are monitored by a 100ms RSS poller that triggers an immediate kill if child RSS exceeds 2,048 MB, alongside a 15-second hard tree termination timeout (`taskkill /T /F`).
+
+
+

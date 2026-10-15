@@ -170,5 +170,33 @@ The refined V4b evaluation corpus generated in Step 2b is immutably frozen under
 | `validation/data/v4b/e_benchmark_status.json` | 1 (Status: NOT RUN) | `861f425a79c6108e841fd46f8ae884d1afd16bcb3ff8ae44b5a6f307c8cea8a9` |
 | **Total V4b Corpus** | **844** | — |
 
+---
+
+## Amendment V4-A7 (Step 2c): Scope Reconciliation, New DoS Corpus (v4c), Hardening Comparison, and Primary Security Statistic Definition
+
+This amendment defines the formal protocol for Step 2c:
+
+### 1. Scope of Step 2c Evaluation
+- **Reconciliation of Reporting Discrepancies**: Deterministic re-aggregation of all Step 2 and Step 2b raw execution logs (`v4_gate.jsonl`, `v4_oracles.jsonl`, `v4_fuzz_differential.jsonl`, `v4b_gate.jsonl`, `v4b_oracles.jsonl`, `v4b_resource.jsonl`, `v4b_defense_hardened.jsonl`) to produce fully unified, mathematically consistent tables with zero prose contradictions.
+- **New DoS Evaluation Suite (Class D3 / Corpus v4c)**: Targeted resource-exhaustion queries targeting the smallest and largest database fixtures (by row count), evaluated under a strict 2 GB memory limit and 15s hard kill deadline, frozen under git tag `v4c-corpus-v1`.
+- **4-Way Connection Hardening Matrix**: Exhaustive matrix evaluation across four SQLite driver connection configurations (`readonly: false` baseline, `PRAGMA query_only = ON` only, `readonly: true` only, and both combined) across 40 Class A statements, `VACUUM INTO`, `ATTACH ... write`, `CREATE TEMP TABLE`, `PRAGMA query_only=OFF; <write>`, and CTE writes.
+
+### 2. Primary and Secondary Security Statistics
+- **Primary Security Statistic**:
+  - The primary security metric for the SQL Safety Gate is the **acceptance rate of genuine write statements** ($n = 119$, agent-authored, NOT independent of the validation harness).
+  - Defined strictly as statements that parse as non-SELECT or contain write/DDL keywords outside quoted string literals.
+  - When zero genuine write statements are accepted ($k = 0$), the headline security guarantee is reported using the exact Clopper-Pearson 95% upper bound:
+    $$\text{Exact Upper Bound (95\%)} = 1 - 0.05^{1/n}$$
+    alongside the Rule of Three ($3/n$).
+- **Secondary Security Statistic**:
+  - **Bypass rate over accepted items** remains active as a secondary defense-in-depth statistic:
+    $$\text{Bypass} = (\text{Gate Accepted} == \text{true}) \land (\text{Oracle 1 readonly} == \text{false} \lor \text{Oracle 2 Mutated} == \text{true} \lor \text{Oracle 3 Mutated} == \text{true})$$
+  - Reported with 95% Wilson score confidence intervals across all accepted strata.
+
+### 3. Invariants & Criteria
+- Zero changes to pass/fail criteria (0 database mutations, 0 filesystem mutations, 0 driver non-read-only accepted queries).
+- Invariant: All prose summaries and markdown reports must be generated programmatically from raw log records and computed CSVs via script to guarantee mathematical consistency.
+
+
 
 
