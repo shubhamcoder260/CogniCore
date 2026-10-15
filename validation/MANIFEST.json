@@ -171,6 +171,12 @@
       "validation/data/v4/benign.jsonl": "a9fcb7110eddd729c629bd262fdbbba846c702eaf6e3163de60d66df45f64c38",
       "validation/data/v4/boundary.jsonl": "ef761154ddcd87f5ce395fc6dd453c5121f0f7966f9ee1691a0cc9d713c9cba9",
       "validation/data/v4/fuzz.jsonl": "c10a843f046989bf71d53785b4a03702501708d8bc6e1899573a47ecbe55e7b5"
+    },
+    "corpus_v4b": {
+      "validation/data/v4b/b2_probes.jsonl": "ce2457bd884d3291c56ac9d548be8ae8fa6ae12f85d8c971b0df753c48e3a4fc",
+      "validation/data/v4b/d2_boundary.jsonl": "946fe6505cf39e0fe922ccae6ba7f71dfa30b52f6738cb43671991be404f22d9",
+      "validation/data/v4b/c2_benign.jsonl": "5d7927ed2113bc2ae3c994c43b4a1dc92e6176bce8c49a9ea5cb3238f2991858",
+      "validation/data/v4b/e_benchmark_status.json": "861f425a79c6108e841fd46f8ae884d1afd16bcb3ff8ae44b5a6f307c8cea8a9"
     }
   },
   "sqlite_driver": {

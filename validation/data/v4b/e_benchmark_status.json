@@ -1,0 +1,8 @@
+{
+  "status": "NOT RUN",
+  "spider_expected_path": "C:\\cognicore\\validation_workspace\\validation\\data\\external\\spider",
+  "bird_expected_path": "C:\\cognicore\\validation_workspace\\validation\\data\\external\\bird",
+  "spider_found": false,
+  "bird_found": false,
+  "reason": "External benchmark files not provisioned under validation/data/external/. Large downloads prohibited by protocol."
+}

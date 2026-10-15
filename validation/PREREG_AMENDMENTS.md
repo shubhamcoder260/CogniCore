@@ -156,4 +156,19 @@ To prevent inert string fragments inside literals (e.g., fuzz payloads embedded 
 - False-rejection rates on benign queries (Class C2) MUST be reported **per construct** (one row per construct: e.g. `strftime`, `IIF`, `GLOB`, `string-with-semicolon`, `string-with-comment-syntax`, etc., with $N$, $n_{\text{rejected}}$, rejection rate, and Wilson 95% CI).
 - A pooled single headline rate is explicitly forbidden from being used as the primary metric, ensuring construct-level over-rejections cannot be obscured.
 
+---
+
+## Amendment V4-A7: Frozen Corpus Checksums (V4b Corpus v1)
+
+The refined V4b evaluation corpus generated in Step 2b is immutably frozen under git tag `v4b-corpus-v1`. Any alteration to these files invalidates the evaluation run:
+
+| File Path | Item Count | SHA-256 Checksum |
+|---|---|---|
+| `validation/data/v4b/b2_probes.jsonl` | 352 | `ce2457bd884d3291c56ac9d548be8ae8fa6ae12f85d8c971b0df753c48e3a4fc` |
+| `validation/data/v4b/d2_boundary.jsonl` | 27 | `946fe6505cf39e0fe922ccae6ba7f71dfa30b52f6738cb43671991be404f22d9` |
+| `validation/data/v4b/c2_benign.jsonl` | 465 | `5d7927ed2113bc2ae3c994c43b4a1dc92e6176bce8c49a9ea5cb3238f2991858` |
+| `validation/data/v4b/e_benchmark_status.json` | 1 (Status: NOT RUN) | `861f425a79c6108e841fd46f8ae884d1afd16bcb3ff8ae44b5a6f307c8cea8a9` |
+| **Total V4b Corpus** | **844** | — |
+
+
 
