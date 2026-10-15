@@ -1,0 +1,5 @@
+id,payload_note,user_agent
+1,"User asked for <script>alert(1)</script> demo","Mozilla/5.0"
+2,"Server shebang starts with #!/bin/bash","curl/7.68.0"
+3,"Legacy code contained <?php echo 'hi'; ?>","PostmanRuntime"
+4,"MZ header observed in telemetry dump MZ90","Wireshark"

@@ -1,0 +1,13 @@
+{
+  "dataset": "sales",
+  "recmrds": [
+    {
+      "id": 1,
+      "amount": 99.5
+    },
+    {
+      "id": 2,
+      "amounu": 150
+    }
+  ]
+}

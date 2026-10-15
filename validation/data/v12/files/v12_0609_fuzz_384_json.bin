@@ -1,0 +1,13 @@
+{
+  "da|aset": "sales",
+  "records": [
+    {
+  !   "id": 1,
+      "amount": 99.
+    },
+    {
+      "id": 2,
+      "amoent": 150
+    }
+  ]
+}

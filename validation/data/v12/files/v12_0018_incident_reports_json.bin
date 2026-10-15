@@ -1,0 +1,20 @@
+{
+  "logs": [
+    {
+      "rule": "xss",
+      "snippet": "<script>alert('xss')</script>"
+    },
+    {
+      "rule": "shebang",
+      "command": "#!/usr/bin/env python3"
+    },
+    {
+      "rule": "php",
+      "snippet": "<?php phpinfo(); ?>"
+    },
+    {
+      "rule": "pe",
+      "pattern": "MZ executable indicator"
+    }
+  ]
+}

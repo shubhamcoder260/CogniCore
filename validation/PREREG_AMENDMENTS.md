@@ -407,3 +407,11 @@ This amendment establishes the formal evaluation protocols, item classes, and pa
 - **Reporting Metrics**:
   - Redaction recall and precision per PII type and format (emails with subdomains/plus-addressing/obfuscation; phones +91/US/international/dashes/parens; SSNs valid vs invalid; credit cards Luhn-valid vs Luhn-invalid; benign numbers for false positives) reported with Wilson score 95% confidence intervals.
   - Scope gap analysis: Indian PAN and Aadhaar formats, person names, and unmasked export channels explicitly cataloged as architectural scope limits.
+
+### 5. Frozen Corpus Checksums (V12 Corpus v1)
+
+| File Path | Item Count | SHA-256 Checksum |
+|---|---|---|
+| `validation/data/v12/v12_files.jsonl` | 761 | `1b9a8716de6e961163f785e200c53068ef3fd96da826d067f90ef9a0f69f83dd` |
+| **Total V12 Corpus** | **761** | — |
+

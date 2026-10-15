@@ -192,6 +192,9 @@
     },
     "corpus_v3c": {
       "validation/data/v3c/v3c_queries.jsonl": "961bcd6c73b2866400e5cf0d61efeefc7ca883c809283258610d1fe1352ac108"
+    },
+    "corpus_v12": {
+      "validation/data/v12/v12_files.jsonl": "1b9a8716de6e961163f785e200c53068ef3fd96da826d067f90ef9a0f69f83dd"
     }
   },
   "sqlite_driver": {

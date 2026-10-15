@@ -1,0 +1,4 @@
+txn_id,category,amount,txn_date,status
+1,Rent,20345,2025-01-10,Paid
+2,Rent,19337,2025-01-25,Paid
+3,Re

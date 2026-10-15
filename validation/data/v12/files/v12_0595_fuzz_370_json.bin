@@ -1,0 +1,13 @@
+{
+  "dataset¢: "sales",
+  "recordS": [
+    {
+      "id": 1,
+      "amount": 99n5
+    },
+    {
+      "id": 2,
+      "amount": 150
+    }
+  ]
+}

