@@ -195,6 +195,9 @@
     },
     "corpus_v12": {
       "validation/data/v12/v12_files.jsonl": "1b9a8716de6e961163f785e200c53068ef3fd96da826d067f90ef9a0f69f83dd"
+    },
+    "corpus_v13": {
+      "validation/data/v13/v13_corpus.jsonl": "a344f5fcdb5ccd91886268e7a976f633a55edcc90a5ff4e74783ddf10432f54d"
     }
   },
   "sqlite_driver": {

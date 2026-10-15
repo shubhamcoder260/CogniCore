@@ -415,3 +415,11 @@ This amendment establishes the formal evaluation protocols, item classes, and pa
 | `validation/data/v12/v12_files.jsonl` | 761 | `1b9a8716de6e961163f785e200c53068ef3fd96da826d067f90ef9a0f69f83dd` |
 | **Total V12 Corpus** | **761** | — |
 
+### 6. Frozen Corpus Checksums (V13 Corpus v1)
+
+| File Path | Item Count | SHA-256 Checksum |
+|---|---|---|
+| `validation/data/v13/v13_corpus.jsonl` | 972 | `a344f5fcdb5ccd91886268e7a976f633a55edcc90a5ff4e74783ddf10432f54d` |
+| **Total V13 Corpus** | **972** | — |
+
+
