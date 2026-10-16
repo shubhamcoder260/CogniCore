@@ -1,0 +1,96 @@
+{
+  "primaryModel": "qwen2.5-coder:7b",
+  "promptBenchmarks": [
+    {
+      "model": "qwen2.5-coder:7b",
+      "wallClockMs": 1815,
+      "promptTokens": 717,
+      "promptDurationSec": 1.675,
+      "promptTokPerSec": 428,
+      "genTokens": 1,
+      "genDurationSec": 0,
+      "genTokPerSec": 1000000,
+      "response": "The"
+    },
+    {
+      "model": "qwen2.5-coder:7b",
+      "wallClockMs": 1575,
+      "promptTokens": 1419,
+      "promptDurationSec": 1.527,
+      "promptTokPerSec": 929.5,
+      "genTokens": 1,
+      "genDurationSec": 0,
+      "genTokPerSec": 1000000,
+      "response": "The"
+    },
+    {
+      "model": "qwen2.5-coder:7b",
+      "wallClockMs": 2618,
+      "promptTokens": 2745,
+      "promptDurationSec": 2.57,
+      "promptTokPerSec": 1067.9,
+      "genTokens": 1,
+      "genDurationSec": 0,
+      "genTokPerSec": 1000000,
+      "response": "The"
+    },
+    {
+      "model": "qwen2.5-coder:7b",
+      "wallClockMs": 3754,
+      "promptTokens": 2050,
+      "promptDurationSec": 3.552,
+      "promptTokPerSec": 577.1,
+      "genTokens": 1,
+      "genDurationSec": 0,
+      "genTokPerSec": 1000000,
+      "response": "To"
+    }
+  ],
+  "generationBenchmarks": [
+    {
+      "model": "qwen2.5-coder:7b",
+      "wallClockMs": 5184,
+      "promptTokens": 60,
+      "promptDurationSec": 0.485,
+      "promptTokPerSec": 123.7,
+      "genTokens": 50,
+      "genDurationSec": 4.586,
+      "genTokPerSec": 10.9,
+      "response": "Certainly! Below is a detailed SQL query with multiple CTEs (Common Table Expressions) and comments explaining each step. This query is designed to analyze a banking database, focusing on customer transactions and account balances.\n\n```sql\nWITH\n-- C"
+    },
+    {
+      "model": "qwen2.5-coder:7b",
+      "wallClockMs": 10557,
+      "promptTokens": 60,
+      "promptDurationSec": 0.1,
+      "promptTokPerSec": 598.2,
+      "genTokens": 100,
+      "genDurationSec": 10.438,
+      "genTokPerSec": 9.6,
+      "response": "Certainly! Below is a detailed SQL query with multiple CTEs (Common Table Expressions) and comments explaining each step. This query is designed to analyze a banking database, focusing on customer transactions and account balances.\n\n```sql\nWITH\n-- CTE to get all transactions for the last 30 days\nRecentTransactions AS (\n    SELECT\n        TransactionID,\n        CustomerID,\n        AccountID,\n        TransactionType,\n        Amount,\n        TransactionDate\n    FROM\n        Transactions\n   "
+    },
+    {
+      "model": "qwen2.5-coder:7b",
+      "wallClockMs": 22060,
+      "promptTokens": 60,
+      "promptDurationSec": 0.113,
+      "promptTokPerSec": 532.8,
+      "genTokens": 200,
+      "genDurationSec": 21.927,
+      "genTokPerSec": 9.1,
+      "response": "Certainly! Below is a detailed SQL query with multiple CTEs (Common Table Expressions) and comments explaining each step. This query is designed to analyze a banking database, focusing on customer transactions, account balances, and financial health metrics.\n\n```sql\nWITH\n-- CTE to calculate the total transactions per customer\nCustomerTransactions AS (\n    SELECT\n        CustomerID,\n        SUM(Amount) AS TotalTransactions\n    FROM\n        Transactions\n    GROUP BY\n        CustomerID\n),\n\n-- CTE to calculate the average transaction amount per customer\nAverageTransactionAmount AS (\n    SELECT\n        CustomerID,\n        AVG(Amount) AS AvgTransactionAmount\n    FROM\n        Transactions\n    GROUP BY\n        CustomerID\n),\n\n-- CTE to calculate the total balance per account\nAccountBalances AS (\n    SELECT\n        AccountID,\n        SUM(Balance) AS TotalBalance\n    FROM\n        Accounts\n    GROUP BY\n        AccountID\n),\n\n-- CTE to calculate"
+    }
+  ],
+  "secondaryModelCheck": {
+    "model": "qwen2.5:14b",
+    "wallClockMs": 30271,
+    "promptTokens": 44,
+    "promptDurationSec": 1.302,
+    "promptTokPerSec": 33.8,
+    "genTokens": 50,
+    "genDurationSec": 12.196,
+    "genTokPerSec": 4.1,
+    "response": "To provide you with the correct SQL query, I need to know the name of the table where the customer names are stored and the exact column name that contains the customer names. Assuming the table is named `customers` and the column for customer names is"
+  },
+  "totalWallClockMs": 77849
+}

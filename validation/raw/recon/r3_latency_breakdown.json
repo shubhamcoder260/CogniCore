@@ -1,0 +1,147 @@
+[
+  {
+    "id": "Q1",
+    "question": "What is the total balance across all accounts?",
+    "db": "database/bank/B1_community.db",
+    "raw_sql_response": "SELECT sum(bal) FROM accts",
+    "cleaned_sql": "SELECT sum(bal) FROM accts",
+    "prepared_sql": "SELECT sum(bal) FROM accts",
+    "validation": {
+      "valid": true
+    },
+    "executed_rows_count": 1,
+    "answer_summary": "The total balance across all accounts is 45646867.",
+    "timings": {
+      "semantic_build_ms": 11.17,
+      "routing_intent_ms": 2.85,
+      "schema_formatting_ms": 0.48,
+      "prompt_construction_ms": 0.84,
+      "llm_sql_draft_ms": 1208.83,
+      "output_cleaning_ms": 0.07,
+      "prepare_sql_repair_ms": 1.58,
+      "validate_sql_ms": 8.16,
+      "policy_enforce_ms": 0.16,
+      "sqlite_exec_ms": 1.81,
+      "evidence_construction_ms": 0.07,
+      "llm_answer_synthesis_ms": 2349.79,
+      "grounding_check_ms": 0.67,
+      "total_wall_clock_ms": 3586.54
+    }
+  },
+  {
+    "id": "Q2",
+    "question": "How many customers are there?",
+    "db": "database/bank/B1_community.db",
+    "raw_sql_response": "SELECT COUNT(DISTINCT holder_nm) FROM accts",
+    "cleaned_sql": "SELECT COUNT(DISTINCT holder_nm) FROM accts",
+    "prepared_sql": "SELECT COUNT(DISTINCT holder_nm) FROM accts",
+    "validation": {
+      "valid": true
+    },
+    "executed_rows_count": 1,
+    "answer_summary": "There are 106 unique customers.",
+    "timings": {
+      "semantic_build_ms": 14.89,
+      "routing_intent_ms": 0.03,
+      "schema_formatting_ms": 0.16,
+      "prompt_construction_ms": 0.6,
+      "llm_sql_draft_ms": 1600.84,
+      "output_cleaning_ms": 0.06,
+      "prepare_sql_repair_ms": 0.31,
+      "validate_sql_ms": 3.26,
+      "policy_enforce_ms": 0.01,
+      "sqlite_exec_ms": 2.05,
+      "evidence_construction_ms": 0.02,
+      "llm_answer_synthesis_ms": 1562.23,
+      "grounding_check_ms": 0.28,
+      "total_wall_clock_ms": 3184.79
+    }
+  },
+  {
+    "id": "Q3",
+    "question": "Which restaurant has the highest rating?",
+    "db": "database/fooddelivery/F1_quickbite.db",
+    "raw_sql_response": "SELECT rst_nm FROM rst ORDER BY rat DESC LIMIT 1",
+    "cleaned_sql": "SELECT rst_nm FROM rst ORDER BY rat DESC LIMIT 1",
+    "prepared_sql": "SELECT rst_nm FROM rst ORDER BY rat DESC LIMIT 1",
+    "validation": {
+      "valid": true
+    },
+    "executed_rows_count": 1,
+    "answer_summary": "The restaurant with the highest rating is RST_014.",
+    "timings": {
+      "semantic_build_ms": 20.75,
+      "routing_intent_ms": 0.03,
+      "schema_formatting_ms": 0.17,
+      "prompt_construction_ms": 0.22,
+      "llm_sql_draft_ms": 3623.98,
+      "output_cleaning_ms": 0.06,
+      "prepare_sql_repair_ms": 0.56,
+      "validate_sql_ms": 3.22,
+      "policy_enforce_ms": 0.01,
+      "sqlite_exec_ms": 3.13,
+      "evidence_construction_ms": 0.06,
+      "llm_answer_synthesis_ms": 1984.35,
+      "grounding_check_ms": 0.07,
+      "total_wall_clock_ms": 5636.67
+    }
+  },
+  {
+    "id": "Q4",
+    "question": "How many patients are there?",
+    "db": "database/hospital/H1_clinic.db",
+    "raw_sql_response": "SELECT COUNT(patient_id) FROM patients",
+    "cleaned_sql": "SELECT COUNT(patient_id) FROM patients",
+    "prepared_sql": "SELECT COUNT(patient_id) FROM patients",
+    "validation": {
+      "valid": true
+    },
+    "executed_rows_count": 1,
+    "answer_summary": "There are 400 patients.",
+    "timings": {
+      "semantic_build_ms": 26.57,
+      "routing_intent_ms": 0.04,
+      "schema_formatting_ms": 0.26,
+      "prompt_construction_ms": 0.55,
+      "llm_sql_draft_ms": 3162.88,
+      "output_cleaning_ms": 0.08,
+      "prepare_sql_repair_ms": 0.14,
+      "validate_sql_ms": 1.99,
+      "policy_enforce_ms": 0,
+      "sqlite_exec_ms": 1.92,
+      "evidence_construction_ms": 0.02,
+      "llm_answer_synthesis_ms": 1409.76,
+      "grounding_check_ms": 0.05,
+      "total_wall_clock_ms": 4604.3
+    }
+  },
+  {
+    "id": "Q5",
+    "question": "What is the average credits of all courses?",
+    "db": "database/university/U1_stateuniv.db",
+    "raw_sql_response": "SELECT AVG(credits) FROM courses",
+    "cleaned_sql": "SELECT AVG(credits) FROM courses",
+    "prepared_sql": "SELECT AVG(credits) FROM courses",
+    "validation": {
+      "valid": true
+    },
+    "executed_rows_count": 1,
+    "answer_summary": "The average credits of all courses is 3.575.",
+    "timings": {
+      "semantic_build_ms": 9.99,
+      "routing_intent_ms": 0.03,
+      "schema_formatting_ms": 0.12,
+      "prompt_construction_ms": 0.21,
+      "llm_sql_draft_ms": 3135.94,
+      "output_cleaning_ms": 0.01,
+      "prepare_sql_repair_ms": 0.11,
+      "validate_sql_ms": 0.69,
+      "policy_enforce_ms": 0,
+      "sqlite_exec_ms": 2.27,
+      "evidence_construction_ms": 0.02,
+      "llm_answer_synthesis_ms": 1986.76,
+      "grounding_check_ms": 0.07,
+      "total_wall_clock_ms": 5136.27
+    }
+  }
+]

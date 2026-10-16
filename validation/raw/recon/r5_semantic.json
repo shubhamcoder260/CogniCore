@@ -1,0 +1,167 @@
+[
+  {
+    "id": "B1",
+    "domain": "bank",
+    "db_path": "database/bank/B1_community.db",
+    "tables_count": 4,
+    "build_time_ms": 12,
+    "deterministic": true,
+    "prompt_chars": 1295,
+    "prompt_approx_tokens": 341,
+    "rendered_prompt": "Table \"brs\" (6 rows):\n  - br_id: unique identifier\n  - br_nm: category / label; possible values: BR_06 | BR_05 | BR_04 | BR_03 | BR_02 | BR_01\n  - city: category / label; possible values: Pune | Mumbai | Delhi | Bangalore\nTable \"accts\" (200 rows):\n  - acct_id: unique identifier\n  - holder_nm: category / label\n  - br_id: reference to another entity (foreign-key-like)\n  - acct_typ: category / label; possible values: Savings | Fixed Deposit | Current | Salary\n  - status: category / label; possible values: Active | Frozen | Dormant\n  - bal: numeric measure; range -3591–499215, avg 228234.33\n  - opn_yr: count/quantity; range 2018–2025, avg 2021.55\nTable \"txns\" (2519 rows):\n  - txn_id: unique identifier\n  - acct_id: reference to another entity (foreign-key-like)\n  - txn_typ: category / label; possible values: TRANSFER_IN | WITHDRAWAL | TRANSFER_OUT | BILL_PAYMENT | DEPOSIT\n  - amt: numeric measure; range 163.92–199927.63, avg 100538.96\n  - txn_dt: category / label\nTable \"lns\" (38 rows):\n  - ln_id: unique identifier\n  - acct_id: unique identifier\n  - prin: numeric measure; range 193060–4940098, avg 2474435.53\n  - rate: percentage or rate; range 7–14, avg 10.71\n  - dur: numeric measure; range 17–84, avg 57.82\n  - status: category / label; possible values: Active | Closed | Defaulted"
+  },
+  {
+    "id": "B2",
+    "domain": "bank",
+    "db_path": "database/bank/B2_district.db",
+    "tables_count": 4,
+    "build_time_ms": 50,
+    "deterministic": true,
+    "prompt_chars": 1450,
+    "prompt_approx_tokens": 382,
+    "rendered_prompt": "Table \"branches\" (6 rows):\n  - branch_id: unique identifier\n  - branch_name: category / label; possible values: Riverside Branch | Metro Branch | Hillview Branch | Downtown Branch | Central Branch | Airport Branch\n  - city: category / label; possible values: Mumbai | Delhi\nTable \"accounts\" (1500 rows):\n  - account_id: unique identifier\n  - holder_name: category / label\n  - branch_id: reference to another entity (foreign-key-like)\n  - account_type: category / label; possible values: Fixed Deposit | Current | Salary | Savings\n  - status: category / label; possible values: Active | Dormant | Frozen\n  - balance: monetary value; range -4860–499890, avg 242926.08\n  - open_year: date/time; range 2018 to 2025\nTable \"transactions\" (18336 rows):\n  - txn_id: unique identifier\n  - account_id: reference to another entity (foreign-key-like)\n  - txn_type: category / label; possible values: TRANSFER_OUT | BILL_PAYMENT | DEPOSIT | WITHDRAWAL | TRANSFER_IN\n  - amount: monetary value; range 130–199988.08, avg 99356.28\n  - txn_date: date/time; range 2023-01-01 10:26:00 to 2025-12-28 9:51:00\nTable \"loans\" (303 rows):\n  - loan_id: unique identifier\n  - account_id: unique identifier\n  - principal: numeric measure; range 90488–4921335, avg 2438752.57\n  - interest_rate_pct: percentage or rate; range 7–14, avg 10.57\n  - duration_months: percentage or rate; range 12–84, avg 46.46\n  - status: category / label; possible values: Active | Defaulted | Closed"
+  },
+  {
+    "id": "B3",
+    "domain": "bank",
+    "db_path": "database/bank/B3_metro.db",
+    "tables_count": 4,
+    "build_time_ms": 129,
+    "deterministic": true,
+    "prompt_chars": 1463,
+    "prompt_approx_tokens": 385,
+    "rendered_prompt": "Table \"branches\" (6 rows):\n  - branch_id: unique identifier\n  - branch_name: category / label; possible values: Riverside Branch | Metro Branch | Hillview Branch | Downtown Branch | Central Branch | Airport Branch\n  - city: category / label; possible values: Bangalore | Mumbai | Pune\nTable \"accounts\" (4000 rows):\n  - account_id: unique identifier\n  - holder_name: category / label\n  - branch_id: reference to another entity (foreign-key-like)\n  - account_type: category / label; possible values: Current | Fixed Deposit | Savings | Salary\n  - status: category / label; possible values: Active | Frozen | Dormant\n  - balance: monetary value; range -4862–499910, avg 246992.51\n  - open_year: date/time; range 2018 to 2025\nTable \"transactions\" (61470 rows):\n  - txn_id: unique identifier\n  - account_id: reference to another entity (foreign-key-like)\n  - txn_type: category / label; possible values: DEPOSIT | WITHDRAWAL | TRANSFER_OUT | BILL_PAYMENT | TRANSFER_IN\n  - amount: monetary value; range 114.8–199991.23, avg 100306.38\n  - txn_date: date/time; range 2023-01-01 10:25:00 to 2025-12-28 9:59:00\nTable \"loans\" (871 rows):\n  - loan_id: unique identifier\n  - account_id: unique identifier\n  - principal: numeric measure; range 54360–4999002, avg 2310522.2\n  - interest_rate_pct: percentage or rate; range 7–14, avg 10.43\n  - duration_months: percentage or rate; range 12–84, avg 47.83\n  - status: category / label; possible values: Active | Defaulted | Closed"
+  },
+  {
+    "id": "F1",
+    "domain": "fooddelivery",
+    "db_path": "database/fooddelivery/F1_quickbite.db",
+    "tables_count": 6,
+    "build_time_ms": 10,
+    "deterministic": true,
+    "prompt_chars": 1512,
+    "prompt_approx_tokens": 398,
+    "rendered_prompt": "Table \"rst\" (30 rows):\n  - rst_id: unique identifier\n  - rst_nm: free text\n  - cusin: category / label; possible values: Continental | Chinese | South Indian | North Indian | Mughlai | Fast Food | Desserts\n  - city: category / label; possible values: Pune | Mumbai | Bangalore | Delhi | Hyderabad\n  - rat: numeric measure; range 3–5, avg 3.95\nTable \"mnu\" (194 rows):\n  - itm_id: unique identifier\n  - rst_id: reference to another entity (foreign-key-like)\n  - itm_nm: free text\n  - prc: numeric measure; range 56.18–448.36, avg 255.9\n  - cat: category / label; possible values: Starters | Beverages | Main Course | Desserts | Breads | Rice\n  - veg: yes/no flag\nTable \"cst\" (200 rows):\n  - cst_id: unique identifier\n  - cst_nm: category / label\n  - ph: free text\nTable \"cur\" (30 rows):\n  - cur_id: unique identifier\n  - cur_nm: free text\n  - veh: category / label; possible values: Scooter | Bike | Cycle\nTable \"ords\" (1500 rows):\n  - ord_id: unique identifier\n  - cst_id: reference to another entity (foreign-key-like)\n  - rst_id: reference to another entity (foreign-key-like)\n  - cur_id: reference to another entity (foreign-key-like)\n  - ord_dt: category / label\n  - tot_amt: numeric measure; range 221.83–5100.93, avg 1819.99\n  - st: category / label; possible values: Delivered | Cancelled | Out for Delivery | Preparing\nTable \"oi\" (4561 rows):\n  - ord_id: reference to another entity (foreign-key-like)\n  - itm_id: reference to another entity (foreign-key-like)\n  - qty: count/quantity; range 1–3, avg 2.01"
+  },
+  {
+    "id": "F2",
+    "domain": "fooddelivery",
+    "db_path": "database/fooddelivery/F2_citygrub.db",
+    "tables_count": 6,
+    "build_time_ms": 57,
+    "deterministic": true,
+    "prompt_chars": 2105,
+    "prompt_approx_tokens": 554,
+    "rendered_prompt": "Table \"restaurants\" (80 rows):\n  - restaurant_id: unique identifier\n  - restaurant_name: category / label; possible values: Wok Express  | Tandoor House II | Sweet Truth III | Spice Junction  | Punjabi Rasoi Express | Madras Cafe Grand | Kebab Factory II | Dosa Point III | Curry Leaf Grand | Biryani Blues Express\n  - cuisine: category / label; possible values: Mughlai | Fast Food | Desserts | Continental | South Indian | Chinese | North Indian\n  - city: category / label; possible values: Bangalore | Delhi | Pune | Hyderabad | Mumbai\n  - rating: numeric measure; range 3–5, avg 3.98\nTable \"menu_items\" (465 rows):\n  - item_id: unique identifier\n  - restaurant_id: reference to another entity (foreign-key-like)\n  - item_name: category / label; possible values: Rogan Josh | Fish Curry | Butter Chicken | Vada Pav | Tandoori Chicken | Malai Kofta | Pav Bhaji | Dal Makhani | Chole Bhature | Idli Sambar | Samosa | Rabri …\n  - price: monetary value; range 49.89–449.58, avg 250.16\n  - category: category / label; possible values: Main Course | Breads | Rice | Starters | Desserts | Beverages\n  - is_veg: yes/no flag\nTable \"customers\" (1000 rows):\n  - customer_id: unique identifier\n  - customer_name: category / label\n  - phone: free text\nTable \"couriers\" (30 rows):\n  - courier_id: unique identifier\n  - courier_name: free text\n  - vehicle: category / label; possible values: Bike | Scooter | Cycle\nTable \"orders\" (10000 rows):\n  - order_id: unique identifier\n  - customer_id: reference to another entity (foreign-key-like)\n  - restaurant_id: reference to another entity (foreign-key-like)\n  - courier_id: reference to another entity (foreign-key-like)\n  - order_date: date/time; range 2024-01-01 10:01:00 to 2025-12-28 23:46:00\n  - total_amount: monetary value; range 134.39–5816.38, avg 1783.07\n  - status: category / label; possible values: Delivered | Cancelled | Preparing | Out for Delivery\nTable \"order_items\" (30956 rows):\n  - order_id: reference to another entity (foreign-key-like)\n  - item_id: reference to another entity (foreign-key-like)\n  - quantity: count/quantity; range 1–3, avg 2.01"
+  },
+  {
+    "id": "F3",
+    "domain": "fooddelivery",
+    "db_path": "database/fooddelivery/F3_national.db",
+    "tables_count": 6,
+    "build_time_ms": 221,
+    "deterministic": true,
+    "prompt_chars": 2109,
+    "prompt_approx_tokens": 555,
+    "rendered_prompt": "Table \"restaurants\" (200 rows):\n  - restaurant_id: unique identifier\n  - restaurant_name: category / label; possible values: Wok Express  | Tandoor House II | Sweet Truth III | Spice Junction  | Punjabi Rasoi Express | Madras Cafe Grand | Kebab Factory II | Dosa Point III | Curry Leaf Grand | Biryani Blues Express\n  - cuisine: category / label; possible values: South Indian | Mughlai | Fast Food | Continental | Desserts | Chinese | North Indian\n  - city: category / label; possible values: Bangalore | Pune | Mumbai | Delhi | Hyderabad\n  - rating: numeric measure; range 3–5, avg 4.05\nTable \"menu_items\" (1194 rows):\n  - item_id: unique identifier\n  - restaurant_id: reference to another entity (foreign-key-like)\n  - item_name: category / label; possible values: Rogan Josh | Hyderabadi Biryani | Butter Chicken | Dal Makhani | Chole Bhature | Tandoori Chicken | Fish Curry | Malai Kofta | Vada Pav | Rabri | Pav Bhaji | Samosa …\n  - price: monetary value; range 49–449.87, avg 248.85\n  - category: category / label; possible values: Beverages | Rice | Main Course | Starters | Desserts | Breads\n  - is_veg: yes/no flag\nTable \"customers\" (6000 rows):\n  - customer_id: unique identifier\n  - customer_name: category / label\n  - phone: free text\nTable \"couriers\" (30 rows):\n  - courier_id: unique identifier\n  - courier_name: free text\n  - vehicle: category / label; possible values: Bike | Cycle | Scooter\nTable \"orders\" (45000 rows):\n  - order_id: unique identifier\n  - customer_id: reference to another entity (foreign-key-like)\n  - restaurant_id: reference to another entity (foreign-key-like)\n  - courier_id: reference to another entity (foreign-key-like)\n  - order_date: date/time; range 2024-01-01 10:03:00 to 2025-12-28 23:52:00\n  - total_amount: monetary value; range 118.28–6301.92, avg 1777.75\n  - status: category / label; possible values: Delivered | Preparing | Out for Delivery | Cancelled\nTable \"order_items\" (139993 rows):\n  - order_id: reference to another entity (foreign-key-like)\n  - item_id: reference to another entity (foreign-key-like)\n  - quantity: count/quantity; range 1–3, avg 2"
+  },
+  {
+    "id": "H1",
+    "domain": "hospital",
+    "db_path": "database/hospital/H1_clinic.db",
+    "tables_count": 6,
+    "build_time_ms": 13,
+    "deterministic": true,
+    "prompt_chars": 1886,
+    "prompt_approx_tokens": 496,
+    "rendered_prompt": "Table \"doctors\" (25 rows):\n  - doc_id: unique identifier\n  - name: free text\n  - dept_id: reference to another entity (foreign-key-like)\n  - experience_yrs: numeric measure; range 2–29, avg 16\nTable \"patients\" (400 rows):\n  - patient_id: unique identifier\n  - patient_name: free text\n  - age: numeric measure; range 1–92, avg 47.67\n  - gender: category / label; possible values: M | F\n  - phone: free text\n  - blood_group: category / label; possible values: O- | AB- | B+ | B- | A+ | O+ | A- | AB+\nTable \"visits\" (2683 rows):\n  - visit_id: unique identifier\n  - patient_id: reference to another entity (foreign-key-like)\n  - doctor_id: reference to another entity (foreign-key-like)\n  - dept_id: reference to another entity (foreign-key-like)\n  - visit_date: date/time; range 2023-01-01 to 2025-12-28\n  - fee: monetary value; range 200–4997, avg 2598.6\n  - status: category / label; possible values: Completed | Cancelled | Follow-up\nTable \"diagnoses\" (2244 rows):\n  - dx_id: unique identifier\n  - visit_id: unique identifier\n  - code: reference to another entity (foreign-key-like)\n  - diagnosis: category / label; possible values: Chest Pain | Type 2 Diabetes | Gastritis | Asthma | Urinary Tract Infection | Low Back Pain | Hypertension | Anxiety Disorder\n  - severity: category / label; possible values: Mild | Moderate | Severe\nTable \"prescriptions\" (1235 rows):\n  - rx_id: unique identifier\n  - visit_id: unique identifier\n  - medicine: category / label; possible values: Omeprazole | Sertraline | Amoxicillin | Lisinopril | Atorvastatin | Albuterol | Metformin | Ibuprofen\n  - duration_days: percentage or rate; range 3–30, avg 16.51\nTable \"departments\" (7 rows):\n  - dept_id: unique identifier\n  - name: category / label; possible values: Pediatrics | Orthopedics | Oncology | Neurology | General Medicine | Emergency | Cardiology\n  - floor: numeric measure; range 1–5, avg 2.57"
+  },
+  {
+    "id": "H2",
+    "domain": "hospital",
+    "db_path": "database/hospital/H2_legacymed.db",
+    "tables_count": 5,
+    "build_time_ms": 541,
+    "deterministic": true,
+    "prompt_chars": 1718,
+    "prompt_approx_tokens": 452,
+    "rendered_prompt": "Table \"docs\" (25 rows):\n  - doc_id: unique identifier\n  - doc_nm: free text\n  - dept_nm: category / label; possible values: Pediatrics | Orthopedics | Neurology | Cardiology | Oncology | General Medicine | Emergency\n  - yrs_exp: numeric measure; range 6–28, avg 13.76\nTable \"pts\" (15000 rows):\n  - pat_id: unique identifier\n  - pat_nm: category / label\n  - age: numeric measure; range 1–92, avg 46.3\n  - sex: category / label; possible values: F | M\n  - phone: free text\n  - blood: category / label; possible values: B- | A- | O- | A+ | AB- | B+ | AB+ | O+\nTable \"vsts\" (142891 rows):\n  - visit_id: unique identifier\n  - pat_id: reference to another entity (foreign-key-like)\n  - doc_id: reference to another entity (foreign-key-like)\n  - dept_nm: category / label; possible values: Orthopedics | Cardiology | Pediatrics | Emergency | Oncology | General Medicine | Neurology\n  - adm_dt: category / label\n  - fee: monetary value; range 200–5000, avg 2607.15\n  - status: category / label; possible values: Completed | Follow-up | Cancelled\nTable \"dx\" (119249 rows):\n  - dx_id: unique identifier\n  - visit_id: unique identifier\n  - dx_code: reference to another entity (foreign-key-like)\n  - dx_nm: category / label; possible values: Gastritis | Hypertension | Anxiety Disorder | Asthma | Low Back Pain | Chest Pain | Urinary Tract Infection | Type 2 Diabetes\n  - severity: category / label; possible values: Severe | Mild | Moderate\nTable \"rx\" (65586 rows):\n  - rx_id: unique identifier\n  - visit_id: unique identifier\n  - med_nm: category / label; possible values: Albuterol | Omeprazole | Metformin | Ibuprofen | Atorvastatin | Lisinopril | Amoxicillin | Sertraline\n  - dur_days: numeric measure; range 3–30, avg 16.47"
+  },
+  {
+    "id": "H3",
+    "domain": "hospital",
+    "db_path": "database/hospital/H3_metropol.db",
+    "tables_count": 9,
+    "build_time_ms": 95,
+    "deterministic": true,
+    "prompt_chars": 2698,
+    "prompt_approx_tokens": 710,
+    "rendered_prompt": "Table \"doctors\" (25 rows):\n  - doc_id: unique identifier\n  - name: free text\n  - dept_id: reference to another entity (foreign-key-like)\n  - experience_yrs: numeric measure; range 3–30, avg 16.84\nTable \"patients\" (3000 rows):\n  - patient_id: unique identifier\n  - patient_name: category / label\n  - age: numeric measure; range 1–92, avg 46.97\n  - gender: category / label; possible values: F | M\n  - phone: free text\n  - blood_group: category / label; possible values: B- | O- | AB- | A- | O+ | A+ | AB+ | B+\nTable \"visits\" (16428 rows):\n  - visit_id: unique identifier\n  - patient_id: reference to another entity (foreign-key-like)\n  - doctor_id: reference to another entity (foreign-key-like)\n  - dept_id: reference to another entity (foreign-key-like)\n  - visit_date: date/time; range 2023-01-01 to 2025-12-28\n  - fee: monetary value; range 200–5000, avg 2580.51\n  - status: category / label; possible values: Completed | Cancelled | Follow-up\nTable \"diagnoses\" (13715 rows):\n  - dx_id: unique identifier\n  - visit_id: unique identifier\n  - code: reference to another entity (foreign-key-like)\n  - diagnosis: category / label; possible values: Urinary Tract Infection | Gastritis | Chest Pain | Type 2 Diabetes | Anxiety Disorder | Asthma | Low Back Pain | Hypertension\n  - severity: category / label; possible values: Moderate | Mild | Severe\nTable \"prescriptions\" (7493 rows):\n  - rx_id: unique identifier\n  - visit_id: unique identifier\n  - medicine: category / label; possible values: Atorvastatin | Lisinopril | Sertraline | Ibuprofen | Albuterol | Amoxicillin | Omeprazole | Metformin\n  - duration_days: percentage or rate; range 3–30, avg 16.56\nTable \"departments\" (7 rows):\n  - dept_id: unique identifier\n  - name: category / label; possible values: Pediatrics | Orthopedics | Oncology | Neurology | General Medicine | Emergency | Cardiology\n  - floor: numeric measure; range 1–5, avg 2.57\nTable \"wards\" (8 rows):\n  - ward_id: unique identifier\n  - ward_name: category / label; possible values: Ward H | Ward G | Ward F | Ward E | Ward D | Ward C | Ward B | Ward A\n  - beds: numeric measure; range 20–47, avg 30.25\nTable \"lab_tests\" (6183 rows):\n  - lab_id: unique identifier\n  - visit_id: unique identifier\n  - test_code: reference to another entity (foreign-key-like)\n  - result: category / label; possible values: Normal | Borderline | Abnormal\nTable \"appointments\" (6571 rows):\n  - appt_id: unique identifier\n  - patient_id: reference to another entity (foreign-key-like)\n  - doctor_id: reference to another entity (foreign-key-like)\n  - appt_day: numeric measure; range 1–28, avg 14.4\n  - appt_month: numeric measure; range 1–12, avg 6.5\n  - appt_year: date/time; range 2025 to 2026"
+  },
+  {
+    "id": "I1",
+    "domain": "industry",
+    "db_path": "database/industry/I1_workshop.db",
+    "tables_count": 3,
+    "build_time_ms": 5,
+    "deterministic": true,
+    "prompt_chars": 958,
+    "prompt_approx_tokens": 252,
+    "rendered_prompt": "Table \"mcs\" (6 rows):\n  - mc_id: unique identifier\n  - mc_nm: category / label; possible values: MC_006 | MC_005 | MC_004 | MC_003 | MC_002 | MC_001\n  - eff: numeric measure; range 62–87, avg 77.83\n  - yr: numeric measure; range 2011–2023, avg 2016.17\nTable \"prod\" (500 rows):\n  - run_id: unique identifier\n  - mc_id: reference to another entity (foreign-key-like)\n  - shift: category / label; possible values: Morning | Night | Evening\n  - run_ts: count/quantity; range 1704201945–1735481148, avg 1720474118.66\n  - units: count/quantity; range 50–1197, avg 609.26\n  - defs: numeric measure; range 0–90, avg 8.79\n  - opr: category / label; possible values: ARUN | SURESH | MEERA | RAVI | ANITA | DEEPAK\nTable \"dfc\" (2824 rows):\n  - df_id: unique identifier\n  - run_id: reference to another entity (foreign-key-like)\n  - tp: category / label; possible values: PAINT | SCRATCH | DENT | WELD | MISCUT\n  - sv: category / label; possible values: 4 | 2 | 1 | 3 | 5"
+  },
+  {
+    "id": "I2",
+    "domain": "industry",
+    "db_path": "database/industry/I2_factory.db",
+    "tables_count": 3,
+    "build_time_ms": 61,
+    "deterministic": true,
+    "prompt_chars": 1165,
+    "prompt_approx_tokens": 307,
+    "rendered_prompt": "Table \"machines\" (16 rows):\n  - machine_id: unique identifier\n  - machine_name: category / label; possible values: Laser Cutter Pro | Injection Molder Y | Injection Molder X | Hydraulic Press One | CNC Mill Alpha | CNC Lathe Beta | Assembly Robot B | Assembly Robot A\n  - efficiency_pct: percentage or rate; range 61–97, avg 79.44\n  - install_year: date/time; range 2011 to 2021\nTable \"production_runs\" (8000 rows):\n  - run_id: unique identifier\n  - machine_id: reference to another entity (foreign-key-like)\n  - shift: category / label; possible values: Evening | Night | Morning\n  - run_date: date/time; range 2024-01-01 to 2024-12-29\n  - units_produced: count/quantity; range 50–1200, avg 628.97\n  - units_defective: count/quantity; range 0–95, avg 8.3\n  - operator: category / label; possible values: Arun Bose | Meera Iyer | Anita Verma | Deepak Das | Suresh Singh | Ravi Kumar\nTable \"defect_log\" (43820 rows):\n  - defect_id: unique identifier\n  - run_id: reference to another entity (foreign-key-like)\n  - defect_type: category / label; possible values: MISCUT | SCRATCH | DENT | PAINT | WELD\n  - severity: category / label; possible values: 4 | 2 | 1 | 3 | 5"
+  },
+  {
+    "id": "I3",
+    "domain": "industry",
+    "db_path": "database/industry/I3_plantops.db",
+    "tables_count": 3,
+    "build_time_ms": 427,
+    "deterministic": true,
+    "prompt_chars": 1168,
+    "prompt_approx_tokens": 307,
+    "rendered_prompt": "Table \"machines\" (120 rows):\n  - machine_id: unique identifier\n  - machine_name: category / label; possible values: Laser Cutter Pro | Injection Molder Y | Injection Molder X | Hydraulic Press One | CNC Mill Alpha | CNC Lathe Beta | Assembly Robot B | Assembly Robot A\n  - efficiency_pct: percentage or rate; range 60–98, avg 77.7\n  - install_year: date/time; range 2010 to 2024\nTable \"production_runs\" (60000 rows):\n  - run_id: unique identifier\n  - machine_id: reference to another entity (foreign-key-like)\n  - shift: category / label; possible values: Night | Morning | Evening\n  - run_date: date/time; range 2024-01-01 to 2024-12-29\n  - units_produced: count/quantity; range 50–1200, avg 626.56\n  - units_defective: count/quantity; range 0–96, avg 8.21\n  - operator: category / label; possible values: Deepak Das | Meera Iyer | Arun Bose | Anita Verma | Ravi Kumar | Suresh Singh\nTable \"defect_log\" (328118 rows):\n  - defect_id: unique identifier\n  - run_id: reference to another entity (foreign-key-like)\n  - defect_type: category / label; possible values: SCRATCH | PAINT | WELD | DENT | MISCUT\n  - severity: category / label; possible values: 5 | 3 | 1 | 4 | 2"
+  },
+  {
+    "id": "U1",
+    "domain": "university",
+    "db_path": "database/university/U1_stateuniv.db",
+    "tables_count": 5,
+    "build_time_ms": 5,
+    "deterministic": true,
+    "prompt_chars": 2190,
+    "prompt_approx_tokens": 576,
+    "rendered_prompt": "Table \"departments\" (8 rows):\n  - dept_id: unique identifier\n  - name: category / label; possible values: Physics | Mechanical Engineering | Mathematics | Management | Electrical Engineering | Computer Science | Civil Engineering | Chemistry\n  - budget: monetary value; range 626437–4882935, avg 2638952.75\nTable \"instructors\" (20 rows):\n  - instructor_id: unique identifier\n  - name: category / label; possible values: Prof. Zara Sharma | Prof. Yuki Devi | Prof. Yuki Costa | Prof. Yuki Ahmed | Prof. Viktor Okafor | Prof. Rohan Kim | Prof. Raj Kapoor | Prof. Priya Kapoor | Prof. Maya Sharma | Prof. Maya Ahmed | Prof. Lena Rossi | Prof. Lena Kapoor …\n  - dept_id: reference to another entity (foreign-key-like)\n  - salary: monetary value; range 42663–172472, avg 93150.4\n  - experience_yrs: numeric measure; range 1–33, avg 19.55\n  - advisor_id: unique identifier (13 missing)\nTable \"students\" (300 rows):\n  - student_id: unique identifier\n  - name: free text\n  - dept_id: reference to another entity (foreign-key-like)\n  - year: category / label; possible values: 4 | 1 | 3 | 2\n  - advisor_id: reference to another entity (foreign-key-like) (32 missing)\n  - gpa: numeric measure; range 0.03–3.98, avg 2.06\nTable \"courses\" (40 rows):\n  - course_id: unique identifier\n  - course_code: unique identifier\n  - course_name: category / label; possible values: Signal Processing | Discrete Mathematics | Operating Systems | Databases | Compiler Design | Thermodynamics | Organizational Behavior | Structural Analysis | Quantum Physics | Machine Learning | Fluid Mechanics | Data Structures\n  - dept_id: reference to another entity (foreign-key-like)\n  - instructor_id: reference to another entity (foreign-key-like)\n  - credits: category / label; possible values: 5 | 4 | 2 | 3\n  - capacity: numeric measure; range 31–118, avg 69.7\nTable \"enrollments\" (1455 rows):\n  - enrollment_id: unique identifier\n  - student_id: reference to another entity (foreign-key-like)\n  - course_id: reference to another entity (foreign-key-like)\n  - gpa: numeric measure; range 0–4, avg 2\n  - semester: category / label; possible values: Spring 2023 | Spring 2025 | Spring 2024 | Fall 2023 | Fall 2025 | Fall 2024"
+  },
+  {
+    "id": "U2",
+    "domain": "university",
+    "db_path": "database/university/U2_metrouniv.db",
+    "tables_count": 5,
+    "build_time_ms": 35,
+    "deterministic": true,
+    "prompt_chars": 1940,
+    "prompt_approx_tokens": 511,
+    "rendered_prompt": "Table \"departments\" (8 rows):\n  - dept_id: unique identifier\n  - name: category / label; possible values: Physics | Mechanical Engineering | Mathematics | Management | Electrical Engineering | Computer Science | Civil Engineering | Chemistry\n  - budget: monetary value; range 606848–4795922, avg 3348829.5\nTable \"instructors\" (75 rows):\n  - instructor_id: unique identifier\n  - name: free text\n  - dept_id: reference to another entity (foreign-key-like)\n  - salary: monetary value; range 40064–177157, avg 113100.57\n  - experience_yrs: numeric measure; range 1–35, avg 19.4\n  - advisor_id: unique identifier (50 missing)\nTable \"students\" (3000 rows):\n  - student_id: unique identifier\n  - name: category / label\n  - dept_id: reference to another entity (foreign-key-like)\n  - year: category / label; possible values: 1 | 3 | 4 | 2\n  - advisor_id: reference to another entity (foreign-key-like) (337 missing)\n  - gpa: numeric measure; range 0–4, avg 1.97\nTable \"courses\" (120 rows):\n  - course_id: unique identifier\n  - course_code: unique identifier\n  - course_name: category / label; possible values: Machine Learning | Fluid Mechanics | Operating Systems | Structural Analysis | Discrete Mathematics | Organizational Behavior | Quantum Physics | Databases | Thermodynamics | Data Structures | Signal Processing | Compiler Design\n  - dept_id: reference to another entity (foreign-key-like)\n  - instructor_id: reference to another entity (foreign-key-like)\n  - credits: category / label; possible values: 2 | 4 | 5 | 3\n  - capacity: numeric measure; range 31–119, avg 73.24\nTable \"enrollments\" (14708 rows):\n  - enrollment_id: unique identifier\n  - student_id: reference to another entity (foreign-key-like)\n  - course_id: reference to another entity (foreign-key-like)\n  - gpa: numeric measure; range 0–4, avg 1.99\n  - semester: category / label; possible values: Spring 2025 | Fall 2024 | Spring 2024 | Fall 2023 | Fall 2025 | Spring 2023"
+  },
+  {
+    "id": "U3",
+    "domain": "university",
+    "db_path": "database/university/U3_institute.db",
+    "tables_count": 5,
+    "build_time_ms": 92,
+    "deterministic": true,
+    "prompt_chars": 1499,
+    "prompt_approx_tokens": 394,
+    "rendered_prompt": "Table \"depts\" (8 rows):\n  - dept_id: unique identifier\n  - dept_nm: category / label; possible values: DEP_08 | DEP_07 | DEP_06 | DEP_05 | DEP_04 | DEP_03 | DEP_02 | DEP_01\n  - bud: numeric measure; range 1631418–4939634, avg 3112865.38\nTable \"profs\" (300 rows):\n  - prof_id: unique identifier\n  - prof_nm: category / label\n  - dept_id: reference to another entity (foreign-key-like)\n  - sal: numeric measure; range 40268–179648, avg 107003.59\n  - yrs: numeric measure; range 1–35, avg 18.59\n  - adv_id: unique identifier (200 missing)\nTable \"stus\" (12000 rows):\n  - stu_id: unique identifier\n  - stu_nm: category / label\n  - dept_id: reference to another entity (foreign-key-like)\n  - yr: category / label; possible values: 4 | 3 | 1 | 2\n  - adv_id: reference to another entity (foreign-key-like) (1454 missing)\nTable \"crss\" (300 rows):\n  - crs_id: unique identifier\n  - crs_cd: free text\n  - crs_nm: free text\n  - dept_id: reference to another entity (foreign-key-like)\n  - prof_id: reference to another entity (foreign-key-like)\n  - cred: category / label; possible values: 4 | 5 | 2 | 3\n  - cap: numeric measure; range 30–120, avg 74.56\nTable \"enrs\" (59488 rows):\n  - enr_id: unique identifier\n  - stu_id: reference to another entity (foreign-key-like)\n  - crs_id: reference to another entity (foreign-key-like)\n  - grade: category / label; possible values: B | C+ | A | A+ | F | C- | B- | B+ | C | A- | D\n  - sem: category / label; possible values: 20231 | 20241 | 20252 | 20242 | 20232 | 20251"
+  }
+]

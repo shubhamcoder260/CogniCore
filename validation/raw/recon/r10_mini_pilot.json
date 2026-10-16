@@ -1,0 +1,378 @@
+{
+  "totalQuestions": 12,
+  "wallClockMs": 109016,
+  "results": [
+    {
+      "id": "RECON-B1-01",
+      "category": "count",
+      "database": "database/bank/B1_community.db",
+      "question": "How many accounts are there?",
+      "sha256": "c42e2b220dd458337f5fd862c1b6b00c57371e7e5b1f4fba74149966dc07f050",
+      "goldSql": "SELECT COUNT(*) FROM accts",
+      "goldRowsCount": 1,
+      "rawPath": {
+        "rawOutputText": "To find the total number of accounts in the database, you can use the following SQL query:\n\n```sql\nSELECT COUNT(*) FROM accts;\n```\n\nThis query counts the number of rows in the `accts` table, which represents the total number of accounts.",
+        "extractedSql": "SELECT COUNT(*) FROM accts",
+        "directExecSuccess": false,
+        "directExecError": "near \"To\": syntax error",
+        "extractedExecSuccess": true,
+        "extractedExecError": null,
+        "matchGold": true,
+        "wallClockMs": 5810
+      },
+      "governedPath": {
+        "rawOutputText": "SELECT COUNT(acct_id) FROM accts",
+        "cleanedSql": "SELECT COUNT(acct_id) FROM accts",
+        "repairedSql": "SELECT COUNT(acct_id) FROM accts",
+        "repairDiff": null,
+        "gateAccepted": true,
+        "gateRejectReason": null,
+        "execSuccess": true,
+        "execError": null,
+        "matchGold": false,
+        "wallClockMs": 1460
+      }
+    },
+    {
+      "id": "RECON-B1-02",
+      "category": "filter",
+      "database": "database/bank/B1_community.db",
+      "question": "List all accounts with a balance greater than 50000.",
+      "sha256": "98560d5f9425fe5917fd53dadf1795dab493d843adc86fdec3ec0126abad4a34",
+      "goldSql": "SELECT * FROM accts WHERE bal > 50000",
+      "goldRowsCount": 172,
+      "rawPath": {
+        "rawOutputText": "```sql\nSELECT * FROM accts WHERE bal > 50000;\n```",
+        "extractedSql": "SELECT * FROM accts WHERE bal > 50000",
+        "directExecSuccess": false,
+        "directExecError": "near \"```sql\nSELECT * FROM accts WHERE bal > 50000;\n```\": syntax error",
+        "extractedExecSuccess": true,
+        "extractedExecError": null,
+        "matchGold": true,
+        "wallClockMs": 2759
+      },
+      "governedPath": {
+        "rawOutputText": "SELECT acct_id, holder_nm, bal FROM accts WHERE bal > 50000",
+        "cleanedSql": "SELECT acct_id, holder_nm, bal FROM accts WHERE bal > 50000",
+        "repairedSql": "SELECT acct_id, holder_nm, bal FROM accts WHERE bal > 50000",
+        "repairDiff": null,
+        "gateAccepted": true,
+        "gateRejectReason": null,
+        "execSuccess": true,
+        "execError": null,
+        "matchGold": false,
+        "wallClockMs": 3037
+      }
+    },
+    {
+      "id": "RECON-B1-03",
+      "category": "join",
+      "database": "database/bank/B1_community.db",
+      "question": "Show each account ID along with its branch name.",
+      "sha256": "d5e9f3dce8c0610006a26a5f14a6ed6bddbd0ee733e167a7f07a1b4053ed2c37",
+      "goldSql": "SELECT accts.acct_id, brs.br_nm FROM accts JOIN brs ON accts.br_id = brs.br_id",
+      "goldRowsCount": 200,
+      "rawPath": {
+        "rawOutputText": "```sql\nSELECT accts.acct_id, brs.br_nm\nFROM accts\nJOIN brs ON accts.br_id = brs.br_id;\n```",
+        "extractedSql": "SELECT accts.acct_id, brs.br_nm\nFROM accts\nJOIN brs ON accts.br_id = brs.br_id",
+        "directExecSuccess": false,
+        "directExecError": "near \"```sql\nSELECT accts.acct_id, brs.br_nm\nFROM accts\nJOIN brs ON accts.br_id = brs.br_id;\n```\": syntax error",
+        "extractedExecSuccess": true,
+        "extractedExecError": null,
+        "matchGold": true,
+        "wallClockMs": 4375
+      },
+      "governedPath": {
+        "rawOutputText": "SELECT accts.acct_id, brs.br_nm FROM accts JOIN brs ON accts.br_id = brs.br_id",
+        "cleanedSql": "SELECT accts.acct_id, brs.br_nm FROM accts JOIN brs ON accts.br_id = brs.br_id",
+        "repairedSql": "SELECT accts.acct_id, brs.br_nm FROM accts JOIN brs ON accts.br_id = brs.br_id",
+        "repairDiff": null,
+        "gateAccepted": true,
+        "gateRejectReason": null,
+        "execSuccess": true,
+        "execError": null,
+        "matchGold": true,
+        "wallClockMs": 3889
+      }
+    },
+    {
+      "id": "RECON-B1-04",
+      "category": "aggregation",
+      "database": "database/bank/B1_community.db",
+      "question": "What is the average account balance for each account type?",
+      "sha256": "6ca6c8dd2adef9eb955a37f470bebd17ea3d2481aae3cf0aa298b13724643b88",
+      "goldSql": "SELECT acct_typ, AVG(bal) FROM accts GROUP BY acct_typ",
+      "goldRowsCount": 4,
+      "rawPath": {
+        "rawOutputText": "To find the average account balance for each account type, you can use the following SQL query:\n\n```sql\nSELECT acct_typ, AVG(bal) AS avg_bal\nFROM accts\nGROUP BY acct_typ;\n```\n\nThis query selects the `acct_typ` column and calculates the average balance (`AVG(bal)`) for each account type. The `GROUP BY` clause groups the results by the `acct_typ` column, so the average balance is calculated for each distinct account type in the `accts` table.",
+        "extractedSql": "SELECT acct_typ, AVG(bal) AS avg_bal\nFROM accts\nGROUP BY acct_typ",
+        "directExecSuccess": false,
+        "directExecError": "near \"To\": syntax error",
+        "extractedExecSuccess": true,
+        "extractedExecError": null,
+        "matchGold": false,
+        "wallClockMs": 12699
+      },
+      "governedPath": {
+        "rawOutputText": "SELECT acct_typ, AVG(bal) AS avg_bal FROM accts GROUP BY acct_typ",
+        "cleanedSql": "SELECT acct_typ, AVG(bal) AS avg_bal FROM accts GROUP BY acct_typ",
+        "repairedSql": "SELECT acct_typ, AVG(bal) AS avg_bal FROM accts GROUP BY acct_typ",
+        "repairDiff": null,
+        "gateAccepted": true,
+        "gateRejectReason": null,
+        "execSuccess": true,
+        "execError": null,
+        "matchGold": false,
+        "wallClockMs": 2936
+      }
+    },
+    {
+      "id": "RECON-F1-01",
+      "category": "count",
+      "database": "database/fooddelivery/F1_quickbite.db",
+      "question": "How many restaurants are there?",
+      "sha256": "2296e98d5c33d53a5517432cb015289c650c768d099fe96e4ef1d41ec8792c16",
+      "goldSql": "SELECT COUNT(*) FROM rst",
+      "goldRowsCount": 1,
+      "rawPath": {
+        "rawOutputText": "To find out how many restaurants there are, you can use the following SQL query:\n\n```sql\nSELECT COUNT(*) FROM rst;\n```\n\nThis query counts the number of rows in the `rst` table, which represents the number of restaurants.",
+        "extractedSql": "SELECT COUNT(*) FROM rst",
+        "directExecSuccess": false,
+        "directExecError": "near \"To\": syntax error",
+        "extractedExecSuccess": true,
+        "extractedExecError": null,
+        "matchGold": true,
+        "wallClockMs": 6019
+      },
+      "governedPath": {
+        "rawOutputText": "SELECT COUNT(rst_id) FROM rst",
+        "cleanedSql": "SELECT COUNT(rst_id) FROM rst",
+        "repairedSql": "SELECT COUNT(rst_id) FROM rst",
+        "repairDiff": null,
+        "gateAccepted": true,
+        "gateRejectReason": null,
+        "execSuccess": true,
+        "execError": null,
+        "matchGold": false,
+        "wallClockMs": 1427
+      }
+    },
+    {
+      "id": "RECON-F1-02",
+      "category": "filter",
+      "database": "database/fooddelivery/F1_quickbite.db",
+      "question": "List all restaurants with a rating greater than 4.5.",
+      "sha256": "75c02bf98938a528ab65df3e40db44cc9c6bf79372495f72430dab6714c168b5",
+      "goldSql": "SELECT * FROM rst WHERE rat > 4.5",
+      "goldRowsCount": 7,
+      "rawPath": {
+        "rawOutputText": "```sql\nSELECT rst_nm FROM rst WHERE rat > 4.5;\n```",
+        "extractedSql": "SELECT rst_nm FROM rst WHERE rat > 4.5",
+        "directExecSuccess": false,
+        "directExecError": "near \"```sql\nSELECT rst_nm FROM rst WHERE rat > 4.5;\n```\": syntax error",
+        "extractedExecSuccess": true,
+        "extractedExecError": null,
+        "matchGold": false,
+        "wallClockMs": 2413
+      },
+      "governedPath": {
+        "rawOutputText": "SELECT rst_nm FROM rst WHERE rat > 4.5",
+        "cleanedSql": "SELECT rst_nm FROM rst WHERE rat > 4.5",
+        "repairedSql": "SELECT rst_nm FROM rst WHERE rat > 4.5",
+        "repairDiff": null,
+        "gateAccepted": true,
+        "gateRejectReason": null,
+        "execSuccess": true,
+        "execError": null,
+        "matchGold": false,
+        "wallClockMs": 2324
+      }
+    },
+    {
+      "id": "RECON-F1-03",
+      "category": "join",
+      "database": "database/fooddelivery/F1_quickbite.db",
+      "question": "Show each order ID along with the restaurant name.",
+      "sha256": "90ed867dc3be5069196a26fb88e72476f9113fc05cbccc11c9b18559a57ab837",
+      "goldSql": "SELECT ords.ord_id, rst.rst_nm FROM ords JOIN rst ON ords.rst_id = rst.rst_id",
+      "goldRowsCount": 1500,
+      "rawPath": {
+        "rawOutputText": "```sql\nSELECT o.ord_id, r.rst_nm\nFROM ords o\nJOIN rst r ON o.rst_id = r.rst_id;\n```",
+        "extractedSql": "SELECT o.ord_id, r.rst_nm\nFROM ords o\nJOIN rst r ON o.rst_id = r.rst_id",
+        "directExecSuccess": false,
+        "directExecError": "near \"```sql\nSELECT o.ord_id, r.rst_nm\nFROM ords o\nJOIN rst r ON o.rst_id = r.rst_id;\n```\": syntax error",
+        "extractedExecSuccess": true,
+        "extractedExecError": null,
+        "matchGold": true,
+        "wallClockMs": 4465
+      },
+      "governedPath": {
+        "rawOutputText": "SELECT T1.ord_id ,  T2.rst_nm FROM ords AS T1 JOIN rst AS T2 ON T1.rst_id = T2.rst_id",
+        "cleanedSql": "SELECT T1.ord_id ,  T2.rst_nm FROM ords AS T1 JOIN rst AS T2 ON T1.rst_id = T2.rst_id",
+        "repairedSql": "SELECT T1.ord_id ,  T2.rst_nm FROM ords AS T1 JOIN rst AS T2 ON T1.rst_id = T2.rst_id",
+        "repairDiff": null,
+        "gateAccepted": true,
+        "gateRejectReason": null,
+        "execSuccess": true,
+        "execError": null,
+        "matchGold": false,
+        "wallClockMs": 5146
+      }
+    },
+    {
+      "id": "RECON-F1-04",
+      "category": "aggregation",
+      "database": "database/fooddelivery/F1_quickbite.db",
+      "question": "What is the average menu item price for each restaurant?",
+      "sha256": "8b486ab56337d0647dd8e2ed1465696934ffd73c341f6e1c4a8df563e33b2743",
+      "goldSql": "SELECT rst_id, AVG(prc) FROM mnu GROUP BY rst_id",
+      "goldRowsCount": 30,
+      "rawPath": {
+        "rawOutputText": "To find the average menu item price for each restaurant, you can use the following SQL query:\n\n```sql\nSELECT rst.rst_nm, AVG(mnu.prc) AS avg_item_price\nFROM rst\nJOIN mnu ON rst.rst_id = mnu.rst_id\nGROUP BY rst.rst_id, rst.rst_nm;\n```\n\nThis query joins the `rst` (restaurant) table with the `mnu` (menu) table on the `rst_id` field, groups the results by restaurant name, and calculates the average price of menu items for each restaurant.",
+        "extractedSql": "SELECT rst.rst_nm, AVG(mnu.prc) AS avg_item_price\nFROM rst\nJOIN mnu ON rst.rst_id = mnu.rst_id\nGROUP BY rst.rst_id, rst.rst_nm",
+        "directExecSuccess": false,
+        "directExecError": "near \"To\": syntax error",
+        "extractedExecSuccess": true,
+        "extractedExecError": null,
+        "matchGold": false,
+        "wallClockMs": 14025
+      },
+      "governedPath": {
+        "rawOutputText": "SELECT rst.rst_nm, AVG(mnu.prc) AS avg_prc FROM mnu JOIN rst ON mnu.rst_id = rst.rst_id GROUP BY rst.rst_nm",
+        "cleanedSql": "SELECT rst.rst_nm, AVG(mnu.prc) AS avg_prc FROM mnu JOIN rst ON mnu.rst_id = rst.rst_id GROUP BY rst.rst_nm",
+        "repairedSql": "SELECT rst.rst_nm, AVG(mnu.prc) AS avg_prc FROM mnu JOIN rst ON mnu.rst_id = rst.rst_id GROUP BY rst.rst_nm",
+        "repairDiff": null,
+        "gateAccepted": true,
+        "gateRejectReason": null,
+        "execSuccess": true,
+        "execError": null,
+        "matchGold": false,
+        "wallClockMs": 5311
+      }
+    },
+    {
+      "id": "RECON-H1-01",
+      "category": "count",
+      "database": "database/hospital/H1_clinic.db",
+      "question": "How many doctors are there?",
+      "sha256": "dcbb1713cb2a46f16dc28baf4b72b98f392687f43bee7d1cb24ab7074e7cccca",
+      "goldSql": "SELECT COUNT(*) FROM doctors",
+      "goldRowsCount": 1,
+      "rawPath": {
+        "rawOutputText": "```sql\nSELECT COUNT(doc_id) AS total_doctors FROM doctors;\n```",
+        "extractedSql": "SELECT COUNT(doc_id) AS total_doctors FROM doctors",
+        "directExecSuccess": false,
+        "directExecError": "near \"```sql\nSELECT COUNT(doc_id) AS total_doctors FROM doctors;\n```\": syntax error",
+        "extractedExecSuccess": true,
+        "extractedExecError": null,
+        "matchGold": false,
+        "wallClockMs": 2248
+      },
+      "governedPath": {
+        "rawOutputText": "SELECT COUNT(doc_id) FROM doctors",
+        "cleanedSql": "SELECT COUNT(doc_id) FROM doctors",
+        "repairedSql": "SELECT COUNT(doc_id) FROM doctors",
+        "repairDiff": null,
+        "gateAccepted": true,
+        "gateRejectReason": null,
+        "execSuccess": true,
+        "execError": null,
+        "matchGold": false,
+        "wallClockMs": 1549
+      }
+    },
+    {
+      "id": "RECON-H1-02",
+      "category": "filter",
+      "database": "database/hospital/H1_clinic.db",
+      "question": "List all patients who are older than 60.",
+      "sha256": "56a414876c947ce585410c1b2aefb4c04065bee4563b4d833633ab450634774c",
+      "goldSql": "SELECT * FROM patients WHERE age > 60",
+      "goldRowsCount": 146,
+      "rawPath": {
+        "rawOutputText": "```sql\nSELECT patient_name FROM patients WHERE age > 60;\n```",
+        "extractedSql": "SELECT patient_name FROM patients WHERE age > 60",
+        "directExecSuccess": false,
+        "directExecError": "near \"```sql\nSELECT patient_name FROM patients WHERE age > 60;\n```\": syntax error",
+        "extractedExecSuccess": true,
+        "extractedExecError": null,
+        "matchGold": false,
+        "wallClockMs": 2128
+      },
+      "governedPath": {
+        "rawOutputText": "SELECT patient_name FROM patients WHERE age > 60",
+        "cleanedSql": "SELECT patient_name FROM patients WHERE age > 60",
+        "repairedSql": "SELECT patient_name FROM patients WHERE age > 60",
+        "repairDiff": null,
+        "gateAccepted": true,
+        "gateRejectReason": null,
+        "execSuccess": true,
+        "execError": null,
+        "matchGold": false,
+        "wallClockMs": 1928
+      }
+    },
+    {
+      "id": "RECON-H1-03",
+      "category": "join",
+      "database": "database/hospital/H1_clinic.db",
+      "question": "Show each doctor's name along with their department name.",
+      "sha256": "ee424f718747cace3922233cc4b44f8493c2e904baf8cd1d5af591ef328d77f0",
+      "goldSql": "SELECT doctors.name, departments.name FROM doctors JOIN departments ON doctors.dept_id = departments.dept_id",
+      "goldRowsCount": 25,
+      "rawPath": {
+        "rawOutputText": "```sql\nSELECT doctors.name, departments.name\nFROM doctors\nJOIN departments ON doctors.dept_id = departments.dept_id;\n```",
+        "extractedSql": "SELECT doctors.name, departments.name\nFROM doctors\nJOIN departments ON doctors.dept_id = departments.dept_id",
+        "directExecSuccess": false,
+        "directExecError": "near \"```sql\nSELECT doctors.name, departments.name\nFROM doctors\nJOIN departments ON doctors.dept_id = departments.dept_id;\n```\": syntax error",
+        "extractedExecSuccess": true,
+        "extractedExecError": null,
+        "matchGold": true,
+        "wallClockMs": 3267
+      },
+      "governedPath": {
+        "rawOutputText": "SELECT doctors.name, departments.name FROM doctors JOIN departments ON doctors.dept_id = departments.dept_id",
+        "cleanedSql": "SELECT doctors.name, departments.name FROM doctors JOIN departments ON doctors.dept_id = departments.dept_id",
+        "repairedSql": "SELECT doctors.name, departments.name FROM doctors JOIN departments ON doctors.dept_id = departments.dept_id",
+        "repairDiff": null,
+        "gateAccepted": true,
+        "gateRejectReason": null,
+        "execSuccess": true,
+        "execError": null,
+        "matchGold": false,
+        "wallClockMs": 2900
+      }
+    },
+    {
+      "id": "RECON-H1-04",
+      "category": "aggregation",
+      "database": "database/hospital/H1_clinic.db",
+      "question": "What is the total visit fee collected by each department?",
+      "sha256": "2a5890faf8ff6efe5c7b663c3b3cdd6a6bf8a69bfa128f75d195663aa487f180",
+      "goldSql": "SELECT dept_id, SUM(fee) FROM visits GROUP BY dept_id",
+      "goldRowsCount": 7,
+      "rawPath": {
+        "rawOutputText": "To find the total visit fee collected by each department, you can use the following SQL query:\n\n```sql\nSELECT d.name AS department_name, SUM(v.fee) AS total_fee\nFROM departments d\nJOIN visits v ON d.dept_id = v.dept_id\nGROUP BY d.dept_id;\n```\n\nThis query joins the `departments` table with the `visits` table on the `dept_id` column, groups the results by department, and calculates the sum of the `fee` column for each department.",
+        "extractedSql": "SELECT d.name AS department_name, SUM(v.fee) AS total_fee\nFROM departments d\nJOIN visits v ON d.dept_id = v.dept_id\nGROUP BY d.dept_id",
+        "directExecSuccess": false,
+        "directExecError": "near \"To\": syntax error",
+        "extractedExecSuccess": true,
+        "extractedExecError": null,
+        "matchGold": false,
+        "wallClockMs": 12436
+      },
+      "governedPath": {
+        "rawOutputText": "SELECT d.name, SUM(v.fee) as total_fee FROM visits v JOIN departments d ON v.dept_id = d.dept_id GROUP BY d.name",
+        "cleanedSql": "SELECT d.name, SUM(v.fee) as total_fee FROM visits v JOIN departments d ON v.dept_id = d.dept_id GROUP BY d.name",
+        "repairedSql": "SELECT d.name, SUM(v.fee) as total_fee FROM visits v JOIN departments d ON v.dept_id = d.dept_id GROUP BY d.name",
+        "repairDiff": null,
+        "gateAccepted": true,
+        "gateRejectReason": null,
+        "execSuccess": true,
+        "execError": null,
+        "matchGold": false,
+        "wallClockMs": 4250
+      }
+    }
+  ]
+}

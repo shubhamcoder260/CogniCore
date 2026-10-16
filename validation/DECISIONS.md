@@ -193,5 +193,25 @@ This document records all methodological decisions, architectural invariants, an
    - Evaluated precision against 120 benign numerical identifiers (order IDs, 16-digit tracking codes, dates, currencies) to detect false masking.
    - Documented out-of-scope identifier formats (Aadhaar, PAN, person names) and unmasked export channels (CSV/XLSX/PDF) as verified architectural scope gaps.
 
+---
+
+## Step 5 Reconnaissance Decisions (Design, Profiling, and Invariants for V1/V2 Evaluation)
+
+1. **`runStructuredQuery` as Governed Harness Entry Point (V1)**:
+   - To benchmark text-to-SQL generation directly under full CogniCore governance (`generateSql` $\rightarrow$ `cleanSqlOutput` $\rightarrow$ `prepareSql` $\rightarrow$ `validateSql` $\rightarrow$ `enforcePolicy` $\rightarrow$ `executeValidatedQuery`), the harness invokes `runStructuredQuery` ([server/src/core/engines/structured.engine.js:36](file:///C:/cognicore/validation_workspace/server/src/core/engines/structured.engine.js#L36)). This accepts a dependency-injected `llmProvider` without mutating module singletons, bypasses intent classifier regexes and agent tool interception in `core.engine.js`, and disables the 20-second markdown answer synthesis LLM call (`composeAnswer`), reducing evaluation latency from ~4.4s to ~2.5s per query.
+
+2. **Mandatory Context Window Configuration (`num_ctx: 4096`)**:
+   - Auditing all 15 fixture databases revealed that `H3_metropol` consumes 1,694 prompt tokens (82.7% of 2048). At Ollama's default context limit (2,048 tokens), recovery prompts (+150-250 tokens) risk context overflow and silent truncation. The harness must pass `options: { num_ctx: 4096 }` on all Ollama completion calls.
+
+3. **Dedicated Raw Execution Wrapper (C0)**:
+   - Mini-pilot testing confirmed that local LLMs wrap SQL in markdown code blocks (` ```sql ... ``` `) 100% of the time and include conversational filler 41.7% of the time under DDL prompts, causing direct SQLite execution to fail 100% of the time. The C0 harness extracts SQL via standard fence stripping and semicolon isolation before execution. Both C0 and V1 execute against identical SQLite database files with identical 1,000-row limits.
+
+4. **Value-Set Metric for NL2SQL Ground Truth Comparison**:
+   - Because LLMs frequently introduce valid column aliases (`AS avg_bal` vs `AVG(bal)`) or select equivalent expressions (`COUNT(acct_id)` vs `COUNT(*)`), strict JSON key equality produces false negatives. Step 5 evaluation must compare canonical row value sets (multisets of projected values) rather than raw JSON key-value objects.
+
+5. **Formal Exclusion of 12 Reconnaissance Pilot Items**:
+   - The 12 questions evaluated during R10 (`RECON-B1-01` through `RECON-H1-04`, covering counts, filters, joins, and aggregations across `B1_community`, `F1_quickbite`, and `H1_clinic`) are formally documented in `STEP5_RECON.md` along with their SHA-256 hashes and must be excluded from Step 5 experimental evaluation corpora.
+
+
 
 

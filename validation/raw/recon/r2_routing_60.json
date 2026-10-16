@@ -1,0 +1,506 @@
+[
+  {
+    "id": 1,
+    "question": "How many customers are there?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 2,
+    "question": "Count the total number of customers.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 3,
+    "question": "What is the total count of accounts?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 4,
+    "question": "Show the number of branches in the system.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 5,
+    "question": "List how many active loans exist.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 6,
+    "question": "Give me the count of transactions.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 7,
+    "question": "Can you tell me how many employees work here?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 8,
+    "question": "Display the number of students enrolled.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 9,
+    "question": "How many accounts have a balance greater than 10000?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 10,
+    "question": "Count customers living in New York.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 11,
+    "question": "How many transactions were completed with status Success?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 12,
+    "question": "What is the number of loans with interest rate below 5%?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 13,
+    "question": "Count employees in the Engineering department.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 14,
+    "question": "Show how many orders were placed by customer 101.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 15,
+    "question": "How many patients were admitted with status Discharged?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 16,
+    "question": "What is the average account balance?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 17,
+    "question": "Calculate the average transaction amount.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 18,
+    "question": "Find the mean salary of all employees.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 19,
+    "question": "What is the total balance across all accounts?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 20,
+    "question": "Sum the total revenue for this year.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 21,
+    "question": "Give me the average loan duration in months.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 22,
+    "question": "Show average fee per appointment.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 23,
+    "question": "Calculate total expenditure across all departments.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 24,
+    "question": "Which branch has the highest total balance?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 25,
+    "question": "What is the top product category by sales?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 26,
+    "question": "Which customer has the maximum number of transactions?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 27,
+    "question": "Show the department with the largest number of employees.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 28,
+    "question": "Which course has the highest average grade?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 29,
+    "question": "Find the doctor with the most appointments.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 30,
+    "question": "Which region generated the highest revenue?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 31,
+    "question": "What percentage of accounts are checking accounts?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 32,
+    "question": "What is the percentage of loans that are delinquent?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 33,
+    "question": "Calculate the share of active customers.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 34,
+    "question": "What proportion of transactions are deposits?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 35,
+    "question": "What percentage of students have attendance above 75%?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 36,
+    "question": "Show the ratio of approved to rejected claims.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 37,
+    "question": "List customers with their branch name and account balance.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 38,
+    "question": "Show each transaction along with customer name and account type.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 39,
+    "question": "Which customers hold loans at the Downtown branch?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 40,
+    "question": "List orders including customer name, product title, and supplier.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 41,
+    "question": "Show student names, their enrolled course, and the instructor name.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 42,
+    "question": "Display appointments with patient name, doctor name, and clinic location.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 43,
+    "question": "List employees, their department title, and manager name.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 44,
+    "question": "How many accounts were opened in 2026?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 45,
+    "question": "What was the total transaction volume after 2025-06-01?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 46,
+    "question": "Count appointments scheduled between January and March.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 47,
+    "question": "Show all orders placed during the last quarter.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 48,
+    "question": "List employees who joined before 2024-01-01.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 49,
+    "question": "What is the average transaction amount for transactions in October 2026?",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 50,
+    "question": "Show the balance of all accounts.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 51,
+    "question": "List all customer records.",
+    "intent": "query",
+    "rule_regex": null,
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 52,
+    "question": "What is the trend of transaction volume over the last 6 months?",
+    "intent": "trend",
+    "rule_regex": "\\b(trend\\w*|increasing or decreasing|goi",
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 53,
+    "question": "What is the monthly revenue trend?",
+    "intent": "trend",
+    "rule_regex": "\\b(trend\\w*|increasing or decreasing|goi",
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 54,
+    "question": "Describe the distribution of account balances.",
+    "intent": "describe",
+    "rule_regex": "\\b(describe|statistics (for|of|on)|summa",
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 55,
+    "question": "Show summary statistics for employee salaries.",
+    "intent": "describe",
+    "rule_regex": "\\b(describe|statistics (for|of|on)|summa",
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 56,
+    "question": "Compare branch 1 with branch 2.",
+    "intent": "compare",
+    "rule_regex": "\\b(compare|comparison|versus|vs\\.?|diffe",
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 57,
+    "question": "Compare sales between North and South regions.",
+    "intent": "compare",
+    "rule_regex": "\\b(compare|comparison|versus|vs\\.?|diffe",
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 58,
+    "question": "What is the correlation between age and account balance?",
+    "intent": "correlation",
+    "rule_regex": "\\b(correlat\\w*|relationship between|is t",
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 59,
+    "question": "Forecast total transaction volume for next month.",
+    "intent": "forecast",
+    "rule_regex": "\\b(forecast\\w*|predict\\w*|projection|pro",
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 60,
+    "question": "What happens if interest rates increase by 2%?",
+    "intent": "scenario",
+    "rule_regex": "\\b(what if|what happens if|what would ha",
+    "agent_handled": true,
+    "final_route": "AGENT (scenario)"
+  },
+  {
+    "id": 61,
+    "question": "Are there any unusual transaction amounts?",
+    "intent": "anomaly",
+    "rule_regex": "\\b(anomal\\w*|outliers?|unusual\\w*|abnorm",
+    "agent_handled": false,
+    "final_route": "STRUCTURED"
+  },
+  {
+    "id": 62,
+    "question": "Show key metrics for our accounts.",
+    "intent": "kpi",
+    "rule_regex": "\\b(kpis?|key (metrics|indicators|perform",
+    "agent_handled": true,
+    "final_route": "AGENT (kpi)"
+  },
+  {
+    "id": 63,
+    "question": "Give me a management report on company performance.",
+    "intent": "report",
+    "rule_regex": "\\b(management|executive|business|summary",
+    "agent_handled": false,
+    "final_route": "REPORT"
+  }
+]
