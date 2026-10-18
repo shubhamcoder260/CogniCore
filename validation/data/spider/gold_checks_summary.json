@@ -1,0 +1,52 @@
+{
+  "protocol": "SPIDER-A3 Phase B Pre-Run Gold Checks",
+  "timestamp": "2026-10-18T05:45:52Z",
+  "total_queries_evaluated": 330,
+  "sqlite_version_python": "3.45.1",
+  "overall": {
+    "count": 330,
+    "deterministic_count": 330,
+    "dqs_incompatible_count": 74,
+    "dqs_incompatible_pct": 22.42,
+    "limit_without_order_by_count": 0,
+    "order_unique_count": 14,
+    "order_unique_pct": 4.24,
+    "hardness": {
+      "easy": 146,
+      "medium": 126,
+      "hard": 58
+    }
+  },
+  "test_300": {
+    "count": 300,
+    "deterministic_count": 300,
+    "dqs_incompatible_count": 66,
+    "dqs_incompatible_pct": 22.0,
+    "limit_without_order_by_count": 0,
+    "order_unique_count": 13,
+    "order_unique_pct": 4.33,
+    "hardness": {
+      "easy": 131,
+      "medium": 117,
+      "hard": 52
+    }
+  },
+  "pilot_30": {
+    "count": 30,
+    "deterministic_count": 30,
+    "dqs_incompatible_count": 8,
+    "dqs_incompatible_pct": 26.67,
+    "limit_without_order_by_count": 0,
+    "order_unique_count": 1,
+    "order_unique_pct": 3.33,
+    "hardness": {
+      "easy": 15,
+      "medium": 9,
+      "hard": 6
+    }
+  },
+  "file_hashes": {
+    "gold_results_jsonl": "46B1FE164ED6E256ED725138BF04D18E2B7F198A15D539023DB6F5035B3E44ED",
+    "gold_checks_jsonl": "D72E7DE41DFE93C62D740EE6CCBA186681985E0C0811553833DFA6EF4487A5D5"
+  }
+}

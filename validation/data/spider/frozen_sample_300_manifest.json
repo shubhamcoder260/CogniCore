@@ -1,0 +1,75 @@
+{
+  "protocol": "SPIDER-A1 / SPIDER-A2",
+  "status": "FROZEN_BEFORE_MODEL_EVALUATION",
+  "selection_rule": "First 300 eligible candidates in original candidates.jsonl order",
+  "candidate_pool_size": 370,
+  "eligible_pool_size": 366,
+  "excluded_pool_size": 4,
+  "selected_count": 300,
+  "first_selected_position": 1,
+  "last_selected_position": 302,
+  "selected_database_count": 19,
+  "selected_database_counts": {
+    "battle_death": 9,
+    "car_1": 28,
+    "concert_singer": 14,
+    "course_teach": 7,
+    "cre_Doc_Template_Mgt": 19,
+    "dog_kennels": 29,
+    "employee_hire_evaluation": 14,
+    "flight_2": 27,
+    "museum_visit": 2,
+    "network_1": 13,
+    "orchestra": 8,
+    "pets_1": 10,
+    "poker_player": 11,
+    "singer": 8,
+    "student_transcripts_tracking": 22,
+    "tvshow": 25,
+    "voter_1": 4,
+    "world_1": 38,
+    "wta_1": 12
+  },
+  "excluded_records": [
+    {
+      "candidate_position": 161,
+      "id": "spider-dev-812",
+      "db_id": "world_1",
+      "reason": "gold_result_at_or_above_1000_rows"
+    },
+    {
+      "candidate_position": 296,
+      "id": "spider-dev-479",
+      "db_id": "wta_1",
+      "reason": "gold_result_at_or_above_1000_rows"
+    },
+    {
+      "candidate_position": 335,
+      "id": "spider-dev-472",
+      "db_id": "wta_1",
+      "reason": "gold_result_at_or_above_1000_rows"
+    },
+    {
+      "candidate_position": 365,
+      "id": "spider-dev-480",
+      "db_id": "wta_1",
+      "reason": "gold_result_at_or_above_1000_rows"
+    }
+  ],
+  "bootstrap": {
+    "implementation": "validation/lib/stats.js:clusterBootstrap",
+    "replicates": 10000,
+    "seed": 20261015,
+    "stats_helper_sha256": "FEED1BBA98F7937CA6921E1DE431B0DA9B443CF9AF03E2D75B534ED5AD492892"
+  },
+  "input_sha256": {
+    "candidates.jsonl": "B61E1449DE37085EA1F53C88A7F941361726BFA6A7BD26E5CFC6EE1C6A424BED",
+    "spider_eligibility_python.jsonl": "C0369956015F9E5D9735ACBF53BB8D160B6C82E05024A74D7FC55E26445764DA",
+    "PREREG_AMENDMENTS.md": "3B559BB90A12111270F324E5428D53FED20B1309F844A60E0081A2FF50A6448D",
+    "stats.js": "FEED1BBA98F7937CA6921E1DE431B0DA9B443CF9AF03E2D75B534ED5AD492892",
+    "freeze_spider_sample.py": "642C323E974002114ACE994A7C14816039AA058C5AFD3ED430F5BC688B7ABAC5"
+  },
+  "sample_file": "frozen_sample_300.jsonl",
+  "sample_sha256": "EDBFB9FFB0C32CB7501758156B0DDA06D0004916FB1BE95A7EAC064E499ACDAC",
+  "model_calls_performed_by_freeze_script": 0
+}

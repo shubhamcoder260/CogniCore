@@ -1,0 +1,35 @@
+﻿SPIDER BENCHMARK SETUP PROVENANCE
+
+Dataset:
+  Source: Spider text-to-SQL benchmark
+  Dataset root: C:\cognicore\spider_data\spider_data\spider_data
+  Development questions: 1,034
+  Unique development databases: 20
+
+Reference repository:
+  Path: C:\cognicore\spider-reference
+  Git commit: b7b5b8c890cd30e35427348bb9eb8c6d1350ca7c
+
+Sampling:
+  PRNG seed: 20261015
+  Sampling method: Mulberry32 with Fisher-Yates shuffle
+  Pilot sample: 30 records
+  Candidate pool: 370 records
+  Sampling source order: sampling\pool_order.json
+
+Setup verification:
+  Sample counts: PASS
+  Unique source indices: PASS
+  Pilot/candidate overlap: NONE
+  Sample-to-source mapping: PASS, all 400 records
+  SHA-256 manifest verification: PASS, zero mismatches
+  Gold SQL execution: NOT RUN
+  CogniCore execution: NOT RUN
+  Validation results: NOT YET COLLECTED
+
+Protocol restriction:
+  Do not tune the benchmark based on pilot outcomes.
+  Perform preregistered eligibility checks before selecting the final
+  300 eligible candidate cases.
+  Preserve original source data and use separate working copies for
+  any future execution.

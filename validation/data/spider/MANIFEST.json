@@ -1,0 +1,57 @@
+[
+    {
+        "path": "candidates.jsonl",
+        "sha256": "B61E1449DE37085EA1F53C88A7F941361726BFA6A7BD26E5CFC6EE1C6A424BED",
+        "bytes": 93514
+    },
+    {
+        "path": "frozen_sample_300.jsonl",
+        "sha256": "EDBFB9FFB0C32CB7501758156B0DDA06D0004916FB1BE95A7EAC064E499ACDAC",
+        "bytes": 110301
+    },
+    {
+        "path": "frozen_sample_300_manifest.json",
+        "sha256": "21D0B390E3E8012A9F91602E7ABA68381F96A5CE5DD17B12EA1CCC7FE29B69C1",
+        "bytes": 2403
+    },
+    {
+        "path": "gold_checks.jsonl",
+        "sha256": "D72E7DE41DFE93C62D740EE6CCBA186681985E0C0811553833DFA6EF4487A5D5",
+        "bytes": 66075
+    },
+    {
+        "path": "gold_checks_summary.json",
+        "sha256": "BE69E1635581C14DF416A665CD98F4F738E36A7C5A5333CFC5E75D12B92031D4",
+        "bytes": 1378
+    },
+    {
+        "path": "gold_results.jsonl",
+        "sha256": "46B1FE164ED6E256ED725138BF04D18E2B7F198A15D539023DB6F5035B3E44ED",
+        "bytes": 127820
+    },
+    {
+        "path": "pilot.jsonl",
+        "sha256": "30D32F4F37E809182866B02BBF4781F34B9FA2115C02EA6B37BA2F26EF6EB068",
+        "bytes": 7783
+    },
+    {
+        "path": "pool_order.json",
+        "sha256": "275276219E9B6DB8467D3013EDD57FCF21B453B2AADF4B7BCC3F2D912F7DB944",
+        "bytes": 4062
+    },
+    {
+        "path": "PROVENANCE.txt",
+        "sha256": "34E3200EEDF97A9CEA66016A332DA088591B81C19FE53E7FD19F530880C89973",
+        "bytes": 1111
+    },
+    {
+        "path": "sample.js",
+        "sha256": "D87B54934C78357475415A3D4B0E13A9E7B89A6AD2230D9998AD3D19871088F6",
+        "bytes": 1628
+    },
+    {
+        "path": "SHA256SUMS.csv",
+        "sha256": "0AD9ABF3C3C5B24D741DD91F1332B2B89E5DB775D325D8E272ED26F16A3352D1",
+        "bytes": 4936
+    }
+]

@@ -1,0 +1,2642 @@
+[
+  {
+    "id": "spider-dev-927",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 30
+  },
+  {
+    "id": "spider-dev-37",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 6
+  },
+  {
+    "id": "spider-dev-367",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 10
+  },
+  {
+    "id": "spider-dev-435",
+    "split": "test",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-118",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-151",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 13
+  },
+  {
+    "id": "spider-dev-236",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"AHD\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-242",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 12
+  },
+  {
+    "id": "spider-dev-794",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 539
+  },
+  {
+    "id": "spider-dev-940",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-843",
+    "split": "test",
+    "db_id": "orchestra",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 0
+  },
+  {
+    "id": "spider-dev-886",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-229",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-545",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 10
+  },
+  {
+    "id": "spider-dev-872",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Kyle\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-606",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-91",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-96",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-910",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 5
+  },
+  {
+    "id": "spider-dev-578",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-55",
+    "split": "test",
+    "db_id": "pets_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-328",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 9
+  },
+  {
+    "id": "spider-dev-819",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Spanish\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-715",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Brazil\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-234",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"AHD\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-766",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"English\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-965",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 15
+  },
+  {
+    "id": "spider-dev-413",
+    "split": "test",
+    "db_id": "museum_visit",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-1018",
+    "split": "test",
+    "db_id": "singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 8
+  },
+  {
+    "id": "spider-dev-207",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"Aberdeen\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-597",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-552",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 4
+  },
+  {
+    "id": "spider-dev-246",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"United Airlines\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-214",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"JetBlue Airways\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-488",
+    "split": "test",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-560",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 14
+  },
+  {
+    "id": "spider-dev-226",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 0
+  },
+  {
+    "id": "spider-dev-431",
+    "split": "test",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-796",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 17
+  },
+  {
+    "id": "spider-dev-771",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"T\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-68",
+    "split": "test",
+    "db_id": "pets_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-599",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": false,
+    "node_error": "no such column: \"Sky Radio\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-145",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-541",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-617",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-474",
+    "split": "test",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 153
+  },
+  {
+    "id": "spider-dev-711",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Kabul\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-661",
+    "split": "test",
+    "db_id": "poker_player",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-112",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-767",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"English\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-1021",
+    "split": "test",
+    "db_id": "singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-500",
+    "split": "test",
+    "db_id": "battle_death",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-76",
+    "split": "test",
+    "db_id": "pets_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-407",
+    "split": "test",
+    "db_id": "course_teach",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-222",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 0
+  },
+  {
+    "id": "spider-dev-776",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Asia\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-721",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Asia\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-16",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-951",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 15
+  },
+  {
+    "id": "spider-dev-605",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-962",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-314",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-823",
+    "split": "test",
+    "db_id": "orchestra",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-158",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-365",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": false,
+    "node_error": "no such column: \"Customer reviews\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-157",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-262",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 10
+  },
+  {
+    "id": "spider-dev-998",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 12
+  },
+  {
+    "id": "spider-dev-374",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-638",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-521",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-658",
+    "split": "test",
+    "db_id": "poker_player",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-111",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-337",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": false,
+    "node_error": "no such column: \"Data base\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-244",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 12
+  },
+  {
+    "id": "spider-dev-60",
+    "split": "test",
+    "db_id": "pets_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 0
+  },
+  {
+    "id": "spider-dev-884",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 14
+  },
+  {
+    "id": "spider-dev-901",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 8
+  },
+  {
+    "id": "spider-dev-251",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"Aberdeen\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-894",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-124",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 8
+  },
+  {
+    "id": "spider-dev-644",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 11
+  },
+  {
+    "id": "spider-dev-475",
+    "split": "test",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-830",
+    "split": "test",
+    "db_id": "orchestra",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-349",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": false,
+    "node_error": "no such column: \"AD\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-276",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-14",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 0
+  },
+  {
+    "id": "spider-dev-452",
+    "split": "test",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-539",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-543",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 6
+  },
+  {
+    "id": "spider-dev-502",
+    "split": "test",
+    "db_id": "battle_death",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-385",
+    "split": "test",
+    "db_id": "course_teach",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 7
+  },
+  {
+    "id": "spider-dev-402",
+    "split": "test",
+    "db_id": "course_teach",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 6
+  },
+  {
+    "id": "spider-dev-346",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-106",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-375",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-17",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-976",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-258",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 100
+  },
+  {
+    "id": "spider-dev-114",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-133",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-697",
+    "split": "test",
+    "db_id": "voter_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-279",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-950",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 15
+  },
+  {
+    "id": "spider-dev-732",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-625",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": false,
+    "node_error": "no such column: \"Sky Radio\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-589",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": false,
+    "node_error": "no such column: \"Joseph Kuhr\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-286",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-745",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Dutch\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-787",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Asia\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-238",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"CVO\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-390",
+    "split": "test",
+    "db_id": "course_teach",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-911",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 5
+  },
+  {
+    "id": "spider-dev-635",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-245",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"United Airlines\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-969",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-892",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Kyle\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-978",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-122",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 36
+  },
+  {
+    "id": "spider-dev-439",
+    "split": "test",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-957",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-383",
+    "split": "test",
+    "db_id": "course_teach",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 7
+  },
+  {
+    "id": "spider-dev-529",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-678",
+    "split": "test",
+    "db_id": "poker_player",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-600",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": false,
+    "node_error": "no such column: \"Sky Radio\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-264",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 5
+  },
+  {
+    "id": "spider-dev-136",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-1024",
+    "split": "test",
+    "db_id": "singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 6
+  },
+  {
+    "id": "spider-dev-493",
+    "split": "test",
+    "db_id": "battle_death",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 8
+  },
+  {
+    "id": "spider-dev-544",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 6
+  },
+  {
+    "id": "spider-dev-706",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Caribbean\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-693",
+    "split": "test",
+    "db_id": "voter_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 4
+  },
+  {
+    "id": "spider-dev-755",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Dutch\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-837",
+    "split": "test",
+    "db_id": "orchestra",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 12
+  },
+  {
+    "id": "spider-dev-6",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-933",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 6
+  },
+  {
+    "id": "spider-dev-532",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-727",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Asia\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-932",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 6
+  },
+  {
+    "id": "spider-dev-132",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-453",
+    "split": "test",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-746",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"French\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-663",
+    "split": "test",
+    "db_id": "poker_player",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 5
+  },
+  {
+    "id": "spider-dev-149",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-239",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"APG\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-274",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 9
+  },
+  {
+    "id": "spider-dev-348",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 5
+  },
+  {
+    "id": "spider-dev-57",
+    "split": "test",
+    "db_id": "pets_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-252",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"Aberdeen\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-115",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-170",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-268",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 9
+  },
+  {
+    "id": "spider-dev-749",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"French\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-615",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-491",
+    "split": "test",
+    "db_id": "battle_death",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-656",
+    "split": "test",
+    "db_id": "poker_player",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-849",
+    "split": "test",
+    "db_id": "orchestra",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 11
+  },
+  {
+    "id": "spider-dev-630",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-1016",
+    "split": "test",
+    "db_id": "singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 5
+  },
+  {
+    "id": "spider-dev-202",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"Aberdeen\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-230",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-920",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-575",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-665",
+    "split": "test",
+    "db_id": "poker_player",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-292",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 7
+  },
+  {
+    "id": "spider-dev-573",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-759",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Republic\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-916",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-964",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 15
+  },
+  {
+    "id": "spider-dev-895",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-577",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-35",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 5
+  },
+  {
+    "id": "spider-dev-83",
+    "split": "test",
+    "db_id": "pets_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-568",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-422",
+    "split": "test",
+    "db_id": "museum_visit",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 4
+  },
+  {
+    "id": "spider-dev-958",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 9
+  },
+  {
+    "id": "spider-dev-289",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-632",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": false,
+    "node_error": "no such column: \"yes\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-518",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-782",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"English\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-265",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-499",
+    "split": "test",
+    "db_id": "battle_death",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-173",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 7
+  },
+  {
+    "id": "spider-dev-99",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 11
+  },
+  {
+    "id": "spider-dev-947",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 15
+  },
+  {
+    "id": "spider-dev-41",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-928",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 7
+  },
+  {
+    "id": "spider-dev-739",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Afghanistan\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-972",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-63",
+    "split": "test",
+    "db_id": "pets_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 33
+  },
+  {
+    "id": "spider-dev-269",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-707",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Caribbean\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-641",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-497",
+    "split": "test",
+    "db_id": "battle_death",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 6
+  },
+  {
+    "id": "spider-dev-834",
+    "split": "test",
+    "db_id": "orchestra",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-555",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-631",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": false,
+    "node_error": "no such column: \"yes\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-586",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 12
+  },
+  {
+    "id": "spider-dev-713",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Aruba\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-184",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"USA\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-666",
+    "split": "test",
+    "db_id": "poker_player",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-882",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 14
+  },
+  {
+    "id": "spider-dev-761",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"English\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-7",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-370",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 10
+  },
+  {
+    "id": "spider-dev-240",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"APG\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-652",
+    "split": "test",
+    "db_id": "poker_player",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 5
+  },
+  {
+    "id": "spider-dev-601",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": false,
+    "node_error": "no such column: \"Sky Radio\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-990",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-277",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-299",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 15
+  },
+  {
+    "id": "spider-dev-75",
+    "split": "test",
+    "db_id": "pets_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-150",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-458",
+    "split": "test",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 487
+  },
+  {
+    "id": "spider-dev-681",
+    "split": "test",
+    "db_id": "poker_player",
+    "node_ok": false,
+    "node_error": "no such column: \"Russia\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-437",
+    "split": "test",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-802",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-634",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-3",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 6
+  },
+  {
+    "id": "spider-dev-241",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 12
+  },
+  {
+    "id": "spider-dev-209",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"Aberdeen\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-616",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-304",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": false,
+    "node_error": "no such column: \"Robbin CV\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-430",
+    "split": "test",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-752",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"English\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-844",
+    "split": "test",
+    "db_id": "orchestra",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-607",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-729",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Gelderland\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-295",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-929",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 7
+  },
+  {
+    "id": "spider-dev-937",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-335",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-815",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-621",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": false,
+    "node_error": "no such column: \"A Love of a Lifetime\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-915",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-8",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-167",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-98",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 230
+  },
+  {
+    "id": "spider-dev-571",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-944",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 15
+  },
+  {
+    "id": "spider-dev-200",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"AKO\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-672",
+    "split": "test",
+    "db_id": "poker_player",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 5
+  },
+  {
+    "id": "spider-dev-781",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"English\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-603",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": false,
+    "node_error": "no such column: \"English\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-795",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 539
+  },
+  {
+    "id": "spider-dev-18",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-708",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Anguilla\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-212",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"Ashley\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-287",
+    "split": "test",
+    "db_id": "employee_hire_evaluation",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 6
+  },
+  {
+    "id": "spider-dev-922",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 3
+  },
+  {
+    "id": "spider-dev-558",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-5",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-80",
+    "split": "test",
+    "db_id": "pets_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-376",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-24",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-980",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-361",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-360",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-692",
+    "split": "test",
+    "db_id": "voter_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 10
+  },
+  {
+    "id": "spider-dev-492",
+    "split": "test",
+    "db_id": "battle_death",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 7
+  },
+  {
+    "id": "spider-dev-369",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 10
+  },
+  {
+    "id": "spider-dev-1005",
+    "split": "test",
+    "db_id": "singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 8
+  },
+  {
+    "id": "spider-dev-768",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Beatrix\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-363",
+    "split": "test",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-107",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-789",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-959",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 9
+  },
+  {
+    "id": "spider-dev-695",
+    "split": "test",
+    "db_id": "voter_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-77",
+    "split": "test",
+    "db_id": "pets_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-393",
+    "split": "test",
+    "db_id": "course_teach",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 7
+  },
+  {
+    "id": "spider-dev-180",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"JetBlue Airways\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-997",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 7
+  },
+  {
+    "id": "spider-dev-684",
+    "split": "test",
+    "db_id": "poker_player",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 2
+  },
+  {
+    "id": "spider-dev-513",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-44",
+    "split": "test",
+    "db_id": "concert_singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-495",
+    "split": "test",
+    "db_id": "battle_death",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-925",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 12
+  },
+  {
+    "id": "spider-dev-639",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 12
+  },
+  {
+    "id": "spider-dev-494",
+    "split": "test",
+    "db_id": "battle_death",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-478",
+    "split": "test",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 65
+  },
+  {
+    "id": "spider-dev-893",
+    "split": "test",
+    "db_id": "network_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Kyle\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-737",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Aruba\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-809",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Europe\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-1007",
+    "split": "test",
+    "db_id": "singer",
+    "node_ok": false,
+    "node_error": "no such column: \"France\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-764",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"English\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-162",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 4
+  },
+  {
+    "id": "spider-dev-89",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 5
+  },
+  {
+    "id": "spider-dev-510",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-1028",
+    "split": "test",
+    "db_id": "singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-398",
+    "split": "test",
+    "db_id": "course_teach",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 0
+  },
+  {
+    "id": "spider-dev-126",
+    "split": "test",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-1010",
+    "split": "test",
+    "db_id": "singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-859",
+    "split": "test",
+    "db_id": "orchestra",
+    "node_ok": false,
+    "node_error": "no such column: \"CD\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-740",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-614",
+    "split": "test",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 12
+  },
+  {
+    "id": "spider-dev-570",
+    "split": "test",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-977",
+    "split": "test",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-188",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-797",
+    "split": "test",
+    "db_id": "world_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 17
+  },
+  {
+    "id": "spider-dev-201",
+    "split": "test",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"Aberdeen\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-198",
+    "split": "pilot",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"Alton\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-839",
+    "split": "pilot",
+    "db_id": "orchestra",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-368",
+    "split": "pilot",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 10
+  },
+  {
+    "id": "spider-dev-813",
+    "split": "pilot",
+    "db_id": "world_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1860
+  },
+  {
+    "id": "spider-dev-778",
+    "split": "pilot",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"English\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-646",
+    "split": "pilot",
+    "db_id": "tvshow",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 11
+  },
+  {
+    "id": "spider-dev-826",
+    "split": "pilot",
+    "db_id": "orchestra",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 6
+  },
+  {
+    "id": "spider-dev-917",
+    "split": "pilot",
+    "db_id": "network_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-582",
+    "split": "pilot",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-1011",
+    "split": "pilot",
+    "db_id": "singer",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-208",
+    "split": "pilot",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"Aberdeen\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-953",
+    "split": "pilot",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 15
+  },
+  {
+    "id": "spider-dev-380",
+    "split": "pilot",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-730",
+    "split": "pilot",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"US Territory\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-942",
+    "split": "pilot",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 6
+  },
+  {
+    "id": "spider-dev-194",
+    "split": "pilot",
+    "db_id": "flight_2",
+    "node_ok": false,
+    "node_error": "no such column: \"UAL\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-799",
+    "split": "pilot",
+    "db_id": "world_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 4
+  },
+  {
+    "id": "spider-dev-833",
+    "split": "pilot",
+    "db_id": "orchestra",
+    "node_ok": false,
+    "node_error": "no such column: \"Live final\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-353",
+    "split": "pilot",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 4
+  },
+  {
+    "id": "spider-dev-938",
+    "split": "pilot",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-444",
+    "split": "pilot",
+    "db_id": "wta_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-127",
+    "split": "pilot",
+    "db_id": "car_1",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 13
+  },
+  {
+    "id": "spider-dev-754",
+    "split": "pilot",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"dutch\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-514",
+    "split": "pilot",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-531",
+    "split": "pilot",
+    "db_id": "student_transcripts_tracking",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-840",
+    "split": "pilot",
+    "db_id": "orchestra",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 12
+  },
+  {
+    "id": "spider-dev-504",
+    "split": "pilot",
+    "db_id": "battle_death",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  },
+  {
+    "id": "spider-dev-310",
+    "split": "pilot",
+    "db_id": "cre_Doc_Template_Mgt",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 12
+  },
+  {
+    "id": "spider-dev-719",
+    "split": "pilot",
+    "db_id": "world_1",
+    "node_ok": false,
+    "node_error": "no such column: \"Central Africa\" - should this be a string literal in single-quotes?",
+    "row_count": null
+  },
+  {
+    "id": "spider-dev-993",
+    "split": "pilot",
+    "db_id": "dog_kennels",
+    "node_ok": true,
+    "node_error": null,
+    "row_count": 1
+  }
+]
