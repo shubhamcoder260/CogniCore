@@ -55,6 +55,38 @@ function tokenize(sql) {
   return tokens;
 }
 
+function stripLiterals(sql) {
+  let inSingle = false;
+  let inDouble = false;
+  let inBacktick = false;
+  let out = '';
+  const n = sql.length;
+
+  for (let i = 0; i < n; i++) {
+    const ch = sql[i];
+    if (ch === "'" && !inDouble && !inBacktick) {
+      if (inSingle && sql[i + 1] === "'") { i++; out += '  '; continue; }
+      inSingle = !inSingle;
+      out += ' ';
+      continue;
+    }
+    if (ch === '"' && !inSingle && !inBacktick) {
+      if (inDouble && sql[i + 1] === '"') { i++; out += '  '; continue; }
+      inDouble = !inDouble;
+      out += ' ';
+      continue;
+    }
+    if (ch === '`' && !inSingle && !inDouble) {
+      if (inBacktick && sql[i + 1] === '`') { i++; out += '  '; continue; }
+      inBacktick = !inBacktick;
+      out += ' ';
+      continue;
+    }
+    out += (inSingle || inDouble || inBacktick) ? ' ' : ch;
+  }
+  return out;
+}
+
 const lc = (s) => String(s).toLowerCase();
 const isIdentTok = (t) => t && (t.t === 'word' || t.t === 'qid');
 const isKw = (t, kw) => t && t.t === 'word' && lc(t.v) === kw;
@@ -65,17 +97,48 @@ function buildScope(tokens, schema) {
   const usedTables = new Set();
   const consumed = new Set();      // token indexes that are table refs/aliases
   const names = new Set();         // aliases + CTE names tolerated as bare identifiers
+  let hasTableValuedFunction = false;
+
+  // NOTE: CTE column projection is currently not tracked across CTE boundaries;
+  // columns of tables referenced inside a CTE populate bareColumns. For read-only
+  // validation, this under-blocking behavior is fully acceptable (the DB engine
+  // rejects unexposed columns), ensuring zero false-positive rejections.
+  let inSelectList = false;
 
   for (let i = 0; i < tokens.length; i++) {
     const tk = tokens[i];
+
+    if (isKw(tk, 'select')) inSelectList = true;
+    else if (isKw(tk, 'from') || isKw(tk, 'where') || isKw(tk, 'group') || isKw(tk, 'order')) inSelectList = false;
+
+    // Explicit alias: AS alias
     if (isKw(tk, 'as')) {
       const before = tokens[i - 1], after = tokens[i + 1];
       if (isIdentTok(after)) names.add(lc(after.v));
       if (isIdentTok(before)) names.add(lc(before.v)); // CTE name: "WITH x AS ("
     }
+
+    // Concern 2: Implicit column alias in SELECT list: "SELECT col alias FROM t"
+    if (inSelectList && tk.depth === 0) {
+      const isColumnIdent = isIdentTok(tk) && !KEYWORDS.has(lc(tk.v));
+      const isExprEnd = isColumnIdent || tk.v === ')';
+      const next = tokens[i + 1];
+      if (isExprEnd && next && isIdentTok(next) && !KEYWORDS.has(lc(next.v)) && next.v !== ',' && next.v !== '.') {
+        names.add(lc(next.v));
+        consumed.add(i + 1);
+      }
+    }
+
+    // Table references in FROM / JOIN
     if (isKw(tk, 'from') || isKw(tk, 'join') || (tk.v === ',' && tk.t === 'p' && inFromChain(tokens, i))) {
       let j = i + 1;
       const tname = tokens[j];
+
+      // Concern 3: Detect table-valued function call in FROM/JOIN position: FROM generate_series(1, 10)
+      if (isIdentTok(tname) && tokens[j + 1]?.v === '(' && !tableByName.has(lc(tname.v))) {
+        hasTableValuedFunction = true;
+      }
+
       if (isIdentTok(tname) && tableByName.has(lc(tname.v)) && tokens[j + 1]?.v !== '(') {
         const table = tableByName.get(lc(tname.v));
         usedTables.add(table.name);
@@ -91,7 +154,7 @@ function buildScope(tokens, schema) {
       }
     }
   }
-  return { tableByName, aliasMap, usedTables, consumed, names };
+  return { tableByName, aliasMap, usedTables, consumed, names, hasTableValuedFunction };
 }
 
 /** true when the comma at index i separates FROM-clause tables (not select-list items) */
@@ -110,6 +173,12 @@ function inFromChain(tokens, i) {
 function findUnknownColumns(sql, schema) {
   const tokens = tokenize(sql);
   const scope = buildScope(tokens, schema);
+
+  // Concern 3: If query uses table-valued functions, conservatively fail open
+  if (scope.hasTableValuedFunction) {
+    return [];
+  }
+
   const scopeTables = scope.usedTables.size ? [...scope.usedTables].map((n) => scope.tableByName.get(lc(n))) : schema.tables;
   const bareColumns = new Set();
   scopeTables.forEach((t) => t.columns.forEach((c) => bareColumns.add(lc(c.name))));
@@ -251,4 +320,4 @@ function extractCteNames(sql) {
   return names;
 }
 
-module.exports = { tokenize, findUnknownColumns, repairColumnNames, repairMissingGroupBy, extractCteNames, KEYWORDS };
+module.exports = { tokenize, stripLiterals, findUnknownColumns, repairColumnNames, repairMissingGroupBy, extractCteNames, KEYWORDS };

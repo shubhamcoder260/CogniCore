@@ -13,15 +13,19 @@
  * ------------------------------------------------------------------
  */
 const { Parser } = require('node-sql-parser');
-const { extractCteNames } = require('./sql.analyzer');
+const logger = require('../config/logger');
+const { extractCteNames, findUnknownColumns, stripLiterals } = require('./sql.analyzer');
 const { analyzeComplexity } = require('./sql.complexity');
 const parser = new Parser();
 
 const ALLOWED_STATEMENT_TYPES = new Set(['select']);
 const BLOCKED_KEYWORDS = [
   'DROP', 'DELETE', 'UPDATE', 'INSERT', 'ALTER', 'CREATE', 'ATTACH',
-  'DETACH', 'REPLACE', 'TRUNCATE', 'GRANT', 'REVOKE', 'PRAGMA', 'VACUUM',
+  'DETACH', 'TRUNCATE', 'GRANT', 'REVOKE', 'PRAGMA', 'VACUUM',
   'EXEC', 'EXECUTE', 'CALL',
+];
+const BLOCKED_PATTERNS = [
+  /\bREPLACE\s+INTO\b/i,
 ];
 
 class SQLValidationError extends Error {
@@ -71,19 +75,26 @@ function validateSql(sql, schema, datasetType = 'sqlite') {
 
   // Hard block: reject if any dangerous keyword appears as a standalone token,
   // even before we try to parse (defense in depth against parser quirks).
-  const upper = sql.toUpperCase();
+  // Strip string literals, double-quoted identifiers, and backticks first.
+  const stripped = stripLiterals(sql);
+  const upperStripped = stripped.toUpperCase();
   for (const kw of BLOCKED_KEYWORDS) {
     const re = new RegExp(`\\b${kw}\\b`);
-    if (re.test(upper)) {
+    if (re.test(upperStripped)) {
       throw new SQLValidationError(`Query contains a disallowed operation: ${kw}`, { keyword: kw });
     }
   }
+  for (const pat of BLOCKED_PATTERNS) {
+    if (pat.test(stripped)) {
+      throw new SQLValidationError('Query contains a disallowed operation: REPLACE INTO', { keyword: 'REPLACE INTO' });
+    }
+  }
 
-  // Reject statement chaining / comments used to smuggle a second statement.
-  if (sql.includes(';') && sql.trim().indexOf(';') !== sql.trim().length - 1) {
+  // Reject statement chaining / comments using stripped text (safe against literals containing ; or --)
+  if (stripped.includes(';') && stripped.trim().indexOf(';') !== stripped.trim().length - 1) {
     throw new SQLValidationError('Multiple statements are not allowed.');
   }
-  if (/--|\/\*/.test(sql)) {
+  if (/--|\/\*/.test(stripped)) {
     throw new SQLValidationError('SQL comments are not allowed.');
   }
 
@@ -124,6 +135,31 @@ function validateSql(sql, schema, datasetType = 'sqlite') {
 
   if (tablesUsed.length === 0) {
     throw new SQLValidationError('Query does not reference any known table.');
+  }
+
+  // Validate column references against the dataset schema (fail-open + shadow mode telemetry)
+  let unknownCols = [];
+  try {
+    unknownCols = findUnknownColumns(sql, schema);
+  } catch (err) {
+    logger.warn('column_validator_internal_error', { error: err.message });
+    unknownCols = [];
+  }
+
+  if (unknownCols.length > 0) {
+    const isEnforced = process.env.ENFORCE_COLUMN_VALIDATION === 'true';
+    logger.warn('column_validator_unknown_columns', {
+      count: unknownCols.length,
+      columns: unknownCols.map((c) => (c.qualifier ? `${c.qualifier}.${c.name}` : c.name)),
+      enforce: isEnforced,
+    });
+
+    if (isEnforced) {
+      const colList = unknownCols
+        .map((c) => (c.qualifier ? `"${c.qualifier}"."${c.name}"` : `"${c.name}"`))
+        .join(', ');
+      throw new SQLValidationError(`Query references unknown column(s): ${colList}.`, { unknownColumns: unknownCols });
+    }
   }
 
   // Cost / complexity gate (blueprint item 6): valid-but-abusive queries are refused before execution.

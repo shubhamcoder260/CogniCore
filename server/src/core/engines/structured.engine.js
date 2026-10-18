@@ -79,7 +79,7 @@ async function runStructuredQueryInner({
 
   // 2. Repair -> validate -> enforce policy -> execute, with bounded error recovery.
   for (;;) {
-    prepared = prepareSql(rawSql, { schema, semantic });
+    prepared = prepareSql(rawSql, { schema, semantic, datasetType: dataset.type });
     if (prepared.repairs.length) mark('auto_repair', 'ok', prepared.repairs.map((r) => r.type).join(', '));
     try {
       const validation = validateSql(prepared.sql, schema, dataset.type);
@@ -198,11 +198,11 @@ async function runStructuredQueryInner({
 }
 
 /** Applies every deterministic repair, in a fixed order, and reports what changed. */
-function prepareSql(rawSql, { schema, semantic }) {
+function prepareSql(rawSql, { schema, semantic, datasetType }) {
   const repairs = [];
   let sql = rawSql;
 
-  const t = repairTableNames(sql, schema);
+  const t = repairTableNames(sql, schema, datasetType);
   if (t.repaired) repairs.push({ type: 'table_name', corrections: t.corrections });
   sql = t.sql;
 
