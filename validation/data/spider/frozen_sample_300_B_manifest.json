@@ -1,0 +1,85 @@
+{
+  "protocol": "SPIDER-B1",
+  "status": "FROZEN_BEFORE_MODEL_EVALUATION",
+  "purpose": "Held-out post-fix confirmation on questions never inspected; no model call; outcomes of sample A not consulted",
+  "selection_rule": "First 300 eligible questions from unused indices (positions 401..1034 in pool_order.json)",
+  "unused_pool_size": 634,
+  "eligible_pool_size": 627,
+  "excluded_pool_size": 7,
+  "selected_count": 300,
+  "first_selected_pool_position": 401,
+  "last_selected_pool_position": 704,
+  "selected_database_count": 20,
+  "selected_database_counts": {
+    "battle_death": 2,
+    "car_1": 30,
+    "concert_singer": 10,
+    "course_teach": 12,
+    "cre_Doc_Template_Mgt": 31,
+    "dog_kennels": 23,
+    "employee_hire_evaluation": 13,
+    "flight_2": 22,
+    "museum_visit": 7,
+    "network_1": 9,
+    "orchestra": 15,
+    "pets_1": 11,
+    "poker_player": 13,
+    "real_estate_properties": 1,
+    "singer": 6,
+    "student_transcripts_tracking": 23,
+    "tvshow": 14,
+    "voter_1": 6,
+    "world_1": 32,
+    "wta_1": 20
+  },
+  "excluded_records": [
+    {
+      "pool_position": 540,
+      "id": "spider-dev-433",
+      "db_id": "wta_1",
+      "reason": "gold_result_at_or_above_1000_rows"
+    },
+    {
+      "pool_position": 563,
+      "id": "spider-dev-434",
+      "db_id": "wta_1",
+      "reason": "gold_result_at_or_above_1000_rows"
+    },
+    {
+      "pool_position": 622,
+      "id": "spider-dev-456",
+      "db_id": "wta_1",
+      "reason": "gold_sql_error: Could not decode to UTF-8 column 'last_name' with text 'Treyes Albarrac��N'"
+    },
+    {
+      "pool_position": 630,
+      "id": "spider-dev-455",
+      "db_id": "wta_1",
+      "reason": "gold_sql_error: Could not decode to UTF-8 column 'last_name' with text 'Treyes Albarrac��N'"
+    },
+    {
+      "pool_position": 883,
+      "id": "spider-dev-471",
+      "db_id": "wta_1",
+      "reason": "gold_result_at_or_above_1000_rows"
+    },
+    {
+      "pool_position": 887,
+      "id": "spider-dev-470",
+      "db_id": "wta_1",
+      "reason": "gold_result_at_or_above_1000_rows"
+    },
+    {
+      "pool_position": 902,
+      "id": "spider-dev-469",
+      "db_id": "wta_1",
+      "reason": "gold_result_at_or_above_1000_rows"
+    }
+  ],
+  "sample_file": "frozen_sample_300_B.jsonl",
+  "sample_sha256": "D1A35A18559C06393C1A36046674E619AB0B6604428E96BFAF5DBA80940D3B09",
+  "overlap_pilot_count": 0,
+  "overlap_candidates_count": 0,
+  "overlap_sample_a_count": 0,
+  "model_calls_performed": 0
+}
