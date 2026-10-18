@@ -239,3 +239,17 @@ All experiment scripts below will write output to `validation/raw/<experiment_id
 - **Script**: `validation/experiments/v11_models.js`
 - **Status**: NOT YET WRITTEN
 - **Scope**: Comparative evaluation across installed Ollama models (`qwen2.5:7b`, `qwen2.5-coder:7b`, `llama3.1:8b`, `gemma3:4b`) measuring accuracy, latency, and abstention behavior.
+
+---
+
+## Spider V1 Benchmark Evaluation (Frozen 300 Questions)
+
+- **Status**: Spider V1 evaluation protocol established, audited, and verified via 30-question pilot; main 300-question run staged and ready for execution via run_spider_main.ps1.
+- **Protocol**: Amendments SPIDER-A1, SPIDER-A2, SPIDER-A3 (`validation/PREREG_AMENDMENTS.md`).
+- **Target Configurations**:
+  - `C0`: DDL-only raw baseline prompt with cleanSqlOutput, 1,000-row cap, read-only.
+  - `C4nr`: Governed engine (`runStructuredQuery`) with `maxRecovery: 0` (no database-error recovery).
+  - `C4`: Full governed engine (`runStructuredQuery`) with `maxRecovery: 2` multi-turn error recovery.
+- **Pilot Outcome**: 90/90 units executed cleanly. C0: 50.0% (15/30), C4nr: 56.7% (17/30), C4: 60.0% (18/30). 0 databases modified, 0 crashes, 0 timeouts. All 9 validation gates PASSED.
+- **Launch Script**: `validation/run_spider_main.ps1`
+- **Verification Report**: [SPIDER_SETUP_REPORT.md](file:///C:/cognicore/validation_workspace/validation/results/SPIDER_SETUP_REPORT.md)

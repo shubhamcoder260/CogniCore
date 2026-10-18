@@ -1,0 +1,11 @@
+{
+  "status": "READY",
+  "timestamp": "2026-10-18T06:03:00Z",
+  "pilot_run_id": "spider-pilot-1792302870395",
+  "git_commit": "1409cd5",
+  "protocol": "SPIDER-A1 / SPIDER-A2 / SPIDER-A3",
+  "frozen_sample_sha256": "EDBFB9FFB0C32CB7501758156B0DDA06D0004916FB1BE95A7EAC064E499ACDAC",
+  "pilot_gates_passed": 9,
+  "pilot_gates_failed": 0,
+  "launch_script": "validation/run_spider_main.ps1"
+}

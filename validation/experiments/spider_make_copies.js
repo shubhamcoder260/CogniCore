@@ -10,9 +10,7 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 
 function getRunPaths(runId) {
-  const baseDir = process.env.DATA_DIR
-    ? path.join(process.env.DATA_DIR, 'cognicore_spider', 'runs', runId)
-    : path.join(process.cwd(), 'cognicore_spider', 'runs', runId);
+  const baseDir = path.join(process.cwd(), 'cognicore_spider', 'runs', runId);
   return {
     runRoot: baseDir,
     roDir: path.join(baseDir, 'ro'),

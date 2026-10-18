@@ -215,3 +215,34 @@ This document records all methodological decisions, architectural invariants, an
 
 
 
+
+---
+
+## Step 5 Decisions (Spider V1 Benchmark Evaluation: Pilot Verification & Staged Main Run)
+
+1. **Spider Benchmark Scope & Frozen Corpora**:
+   - Evaluates the Spider V1 text-to-SQL development benchmark on frozen, verified artifacts (`frozen_sample_300.jsonl` SHA-256: `EDBFB9FFB0C32CB7501758156B0DDA06D0004916FB1BE95A7EAC064E499ACDAC`; `pilot.jsonl` SHA-256: `30D32F4F37E809182866B02BBF4781F34B9FA2115C02EA6B37BA2F26EF6EB068`).
+   - The frozen 300-question sample is strictly quarantined from any model evaluation until operator launch via `run_spider_main.ps1`.
+
+2. **Run Isolation & Database Invariance Verification**:
+   - Every evaluation run creates fresh disposable copies under `cognicore_spider/runs/<run_id>/`:
+     - `ro/` copy for C0 baseline and gold verification (`?mode=ro`, `PRAGMA query_only = ON`).
+     - `gov/` copy for `ingestFile` and governed C4/C4nr execution.
+   - Logical content hashes are computed before and after execution using `con.iterdump()` normalized SHA-256 with `text_factory = lambda b: b.decode('utf-8', errors='replace')` to guarantee determinism across non-UTF-8 characters. Any database modification constitutes an immediate run invalidation. In the 30-question pilot, 0 / 20 databases were modified.
+
+3. **Execution Supervisor & Wall-Clock Timeout**:
+   - The supervisor enforces a strict 60-second external wall-clock timeout per unit via process tree termination (`taskkill /T /F`). Timed-out units are scored as abstained/incorrect (`correct: 0`), duration >= 60,000 ms, and reported separately.
+
+4. **Scoring Engine Specifications**:
+   - Multiset equality of row tuples: column names are ignored, floating-point numbers are compared with relative tolerance `1e-6`, strings exact (case-sensitive), NULL equals NULL, and distinct types (integer vs string) are distinguished.
+   - Ordered comparison is enforced ONLY when `order_unique == 1` (gold query has top-level `ORDER BY`, sort keys are output columns, and adjacent gold result rows contain no equal sort keys).
+
+5. **Pilot Gate Verification & Staged Readiness**:
+   - The 30-question pilot passed all 9 architectural gates (G1 through G9), demonstrating:
+     - C0 accuracy = 50.0% (15/30) within the sanity band [20%, 85%].
+     - C4nr accuracy = 56.7% (17/30).
+     - C4 accuracy = 60.0% (18/30).
+     - Multi-turn error recovery triggered 2 times and succeeded 1 time (`spider-dev-353`).
+     - Zero database modifications across 20 databases.
+     - 100% LLM cache reproducibility (5/5 hits, 0 misses).
+   - Staged launch script `validation/run_spider_main.ps1` prepared for operator execution of the frozen 300-question sample.

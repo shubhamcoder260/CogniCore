@@ -113,7 +113,7 @@ All leak measurements use the **subset-containment rule** for queries with \`LIM
 
 ## Table 1: Breakdown by Row-Variant Construct
 
-| Variant Form | $n$ | E1 Leaks | E1 Rate | E1 Exact Upper Bound | E2 Leaks | E2 Rate | E2 Exact Upper Bound |
+| Variant Form | N | E1 Leaks | E1 Rate | E1 Exact Upper Bound | E2 Leaks | E2 Rate | E2 Exact Upper Bound |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 ${variantTableRows}
 
@@ -121,7 +121,7 @@ ${variantTableRows}
 
 ## Table 2: Breakdown by Base Query Provenance
 
-| Base Query Provenance | $n$ | E1 Leaks | E1 Rate | E2 Leaks | E2 Rate |
+| Base Query Provenance | N | E1 Leaks | E1 Rate | E2 Leaks | E2 Rate |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 ${provTableRows}
 
@@ -129,7 +129,7 @@ ${provTableRows}
 
 ## Table 3: Breakdown by User Policy Model
 
-| User Role / Policy | $n$ | E1 Leaks | E1 Rate | E2 Leaks | E2 Rate |
+| User Role / Policy | N | E1 Leaks | E1 Rate | E2 Leaks | E2 Rate |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 ${userTableRows}
 

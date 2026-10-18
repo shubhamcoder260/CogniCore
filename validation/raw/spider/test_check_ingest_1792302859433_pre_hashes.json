@@ -1,0 +1,11 @@
+{
+  "runId": "test_check_ingest_1792302859433",
+  "timestamp": "2026-10-18T05:54:19.436Z",
+  "databases": {
+    "battle_death": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\test_check_ingest_1792302859433\\ro\\battle_death\\battle_death.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\test_check_ingest_1792302859433\\gov\\battle_death\\battle_death.sqlite",
+      "logicalHash": "344D2ECFB6AAA534BC18F60A165723ECD686DEB3B2F5FDA1AAF7A279177786D1"
+    }
+  }
+}

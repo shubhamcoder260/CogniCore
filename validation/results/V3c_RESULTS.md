@@ -24,7 +24,7 @@ All leak measurements use the **subset-containment rule** for queries with `LIMI
 
 ## Table 1: Breakdown by Row-Variant Construct
 
-| Variant Form | $n$ | E1 Leaks | E1 Rate | E1 Exact Upper Bound | E2 Leaks | E2 Rate | E2 Exact Upper Bound |
+| Variant Form | N | E1 Leaks | E1 Rate | E1 Exact Upper Bound | E2 Leaks | E2 Rate | E2 Exact Upper Bound |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `plain_base` | 2760 | 0 | 0.00% | 0.11% | 0 | 0.00% | 0.11% |
 | `table_alias` | 2760 | 14 | 0.51% | 0.85% | 14 | 0.51% | 0.85% |
@@ -48,7 +48,7 @@ All leak measurements use the **subset-containment rule** for queries with `LIMI
 
 ## Table 2: Breakdown by Base Query Provenance
 
-| Base Query Provenance | $n$ | E1 Leaks | E1 Rate | E2 Leaks | E2 Rate |
+| Base Query Provenance | N | E1 Leaks | E1 Rate | E2 Leaks | E2 Rate |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | `benign_corpus` | 19380 | 1039 | 5.36% | 1039 | 5.36% |
 | `fixture_base` | 765 | 42 | 5.49% | 42 | 5.49% |
@@ -58,7 +58,7 @@ All leak measurements use the **subset-containment rule** for queries with `LIMI
 
 ## Table 3: Breakdown by User Policy Model
 
-| User Role / Policy | $n$ | E1 Leaks | E1 Rate | E2 Leaks | E2 Rate |
+| User Role / Policy | N | E1 Leaks | E1 Rate | E2 Leaks | E2 Rate |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | `user_u1` | 15640 | 572 | 3.66% | 572 | 3.66% |
 | `user_u2` | 15640 | 685 | 4.38% | 685 | 4.38% |

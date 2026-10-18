@@ -89,10 +89,10 @@ Evaluation of all six table-valued PRAGMA functions supported by SQLite:
 Analysis of per-item execution duration and event-loop lag across Class B2 and Class D3 (Corpus v4c):
 
 - **Summary File**: `validation/raw/event_loop_gaps.csv`
-- **Total Evaluated Items**: 329 queries
+- **Total Evaluated Items**: 253 queries
 - **Items with Event Loop Lag > 250 ms**: 47 items
 - **Maximum Event-Loop Spike**:
-  - Item: `dos_item_0029` (Class D3 recursive CTE self-cross product)
+  - Item: `V4C-D3-015` (Class D3 cartesian_join_on_true)
   - Execution Time: **15,235 ms**
   - Outcome: Terminated by harness hard kill watchdog (15s deadline). Peak memory: 492 MB.
 

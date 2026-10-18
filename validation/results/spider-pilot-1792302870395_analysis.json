@@ -1,0 +1,285 @@
+{
+  "runId": "spider-pilot-1792302870395",
+  "timestamp": "2026-10-18T06:01:13.024Z",
+  "totalUnits": 95,
+  "configResults": {
+    "C0": {
+      "total": 30,
+      "correct": 15,
+      "accuracy": 0.5,
+      "accuracy_pct": 50,
+      "ci95": [
+        33.2,
+        66.8
+      ],
+      "timeouts": 0,
+      "errors": 2,
+      "no_query_possible": 2,
+      "latencies": {
+        "count": 30,
+        "mean": 3167,
+        "p50": 2868,
+        "p90": 4125,
+        "p95": 5575,
+        "min": 1259,
+        "max": 7430
+      }
+    },
+    "C4nr": {
+      "total": 30,
+      "correct": 17,
+      "accuracy": 0.5666666666666667,
+      "accuracy_pct": 56.7,
+      "ci95": [
+        39.2,
+        72.6
+      ],
+      "timeouts": 0,
+      "errors": 2,
+      "no_query_possible": 0,
+      "latencies": {
+        "count": 30,
+        "mean": 4637,
+        "p50": 4110,
+        "p90": 8131,
+        "p95": 8628,
+        "min": 2222,
+        "max": 9265
+      }
+    },
+    "C4": {
+      "total": 30,
+      "correct": 18,
+      "accuracy": 0.6,
+      "accuracy_pct": 60,
+      "ci95": [
+        42.3,
+        75.4
+      ],
+      "timeouts": 0,
+      "errors": 0,
+      "no_query_possible": 0,
+      "latencies": {
+        "count": 30,
+        "mean": 412,
+        "p50": 27,
+        "p90": 31,
+        "p95": 3124,
+        "min": 23,
+        "max": 5964
+      }
+    }
+  },
+  "mcnemar": {
+    "c4_vs_c0": {
+      "pairedCount": 30,
+      "c4_wins": 4,
+      "c0_wins": 1,
+      "ties_correct": 14,
+      "ties_wrong": 11,
+      "discordant_pairs": 5,
+      "p_value": 0.375,
+      "diff_pct": 10
+    },
+    "c4_vs_c4nr": {
+      "pairedCount": 30,
+      "c4_wins": 1,
+      "c4nr_wins": 0,
+      "ties_correct": 17,
+      "ties_wrong": 12,
+      "discordant_pairs": 1,
+      "p_value": 1,
+      "diff_pct": 3.3
+    },
+    "c4nr_vs_c0": {
+      "pairedCount": 30,
+      "c4nr_wins": 3,
+      "c0_wins": 1,
+      "ties_correct": 14,
+      "ties_wrong": 12,
+      "discordant_pairs": 4,
+      "p_value": 0.625,
+      "diff_pct": 6.7
+    }
+  },
+  "clusterBootstrap": {
+    "replicates": 10000,
+    "seed": 20261015,
+    "clusters": 12,
+    "mean_diff_pct": 9.7,
+    "se": 0.09818770847792538,
+    "ci95_pct": [
+      -8.8,
+      30
+    ]
+  },
+  "recoveryAnalysis": {
+    "c4_total": 30,
+    "recovery_triggered_count": 2,
+    "recovery_trigger_rate_pct": 6.7,
+    "recovery_succeeded_count": 1,
+    "recovery_success_rate_pct": 50
+  },
+  "dqsPredictions": {
+    "error_count": 0,
+    "units": []
+  },
+  "databaseIntegrity": {
+    "totalDatabasesChecked": 20,
+    "modifiedDatabasesCount": 0,
+    "hashes": {
+      "battle_death": {
+        "preHash": "344D2ECFB6AAA534BC18F60A165723ECD686DEB3B2F5FDA1AAF7A279177786D1",
+        "postHashRo": "344D2ECFB6AAA534BC18F60A165723ECD686DEB3B2F5FDA1AAF7A279177786D1",
+        "postHashGov": "344D2ECFB6AAA534BC18F60A165723ECD686DEB3B2F5FDA1AAF7A279177786D1",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "car_1": {
+        "preHash": "CA1621C030CE704F759783B0FEF2CBA6A3857EBA04D3BCD346E64884825AC1EA",
+        "postHashRo": "CA1621C030CE704F759783B0FEF2CBA6A3857EBA04D3BCD346E64884825AC1EA",
+        "postHashGov": "CA1621C030CE704F759783B0FEF2CBA6A3857EBA04D3BCD346E64884825AC1EA",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "concert_singer": {
+        "preHash": "7AA20672C9FDAC6302DE4E76666C45824A24FD00F8055486AA87F78166028227",
+        "postHashRo": "7AA20672C9FDAC6302DE4E76666C45824A24FD00F8055486AA87F78166028227",
+        "postHashGov": "7AA20672C9FDAC6302DE4E76666C45824A24FD00F8055486AA87F78166028227",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "course_teach": {
+        "preHash": "0C57DEFB1C94DFEEECB4CDE909A6FA9A6C2861156D331EEDEDB7FA196D16C859",
+        "postHashRo": "0C57DEFB1C94DFEEECB4CDE909A6FA9A6C2861156D331EEDEDB7FA196D16C859",
+        "postHashGov": "0C57DEFB1C94DFEEECB4CDE909A6FA9A6C2861156D331EEDEDB7FA196D16C859",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "cre_Doc_Template_Mgt": {
+        "preHash": "EE93DE0EF3AEFE439B76542B6C5F078AF949D8897B7C4A1718EFBCB23F8C543A",
+        "postHashRo": "EE93DE0EF3AEFE439B76542B6C5F078AF949D8897B7C4A1718EFBCB23F8C543A",
+        "postHashGov": "EE93DE0EF3AEFE439B76542B6C5F078AF949D8897B7C4A1718EFBCB23F8C543A",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "dog_kennels": {
+        "preHash": "38AF9A9BA66BB3029CC545DD5EFD3B2B9DB0805AB21DB1EBBFAF1FDA06BEEFDD",
+        "postHashRo": "38AF9A9BA66BB3029CC545DD5EFD3B2B9DB0805AB21DB1EBBFAF1FDA06BEEFDD",
+        "postHashGov": "38AF9A9BA66BB3029CC545DD5EFD3B2B9DB0805AB21DB1EBBFAF1FDA06BEEFDD",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "employee_hire_evaluation": {
+        "preHash": "7DEDA4E0AA6E868AD7CCA07F0DBBFDECF009B95958EF12E7E83F6B3CE4FFF8EB",
+        "postHashRo": "7DEDA4E0AA6E868AD7CCA07F0DBBFDECF009B95958EF12E7E83F6B3CE4FFF8EB",
+        "postHashGov": "7DEDA4E0AA6E868AD7CCA07F0DBBFDECF009B95958EF12E7E83F6B3CE4FFF8EB",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "flight_2": {
+        "preHash": "200C842A7B2522534A980186BFDB547C8EC2792FE631CDFD4CFF7CEFB86A5D5A",
+        "postHashRo": "200C842A7B2522534A980186BFDB547C8EC2792FE631CDFD4CFF7CEFB86A5D5A",
+        "postHashGov": "200C842A7B2522534A980186BFDB547C8EC2792FE631CDFD4CFF7CEFB86A5D5A",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "museum_visit": {
+        "preHash": "A857F1F756082B0F5982FD82638D9F03D2FF73DA8E3C6D6198EFAC92A0531EF5",
+        "postHashRo": "A857F1F756082B0F5982FD82638D9F03D2FF73DA8E3C6D6198EFAC92A0531EF5",
+        "postHashGov": "A857F1F756082B0F5982FD82638D9F03D2FF73DA8E3C6D6198EFAC92A0531EF5",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "network_1": {
+        "preHash": "C14369CE7D5383C17BC6E63846A655FC1B1C03C573ACF90113D3A42E2F42F6F0",
+        "postHashRo": "C14369CE7D5383C17BC6E63846A655FC1B1C03C573ACF90113D3A42E2F42F6F0",
+        "postHashGov": "C14369CE7D5383C17BC6E63846A655FC1B1C03C573ACF90113D3A42E2F42F6F0",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "orchestra": {
+        "preHash": "727B36F0CAAC8DE646D5F23DADCDC7B6D05AA83FE9E51298DE2D5AE5478A221B",
+        "postHashRo": "727B36F0CAAC8DE646D5F23DADCDC7B6D05AA83FE9E51298DE2D5AE5478A221B",
+        "postHashGov": "727B36F0CAAC8DE646D5F23DADCDC7B6D05AA83FE9E51298DE2D5AE5478A221B",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "pets_1": {
+        "preHash": "AA70CB45A736E4E326C78DFE71C483D8F05249666F7FD2B020BB0AB7A11E0859",
+        "postHashRo": "AA70CB45A736E4E326C78DFE71C483D8F05249666F7FD2B020BB0AB7A11E0859",
+        "postHashGov": "AA70CB45A736E4E326C78DFE71C483D8F05249666F7FD2B020BB0AB7A11E0859",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "poker_player": {
+        "preHash": "CB0BEE7B5644537FDC76C8E9C777B813085FFA7F83B540B0AD41328AE46F074D",
+        "postHashRo": "CB0BEE7B5644537FDC76C8E9C777B813085FFA7F83B540B0AD41328AE46F074D",
+        "postHashGov": "CB0BEE7B5644537FDC76C8E9C777B813085FFA7F83B540B0AD41328AE46F074D",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "real_estate_properties": {
+        "preHash": "E49D548808A89CC86AD8CFE6C30E8BE4ED4EAF2F9BE2ED63A114FC30C3D8940D",
+        "postHashRo": "E49D548808A89CC86AD8CFE6C30E8BE4ED4EAF2F9BE2ED63A114FC30C3D8940D",
+        "postHashGov": "E49D548808A89CC86AD8CFE6C30E8BE4ED4EAF2F9BE2ED63A114FC30C3D8940D",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "singer": {
+        "preHash": "C562C07D9948F84E0B84B80B6D9B01DB63ED6A73590B19642AB0AF775B8577B5",
+        "postHashRo": "C562C07D9948F84E0B84B80B6D9B01DB63ED6A73590B19642AB0AF775B8577B5",
+        "postHashGov": "C562C07D9948F84E0B84B80B6D9B01DB63ED6A73590B19642AB0AF775B8577B5",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "student_transcripts_tracking": {
+        "preHash": "2B7A26504DB2BCD38AC72ADE2E595065CD5E963353CB0C28DAE5E4BFB1BFAB4C",
+        "postHashRo": "2B7A26504DB2BCD38AC72ADE2E595065CD5E963353CB0C28DAE5E4BFB1BFAB4C",
+        "postHashGov": "2B7A26504DB2BCD38AC72ADE2E595065CD5E963353CB0C28DAE5E4BFB1BFAB4C",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "tvshow": {
+        "preHash": "607D882ECDDCBAFABCA108DBE000FE240E2F574764AEF9BA3F37064171E287CA",
+        "postHashRo": "607D882ECDDCBAFABCA108DBE000FE240E2F574764AEF9BA3F37064171E287CA",
+        "postHashGov": "607D882ECDDCBAFABCA108DBE000FE240E2F574764AEF9BA3F37064171E287CA",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "voter_1": {
+        "preHash": "F709FC3621D3A8E527D5F0B6E03C97AB3BD6DC3C3F296B6FCB91867F52EDBBE5",
+        "postHashRo": "F709FC3621D3A8E527D5F0B6E03C97AB3BD6DC3C3F296B6FCB91867F52EDBBE5",
+        "postHashGov": "F709FC3621D3A8E527D5F0B6E03C97AB3BD6DC3C3F296B6FCB91867F52EDBBE5",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "world_1": {
+        "preHash": "FA88E4CA07B946A327D333296A08DD6C9541BD6CA15E7B7597F49FC9546F803F",
+        "postHashRo": "FA88E4CA07B946A327D333296A08DD6C9541BD6CA15E7B7597F49FC9546F803F",
+        "postHashGov": "FA88E4CA07B946A327D333296A08DD6C9541BD6CA15E7B7597F49FC9546F803F",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "wta_1": {
+        "preHash": "BD3E50663506590EBCD7BD39D4412EE17D8A5CFEF72C138080C3D154BF4077DE",
+        "postHashRo": "BD3E50663506590EBCD7BD39D4412EE17D8A5CFEF72C138080C3D154BF4077DE",
+        "postHashGov": "BD3E50663506590EBCD7BD39D4412EE17D8A5CFEF72C138080C3D154BF4077DE",
+        "roMatch": true,
+        "govMatch": true
+      }
+    }
+  },
+  "gates": {
+    "G1_zero_unhandled_crashes": true,
+    "G2_zero_db_modifications": true,
+    "G3_zero_truncations_undetected": true,
+    "G4_all_units_completed": true,
+    "G5_cache_works": true,
+    "G6_pilot_c0_sanity": true,
+    "G7_recovery_mechanism_fires": true,
+    "G8_cross_engine_gold_agreement": true,
+    "G9_timeout_supervisor_verified": true,
+    "allPassed": true
+  }
+}

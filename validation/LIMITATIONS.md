@@ -161,7 +161,7 @@ This document tracks all hypotheses that did not hold, planned experiments that 
 # Skipped / NOT RUN (planned experiments not executed, with concrete reason)
 
 1. **Spider & BIRD Dev Gold Benchmarks (`spider-dev` / `bird-dev`)**:
-   - *Reason*: Spider and BIRD benchmarks require downloading external multi-gigabyte archives (`spider.zip`) containing hundreds of external SQLite databases and schema JSON files not bundled with the CogniCore repository. In accordance with invariant rules prohibiting arbitrary synthetic mock generation or large unvetted downloads during offline execution, these external benchmarks are marked `NOT RUN`.
+   - *Status*: Spider V1 evaluation protocol established, audited, and verified via 30-question pilot; main 300-question run staged and ready for execution via run_spider_main.ps1. The pilot passed all 9 architectural and execution gates (100% database invariance, 0 unhandled crashes, recovery validated). BIRD dev gold benchmark remains NOT RUN.
 
 2. **External Database Dialects (PostgreSQL and MySQL)**:
    - *Reason*: CogniCore bundles 15 preloaded SQLite database fixtures under `database/`. Testing against PostgreSQL or MySQL without live running database server containers would evaluate synthetic parser mocks rather than genuine execution ground truth. In accordance with Decision 1 (`DECISIONS.md`), dialect scope is restricted to SQLite. Tests requiring external database servers are marked `NOT RUN`.
