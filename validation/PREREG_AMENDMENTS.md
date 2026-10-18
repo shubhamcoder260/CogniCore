@@ -430,3 +430,158 @@ This amendment establishes the formal evaluation protocols, item classes, and pa
 
 
 
+
+---
+
+## Amendment SPIDER-A1: Frozen Spider Text-to-SQL Validation Protocol
+
+### 1. Scope and Frozen Inputs
+
+This amendment governs the standalone evaluation of CogniCore against the Spider development benchmark. It supplements the existing security-validation amendments; it does not replace or modify them.
+
+The frozen sampling artifacts are stored under `validation/data/spider/`:
+
+| Artifact | SHA-256 |
+|---|---|
+| `sample.js` | `D87B54934C78357475415A3D4B0E13A9E7B89A6AD2230D9998AD3D19871088F6` |
+| `pool_order.json` | `275276219E9B6DB8467D3013EDD57FCF21B453B2AADF4B7BCC3F2D912F7DB944` |
+| `pilot.jsonl` | `30D32F4F37E809182866B02BBF4781F34B9FA2115C02EA6B37BA2F26EF6EB068` |
+| `candidates.jsonl` | `B61E1449DE37085EA1F53C88A7F941361726BFA6A7BD26E5CFC6EE1C6A424BED` |
+| `SHA256SUMS.csv` | `0AD9ABF3C3C5B24D741DD91F1332B2B89E5DB775D325D8E272ED26F16A3352D1` |
+| `PROVENANCE.txt` | `34E3200EEDF97A9CEA66016A332DA088591B81C19FE53E7FD19F530880C89973` |
+
+These hashes identify the files at preregistration time. The manifest itself must also be verified against the actual files before eligibility processing. The source database manifest must be checked against the 20 copied SQLite databases.
+
+### 2. Sampling and Eligibility
+
+1. Preserve the 30-item pilot separately. Do not use pilot outcomes to tune prompts, choose model settings, or select the evaluation sample.
+2. Process `candidates.jsonl` in its frozen order. The target is the first 300 eligible candidates from the 370 candidates.
+3. Determine eligibility without consulting CogniCore model outputs. A candidate is ineligible if its source linkage cannot be verified, its database mapping is invalid, its gold SQL fails to execute against the corresponding reference database, or its gold result contains 1,000 or more rows under the benchmark execution policy.
+4. Record every exclusion, its reason, the original candidate position, question identifier, and database identifier. Do not silently skip failures.
+5. If fewer than 300 eligible candidates remain, stop before model evaluation and document the shortfall. Do not invent replacement questions or alter the sampling order after inspecting model performance.
+6. A database-registration failure excludes affected questions from all three configurations and must be reported separately.
+
+### 3. Evaluation Configurations
+
+Evaluate each eligible question under the following paired configurations, using the same database copy, question, model, and scoring rules:
+
+- **C0:** Raw baseline using the DDL-only prompt, without the governed recovery path.
+- **C4nr:** Governed configuration with `maxRecovery: 0`.
+- **C4:** Governed configuration with `maxRecovery: 2`.
+
+The runner must use the verified `runStructuredQuery` entry point in `server/src/core/engines/structured.engine.js`, with an injected provider. Do not substitute the full product-routing path for the primary benchmark.
+
+Before the first model call, record and freeze the actual provider, model identifier/version, relevant model options, prompt/template hashes, code commit, Node.js version, dependency versions, environment overrides, and configuration-specific settings. Use temperature `0`, seed `20261015` where supported, `num_ctx: 4096` where supported, a 15,000 ms query timeout, and a 1,000-row result cap. Record unsupported settings explicitly; do not imply that a setting was enforced if the provider does not support it.
+
+Use a fresh conversation/session context for each question and configuration. Any completion cache must be keyed so that different configurations cannot accidentally reuse one another's outputs. A repeat pass must use the same frozen inputs and cache, and must produce zero additional live model calls. Report cache hits and misses.
+
+### 4. Independent Gold Execution and Scoring
+
+1. Execute reference SQL independently against the corresponding SQLite database using a read-only connection. Do not obtain gold results through CogniCore.
+2. Apply identical documented result normalization to gold and predicted results.
+3. Compare ordered rows only when the gold query has a top-level `ORDER BY` and its sort keys have no ties in the gold result. Otherwise compare results as multisets, preserving duplicate-row multiplicity.
+4. Report exact execution-result accuracy as the primary outcome. Also report execution errors, invalid SQL, empty-result mismatches, result truncation, recovery attempts, exclusions, and per-database outcomes.
+5. A prediction that hits the 1,000-row cap must be flagged as truncated and must not be scored as an unqualified exact match against a gold result excluded for reaching that cap.
+6. Keep the original question, gold SQL, gold result, predicted SQL, predicted result, configuration, error details, and scoring decision in auditable records. Do not silently discard failed predictions.
+
+### 5. Statistical Analysis and Decision Rule
+
+- **Primary comparison:** C4 versus C0 on the same eligible questions.
+- Use an exact, two-sided McNemar test on paired correctness outcomes. The preregistered success criterion is higher C4 accuracy than C0 with `p < 0.05`.
+- Report C4nr versus C0 and C4 versus C4nr as secondary comparisons. Do not reinterpret secondary outcomes as the primary test.
+- Report accuracy and paired differences with denominators and confidence intervals.
+- Account for the 20-database structure using a cluster bootstrap that resamples databases, not individual questions, and reports the resulting uncertainty alongside the exact McNemar result. Freeze the bootstrap implementation, replicate count, and random seed before running it.
+- Report all eligible questions and all exclusions. Do not change the primary endpoint, sample, or decision threshold after inspecting model outputs.
+
+### 6. Isolation, Integrity, and Stop Conditions
+
+- Use only disposable database copies under the dedicated validation workspace. Never ingest or benchmark against the original Spider source databases.
+- Before ingestion, compute and record a logical-content hash for each disposable database. Repeat after ingestion and verify that the logical contents remain unchanged. Raw file hashes alone are insufficient because SQLite journal mode and WAL activity can alter file bytes without changing logical table contents.
+- Execute gold SQL read-only and separately from CogniCore. Preserve any SQLite `-wal` and `-shm` files until the database is safely closed and the post-ingestion integrity check is complete.
+- Preserve all pre-existing repository changes and validation logs. The Spider runner must write to dedicated Spider-specific output paths and must not delete or overwrite existing V3/V4 result files.
+- Do not run any model calls until the sampling, eligibility, gold-execution, database-integrity, logging, and configuration checks have passed.
+- If a prerequisite fails, stop and report the failure rather than silently changing the protocol.
+
+### 7. Amendment Status
+
+This amendment records the intended protocol. It does not, by itself, establish that eligibility has been computed, that 300 questions have qualified, that all database copies have passed integrity checks, or that any model evaluation has run. Those claims require separate, reproducible verification artifacts.
+
+## Amendment SPIDER-A2: Frozen Bootstrap Implementation
+
+Frozen before model evaluation:
+
+- Bootstrap implementation: existing \alidation/lib/stats.js\ helper \clusterBootstrap\.
+- Bootstrap replicates: 10,000.
+- Random seed: 20261015.
+- Resampling procedure: resample database clusters, then resample items within each selected cluster, following the existing helper implementation.
+- The bootstrap statistic is the paired accuracy difference, C4 minus C0, computed using the same paired evaluation records.
+- Implementation SHA-256 at freeze time: FEED1BBA98F7937CA6921E1DE431B0DA9B443CF9AF03E2D75B534ED5AD492892.
+- Do not change the helper, replicate count, seed, or resampling procedure after inspecting model results. Any necessary change must be documented as a dated amendment before evaluation.
+
+
+---
+
+## Amendment SPIDER-A3: Execution Harness, Scoring, Supervisor, and Pilot Gate Specifications
+
+### 1. Model Configuration
+- **Model:** `qwen2.5-coder:7b` accessed via a harness-supplied `llmProvider` interacting directly with Ollama (`/api/generate`). The project's internal provider is not used.
+- **Options:**
+  - `temperature`: `0` on all standard calls; generator error recovery calls maintain the generator's default (`0.2`).
+  - `seed`: `20261015`.
+  - `num_ctx`: `4096`.
+  - `num_predict`: as requested by caller (default 500 maxTokens).
+- **Completion Caching:** All model responses cached in `validation/raw/spider/llm_cache.jsonl` keyed by SHA-256 hash of `(model, options, prompt)`.
+
+### 2. Configuration Definitions
+- **C0 (Baseline Raw Engine):** Harness code (bypassing `runStructuredQuery`). DDL-only prompt containing SQLite `CREATE TABLE` and `CREATE VIEW` statements extracted from `sqlite_master` + the exact output-format instruction lines from `sql.generator.js`. The resulting SQL is cleaned using `cleanSqlOutput` and executed in an isolated child process against a disposable read-only copy (`?mode=ro`, `PRAGMA query_only=ON`) wrapped in the 1,000-row cap:
+  `SELECT * FROM (${trimmed}) AS __cognicore_capped LIMIT 1000`.
+  No repair, validator, policy enforcement, or recovery loop is executed.
+- **C4nr (Governed Without Database Error Recovery):** Invokes `runStructuredQuery` with `maxRecovery: 0`. The single `NO_QUERY_POSSIBLE` retry, deterministic repairs (table names, column names, missing FROM, missing GROUP BY, integer division, value literals), AST and safety validation, and empty-result diagnosis remain fully active. Database-error recovery loop is disabled. Datasets ingested via `ingestFile` so semantic profiles (`dataset.profile.semantic`) are present.
+- **C4 (Full Governed Engine):** Invokes `runStructuredQuery` with `maxRecovery: 2`. All repairs, AST safety validation, policy enforcement, empty-result diagnosis, and multi-turn error recovery loop active. Datasets ingested via `ingestFile`.
+- **Ablations Not Run:** Composed intermediate configurations C1-C3 and leave-one-out ablations are not run.
+
+### 3. Execution Supervisor and Timeouts
+- A process supervisor monitors execution and enforces a strict 60-second wall-clock timeout per `(question, config)` unit.
+- If a unit exceeds 60 seconds, the supervisor terminates the child process and its entire process tree.
+- Timed-out units are recorded with status `'timeout'`, duration >= 60,000 ms, scored as incorrect/abstained (`correct: 0`), and reported separately in audit summaries.
+- The project's internal 15-second configuration setting is not enforced by code and is superseded by this supervisor.
+
+### 4. Scoring Methodology
+- **Tuple Multiset Equality:** Evaluated on multiset equality of row tuples. Column names are ignored. Floating-point numbers are compared with relative tolerance `1e-6`. Strings are compared with exact equality and case sensitivity. `NULL` equals `NULL`. Distinct types (e.g. integer vs string) are strictly distinguished.
+- **Ordered Comparison:** Evaluated with order sensitivity only if the gold query has a top-level `ORDER BY` whose sort keys are all projected output columns with no duplicate adjacent keys in the gold result (`order_unique == 1`). Otherwise multiset comparison is applied.
+- Results returning 1,000 or more rows are classified as inconclusive.
+
+### 5. SQLite Execution Engines and DQS Sensitivity
+- **Gold Execution Engine:** Python `sqlite3` (v3.45.1) with DQS enabled.
+- **Prediction Execution Engine:** Node `better-sqlite3` (v3.53.2) with DQS disabled.
+- **Cross-Engine Audit & Sensitivity:** Gold queries are checked across both engines. Any gold query failing under `better-sqlite3` due to double-quoted string literals is classified as `dqs_incompatible`. Pre-planned sensitivity analyses include:
+  1. Excluding `dqs_incompatible` questions.
+  2. Excluding gold queries with `LIMIT` but no `ORDER BY`.
+  3. Excluding `order_ambiguous` queries (ORDER BY with ties in sort keys).
+
+### 6. Data Integrity and Run Isolation
+- Fresh disposable database copies are created per run under `cognicore_spider/runs/<run_id>/`.
+- Pre-run and post-run logical content hashes (SHA-256 of normalized `con.iterdump()` output) are computed for every database.
+- Any change in logical content hash constitutes a run invalidation.
+- Temporary WAL and SHM files are fully flushed and removed upon connection close.
+
+### 7. Exploratory Hardness Classification
+- **Easy:** No joins, at most one aggregate function, no subqueries, and no set operations.
+- **Hard:** 3 or more joins, OR any subquery, OR any set operation (`UNION`, `INTERSECT`, `EXCEPT`).
+- **Medium:** All queries not meeting easy or hard criteria.
+
+### 8. Statistical Endpoints
+- **Primary Endpoint:** Paired exact two-sided McNemar test comparing C4 versus C0 on the frozen 300-question sample at alpha = 0.05.
+- **Secondary Endpoints:** C4nr vs C0, C4 vs C4nr, and 95% cluster-bootstrap confidence intervals (10,000 replicates, seed 20261015, clustered on `db_id`, statistic = mean difference).
+
+### 9. Pilot Gates for Main Run
+Execution of the frozen 300-question sample is gated upon the 30-question pilot passing all nine gates:
+- **[G1]** Zero unhandled exceptions or supervisor crashes.
+- **[G2]** Zero database modifications (logical hashes identical before and after).
+- **[G3]** Zero truncations undetected.
+- **[G4]** 90/90 units completed (success, error, or timeout recorded; no missing units).
+- **[G5]** Cache validation: re-run of 5 pilot units yields 5 cache hits and 0 LLM calls.
+- **[G6]** Pilot sanity: C0 accuracy on pilot falls within `[0.20, 0.85]`.
+- **[G7]** Governed recovery triggers appropriately across C4 if recoverable errors occur, conforming to `maxRecovery`.
+- **[G8]** Cross-engine gold agreement is 100% on the pilot.
+- **[G9]** Supervisor timeout mechanism verified via test suite.
