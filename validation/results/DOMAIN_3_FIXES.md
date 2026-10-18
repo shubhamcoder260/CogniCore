@@ -237,3 +237,11 @@ PolicyStore.removeForDataset(dataset.dataset_id);
 - `server/tests/integration/hospital-privacy.test.js`: 9/9 tests passing across consecutive runs.
 - `server/tests/integration/auth.test.js`: 10/10 tests passing across consecutive runs.
 - `validation_workspace/validation/tests/index.js`: **89/89 tests passing (100% pass rate)**.
+
+---
+
+## Architectural & Maintainer Notes
+1. **`extractCteBodies` Cross-Domain Criticality**:
+   `extractCteBodies` is load-bearing for both **Domain 2.3** (SQL parser & column validation) and **Domain 3.1** (RBAC authorization & denied-CTE propagation). Any future modifications to CTE parsing must re-verify both the safety validation test suites and the authorization policy test suites.
+2. **`buildScope` Role Expansion**:
+   `buildScope` has evolved into a full scope, alias, and derived-table projection resolver. Beyond simple identifier collection, it models derived-table subquery projections (`(SELECT ...) AS sub`) as virtual tables in `aliasMap`, allowing bidirectional lineage tracing for both safe column access and denied column containment.

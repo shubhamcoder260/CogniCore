@@ -91,6 +91,15 @@ const lc = (s) => String(s).toLowerCase();
 const isIdentTok = (t) => t && (t.t === 'word' || t.t === 'qid');
 const isKw = (t, kw) => t && t.t === 'word' && lc(t.v) === kw;
 
+/**
+ * Resolves query scope, table/derived-table aliases, and column projections.
+ *
+ * NOTE FOR MAINTAINERS:
+ * buildScope acts as a full scope + projection resolver. It parses explicit and implicit
+ * column aliases, CTE names, and derived-table subquery projections ((SELECT ...) AS sub)
+ * into virtual tables within aliasMap. It is load-bearing for SQL validation (Domain 2),
+ * column repair, and authorization policy checks (Domain 3).
+ */
 function buildScope(tokens, schema) {
   const tableByName = new Map(schema.tables.map((t) => [lc(t.name), t]));
   const aliasMap = new Map();      // alias/table name -> table
@@ -476,6 +485,11 @@ function extractProjectedColumns(bodyTokens, tableByName = new Map()) {
 /**
  * Extracts CTE definitions from a leading WITH clause.
  * Returns array of { name, bodySql, bodyTokens, exposedColumns, columnLineage, start, end }
+ *
+ * NOTE FOR MAINTAINERS:
+ * extractCteBodies is load-bearing for BOTH Domain 2.3 (SQL column validation) and
+ * Domain 3.1 (RBAC authorization & denied-CTE propagation). If modifying this parser,
+ * both validation test suites and authorization test suites must be fully re-verified.
  */
 function extractCteBodies(sql) {
   const tokens = tokenize(sql);
