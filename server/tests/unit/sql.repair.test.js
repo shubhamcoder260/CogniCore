@@ -9,7 +9,7 @@ test('sql.repair: fixes a plural guess against a singular real table name', () =
   const result = repairTableNames('SELECT AVG(salary) FROM employees', schema);
   assert.equal(result.repaired, true);
   assert.equal(result.sql, 'SELECT AVG(salary) FROM employee');
-  assert.deepEqual(result.corrections, [{ from: 'employees', to: 'employee' }]);
+  assert.deepEqual(result.corrections.map(c => ({ from: c.from, to: c.to })), [{ from: 'employees', to: 'employee' }]);
 });
 
 test('sql.repair: fixes a singular guess against a plural real table name', () => {

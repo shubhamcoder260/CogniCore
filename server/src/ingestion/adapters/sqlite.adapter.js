@@ -59,8 +59,25 @@ class SQLiteAdapter extends DataSourceAdapter {
   }
 
   async preview(tableName, limit = 10) {
-    assertValidIdentifier(tableName);
-    const rows = this.db.prepare(`SELECT * FROM ${quoteIdent(tableName)} LIMIT ?`).all(limit);
+    if (!tableName || typeof tableName !== 'string') {
+      throw new Error('Table name is required for preview');
+    }
+
+    const systemPrefixes = ['sqlite_'];
+    if (systemPrefixes.some((p) => tableName.toLowerCase().startsWith(p)) || SYSTEM_TABLES.has(tableName.toLowerCase())) {
+      throw new Error(`Cannot preview system table "${tableName}"`);
+    }
+
+    const schema = await this.getSchema();
+    const schemaTable = schema.tables.find(
+      (t) => t.name.toLowerCase() === tableName.toLowerCase()
+    );
+    if (!schemaTable) {
+      throw new Error(`Table "${tableName}" not found in dataset schema`);
+    }
+
+    const quoted = quoteIdent(schemaTable.name);
+    const rows = this.db.prepare(`SELECT * FROM ${quoted} LIMIT ?`).all(limit);
     return { columns: rows.length ? Object.keys(rows[0]) : [], rows };
   }
 
@@ -78,12 +95,6 @@ class SQLiteAdapter extends DataSourceAdapter {
 
 function quoteIdent(name) {
   return '"' + String(name).replace(/"/g, '""') + '"';
-}
-
-function assertValidIdentifier(name) {
-  if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) {
-    throw new Error(`Invalid identifier: ${name}`);
-  }
 }
 
 module.exports = { SQLiteAdapter };

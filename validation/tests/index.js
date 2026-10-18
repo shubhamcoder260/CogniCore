@@ -11,3 +11,4 @@ require('./v12_v15_controls.test.js');
 require('./domain1_governance.test.js');
 require('./domain2_parser_safety.test.js');
 require('./domain3_rbac_policy.test.js');
+require('./domain4_connectors.test.js');

@@ -25,13 +25,22 @@ class PostgresAdapter extends DataSourceAdapter {
       connectionTimeoutMillis: 8000,
     });
     // Fail fast if unreachable rather than lazily on first query.
-    const client = await this.pool.connect();
-    client.release();
-    return this;
+    try {
+      const client = await this.pool.connect();
+      client.release();
+      return this;
+    } catch (err) {
+      try { await this.pool.end(); } catch (_) {}
+      this.pool = null;
+      throw err;
+    }
   }
 
   async disconnect() {
-    if (this.pool) await this.pool.end();
+    if (this.pool) {
+      try { await this.pool.end(); } catch (_) {}
+      this.pool = null;
+    }
   }
 
   async getSchema() {
@@ -97,8 +106,25 @@ class PostgresAdapter extends DataSourceAdapter {
   }
 
   async preview(tableName, limit = 10) {
-    assertValidIdentifier(tableName);
-    const res = await this.pool.query(`SELECT * FROM ${quoteIdent(tableName)} LIMIT $1`, [limit]);
+    if (!tableName || typeof tableName !== 'string') {
+      throw new Error('Table name is required for preview');
+    }
+
+    const systemPrefixes = ['pg_', 'information_schema'];
+    if (systemPrefixes.some((p) => tableName.toLowerCase().startsWith(p))) {
+      throw new Error(`Cannot preview system table "${tableName}"`);
+    }
+
+    const schema = await this.getSchema();
+    const schemaTable = schema.tables.find(
+      (t) => t.name.toLowerCase() === tableName.toLowerCase()
+    );
+    if (!schemaTable) {
+      throw new Error(`Table "${tableName}" not found in dataset schema`);
+    }
+
+    const quoted = quoteIdent(schemaTable.name);
+    const res = await this.pool.query(`SELECT * FROM ${quoted} LIMIT $1`, [limit]);
     return { columns: res.fields.map(f => f.name), rows: res.rows };
   }
 
@@ -114,10 +140,6 @@ class PostgresAdapter extends DataSourceAdapter {
 
 function quoteIdent(name) {
   return '"' + String(name).replace(/"/g, '""') + '"';
-}
-
-function assertValidIdentifier(name) {
-  if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) throw new Error(`Invalid identifier: ${name}`);
 }
 
 /** Quick reachability + credential check, used by the /connect endpoint before registering. */
