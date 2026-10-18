@@ -1,0 +1,658 @@
+{
+  "runId": "spider-main-v1",
+  "timestamp": "2026-10-18T09:36:02.548Z",
+  "totalUnits": 900,
+  "configResults": {
+    "C0": {
+      "total": 300,
+      "correct": 191,
+      "accuracy": 0.6366666666666667,
+      "accuracy_pct": 63.7,
+      "ci95": [
+        58.1,
+        68.9
+      ],
+      "timeouts": 0,
+      "errors": 13,
+      "no_query_possible": 2,
+      "latencies": {
+        "count": 300,
+        "mean": 3871,
+        "p50": 3264,
+        "p90": 6251,
+        "p95": 7696,
+        "min": 923,
+        "max": 13456
+      }
+    },
+    "C4nr": {
+      "total": 300,
+      "correct": 180,
+      "accuracy": 0.6,
+      "accuracy_pct": 60,
+      "ci95": [
+        54.4,
+        65.4
+      ],
+      "timeouts": 0,
+      "errors": 8,
+      "no_query_possible": 0,
+      "latencies": {
+        "count": 300,
+        "mean": 4380,
+        "p50": 3722,
+        "p90": 7326,
+        "p95": 8435,
+        "min": 1172,
+        "max": 14102
+      }
+    },
+    "C4": {
+      "total": 300,
+      "correct": 180,
+      "accuracy": 0.6,
+      "accuracy_pct": 60,
+      "ci95": [
+        54.4,
+        65.4
+      ],
+      "timeouts": 0,
+      "errors": 6,
+      "no_query_possible": 0,
+      "latencies": {
+        "count": 300,
+        "mean": 232,
+        "p50": 38,
+        "p90": 101,
+        "p95": 114,
+        "min": 26,
+        "max": 14974
+      }
+    }
+  },
+  "dqsSensitivity": {
+    "excluded_count": 66,
+    "cleanConfigResults": {
+      "C0": {
+        "total": 234,
+        "correct": 175,
+        "accuracy": 0.7478632478632479,
+        "accuracy_pct": 74.8,
+        "ci95": [
+          68.9,
+          79.9
+        ]
+      },
+      "C4nr": {
+        "total": 234,
+        "correct": 170,
+        "accuracy": 0.7264957264957265,
+        "accuracy_pct": 72.6,
+        "ci95": [
+          66.6,
+          78
+        ]
+      },
+      "C4": {
+        "total": 234,
+        "correct": 170,
+        "accuracy": 0.7264957264957265,
+        "accuracy_pct": 72.6,
+        "ci95": [
+          66.6,
+          78
+        ]
+      }
+    },
+    "mcnemar_c4_vs_c0_clean": {
+      "pairedCount": 234,
+      "c4_wins": 6,
+      "c0_wins": 11,
+      "p_value": 0.33230590820312483,
+      "diff_pct": -2.1
+    },
+    "mcnemar_c4_vs_c4nr_clean": {
+      "pairedCount": 234,
+      "c4_wins": 0,
+      "c4nr_wins": 0,
+      "p_value": 1,
+      "diff_pct": 0
+    }
+  },
+  "subgroups": {
+    "hardness": {
+      "easy": {
+        "C0": {
+          "total": 131,
+          "correct": 98,
+          "accuracy_pct": 74.8
+        },
+        "C4nr": {
+          "total": 131,
+          "correct": 92,
+          "accuracy_pct": 70.2
+        },
+        "C4": {
+          "total": 131,
+          "correct": 92,
+          "accuracy_pct": 70.2
+        }
+      },
+      "medium": {
+        "C0": {
+          "total": 117,
+          "correct": 64,
+          "accuracy_pct": 54.7
+        },
+        "C4nr": {
+          "total": 117,
+          "correct": 60,
+          "accuracy_pct": 51.3
+        },
+        "C4": {
+          "total": 117,
+          "correct": 60,
+          "accuracy_pct": 51.3
+        }
+      },
+      "hard": {
+        "C0": {
+          "total": 52,
+          "correct": 29,
+          "accuracy_pct": 55.8
+        },
+        "C4nr": {
+          "total": 52,
+          "correct": 28,
+          "accuracy_pct": 53.8
+        },
+        "C4": {
+          "total": 52,
+          "correct": 28,
+          "accuracy_pct": 53.8
+        }
+      }
+    },
+    "databases": {
+      "dog_kennels": {
+        "C0": {
+          "total": 29,
+          "correct": 17
+        },
+        "C4nr": {
+          "total": 29,
+          "correct": 16
+        },
+        "C4": {
+          "total": 29,
+          "correct": 16
+        }
+      },
+      "concert_singer": {
+        "C0": {
+          "total": 14,
+          "correct": 13
+        },
+        "C4nr": {
+          "total": 14,
+          "correct": 12
+        },
+        "C4": {
+          "total": 14,
+          "correct": 12
+        }
+      },
+      "cre_Doc_Template_Mgt": {
+        "C0": {
+          "total": 19,
+          "correct": 11
+        },
+        "C4nr": {
+          "total": 19,
+          "correct": 11
+        },
+        "C4": {
+          "total": 19,
+          "correct": 11
+        }
+      },
+      "wta_1": {
+        "C0": {
+          "total": 12,
+          "correct": 8
+        },
+        "C4nr": {
+          "total": 12,
+          "correct": 9
+        },
+        "C4": {
+          "total": 12,
+          "correct": 9
+        }
+      },
+      "car_1": {
+        "C0": {
+          "total": 28,
+          "correct": 13
+        },
+        "C4nr": {
+          "total": 28,
+          "correct": 15
+        },
+        "C4": {
+          "total": 28,
+          "correct": 15
+        }
+      },
+      "flight_2": {
+        "C0": {
+          "total": 27,
+          "correct": 19
+        },
+        "C4nr": {
+          "total": 27,
+          "correct": 11
+        },
+        "C4": {
+          "total": 27,
+          "correct": 11
+        }
+      },
+      "world_1": {
+        "C0": {
+          "total": 38,
+          "correct": 7
+        },
+        "C4nr": {
+          "total": 38,
+          "correct": 10
+        },
+        "C4": {
+          "total": 38,
+          "correct": 10
+        }
+      },
+      "orchestra": {
+        "C0": {
+          "total": 8,
+          "correct": 7
+        },
+        "C4nr": {
+          "total": 8,
+          "correct": 5
+        },
+        "C4": {
+          "total": 8,
+          "correct": 5
+        }
+      },
+      "network_1": {
+        "C0": {
+          "total": 13,
+          "correct": 9
+        },
+        "C4nr": {
+          "total": 13,
+          "correct": 8
+        },
+        "C4": {
+          "total": 13,
+          "correct": 8
+        }
+      },
+      "student_transcripts_tracking": {
+        "C0": {
+          "total": 22,
+          "correct": 17
+        },
+        "C4nr": {
+          "total": 22,
+          "correct": 15
+        },
+        "C4": {
+          "total": 22,
+          "correct": 15
+        }
+      },
+      "tvshow": {
+        "C0": {
+          "total": 25,
+          "correct": 15
+        },
+        "C4nr": {
+          "total": 25,
+          "correct": 14
+        },
+        "C4": {
+          "total": 25,
+          "correct": 14
+        }
+      },
+      "pets_1": {
+        "C0": {
+          "total": 10,
+          "correct": 8
+        },
+        "C4nr": {
+          "total": 10,
+          "correct": 8
+        },
+        "C4": {
+          "total": 10,
+          "correct": 8
+        }
+      },
+      "museum_visit": {
+        "C0": {
+          "total": 2,
+          "correct": 2
+        },
+        "C4nr": {
+          "total": 2,
+          "correct": 2
+        },
+        "C4": {
+          "total": 2,
+          "correct": 2
+        }
+      },
+      "singer": {
+        "C0": {
+          "total": 8,
+          "correct": 7
+        },
+        "C4nr": {
+          "total": 8,
+          "correct": 7
+        },
+        "C4": {
+          "total": 8,
+          "correct": 7
+        }
+      },
+      "poker_player": {
+        "C0": {
+          "total": 11,
+          "correct": 10
+        },
+        "C4nr": {
+          "total": 11,
+          "correct": 10
+        },
+        "C4": {
+          "total": 11,
+          "correct": 10
+        }
+      },
+      "battle_death": {
+        "C0": {
+          "total": 9,
+          "correct": 7
+        },
+        "C4nr": {
+          "total": 9,
+          "correct": 7
+        },
+        "C4": {
+          "total": 9,
+          "correct": 7
+        }
+      },
+      "course_teach": {
+        "C0": {
+          "total": 7,
+          "correct": 6
+        },
+        "C4nr": {
+          "total": 7,
+          "correct": 6
+        },
+        "C4": {
+          "total": 7,
+          "correct": 6
+        }
+      },
+      "employee_hire_evaluation": {
+        "C0": {
+          "total": 14,
+          "correct": 11
+        },
+        "C4nr": {
+          "total": 14,
+          "correct": 10
+        },
+        "C4": {
+          "total": 14,
+          "correct": 10
+        }
+      },
+      "voter_1": {
+        "C0": {
+          "total": 4,
+          "correct": 4
+        },
+        "C4nr": {
+          "total": 4,
+          "correct": 4
+        },
+        "C4": {
+          "total": 4,
+          "correct": 4
+        }
+      }
+    }
+  },
+  "inconclusiveCount": 0,
+  "mcnemar": {
+    "c4_vs_c0": {
+      "pairedCount": 300,
+      "c4_wins": 11,
+      "c0_wins": 22,
+      "ties_correct": 169,
+      "ties_wrong": 98,
+      "discordant_pairs": 33,
+      "p_value": 0.08014331245794917,
+      "diff_pct": -3.7
+    },
+    "c4_vs_c4nr": {
+      "pairedCount": 300,
+      "c4_wins": 0,
+      "c4nr_wins": 0,
+      "ties_correct": 180,
+      "ties_wrong": 120,
+      "discordant_pairs": 0,
+      "p_value": 1,
+      "diff_pct": 0
+    },
+    "c4nr_vs_c0": {
+      "pairedCount": 300,
+      "c4nr_wins": 11,
+      "c0_wins": 22,
+      "ties_correct": 169,
+      "ties_wrong": 98,
+      "discordant_pairs": 33,
+      "p_value": 0.08014331245794917,
+      "diff_pct": -3.7
+    }
+  },
+  "clusterBootstrap": {
+    "replicates": 10000,
+    "seed": 20261015,
+    "clusters": 19,
+    "mean_diff_pct": -3.7,
+    "se": 0.034962055508127594,
+    "ci95_pct": [
+      -11.3,
+      2.4
+    ]
+  },
+  "recoveryAnalysis": {
+    "c4_total": 300,
+    "recovery_triggered_count": 6,
+    "recovery_trigger_rate_pct": 2,
+    "recovery_succeeded_count": 0,
+    "recovery_success_rate_pct": 0
+  },
+  "dqsPredictions": {
+    "error_count": 0,
+    "units": []
+  },
+  "databaseIntegrity": {
+    "totalDatabasesChecked": 20,
+    "modifiedDatabasesCount": 0,
+    "hashes": {
+      "battle_death": {
+        "preHash": "344D2ECFB6AAA534BC18F60A165723ECD686DEB3B2F5FDA1AAF7A279177786D1",
+        "postHashRo": "344D2ECFB6AAA534BC18F60A165723ECD686DEB3B2F5FDA1AAF7A279177786D1",
+        "postHashGov": "344D2ECFB6AAA534BC18F60A165723ECD686DEB3B2F5FDA1AAF7A279177786D1",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "car_1": {
+        "preHash": "CA1621C030CE704F759783B0FEF2CBA6A3857EBA04D3BCD346E64884825AC1EA",
+        "postHashRo": "CA1621C030CE704F759783B0FEF2CBA6A3857EBA04D3BCD346E64884825AC1EA",
+        "postHashGov": "CA1621C030CE704F759783B0FEF2CBA6A3857EBA04D3BCD346E64884825AC1EA",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "concert_singer": {
+        "preHash": "7AA20672C9FDAC6302DE4E76666C45824A24FD00F8055486AA87F78166028227",
+        "postHashRo": "7AA20672C9FDAC6302DE4E76666C45824A24FD00F8055486AA87F78166028227",
+        "postHashGov": "7AA20672C9FDAC6302DE4E76666C45824A24FD00F8055486AA87F78166028227",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "course_teach": {
+        "preHash": "0C57DEFB1C94DFEEECB4CDE909A6FA9A6C2861156D331EEDEDB7FA196D16C859",
+        "postHashRo": "0C57DEFB1C94DFEEECB4CDE909A6FA9A6C2861156D331EEDEDB7FA196D16C859",
+        "postHashGov": "0C57DEFB1C94DFEEECB4CDE909A6FA9A6C2861156D331EEDEDB7FA196D16C859",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "cre_Doc_Template_Mgt": {
+        "preHash": "EE93DE0EF3AEFE439B76542B6C5F078AF949D8897B7C4A1718EFBCB23F8C543A",
+        "postHashRo": "EE93DE0EF3AEFE439B76542B6C5F078AF949D8897B7C4A1718EFBCB23F8C543A",
+        "postHashGov": "EE93DE0EF3AEFE439B76542B6C5F078AF949D8897B7C4A1718EFBCB23F8C543A",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "dog_kennels": {
+        "preHash": "38AF9A9BA66BB3029CC545DD5EFD3B2B9DB0805AB21DB1EBBFAF1FDA06BEEFDD",
+        "postHashRo": "38AF9A9BA66BB3029CC545DD5EFD3B2B9DB0805AB21DB1EBBFAF1FDA06BEEFDD",
+        "postHashGov": "38AF9A9BA66BB3029CC545DD5EFD3B2B9DB0805AB21DB1EBBFAF1FDA06BEEFDD",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "employee_hire_evaluation": {
+        "preHash": "7DEDA4E0AA6E868AD7CCA07F0DBBFDECF009B95958EF12E7E83F6B3CE4FFF8EB",
+        "postHashRo": "7DEDA4E0AA6E868AD7CCA07F0DBBFDECF009B95958EF12E7E83F6B3CE4FFF8EB",
+        "postHashGov": "7DEDA4E0AA6E868AD7CCA07F0DBBFDECF009B95958EF12E7E83F6B3CE4FFF8EB",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "flight_2": {
+        "preHash": "200C842A7B2522534A980186BFDB547C8EC2792FE631CDFD4CFF7CEFB86A5D5A",
+        "postHashRo": "200C842A7B2522534A980186BFDB547C8EC2792FE631CDFD4CFF7CEFB86A5D5A",
+        "postHashGov": "200C842A7B2522534A980186BFDB547C8EC2792FE631CDFD4CFF7CEFB86A5D5A",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "museum_visit": {
+        "preHash": "A857F1F756082B0F5982FD82638D9F03D2FF73DA8E3C6D6198EFAC92A0531EF5",
+        "postHashRo": "A857F1F756082B0F5982FD82638D9F03D2FF73DA8E3C6D6198EFAC92A0531EF5",
+        "postHashGov": "A857F1F756082B0F5982FD82638D9F03D2FF73DA8E3C6D6198EFAC92A0531EF5",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "network_1": {
+        "preHash": "C14369CE7D5383C17BC6E63846A655FC1B1C03C573ACF90113D3A42E2F42F6F0",
+        "postHashRo": "C14369CE7D5383C17BC6E63846A655FC1B1C03C573ACF90113D3A42E2F42F6F0",
+        "postHashGov": "C14369CE7D5383C17BC6E63846A655FC1B1C03C573ACF90113D3A42E2F42F6F0",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "orchestra": {
+        "preHash": "727B36F0CAAC8DE646D5F23DADCDC7B6D05AA83FE9E51298DE2D5AE5478A221B",
+        "postHashRo": "727B36F0CAAC8DE646D5F23DADCDC7B6D05AA83FE9E51298DE2D5AE5478A221B",
+        "postHashGov": "727B36F0CAAC8DE646D5F23DADCDC7B6D05AA83FE9E51298DE2D5AE5478A221B",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "pets_1": {
+        "preHash": "AA70CB45A736E4E326C78DFE71C483D8F05249666F7FD2B020BB0AB7A11E0859",
+        "postHashRo": "AA70CB45A736E4E326C78DFE71C483D8F05249666F7FD2B020BB0AB7A11E0859",
+        "postHashGov": "AA70CB45A736E4E326C78DFE71C483D8F05249666F7FD2B020BB0AB7A11E0859",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "poker_player": {
+        "preHash": "CB0BEE7B5644537FDC76C8E9C777B813085FFA7F83B540B0AD41328AE46F074D",
+        "postHashRo": "CB0BEE7B5644537FDC76C8E9C777B813085FFA7F83B540B0AD41328AE46F074D",
+        "postHashGov": "CB0BEE7B5644537FDC76C8E9C777B813085FFA7F83B540B0AD41328AE46F074D",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "real_estate_properties": {
+        "preHash": "E49D548808A89CC86AD8CFE6C30E8BE4ED4EAF2F9BE2ED63A114FC30C3D8940D",
+        "postHashRo": "E49D548808A89CC86AD8CFE6C30E8BE4ED4EAF2F9BE2ED63A114FC30C3D8940D",
+        "postHashGov": "E49D548808A89CC86AD8CFE6C30E8BE4ED4EAF2F9BE2ED63A114FC30C3D8940D",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "singer": {
+        "preHash": "C562C07D9948F84E0B84B80B6D9B01DB63ED6A73590B19642AB0AF775B8577B5",
+        "postHashRo": "C562C07D9948F84E0B84B80B6D9B01DB63ED6A73590B19642AB0AF775B8577B5",
+        "postHashGov": "C562C07D9948F84E0B84B80B6D9B01DB63ED6A73590B19642AB0AF775B8577B5",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "student_transcripts_tracking": {
+        "preHash": "2B7A26504DB2BCD38AC72ADE2E595065CD5E963353CB0C28DAE5E4BFB1BFAB4C",
+        "postHashRo": "2B7A26504DB2BCD38AC72ADE2E595065CD5E963353CB0C28DAE5E4BFB1BFAB4C",
+        "postHashGov": "2B7A26504DB2BCD38AC72ADE2E595065CD5E963353CB0C28DAE5E4BFB1BFAB4C",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "tvshow": {
+        "preHash": "607D882ECDDCBAFABCA108DBE000FE240E2F574764AEF9BA3F37064171E287CA",
+        "postHashRo": "607D882ECDDCBAFABCA108DBE000FE240E2F574764AEF9BA3F37064171E287CA",
+        "postHashGov": "607D882ECDDCBAFABCA108DBE000FE240E2F574764AEF9BA3F37064171E287CA",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "voter_1": {
+        "preHash": "F709FC3621D3A8E527D5F0B6E03C97AB3BD6DC3C3F296B6FCB91867F52EDBBE5",
+        "postHashRo": "F709FC3621D3A8E527D5F0B6E03C97AB3BD6DC3C3F296B6FCB91867F52EDBBE5",
+        "postHashGov": "F709FC3621D3A8E527D5F0B6E03C97AB3BD6DC3C3F296B6FCB91867F52EDBBE5",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "world_1": {
+        "preHash": "FA88E4CA07B946A327D333296A08DD6C9541BD6CA15E7B7597F49FC9546F803F",
+        "postHashRo": "FA88E4CA07B946A327D333296A08DD6C9541BD6CA15E7B7597F49FC9546F803F",
+        "postHashGov": "FA88E4CA07B946A327D333296A08DD6C9541BD6CA15E7B7597F49FC9546F803F",
+        "roMatch": true,
+        "govMatch": true
+      },
+      "wta_1": {
+        "preHash": "BD3E50663506590EBCD7BD39D4412EE17D8A5CFEF72C138080C3D154BF4077DE",
+        "postHashRo": "BD3E50663506590EBCD7BD39D4412EE17D8A5CFEF72C138080C3D154BF4077DE",
+        "postHashGov": "BD3E50663506590EBCD7BD39D4412EE17D8A5CFEF72C138080C3D154BF4077DE",
+        "roMatch": true,
+        "govMatch": true
+      }
+    }
+  },
+  "gates": {
+    "G1_zero_unhandled_crashes": true,
+    "G2_zero_db_modifications": true,
+    "G3_zero_truncations_undetected": true,
+    "G4_all_units_completed": true,
+    "G5_cache_works": true,
+    "G6_pilot_c0_sanity": true,
+    "G7_recovery_mechanism_fires": true,
+    "G8_cross_engine_gold_agreement": true,
+    "G9_timeout_supervisor_verified": true,
+    "allPassed": true
+  }
+}
