@@ -7,7 +7,7 @@
  */
 const fs = require('fs');
 const path = require('path');
-const { execFileSync } = require('child_process');
+const { computeLogicalHash } = require('../lib/spider_logical_hash');
 
 function getRunPaths(runId) {
   const baseDir = path.join(process.cwd(), 'cognicore_spider', 'runs', runId);
@@ -19,13 +19,6 @@ function getRunPaths(runId) {
     uploadsDir: path.join(baseDir, 'uploads'),
     hashesFile: path.join(baseDir, 'pre_run_hashes.json'),
   };
-}
-
-function computeLogicalHash(dbPath) {
-  const scriptPath = path.join(process.cwd(), 'validation/lib/spider_logical_hash.py');
-  const stdout = execFileSync('python', [scriptPath, dbPath], { encoding: 'utf-8' });
-  const hash = stdout.trim().split(/\s+/)[0];
-  return hash;
 }
 
 function makeCopies(runId, dbList = null) {

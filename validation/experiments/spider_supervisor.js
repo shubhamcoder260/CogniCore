@@ -100,10 +100,15 @@ function runUnitWithSupervisor({ questionId, configName, runId, timeoutMs = 6000
 
       if (code === 0 && stdoutData.trim()) {
         try {
-          const lines = stdoutData.trim().split('\n');
-          const lastLine = lines[lines.length - 1];
-          const record = JSON.parse(lastLine);
-          return resolve(record);
+          const lines = stdoutData.trim().split('\n').map((l) => l.trim()).filter(Boolean);
+          for (let i = lines.length - 1; i >= 0; i--) {
+            try {
+              const record = JSON.parse(lines[i]);
+              if (record && record.unit_id) {
+                return resolve(record);
+              }
+            } catch (_) {}
+          }
         } catch (err) {
           // JSON parse failed
         }
