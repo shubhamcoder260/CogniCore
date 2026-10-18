@@ -132,7 +132,7 @@ async function runStructuredQueryInner({
   const candidateSql = prepared.sql;
   const repairs = [...prepared.repairs];
 
-  // 3. Empty result: probe filters for case/whitespace mismatches and retry once, deterministically.
+  // 3. Empty result: probe filters for diagnostic feedback only, preserving original query result.
   let emptyDiagnosis = null;
   if (execResult.rowCount === 0) {
     const adapter = createAdapter(dataset.type, { datasetId: dataset.dataset_id, location: dataset.location });
@@ -140,22 +140,11 @@ async function runStructuredQueryInner({
     try {
       emptyDiagnosis = await diagnoseEmptyResult({ adapter, sql: candidateSql, schema, datasetType: dataset.type });
     } finally { await adapter.disconnect(); }
-    if (emptyDiagnosis.repairedSql) {
-      try {
-        validateSql(emptyDiagnosis.repairedSql, schema, dataset.type);
-        const retrySql = enforcePolicy({ sql: emptyDiagnosis.repairedSql, schema, policy, datasetType: dataset.type });
-        const retryAdapter = createAdapter(dataset.type, { datasetId: dataset.dataset_id, location: dataset.location });
-        const retryResult = await executeValidatedQuery(retryAdapter, retrySql);
-        if (retryResult.rowCount > 0) {
-          execResult = retryResult;
-          repairs.push({ type: 'empty_result_case_fix', findings: emptyDiagnosis.findings });
-          prepared.sql = emptyDiagnosis.repairedSql;
-        }
-      } catch (_) { /* keep original empty result */ }
-    }
   }
   const finalSql = prepared.sql;
-  if (emptyDiagnosis?.findings?.length) mark('empty_result_diagnosis', emptyDiagnosis.repairedSql ? 'ok' : 'warn', emptyDiagnosis.findings.map((f) => `${f.column}: ${f.type}`).join('; '));
+  if (emptyDiagnosis?.findings?.length) {
+    mark('empty_result_diagnosis', 'ok', emptyDiagnosis.findings.map((f) => `${f.column}: ${f.type}`).join('; '));
+  }
 
   // 4. Result validation: structural + semantic.
   const resultValidation = validateResult(execResult);

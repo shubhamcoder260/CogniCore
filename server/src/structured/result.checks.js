@@ -53,17 +53,16 @@ function validateResultSemantics({ sql, result, rowCounts = {} }) {
 }
 
 /**
- * When a query returns nothing, probe each text filter against the data. If a
- * case/whitespace-insensitive match exists, return a repaired query that uses it.
+ * When a query returns nothing, probe each text filter against the data to provide
+ * diagnostic insights (e.g. casing/whitespace mismatches or available values).
+ * Never mutates the executed query or result set.
  */
 async function diagnoseEmptyResult({ adapter, sql, schema, datasetType }) {
   const dialect = dialectOf(datasetType);
   const filters = listStringFilters(sql);
   const findings = [];
-  if (!filters.length) return { repairedSql: null, findings };
+  if (!filters.length) return { findings };
 
-  const tokens = tokenize(sql);
-  const edits = [];
   for (const f of filters) {
     const table = schema.tables.find((t) => t.columns.some((c) => c.name.toLowerCase() === f.column.toLowerCase()));
     if (!table) continue;
@@ -74,23 +73,13 @@ async function diagnoseEmptyResult({ adapter, sql, schema, datasetType }) {
       const ci = toNum((await adapter.executeQuery(`SELECT COUNT(*) AS n FROM ${tq} WHERE LOWER(TRIM(${cq})) = LOWER(TRIM('${lit}'))`)).rows[0]?.n) ?? 0;
       if (ci > 0) {
         findings.push({ column: col.name, literal: f.literal, type: 'case_or_whitespace_mismatch', matches: ci });
-        for (let i = 0; i < tokens.length; i++) {
-          const tk = tokens[i];
-          if ((tk.t === 'word' || tk.t === 'qid') && tk.v.toLowerCase() === f.column.toLowerCase() && tokens[i + 1]?.v === '=' && tokens[i + 2]?.t === 'str' && tokens[i + 2].v === f.literal) {
-            const start = tokens[i - 1]?.v === '.' ? tokens[i - 2].s : tk.s;
-            edits.push({ s: start, e: tokens[i + 2].e, to: `LOWER(TRIM(${sql.slice(start, tk.e)})) = LOWER(TRIM('${lit}'))` });
-          }
-        }
       } else {
         const rows = (await adapter.executeQuery(`SELECT ${cq} AS v, COUNT(*) AS n FROM ${tq} WHERE ${cq} IS NOT NULL GROUP BY ${cq} ORDER BY n DESC LIMIT 8`)).rows;
         findings.push({ column: col.name, literal: f.literal, type: 'value_not_found', available: rows.map((r) => r.v) });
       }
-    } catch (_) { /* probing is best-effort */ }
+    } catch (_) { /* probing is best-effort diagnostic */ }
   }
-  if (!edits.length) return { repairedSql: null, findings };
-  let out = sql;
-  for (const ed of edits.sort((a, b) => b.s - a.s)) out = out.slice(0, ed.s) + ed.to + out.slice(ed.e);
-  return { repairedSql: out, findings };
+  return { findings };
 }
 
 module.exports = { validateResultSemantics, diagnoseEmptyResult };

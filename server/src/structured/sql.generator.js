@@ -82,12 +82,37 @@ async function generateSql(llmProvider, opts) {
 }
 
 function cleanSqlOutput(raw) {
-  let sql = raw.trim();
-  // Strip markdown code fences if the model added them anyway.
-  sql = sql.replace(/^```(sql)?/i, '').replace(/```$/, '').trim();
-  // Take only the first statement if the model rambled.
-  const firstSemicolon = sql.indexOf(';');
-  if (firstSemicolon !== -1) sql = sql.slice(0, firstSemicolon);
+  let sql = String(raw || '').trim();
+
+  // If the model wrapped the query in markdown code fences anywhere in the output, extract the inner block.
+  const fenceMatch = sql.match(/```(?:sql)?\s*([\s\S]*?)```/i);
+  if (fenceMatch) {
+    sql = fenceMatch[1].trim();
+  } else {
+    // Strip partial or unclosed leading/trailing code fences
+    sql = sql.replace(/^```(?:sql)?\s*/i, '').replace(/\s*```$/i, '').trim();
+  }
+
+  // Take only the first statement if the model rambled, ignoring semicolons inside string literals.
+  let inSingleQuote = false;
+  let inDoubleQuote = false;
+  let splitIndex = -1;
+
+  for (let i = 0; i < sql.length; i++) {
+    const ch = sql[i];
+    if (ch === "'" && !inDoubleQuote) {
+      if (inSingleQuote && sql[i + 1] === "'") { i++; continue; } // Escaped quote ''
+      inSingleQuote = !inSingleQuote;
+    } else if (ch === '"' && !inSingleQuote) {
+      if (inDoubleQuote && sql[i + 1] === '"') { i++; continue; }
+      inDoubleQuote = !inDoubleQuote;
+    } else if (ch === ';' && !inSingleQuote && !inDoubleQuote) {
+      splitIndex = i;
+      break;
+    }
+  }
+
+  if (splitIndex !== -1) sql = sql.slice(0, splitIndex);
   return sql.trim();
 }
 
