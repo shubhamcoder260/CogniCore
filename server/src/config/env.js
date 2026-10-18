@@ -32,7 +32,7 @@ const config = {
   paths: {
     data: process.env.DATA_DIR || defaultDataDir,
     uploads: process.env.UPLOADS_DIR || path.join(__dirname, '..', '..', isTest ? 'uploads-test' : 'uploads'),
-    registryDb: process.env.REGISTRY_DB_PATH || path.join(process.env.DATA_DIR || defaultDataDir, 'cognicore_registry.db'),
+    registryDb: process.env.COGNICORE_TEST_DB_PATH || process.env.REGISTRY_DB_PATH || path.join(process.env.DATA_DIR || defaultDataDir, 'cognicore_registry.db'),
   },
 
   // --- Query safety limits ---

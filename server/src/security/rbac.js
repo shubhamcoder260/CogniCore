@@ -117,7 +117,7 @@ function canManage(user, dataset) {
 function requireDatasetAccess(level = 'read') {
   const { DatasetRegistry } = require('../ingestion/dataset.registry');
   return (req, res, next) => {
-    const datasetId = req.params.id || req.params.datasetId || req.body?.datasetId;
+    const datasetId = req.params.id || req.params.datasetId || req.body?.datasetId || req.query?.datasetId || req.query?.id;
     const dataset = datasetId ? DatasetRegistry.get(datasetId) : null;
     if (!dataset) {
       return res.status(404).json({ error: true, message: 'Dataset not found.' });

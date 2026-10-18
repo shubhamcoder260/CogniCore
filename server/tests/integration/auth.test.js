@@ -1,19 +1,10 @@
 require('../helpers/testEnv');
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { startTestServer, req } = require('../helpers/testServer');
+const { startTestServer, req, freshDb } = require('../helpers/testServer');
 const fs = require('fs');
 const path = require('path');
 const config = require('../../src/config/env');
-
-function freshDb() {
-  // Each test file gets a clean slate: delete any leftover test DB before
-  // the app (which creates tables on require) boots.
-  try { fs.rmSync(config.paths.registryDb); } catch (_) {}
-  try { fs.rmSync(config.paths.registryDb + '-wal'); } catch (_) {}
-  try { fs.rmSync(config.paths.registryDb + '-shm'); } catch (_) {}
-  fs.mkdirSync(config.paths.data, { recursive: true });
-}
 
 test('auth: full flow', async (t) => {
   freshDb();

@@ -2,16 +2,8 @@ require('../helpers/testEnv');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs');
-const { startTestServer, req } = require('../helpers/testServer');
+const { startTestServer, req, freshDb } = require('../helpers/testServer');
 const config = require('../../src/config/env');
-
-function freshDb() {
-  try { fs.rmSync(config.paths.registryDb); } catch (_) {}
-  try { fs.rmSync(config.paths.registryDb + '-wal'); } catch (_) {}
-  try { fs.rmSync(config.paths.registryDb + '-shm'); } catch (_) {}
-  fs.mkdirSync(config.paths.data, { recursive: true });
-  fs.mkdirSync(config.paths.uploads, { recursive: true });
-}
 
 async function register(baseUrl, email) {
   const res = await req(baseUrl, 'POST', '/api/auth/register', { body: { email, password: 'password123' } });

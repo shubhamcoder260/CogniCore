@@ -27,4 +27,37 @@ async function req(baseUrl, method, path, { body, token } = {}) {
   return { status: res.status, body: json, headers: res.headers };
 }
 
-module.exports = { startTestServer, req };
+const Database = require('better-sqlite3');
+const config = require('../../src/config/env');
+const fs = require('fs');
+
+function cleanTestDb(db) {
+  if (!db) {
+    if (config.paths.registryDb && fs.existsSync(config.paths.registryDb)) {
+      const conn = new Database(config.paths.registryDb);
+      try { cleanTestDb(conn); } finally { conn.close(); }
+    }
+    return;
+  }
+  db.pragma('foreign_keys = OFF');
+  const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").all();
+  const del = db.transaction((tbls) => {
+    for (const t of tbls) {
+      db.prepare(`DELETE FROM "${t.name}"`).run();
+    }
+    try {
+      const seq = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence'").get();
+      if (seq) db.prepare("DELETE FROM sqlite_sequence").run();
+    } catch (_) {}
+  });
+  del(tables);
+  db.pragma('foreign_keys = ON');
+}
+
+function freshDb() {
+  cleanTestDb();
+  fs.mkdirSync(config.paths.data, { recursive: true });
+  fs.mkdirSync(config.paths.uploads, { recursive: true });
+}
+
+module.exports = { startTestServer, req, cleanTestDb, freshDb };

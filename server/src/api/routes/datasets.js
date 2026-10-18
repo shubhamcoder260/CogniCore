@@ -8,6 +8,7 @@ const { asyncHandler } = require('../middleware/asyncHandler');
 const config = require('../../config/env');
 const { requireAuth, requireDatasetAccess } = require('../../security/rbac');
 const { AuthRegistry } = require('../../security/auth.registry');
+const { PolicyStore } = require('../../security/data.policy');
 
 const MATERIALIZED_TYPES = new Set(['csv', 'xlsx', 'json']);
 const DOCUMENT_TYPES = new Set(['pdf', 'docx', 'txt']);
@@ -98,6 +99,7 @@ router.delete('/:id', requireDatasetAccess('manage'), asyncHandler(async (req, r
 
   DatasetRegistry.remove(dataset.dataset_id);
   AuthRegistry.removeAllGrantsForDataset(dataset.dataset_id);
+  PolicyStore.removeForDataset(dataset.dataset_id);
 
   try { if (dataset.source === 'upload' && fs.existsSync(dataset.location)) fs.unlinkSync(dataset.location); } catch (_) {}
   if (MATERIALIZED_TYPES.has(dataset.type)) {

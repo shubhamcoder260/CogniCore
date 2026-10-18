@@ -134,6 +134,31 @@ function buildScope(tokens, schema) {
       let j = i + 1;
       const tname = tokens[j];
 
+      // Derived table subquery in FROM / JOIN: (SELECT ...) [AS] sub
+      if (tname?.v === '(' && tname?.t === 'p') {
+        const subOpenDepth = tname.depth;
+        let subCloseIdx = -1;
+        for (let m = j + 1; m < tokens.length; m++) {
+          if (tokens[m].v === ')' && tokens[m].depth === subOpenDepth) {
+            subCloseIdx = m;
+            break;
+          }
+        }
+        if (subCloseIdx > 0) {
+          let k = subCloseIdx + 1;
+          if (isKw(tokens[k], 'as')) k++;
+          const al = tokens[k];
+          if (isIdentTok(al) && !(al.t === 'word' && KEYWORDS.has(lc(al.v)))) {
+            const subTokens = tokens.slice(j + 1, subCloseIdx);
+            const subCols = extractProjectedColumns(subTokens, tableByName);
+            const virtualTable = { name: al.v, columns: subCols };
+            aliasMap.set(lc(al.v), virtualTable);
+            names.add(lc(al.v));
+            consumed.add(k);
+          }
+        }
+      }
+
       // Concern 3: Detect table-valued function call in FROM/JOIN position: FROM generate_series(1, 10)
       if (isIdentTok(tname) && tokens[j + 1]?.v === '(' && !tableByName.has(lc(tname.v))) {
         hasTableValuedFunction = true;
@@ -320,4 +345,228 @@ function extractCteNames(sql) {
   return names;
 }
 
-module.exports = { tokenize, stripLiterals, findUnknownColumns, repairColumnNames, repairMissingGroupBy, extractCteNames, KEYWORDS };
+/** Helper: extracts projected column definitions from a SELECT list token slice */
+function extractProjectedColumns(bodyTokens, tableByName = new Map()) {
+  if (!bodyTokens.length) return [];
+  const bodyDepth = bodyTokens[0].depth;
+  let selectIdx = -1;
+  for (let k = 0; k < bodyTokens.length; k++) {
+    if (bodyTokens[k].depth === bodyDepth && isKw(bodyTokens[k], 'select')) {
+      selectIdx = k;
+      break;
+    }
+  }
+  if (selectIdx < 0) return [];
+
+  let fromIdx = bodyTokens.length;
+  for (let k = selectIdx + 1; k < bodyTokens.length; k++) {
+    if (bodyTokens[k].depth === bodyDepth && (isKw(bodyTokens[k], 'from') || isKw(bodyTokens[k], 'where') || isKw(bodyTokens[k], 'group') || isKw(bodyTokens[k], 'order'))) {
+      fromIdx = k;
+      break;
+    }
+  }
+
+  let fromTable = null;
+  let fromTableAlias = null;
+  for (let k = fromIdx; k < bodyTokens.length; k++) {
+    if (bodyTokens[k].depth === bodyDepth && isKw(bodyTokens[k], 'from')) {
+      const tnameTok = bodyTokens[k + 1];
+      if (isIdentTok(tnameTok) && !KEYWORDS.has(lc(tnameTok.v))) {
+        fromTable = tnameTok.v;
+        const maybeAs = bodyTokens[k + 2];
+        let alTok = null;
+        if (isKw(maybeAs, 'as')) alTok = bodyTokens[k + 3];
+        else if (isIdentTok(maybeAs) && !KEYWORDS.has(lc(maybeAs.v)) && maybeAs.v !== ',') alTok = maybeAs;
+        if (alTok && isIdentTok(alTok)) fromTableAlias = alTok.v;
+      }
+      break;
+    }
+  }
+
+  const items = [];
+  let cur = [];
+  for (let k = selectIdx + 1; k < fromIdx; k++) {
+    const tk = bodyTokens[k];
+    if (tk.depth === bodyDepth && tk.v === ',' && tk.t === 'p') {
+      if (cur.length) items.push(cur);
+      cur = [];
+    } else {
+      cur.push(tk);
+    }
+  }
+  if (cur.length) items.push(cur);
+
+  const cols = [];
+  for (const item of items) {
+    if (!item.length) continue;
+    if (item.length === 1 && item[0].v === '*' && item[0].t === 'p') {
+      const tbl = fromTable ? tableByName.get(lc(fromTable)) : null;
+      if (tbl && tbl.columns) {
+        for (const c of tbl.columns) {
+          cols.push({ name: c.name, sourceTable: tbl.name, sourceColumn: c.name });
+        }
+      } else {
+        cols.push({ name: '*', sourceTable: fromTable, sourceColumn: '*' });
+      }
+      continue;
+    }
+    if (item.length === 3 && isIdentTok(item[0]) && item[1].v === '.' && item[2].v === '*') {
+      const tbl = tableByName.get(lc(item[0].v));
+      if (tbl && tbl.columns) {
+        for (const c of tbl.columns) {
+          cols.push({ name: c.name, sourceTable: tbl.name, sourceColumn: c.name });
+        }
+      } else {
+        cols.push({ name: '*', sourceTable: item[0].v, sourceColumn: '*' });
+      }
+      continue;
+    }
+
+    let aliasName = null;
+    let exprTokens = item;
+    const asIdx = item.findIndex((t) => isKw(t, 'as') && t.depth === bodyDepth);
+    if (asIdx >= 0 && item[asIdx + 1] && isIdentTok(item[asIdx + 1])) {
+      aliasName = item[asIdx + 1].v;
+      exprTokens = item.slice(0, asIdx);
+    } else if (item.length >= 2) {
+      const last = item[item.length - 1];
+      const prev = item[item.length - 2];
+      if (isIdentTok(last) && !KEYWORDS.has(lc(last.v)) && last.depth === bodyDepth && prev.v !== '.') {
+        aliasName = last.v;
+        exprTokens = item.slice(0, -1);
+      }
+    }
+
+    let srcTable = fromTable;
+    let srcCol = null;
+
+    if (exprTokens.length === 1 && isIdentTok(exprTokens[0])) {
+      srcCol = exprTokens[0].v;
+    } else if (exprTokens.length === 3 && isIdentTok(exprTokens[0]) && exprTokens[1].v === '.' && isIdentTok(exprTokens[2])) {
+      srcTable = exprTokens[0].v;
+      srcCol = exprTokens[2].v;
+    } else {
+      for (let m = 0; m < exprTokens.length; m++) {
+        const t = exprTokens[m];
+        if (!isIdentTok(t) || KEYWORDS.has(lc(t.v))) continue;
+        const p = exprTokens[m - 1];
+        const nxt = exprTokens[m + 1];
+        if (nxt && nxt.v === '(') continue;
+        if (p && p.v === '.') {
+          srcTable = exprTokens[m - 2]?.v || fromTable;
+          srcCol = t.v;
+        } else if (!p || p.v !== '.') {
+          srcCol = t.v;
+        }
+      }
+    }
+
+    const colName = aliasName || srcCol;
+    if (colName) {
+      cols.push({
+        name: colName,
+        sourceTable: srcTable === fromTableAlias ? fromTable : srcTable,
+        sourceColumn: srcCol || colName,
+      });
+    }
+  }
+  return cols;
+}
+
+/**
+ * Extracts CTE definitions from a leading WITH clause.
+ * Returns array of { name, bodySql, bodyTokens, exposedColumns, columnLineage, start, end }
+ */
+function extractCteBodies(sql) {
+  const tokens = tokenize(sql);
+  const ctes = [];
+  if (!isKw(tokens[0], 'with')) return ctes;
+
+  let i = 1;
+  if (isKw(tokens[i], 'recursive')) i++;
+
+  for (;;) {
+    const nameTok = tokens[i];
+    if (!isIdentTok(nameTok)) break;
+    const name = nameTok.v;
+    i++;
+
+    const explicitCols = [];
+    if (tokens[i]?.v === '(') {
+      const d = tokens[i].depth;
+      i++;
+      while (i < tokens.length && !(tokens[i].v === ')' && tokens[i].depth === d)) {
+        if (isIdentTok(tokens[i]) && !KEYWORDS.has(lc(tokens[i].v))) {
+          explicitCols.push(tokens[i].v);
+        }
+        i++;
+      }
+      if (tokens[i]?.v === ')') i++;
+    }
+
+    if (!isKw(tokens[i], 'as')) break;
+    i++;
+    if (isKw(tokens[i], 'not')) i++;
+    if (isKw(tokens[i], 'materialized')) i++;
+    if (tokens[i]?.v !== '(') break;
+
+    const openParen = tokens[i];
+    const d = openParen.depth;
+    i++;
+    const bodyStartIdx = i;
+
+    while (i < tokens.length && !(tokens[i].v === ')' && tokens[i].depth === d)) {
+      i++;
+    }
+    const closeParen = tokens[i];
+    const bodyTokens = tokens.slice(bodyStartIdx, i);
+    const bodySql = closeParen ? sql.slice(openParen.e, closeParen.s) : sql.slice(openParen.e);
+
+    const projected = extractProjectedColumns(bodyTokens);
+    const exposedColumns = new Set();
+    const columnLineage = new Map();
+
+    if (explicitCols.length > 0) {
+      for (let idx = 0; idx < explicitCols.length; idx++) {
+        const exp = explicitCols[idx];
+        exposedColumns.add(lc(exp));
+        const src = projected[idx] || { sourceTable: null, sourceColumn: exp };
+        columnLineage.set(lc(exp), { table: src.sourceTable, column: src.sourceColumn });
+      }
+    } else {
+      for (const p of projected) {
+        exposedColumns.add(lc(p.name));
+        columnLineage.set(lc(p.name), { table: p.sourceTable, column: p.sourceColumn });
+      }
+    }
+
+    ctes.push({
+      name,
+      bodySql,
+      bodyTokens,
+      exposedColumns,
+      columnLineage,
+      start: openParen.s,
+      end: closeParen ? closeParen.e : tokens[tokens.length - 1].e,
+    });
+
+    i++;
+    if (tokens[i]?.v === ',') { i++; continue; }
+    break;
+  }
+
+  return ctes;
+}
+
+module.exports = {
+  tokenize,
+  stripLiterals,
+  buildScope,
+  findUnknownColumns,
+  repairColumnNames,
+  repairMissingGroupBy,
+  extractCteNames,
+  extractCteBodies,
+  extractProjectedColumns,
+  KEYWORDS,
+};
