@@ -145,6 +145,9 @@ class OllamaWrapper {
       done_reason: result.done_reason || 'stop',
       prompt_eval_count: result.prompt_eval_count || 0,
       eval_count: result.eval_count || 0,
+      eval_duration_ns: result.eval_duration || 0,
+      prompt_eval_duration_ns: result.prompt_eval_duration || 0,
+      total_duration_ns: result.total_duration || 0,
       truncated: Boolean(isTruncated),
       timestamp: new Date().toISOString(),
     };

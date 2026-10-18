@@ -222,11 +222,86 @@ function analyzeSpiderRun(runId, { verifyPostHashes = true } = {}) {
 
   const allGatesPassed = Object.values(gates).every(Boolean);
 
+  // DQS Sensitivity Analysis (excluding dqs_incompatible === 1)
+  const dqsCleanUnits = uniqueUnits.filter((u) => !u.dqs_incompatible);
+  const dqsCleanConfigResults = {};
+  for (const cfg of ['C0', 'C4nr', 'C4']) {
+    const recs = dqsCleanUnits.filter((u) => u.config === cfg);
+    const total = recs.length;
+    const correct = recs.filter((r) => r.correct === 1).length;
+    const ci = wilson(correct, total);
+    dqsCleanConfigResults[cfg] = {
+      total,
+      correct,
+      accuracy: total > 0 ? correct / total : 0,
+      accuracy_pct: total > 0 ? Math.round((correct / total) * 1000) / 10 : 0,
+      ci95: [Math.round(ci.lo * 1000) / 10, Math.round(ci.hi * 1000) / 10],
+    };
+  }
+
+  const dqsCleanPairs = pairedQuestions.filter((p) => !p.c0.dqs_incompatible);
+  function computeDqsCleanPaired(cfgA, cfgB) {
+    let b = 0, c = 0;
+    for (const p of dqsCleanPairs) {
+      const aCorr = p[cfgA]?.correct === 1;
+      const bCorr = p[cfgB]?.correct === 1;
+      if (aCorr && !bCorr) b++;
+      else if (!aCorr && bCorr) c++;
+    }
+    return {
+      pairedCount: dqsCleanPairs.length,
+      [cfgA + '_wins']: b,
+      [cfgB + '_wins']: c,
+      p_value: mcnemarExact(b, c),
+      diff_pct: dqsCleanPairs.length > 0 ? Math.round(((b - c) / dqsCleanPairs.length) * 1000) / 10 : 0,
+    };
+  }
+
+  // Hardness breakdown
+  const hardnessResults = {};
+  for (const h of ['easy', 'medium', 'hard']) {
+    hardnessResults[h] = {};
+    for (const cfg of ['C0', 'C4nr', 'C4']) {
+      const recs = uniqueUnits.filter((u) => u.config === cfg && u.hardness === h);
+      const total = recs.length;
+      const correct = recs.filter((r) => r.correct === 1).length;
+      hardnessResults[h][cfg] = {
+        total,
+        correct,
+        accuracy_pct: total > 0 ? Math.round((correct / total) * 1000) / 10 : 0,
+      };
+    }
+  }
+
+  // Database breakdown
+  const dbResults = {};
+  for (const u of uniqueUnits) {
+    if (!dbResults[u.db_id]) dbResults[u.db_id] = { C0: { total: 0, correct: 0 }, C4nr: { total: 0, correct: 0 }, C4: { total: 0, correct: 0 } };
+    if (dbResults[u.db_id][u.config]) {
+      dbResults[u.db_id][u.config].total++;
+      if (u.correct === 1) dbResults[u.db_id][u.config].correct++;
+    }
+  }
+
+  // Inconclusive queries
+  const inconclusiveCount = uniqueUnits.filter((u) => u.inconclusive).length;
+
   const analysis = {
     runId,
     timestamp: new Date().toISOString(),
     totalUnits: units.length,
     configResults,
+    dqsSensitivity: {
+      excluded_count: uniqueUnits.filter((u) => u.dqs_incompatible).length / 3,
+      cleanConfigResults: dqsCleanConfigResults,
+      mcnemar_c4_vs_c0_clean: computeDqsCleanPaired('c4', 'c0'),
+      mcnemar_c4_vs_c4nr_clean: computeDqsCleanPaired('c4', 'c4nr'),
+    },
+    subgroups: {
+      hardness: hardnessResults,
+      databases: dbResults,
+    },
+    inconclusiveCount,
     mcnemar: {
       c4_vs_c0: mcnemar_c4_vs_c0,
       c4_vs_c4nr: mcnemar_c4_vs_c4nr,
