@@ -1,0 +1,456 @@
+{
+  "threeWayOutcomes": {
+    "C0": {
+      "abstained": 15,
+      "correct": 191,
+      "wrong_executed": 94
+    },
+    "C4nr": {
+      "abstained": 8,
+      "wrong_executed": 112,
+      "correct": 180
+    },
+    "C4": {
+      "abstained": 6,
+      "wrong_executed": 114,
+      "correct": 180
+    }
+  },
+  "abstainedByCause": {
+    "C0": {
+      "runtime_error:other (no such column: first_name)": 1,
+      "runtime_error:other (no such column: c.dog_id)": 1,
+      "runtime_error:other (no such column: T1.MakeId)": 6,
+      "NO_QUERY_POSSIBLE": 2,
+      "runtime_error:other (no such column: T2.Name)": 1,
+      "runtime_error:other (ambiguous column name: semester_id)": 1,
+      "runtime_error:other (no such column: T3.MakeId)": 1,
+      "runtime_error:other (ambiguous column name: Document_ID)": 1,
+      "runtime_error:other (no such column: CountryId)": 1
+    },
+    "C4nr": {
+      "validator_rejection: parse_error": 2,
+      "runtime_error:other (I wasn't able to run a working query for that question (no s)": 6
+    },
+    "C4": {
+      "validator_rejection: parse_error": 2,
+      "validator_rejection: schema_column_error": 4
+    }
+  },
+  "selectiveAccuracy": {
+    "C0": {
+      "total": 300,
+      "answered": 285,
+      "correct": 191,
+      "raw_accuracy_pct": 63.7,
+      "selective_accuracy_pct": 67
+    },
+    "C4nr": {
+      "total": 300,
+      "answered": 292,
+      "correct": 180,
+      "raw_accuracy_pct": 60,
+      "selective_accuracy_pct": 61.6
+    },
+    "C4": {
+      "total": 300,
+      "answered": 294,
+      "correct": 180,
+      "raw_accuracy_pct": 60,
+      "selective_accuracy_pct": 61.2
+    }
+  },
+  "perDatabase": [
+    {
+      "db_id": "world_1",
+      "n": 38,
+      "C0": 7,
+      "C0_pct": 18.4,
+      "C4nr": 10,
+      "C4nr_pct": 26.3,
+      "C4": 10,
+      "C4_pct": 26.3,
+      "delta_C4_C0": 3
+    },
+    {
+      "db_id": "dog_kennels",
+      "n": 29,
+      "C0": 17,
+      "C0_pct": 58.6,
+      "C4nr": 16,
+      "C4nr_pct": 55.2,
+      "C4": 16,
+      "C4_pct": 55.2,
+      "delta_C4_C0": -1
+    },
+    {
+      "db_id": "car_1",
+      "n": 28,
+      "C0": 13,
+      "C0_pct": 46.4,
+      "C4nr": 15,
+      "C4nr_pct": 53.6,
+      "C4": 15,
+      "C4_pct": 53.6,
+      "delta_C4_C0": 2
+    },
+    {
+      "db_id": "flight_2",
+      "n": 27,
+      "C0": 19,
+      "C0_pct": 70.4,
+      "C4nr": 11,
+      "C4nr_pct": 40.7,
+      "C4": 11,
+      "C4_pct": 40.7,
+      "delta_C4_C0": -8
+    },
+    {
+      "db_id": "tvshow",
+      "n": 25,
+      "C0": 15,
+      "C0_pct": 60,
+      "C4nr": 14,
+      "C4nr_pct": 56,
+      "C4": 14,
+      "C4_pct": 56,
+      "delta_C4_C0": -1
+    },
+    {
+      "db_id": "student_transcripts_tracking",
+      "n": 22,
+      "C0": 17,
+      "C0_pct": 77.3,
+      "C4nr": 15,
+      "C4nr_pct": 68.2,
+      "C4": 15,
+      "C4_pct": 68.2,
+      "delta_C4_C0": -2
+    },
+    {
+      "db_id": "cre_Doc_Template_Mgt",
+      "n": 19,
+      "C0": 11,
+      "C0_pct": 57.9,
+      "C4nr": 11,
+      "C4nr_pct": 57.9,
+      "C4": 11,
+      "C4_pct": 57.9,
+      "delta_C4_C0": 0
+    },
+    {
+      "db_id": "concert_singer",
+      "n": 14,
+      "C0": 13,
+      "C0_pct": 92.9,
+      "C4nr": 12,
+      "C4nr_pct": 85.7,
+      "C4": 12,
+      "C4_pct": 85.7,
+      "delta_C4_C0": -1
+    },
+    {
+      "db_id": "employee_hire_evaluation",
+      "n": 14,
+      "C0": 11,
+      "C0_pct": 78.6,
+      "C4nr": 10,
+      "C4nr_pct": 71.4,
+      "C4": 10,
+      "C4_pct": 71.4,
+      "delta_C4_C0": -1
+    },
+    {
+      "db_id": "network_1",
+      "n": 13,
+      "C0": 9,
+      "C0_pct": 69.2,
+      "C4nr": 8,
+      "C4nr_pct": 61.5,
+      "C4": 8,
+      "C4_pct": 61.5,
+      "delta_C4_C0": -1
+    },
+    {
+      "db_id": "wta_1",
+      "n": 12,
+      "C0": 8,
+      "C0_pct": 66.7,
+      "C4nr": 9,
+      "C4nr_pct": 75,
+      "C4": 9,
+      "C4_pct": 75,
+      "delta_C4_C0": 1
+    },
+    {
+      "db_id": "poker_player",
+      "n": 11,
+      "C0": 10,
+      "C0_pct": 90.9,
+      "C4nr": 10,
+      "C4nr_pct": 90.9,
+      "C4": 10,
+      "C4_pct": 90.9,
+      "delta_C4_C0": 0
+    },
+    {
+      "db_id": "pets_1",
+      "n": 10,
+      "C0": 8,
+      "C0_pct": 80,
+      "C4nr": 8,
+      "C4nr_pct": 80,
+      "C4": 8,
+      "C4_pct": 80,
+      "delta_C4_C0": 0
+    },
+    {
+      "db_id": "battle_death",
+      "n": 9,
+      "C0": 7,
+      "C0_pct": 77.8,
+      "C4nr": 7,
+      "C4nr_pct": 77.8,
+      "C4": 7,
+      "C4_pct": 77.8,
+      "delta_C4_C0": 0
+    },
+    {
+      "db_id": "orchestra",
+      "n": 8,
+      "C0": 7,
+      "C0_pct": 87.5,
+      "C4nr": 5,
+      "C4nr_pct": 62.5,
+      "C4": 5,
+      "C4_pct": 62.5,
+      "delta_C4_C0": -2
+    },
+    {
+      "db_id": "singer",
+      "n": 8,
+      "C0": 7,
+      "C0_pct": 87.5,
+      "C4nr": 7,
+      "C4nr_pct": 87.5,
+      "C4": 7,
+      "C4_pct": 87.5,
+      "delta_C4_C0": 0
+    },
+    {
+      "db_id": "course_teach",
+      "n": 7,
+      "C0": 6,
+      "C0_pct": 85.7,
+      "C4nr": 6,
+      "C4nr_pct": 85.7,
+      "C4": 6,
+      "C4_pct": 85.7,
+      "delta_C4_C0": 0
+    },
+    {
+      "db_id": "voter_1",
+      "n": 4,
+      "C0": 4,
+      "C0_pct": 100,
+      "C4nr": 4,
+      "C4nr_pct": 100,
+      "C4": 4,
+      "C4_pct": 100,
+      "delta_C4_C0": 0
+    },
+    {
+      "db_id": "museum_visit",
+      "n": 2,
+      "C0": 2,
+      "C0_pct": 100,
+      "C4nr": 2,
+      "C4nr_pct": 100,
+      "C4": 2,
+      "C4_pct": 100,
+      "delta_C4_C0": 0
+    }
+  ],
+  "perHardness": [
+    {
+      "hardness": "easy",
+      "n": 131,
+      "C0": 98,
+      "C0_pct": 74.8,
+      "C4nr": 92,
+      "C4nr_pct": 70.2,
+      "C4": 92,
+      "C4_pct": 70.2,
+      "delta_C4_C0": -6
+    },
+    {
+      "hardness": "medium",
+      "n": 117,
+      "C0": 64,
+      "C0_pct": 54.7,
+      "C4nr": 60,
+      "C4nr_pct": 51.3,
+      "C4": 60,
+      "C4_pct": 51.3,
+      "delta_C4_C0": -4
+    },
+    {
+      "hardness": "hard",
+      "n": 52,
+      "C0": 29,
+      "C0_pct": 55.8,
+      "C4nr": 28,
+      "C4nr_pct": 53.8,
+      "C4": 28,
+      "C4_pct": 53.8,
+      "delta_C4_C0": -1
+    }
+  ],
+  "dqsComparison": [
+    {
+      "group": "DQS-Gold Incompatible Subset",
+      "n": 66,
+      "C0": 16,
+      "C0_pct": 24.2,
+      "C4nr": 10,
+      "C4nr_pct": 15.2,
+      "C4": 10,
+      "C4_pct": 15.2,
+      "delta": -6
+    },
+    {
+      "group": "Clean Subset (DQS-Compatible)",
+      "n": 234,
+      "C0": 175,
+      "C0_pct": 74.8,
+      "C4nr": 170,
+      "C4nr_pct": 72.6,
+      "C4": 170,
+      "C4_pct": 72.6,
+      "delta": -5
+    }
+  ],
+  "discordantSummary": {
+    "overall": {
+      "total_pairs": 300,
+      "c4_wins": 11,
+      "c0_wins": 22,
+      "ties_correct": 169,
+      "ties_wrong": 98,
+      "total_discordant": 33,
+      "mcnemar_p": 0.08014331245794917
+    },
+    "clean_subset": {
+      "total_pairs": 234,
+      "c4_wins": 6,
+      "c0_wins": 11,
+      "ties_correct": 164,
+      "ties_wrong": 53,
+      "total_discordant": 17,
+      "mcnemar_p": 0.33230590820312483
+    },
+    "dqs_subset": {
+      "total_pairs": 66,
+      "c4_wins": 5,
+      "c0_wins": 11,
+      "ties_correct": 5,
+      "ties_wrong": 45,
+      "total_discordant": 16,
+      "mcnemar_p": 0.210113525390625
+    },
+    "easy": {
+      "total_pairs": 131,
+      "c4_wins": 2,
+      "c0_wins": 8,
+      "ties_correct": 90,
+      "ties_wrong": 31,
+      "total_discordant": 10,
+      "mcnemar_p": 0.10937500000000003
+    },
+    "medium": {
+      "total_pairs": 117,
+      "c4_wins": 5,
+      "c0_wins": 9,
+      "ties_correct": 55,
+      "ties_wrong": 48,
+      "total_discordant": 14,
+      "mcnemar_p": 0.42395019531250017
+    },
+    "hard": {
+      "total_pairs": 52,
+      "c4_wins": 4,
+      "c0_wins": 5,
+      "ties_correct": 24,
+      "ties_wrong": 19,
+      "total_discordant": 9,
+      "mcnemar_p": 1
+    }
+  },
+  "recoveryTable": {
+    "total_c4_units": 300,
+    "triggered_count": 6,
+    "triggered_pct": 2,
+    "runtime_errors_fixed_count": 2,
+    "runtime_errors_fixed_pct": 33.3,
+    "still_wrong_count": 6,
+    "still_wrong_pct": 100,
+    "exact_gold_matches_count": 0,
+    "exact_gold_matches_pct": 0,
+    "units": [
+      {
+        "question_id": "spider-dev-940",
+        "db_id": "dog_kennels",
+        "attempts": 1,
+        "initial_error": "no such column: t.charge_id",
+        "final_status": "success",
+        "final_error": null,
+        "correct": 0
+      },
+      {
+        "question_id": "spider-dev-402",
+        "db_id": "course_teach",
+        "attempts": 2,
+        "initial_error": "no such column: T2.Course_ID",
+        "final_status": "error",
+        "final_error": "I wasn't able to run a working query for that question after 2 automatic correction attempts (no such column: T2.Course_ID).",
+        "correct": 0
+      },
+      {
+        "question_id": "spider-dev-529",
+        "db_id": "student_transcripts_tracking",
+        "attempts": 2,
+        "initial_error": "no such column: semester_name",
+        "final_status": "error",
+        "final_error": "I wasn't able to run a working query for that question after 2 automatic correction attempts (no such column: semester_name).",
+        "correct": 0
+      },
+      {
+        "question_id": "spider-dev-532",
+        "db_id": "student_transcripts_tracking",
+        "attempts": 1,
+        "initial_error": "no such column: T2.department_description",
+        "final_status": "success",
+        "final_error": null,
+        "correct": 0
+      },
+      {
+        "question_id": "spider-dev-269",
+        "db_id": "employee_hire_evaluation",
+        "attempts": 2,
+        "initial_error": "no such column: T2.Manager_name",
+        "final_status": "error",
+        "final_error": "I wasn't able to run a working query for that question after 2 automatic correction attempts (no such column: T2.Manager_name).",
+        "correct": 0
+      },
+      {
+        "question_id": "spider-dev-167",
+        "db_id": "car_1",
+        "attempts": 2,
+        "initial_error": "no such column: T1.Horsepower",
+        "final_status": "error",
+        "final_error": "I wasn't able to run a working query for that question after 2 automatic correction attempts (no such column: T1.Horsepower).",
+        "correct": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "git_diffs": {
+    "ollama_wrapper_diff": "diff --git a/validation/lib/ollama_wrapper.js b/validation/lib/ollama_wrapper.js\nindex feb5474..60a1f71 100644\n--- a/validation/lib/ollama_wrapper.js\n+++ b/validation/lib/ollama_wrapper.js\n@@ -145,6 +145,9 @@ class OllamaWrapper {\n       done_reason: result.done_reason || 'stop',\n       prompt_eval_count: result.prompt_eval_count || 0,\n       eval_count: result.eval_count || 0,\n+      eval_duration_ns: result.eval_duration || 0,\n+      prompt_eval_duration_ns: result.prompt_eval_duration || 0,\n+      total_duration_ns: result.total_duration || 0,\n       truncated: Boolean(isTruncated),\n       timestamp: new Date().toISOString(),\n     };\n",
+    "ollama_wrapper_rationale": "Added raw eval_duration_ns, prompt_eval_duration_ns, and total_duration_ns to cache entries for precise token throughput auditing.",
+    "analysis_spider_diff": "diff --git a/validation/analysis_spider.js b/validation/analysis_spider.js\nindex aa9650d..422a93d 100644\n--- a/validation/analysis_spider.js\n+++ b/validation/analysis_spider.js\n@@ -222,11 +222,86 @@ function analyzeSpiderRun(runId, { verifyPostHashes = true } = {}) {\n \n   const allGatesPassed = Object.values(gates).every(Boolean);\n \n+  // DQS Sensitivity Analysis (excluding dqs_incompatible === 1)\n+  const dqsCleanUnits = uniqueUnits.filter((u) => !u.dqs_incompatible);\n+  const dqsCleanConfigResults = {};\n+  for (const cfg of ['C0', 'C4nr', 'C4']) {\n+    const recs = dqsCleanUnits.filter((u) => u.config === cfg);\n+    const total = recs.length;\n+    const correct = recs.filter((r) => r.correct === 1).length;\n+    const ci = wilson(correct, total);\n+    dqsCleanConfigResults[cfg] = {\n+      total,\n+      correct,\n+      accuracy: total > 0 ? correct / total : 0,\n+      accuracy_pct: total > 0 ? Math.round((correct / total) * 1000) / 10 : 0,\n+      ci95: [Math.round(ci.lo * 1000) / 10, Math.round(ci.hi * 1000) / 10],\n+    };\n+  }\n+\n+  const dqsCleanPairs = pairedQuestions.filter((p) => !p.c0.dqs_incompatible);\n+  function computeDqsCleanPaired(cfgA, cfgB) {\n+    let b = 0, c = 0;\n+    for (const p of dqsCleanPairs) {\n+      const aCorr = p[cfgA]?.correct === 1;\n+      const bCorr = p[cfgB]?.correct === 1;\n+      if (aCorr && !bCorr) b++;\n+      else if (!aCorr && bCorr) c++;\n+    }\n+    return {\n+      pairedCount: dqsCleanPairs.length,\n+      [cfgA + '_wins']: b,\n+      [cfgB + '_wins']: c,\n+      p_value: mcnemarExact(b, c),\n+      diff_pct: dqsCleanPairs.length > 0 ? Math.round(((b - c) / dqsCleanPairs.length) * 1000) / 10 : 0,\n+    };\n+  }\n+\n+  // Hardness breakdown\n+  const hardnessResults = {};\n+  for (const h of ['easy', 'medium', 'hard']) {\n+    hardnessResults[h] = {};\n+    for (const cfg of ['C0', 'C4nr', 'C4']) {\n+      const recs = uniqueUnits.filter((u) => u.config === cfg && u.hardness === h);\n+      const total = recs.length;\n+      const correct = recs.filter((r) => r.correct === 1).length;\n+      hardnessResults[h][cfg] = {\n+        total,\n+        correct,\n+        accuracy_pct: total > 0 ? Math.round((correct / total) * 1000) / 10 : 0,\n+      };\n+    }\n+  }\n+\n+  // Database breakdown\n+  const dbResults = {};\n+  for (const u of uniqueUnits) {\n+    if (!dbResults[u.db_id]) dbResults[u.db_id] = { C0: { total: 0, correct: 0 }, C4nr: { total: 0, correct: 0 }, C4: { total: 0, correct: 0 } };\n+    if (dbResults[u.db_id][u.config]) {\n+      dbResults[u.db_id][u.config].total++;\n+      if (u.correct === 1) dbResults[u.db_id][u.config].correct++;\n+    }\n+  }\n+\n+  // Inconclusive queries\n+  const inconclusiveCount = uniqueUnits.filter((u) => u.inconclusive).length;\n+\n   const analysis = {\n     runId,\n     timestamp: new Date().toISOString(),\n     totalUnits: units.length,\n     configResults,\n+    dqsSensitivity: {\n+      excluded_count: uniqueUnits.filter((u) => u.dqs_incompatible).length / 3,\n+      cleanConfigResults: dqsCleanConfigResults,\n+      mcnemar_c4_vs_c0_clean: computeDqsCleanPaired('c4', 'c0'),\n+      mcnemar_c4_vs_c4nr_clean: computeDqsCleanPaired('c4', 'c4nr'),\n+    },\n+    subgroups: {\n+      hardness: hardnessResults,\n+      databases: dbResults,\n+    },\n+    inconclusiveCount,\n     mcnemar: {\n       c4_vs_c0: mcnemar_c4_vs_c0,\n       c4_vs_c4nr: mcnemar_c4_vs_c4nr,\n",
+    "analysis_spider_rationale": "Added DQS clean subset sensitivity analysis, mechanical hardness subgroups, and database breakdown to automated analysis JSON."
+  },
+  "cache_audit": {
+    "pilot_cache_entries": 63,
+    "main_cache_entries": 611,
+    "prompt_hash_overlap_count": 0,
+    "overlap_detected": false
+  },
+  "request_metadata_verification": {
+    "verified_units_count": 10,
+    "expected_model": "qwen2.5-coder:7b",
+    "expected_seed": 20261015,
+    "expected_num_ctx": 4096,
+    "expected_num_predict": 500,
+    "metadata_sample": [
+      {
+        "unit_index": 1,
+        "model": "qwen2.5-coder:7b",
+        "temperature": 0,
+        "seed": 20261015,
+        "num_ctx": 4096,
+        "num_predict": 500,
+        "prompt_sha256": "ed89a73e00eddfb23f27b9a1c8b655f819c2c31273bb6adcde50a5b7553e8e93",
+        "done_reason": "stop",
+        "eval_count": 13
+      },
+      {
+        "unit_index": 2,
+        "model": "qwen2.5-coder:7b",
+        "temperature": 0.1,
+        "seed": 20261015,
+        "num_ctx": 4096,
+        "num_predict": 500,
+        "prompt_sha256": "2dce295f9bb4e6fd475e22ec5c140e61716606f2906d21a4b65db1ef4935d7ae",
+        "done_reason": "stop",
+        "eval_count": 13
+      },
+      {
+        "unit_index": 3,
+        "model": "qwen2.5-coder:7b",
+        "temperature": 0.2,
+        "seed": 20261015,
+        "num_ctx": 4096,
+        "num_predict": 500,
+        "prompt_sha256": "43a482dc9ab0eb0333a1cb94c6205a6b42a2bde0049799ce868234e4f975cd97",
+        "done_reason": "stop",
+        "eval_count": 13
+      },
+      {
+        "unit_index": 4,
+        "model": "qwen2.5-coder:7b",
+        "temperature": 0,
+        "seed": 20261015,
+        "num_ctx": 4096,
+        "num_predict": 500,
+        "prompt_sha256": "ace1a5042ac501222796360d65ee32e38dc05c59754eba9e86e3d63b7c89d272",
+        "done_reason": "stop",
+        "eval_count": 58
+      },
+      {
+        "unit_index": 5,
+        "model": "qwen2.5-coder:7b",
+        "temperature": 0.1,
+        "seed": 20261015,
+        "num_ctx": 4096,
+        "num_predict": 500,
+        "prompt_sha256": "0c8571f6254433c7b06507c65e2855e0d714c112f6020766904253dd3b476ebb",
+        "done_reason": "stop",
+        "eval_count": 38
+      },
+      {
+        "unit_index": 6,
+        "model": "qwen2.5-coder:7b",
+        "temperature": 0,
+        "seed": 20261015,
+        "num_ctx": 4096,
+        "num_predict": 500,
+        "prompt_sha256": "861281f12f223c86d0260c8455d7d44900636c89c4aab9c7707e52eb570e5aaa",
+        "done_reason": "stop",
+        "eval_count": 22
+      },
+      {
+        "unit_index": 7,
+        "model": "qwen2.5-coder:7b",
+        "temperature": 0.1,
+        "seed": 20261015,
+        "num_ctx": 4096,
+        "num_predict": 500,
+        "prompt_sha256": "62739a26e414a6a62e1f692ec9283136e1fb729793f4e0d3fd0076502aaef572",
+        "done_reason": "stop",
+        "eval_count": 19
+      },
+      {
+        "unit_index": 8,
+        "model": "qwen2.5-coder:7b",
+        "temperature": 0,
+        "seed": 20261015,
+        "num_ctx": 4096,
+        "num_predict": 500,
+        "prompt_sha256": "b01cc09c74972c7979d331869779530303dbdc56602c75fddc8033f9e3cef4f4",
+        "done_reason": "stop",
+        "eval_count": 16
+      },
+      {
+        "unit_index": 9,
+        "model": "qwen2.5-coder:7b",
+        "temperature": 0.1,
+        "seed": 20261015,
+        "num_ctx": 4096,
+        "num_predict": 500,
+        "prompt_sha256": "db4f42a9700f1a7df805b6952e2b09ac9d8bae9feaac1e3fdf2d91309a1e5727",
+        "done_reason": "stop",
+        "eval_count": 24
+      },
+      {
+        "unit_index": 10,
+        "model": "qwen2.5-coder:7b",
+        "temperature": 0,
+        "seed": 20261015,
+        "num_ctx": 4096,
+        "num_predict": 500,
+        "prompt_sha256": "b0010c68aae01a2e2b379ab0282a5e2beddf3178a62435eefa46620aaaee896a",
+        "done_reason": "stop",
+        "eval_count": 16
+      }
+    ]
+  }
+}

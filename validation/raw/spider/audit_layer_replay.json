@@ -1,0 +1,106 @@
+{
+  "total_units": 300,
+  "accuracy": {
+    "C0": {
+      "count": 191,
+      "pct": 63.7
+    },
+    "S1_cleanSqlOutput": {
+      "count": 187,
+      "pct": 62.3
+    },
+    "S2_after_prepareSql": {
+      "count": 187,
+      "pct": 62.3
+    },
+    "S3_after_validateSql": {
+      "count": 186,
+      "pct": 62
+    },
+    "C4nr_logged": {
+      "count": 180,
+      "pct": 60
+    }
+  },
+  "flips": {
+    "prompt_effect_C0_to_S1": {
+      "gains": 10,
+      "losses": 14,
+      "net": -4
+    },
+    "repair_effect_S1_to_S2": {
+      "gains": 1,
+      "losses": 1,
+      "net": 0
+    },
+    "validator_effect_S2_to_S3": {
+      "gains": 0,
+      "losses": 1,
+      "net": -1
+    }
+  },
+  "reproducibility": {
+    "s3_matches_c4nr_count": 292,
+    "s3_matches_c4nr_pct": 97.3,
+    "target_met_98pct": false,
+    "mismatch_count": 8,
+    "mismatches": [
+      {
+        "question_id": "spider-dev-236",
+        "db_id": "flight_2",
+        "s3_correct": 1,
+        "s3_reason": "both_empty_match",
+        "c4nr_correct": 0
+      },
+      {
+        "question_id": "spider-dev-234",
+        "db_id": "flight_2",
+        "s3_correct": 1,
+        "s3_reason": "both_empty_match",
+        "c4nr_correct": 0
+      },
+      {
+        "question_id": "spider-dev-238",
+        "db_id": "flight_2",
+        "s3_correct": 1,
+        "s3_reason": "both_empty_match",
+        "c4nr_correct": 0
+      },
+      {
+        "question_id": "spider-dev-239",
+        "db_id": "flight_2",
+        "s3_correct": 1,
+        "s3_reason": "both_empty_match",
+        "c4nr_correct": 0
+      },
+      {
+        "question_id": "spider-dev-252",
+        "db_id": "flight_2",
+        "s3_correct": 0,
+        "s3_reason": "validator_rejected: Query failed to parse: Expected \"--\", \".\", \"/*\", \":=\", \"=\", \"FOR\", \"TO\", \"\\\"\", [ \\t\\n\\r], or [A-Za-z0-9_\\-$一-龥À-ſ] but end of input found.",
+        "c4nr_correct": 1
+      },
+      {
+        "question_id": "spider-dev-202",
+        "db_id": "flight_2",
+        "s3_correct": 1,
+        "s3_reason": "both_empty_match",
+        "c4nr_correct": 0
+      },
+      {
+        "question_id": "spider-dev-240",
+        "db_id": "flight_2",
+        "s3_correct": 1,
+        "s3_reason": "both_empty_match",
+        "c4nr_correct": 0
+      },
+      {
+        "question_id": "spider-dev-201",
+        "db_id": "flight_2",
+        "s3_correct": 1,
+        "s3_reason": "both_empty_match",
+        "c4nr_correct": 0
+      }
+    ]
+  }
+}

@@ -246,3 +246,33 @@ This document records all methodological decisions, architectural invariants, an
      - Zero database modifications across 20 databases.
      - 100% LLM cache reproducibility (5/5 hits, 0 misses).
    - Staged launch script `validation/run_spider_main.ps1` prepared for operator execution of the frozen 300-question sample.
+
+
+---
+
+## Step 5 Post-Run Audit Decisions (Spider V1 Post-Run Verification & Held-Out Sample B)
+
+1. **Secondary Held-Out Sample B Freezing Protocol**:
+   - Sample B (`frozen_sample_300_B.jsonl` SHA-256: `D1A35A18559C06393C1A36046674E619AB0B6604428E96BFAF5DBA80940D3B09`) was frozen from unused indices 401..1034 in `pool_order.json` strictly BEFORE inspecting any item-level discordances or outcomes of Sample A.
+   - Applied identical eligibility rules: executes twice identically in Python read-only mode, < 1,000 rows, no LIMIT without ORDER BY, DB file exists.
+   - Zero model calls performed on Sample B. Zero overlap with Pilot, Candidates, or Sample A.
+
+2. **Three-Way Outcome Taxonomy & Selective Accuracy**:
+   - Units partitioned into: Correct, Wrong-Executed, and Abstained by Cause (validator rejection with rule name, NO_QUERY_POSSIBLE, runtime error split into dqs_failure vs other, timeout, infra_error).
+   - Selective accuracy defined strictly as `correct / answered` where `answered = (correct + wrong_executed)`.
+   - Results: C0 raw 63.7% / selective 67.0%; C4nr raw 60.0% / selective 61.6%; C4 raw 60.0% / selective 61.2%.
+
+3. **Value Normalization Classification Mechanics**:
+   - `LOWER(TRIM(` rewriting occurs via `server/src/structured/result.checks.js:81` (`empty_result_diagnosis`), which triggers when initial query produces 0 rows.
+   - In Spider evaluation, all 7 occurrences in C4 were in `flight_2` and all 7 failed against Spider gold query expectations. In C0, 0 occurrences were present.
+
+4. **Layer Replay Protocol (Exploratory)**:
+   - Evaluated step-by-step pipeline without model calls from cached completions: S1 (`cleanSqlOutput`), S2 (`prepareSql`), S3 (`validateSql`).
+   - S3 achieved 97.3% agreement (292/300) with logged C4nr units; all 8 mismatches were traced to `empty_result_diagnosis` in `flight_2` converting an empty result into an executed non-empty result against a DQS-failed gold query.
+
+5. **Correction of Analytical Overstatements in SPIDER_V1_FINAL_REPORT.md**:
+   - Documented and corrected 4 unsupported claims:
+     1. "+1 in 18 of 19 databases" was an arithmetic sign error: C4 actually trailed C0 by -3 items across the 18 databases (169 vs 172).
+     2. "Zero schema hallucinations" was refuted by runtime errors where C4 hallucinated columns in `course_teach`, `student_transcripts_tracking`, `car_1`, and `concert_singer`.
+     3. "54% fewer exceptions" reflected query execution errors reaching final output (13 vs 6), but did not translate into increased prediction accuracy.
+     4. "232 ms latency" was an artifact of in-memory LLM cache reuse from C4nr; true uncached latency is ~4.4–7.0 seconds.
