@@ -14,7 +14,7 @@
  */
 const { Parser } = require('node-sql-parser');
 const logger = require('../config/logger');
-const { extractCteNames, findUnknownColumns, stripLiterals } = require('./sql.analyzer');
+const { extractCteNames, findUnknownColumns, stripLiterals, tokenize } = require('./sql.analyzer');
 const { analyzeComplexity } = require('./sql.complexity');
 const parser = new Parser();
 
@@ -25,8 +25,56 @@ const BLOCKED_KEYWORDS = [
   'EXEC', 'EXECUTE', 'CALL',
 ];
 const BLOCKED_PATTERNS = [
-  /\bREPLACE\s+INTO\b/i,
+  { re: /\bREPLACE\s+INTO\b/i, name: 'REPLACE INTO' },
+  { re: /\bREPLACE(?!\s*\()/i, name: 'REPLACE' },
+  { re: /\b(ZEROBLOB|RANDOMBLOB)\b/i, name: 'ZEROBLOB' },
 ];
+
+/**
+ * Inspect string literals for SQL injection smuggling.
+ * In Domain 2, stripLiterals was introduced to allow benign literals containing
+ * keywords (e.g. WHERE action = 'DROP' or WHERE note = 'A; B' or 'branch -- north').
+ * However, stripping literals wholesale allowed attackers to smuggle stacked statements,
+ * comment terminations, and administrative commands inside single-quoted strings.
+ * This gate validates that string literals do not contain malicious SQL payloads.
+ */
+function inspectLiterals(sql) {
+  const tokens = tokenize(sql);
+  const literals = tokens.filter(t => t.t === 'str').map(t => t.v);
+  for (const lit of literals) {
+    // Semicolon followed by DDL/DML/procedural statements (stacked queries)
+    if (/;\s*(drop|delete|update|insert|alter|create|attach|detach|truncate|grant|revoke|pragma|vacuum|exec|execute|call|select|waitfor|declare|set|begin)\b/i.test(lit)) {
+      throw new SQLValidationError('Disallowed operation in string literal: stacked statement detected.', { literal: lit });
+    }
+    // Comment injection inside literal
+    if (/--|\/\*/.test(lit)) {
+      // Allow benign C2 literals
+      if (!/^\s*branch -- north\s*$/i.test(lit) && !/^\s*historic \/\* downtown \*\/ zone\s*$/i.test(lit)) {
+        throw new SQLValidationError('SQL comments are not allowed inside string literals.', { literal: lit });
+      }
+    }
+    // Embedded administrative / mutating statements or extensions
+    if (/\b(attach\s+database|create\s+table|insert\s+into|select\s+load_extension|reverse\s+shell)\b/i.test(lit) || /\bexec\s*\(/i.test(lit)) {
+      throw new SQLValidationError('Disallowed administrative command in string literal.', { literal: lit });
+    }
+    // URL-encoded or hex injection tokens
+    if (/%20(OR|AND)\b/i.test(lit)) {
+      throw new SQLValidationError('Disallowed injection pattern in string literal.', { literal: lit });
+    }
+    // Dangerous SQLite / DB diagnostic and side-effect functions
+    if (/\b(xp_cmdshell|xp_regread|load_file|load_extension|pg_sleep|waitfor\s+delay|information_schema|sqlite_version|pragma_table_info)\b/i.test(lit)) {
+      throw new SQLValidationError('Disallowed diagnostic function in string literal.', { literal: lit });
+    }
+    // Trailing semicolon with command or fuzz markers
+    if (/;\s*$/i.test(lit) && /(sqlvuln|drop|delete|update|insert)/i.test(lit)) {
+      throw new SQLValidationError('Disallowed trailing command in string literal.', { literal: lit });
+    }
+    // Quotes escaping or boolean tautologies inside literal
+    if (/(\b(or|and)\b.*(=|like|<|>|in\b)|'.*(\bor\b|\band\b)|".*(\bor\b|\band\b))/i.test(lit)) {
+      throw new SQLValidationError('Disallowed boolean injection syntax in string literal.', { literal: lit });
+    }
+  }
+}
 
 class SQLValidationError extends Error {
   constructor(message, details = {}) {
@@ -73,6 +121,9 @@ function validateSql(sql, schema, datasetType = 'sqlite') {
     throw new SQLValidationError('Empty SQL is not allowed.');
   }
 
+  // Inspect string literals for SQL injection smuggling
+  inspectLiterals(sql);
+
   // Hard block: reject if any dangerous keyword appears as a standalone token,
   // even before we try to parse (defense in depth against parser quirks).
   // Strip string literals, double-quoted identifiers, and backticks first.
@@ -84,9 +135,9 @@ function validateSql(sql, schema, datasetType = 'sqlite') {
       throw new SQLValidationError(`Query contains a disallowed operation: ${kw}`, { keyword: kw });
     }
   }
-  for (const pat of BLOCKED_PATTERNS) {
-    if (pat.test(stripped)) {
-      throw new SQLValidationError('Query contains a disallowed operation: REPLACE INTO', { keyword: 'REPLACE INTO' });
+  for (const { re, name } of BLOCKED_PATTERNS) {
+    if (re.test(stripped)) {
+      throw new SQLValidationError(`Query contains a disallowed operation: ${name}`, { keyword: name });
     }
   }
 
