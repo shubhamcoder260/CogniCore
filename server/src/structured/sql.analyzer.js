@@ -34,8 +34,11 @@ function tokenize(sql) {
     } else if (ch === '"' || ch === '`') {
       i++;
       let v = '';
-      while (i < n && sql[i] !== ch) v += sql[i++];
-      i++;
+      while (i < n) {
+        if (sql[i] === ch && sql[i + 1] === ch) { v += ch; i += 2; continue; }
+        if (sql[i] === ch) { i++; break; }
+        v += sql[i++];
+      }
       tokens.push({ t: 'qid', v, s: start, e: i, depth });
     } else if (/[0-9]/.test(ch)) {
       while (i < n && /[0-9.]/.test(sql[i])) i++;

@@ -267,7 +267,13 @@ function fixIntegerDivision(sql) {
     const ch = sql[i];
 
     if (ch === "'" && !inString) { inString = true; result += ch; i++; continue; }
-    if (ch === "'" && inString) { inString = false; result += ch; i++; continue; }
+    if (ch === "'" && inString) {
+      if (sql[i + 1] === "'") { result += "''"; i += 2; continue; }
+      inString = false;
+      result += ch;
+      i++;
+      continue;
+    }
 
     if (!inString && ch === '/' && sql[i + 1] !== '*' /* not a comment */) {
       // Look backward over what we've already appended to `result` to find
