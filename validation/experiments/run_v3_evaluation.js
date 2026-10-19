@@ -20,11 +20,11 @@ const { analyzeSchema } = require('../../server/src/schema/schema.analyzer');
 const { profilerTool, schemaTool } = require('../../server/src/tools/catalog');
 const { diagnoseEmptyResult } = require('../../server/src/structured/result.checks');
 const { buildConversationContext } = require('../../server/src/core/context.manager');
-const { DatasetRegistry } = require('../../server/src/ingestion/dataset.registry');
 const { rowOracle, columnOracle, inspectFixture } = require('../lib/v3_oracles');
+const config = require('../lib/config');
 
 const CORPUS_FILE = path.resolve(__dirname, '../data/v3/v3_queries.jsonl');
-const RAW_DIR = path.resolve(__dirname, '../raw');
+const RAW_DIR = config.PATHS.RAW_DIR;
 const E2E_LOG = path.join(RAW_DIR, 'v3_e2e_results.jsonl');
 const POLICY_LOG = path.join(RAW_DIR, 'v3_policy_alone_results.jsonl');
 const NONSQL_LOG = path.join(RAW_DIR, 'v3_nonsql_leaks.json');

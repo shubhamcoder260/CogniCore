@@ -315,7 +315,7 @@ const summary = {
 };
 
 // Write results
-const rawOutputDir = path.join(PATHS.VALIDATION_ROOT, 'raw');
+const rawOutputDir = PATHS.RAW_DIR;
 if (!fs.existsSync(rawOutputDir)) fs.mkdirSync(rawOutputDir, { recursive: true });
 
 fs.writeFileSync(path.join(rawOutputDir, 'v3c_results.jsonl'), results.map(JSON.stringify).join('\n') + '\n', 'utf8');

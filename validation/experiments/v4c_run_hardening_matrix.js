@@ -35,7 +35,7 @@ if (!fs.existsSync(SANDBOX_BASE)) {
   fs.mkdirSync(SANDBOX_BASE, { recursive: true });
 }
 
-const RAW_DIR = path.resolve(config.PATHS.VALIDATION_ROOT, 'raw');
+const RAW_DIR = config.PATHS.RAW_DIR;
 if (!fs.existsSync(RAW_DIR)) {
   fs.mkdirSync(RAW_DIR, { recursive: true });
 }

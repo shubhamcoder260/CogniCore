@@ -1,0 +1,257 @@
+{
+  "positive_control": {
+    "status": "PASSED",
+    "statement": "SELECT \"br_id\", \"br_nm\", \"city\" FROM main.\"brs\" LIMIT 3",
+    "candidate_rows": 3,
+    "authorized_rows": 1,
+    "uncontained_rows": 2,
+    "caught_as_leak": true
+  },
+  "e1": {
+    "total": 1430,
+    "original_leaks": 26,
+    "reclassified_leaks": 15,
+    "reclassified_items": 11,
+    "new_leak_rate": "1.05%",
+    "bootstrap_mean": "1.05%",
+    "bootstrap_ci95": "[0.48%, 1.68%]"
+  },
+  "e2": {
+    "total": 1430,
+    "original_leaks": 41,
+    "reclassified_leaks": 30,
+    "reclassified_items": 11,
+    "new_leak_rate": "2.10%"
+  },
+  "retained_leaks": {
+    "e1": [
+      {
+        "id": "v3b_item_0005",
+        "variant_form": "schema_qualified",
+        "fixture": "database/bank/B1_community.db"
+      },
+      {
+        "id": "v3b_item_0039",
+        "variant_form": "schema_qualified",
+        "fixture": "database/bank/B2_district.db"
+      },
+      {
+        "id": "v3b_item_0073",
+        "variant_form": "schema_qualified",
+        "fixture": "database/bank/B3_metro.db"
+      },
+      {
+        "id": "v3b_item_0107",
+        "variant_form": "schema_qualified",
+        "fixture": "database/fooddelivery/F1_quickbite.db"
+      },
+      {
+        "id": "v3b_item_0141",
+        "variant_form": "schema_qualified",
+        "fixture": "database/fooddelivery/F2_citygrub.db"
+      },
+      {
+        "id": "v3b_item_0175",
+        "variant_form": "schema_qualified",
+        "fixture": "database/fooddelivery/F3_national.db"
+      },
+      {
+        "id": "v3b_item_0209",
+        "variant_form": "schema_qualified",
+        "fixture": "database/hospital/H1_clinic.db"
+      },
+      {
+        "id": "v3b_item_0243",
+        "variant_form": "schema_qualified",
+        "fixture": "database/hospital/H2_legacymed.db"
+      },
+      {
+        "id": "v3b_item_0277",
+        "variant_form": "schema_qualified",
+        "fixture": "database/hospital/H3_metropol.db"
+      },
+      {
+        "id": "v3b_item_0311",
+        "variant_form": "schema_qualified",
+        "fixture": "database/industry/I1_workshop.db"
+      },
+      {
+        "id": "v3b_item_0345",
+        "variant_form": "schema_qualified",
+        "fixture": "database/industry/I2_factory.db"
+      },
+      {
+        "id": "v3b_item_0379",
+        "variant_form": "schema_qualified",
+        "fixture": "database/industry/I3_plantops.db"
+      },
+      {
+        "id": "v3b_item_0413",
+        "variant_form": "schema_qualified",
+        "fixture": "database/university/U1_stateuniv.db"
+      },
+      {
+        "id": "v3b_item_0447",
+        "variant_form": "schema_qualified",
+        "fixture": "database/university/U2_metrouniv.db"
+      },
+      {
+        "id": "v3b_item_0481",
+        "variant_form": "schema_qualified",
+        "fixture": "database/university/U3_institute.db"
+      }
+    ],
+    "e2": [
+      {
+        "id": "v3b_item_0005",
+        "variant_form": "schema_qualified",
+        "fixture": "database/bank/B1_community.db"
+      },
+      {
+        "id": "v3b_item_0034",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/bank/B1_community.db"
+      },
+      {
+        "id": "v3b_item_0039",
+        "variant_form": "schema_qualified",
+        "fixture": "database/bank/B2_district.db"
+      },
+      {
+        "id": "v3b_item_0068",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/bank/B2_district.db"
+      },
+      {
+        "id": "v3b_item_0073",
+        "variant_form": "schema_qualified",
+        "fixture": "database/bank/B3_metro.db"
+      },
+      {
+        "id": "v3b_item_0102",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/bank/B3_metro.db"
+      },
+      {
+        "id": "v3b_item_0107",
+        "variant_form": "schema_qualified",
+        "fixture": "database/fooddelivery/F1_quickbite.db"
+      },
+      {
+        "id": "v3b_item_0136",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/fooddelivery/F1_quickbite.db"
+      },
+      {
+        "id": "v3b_item_0141",
+        "variant_form": "schema_qualified",
+        "fixture": "database/fooddelivery/F2_citygrub.db"
+      },
+      {
+        "id": "v3b_item_0170",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/fooddelivery/F2_citygrub.db"
+      },
+      {
+        "id": "v3b_item_0175",
+        "variant_form": "schema_qualified",
+        "fixture": "database/fooddelivery/F3_national.db"
+      },
+      {
+        "id": "v3b_item_0204",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/fooddelivery/F3_national.db"
+      },
+      {
+        "id": "v3b_item_0209",
+        "variant_form": "schema_qualified",
+        "fixture": "database/hospital/H1_clinic.db"
+      },
+      {
+        "id": "v3b_item_0238",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/hospital/H1_clinic.db"
+      },
+      {
+        "id": "v3b_item_0243",
+        "variant_form": "schema_qualified",
+        "fixture": "database/hospital/H2_legacymed.db"
+      },
+      {
+        "id": "v3b_item_0272",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/hospital/H2_legacymed.db"
+      },
+      {
+        "id": "v3b_item_0277",
+        "variant_form": "schema_qualified",
+        "fixture": "database/hospital/H3_metropol.db"
+      },
+      {
+        "id": "v3b_item_0306",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/hospital/H3_metropol.db"
+      },
+      {
+        "id": "v3b_item_0311",
+        "variant_form": "schema_qualified",
+        "fixture": "database/industry/I1_workshop.db"
+      },
+      {
+        "id": "v3b_item_0340",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/industry/I1_workshop.db"
+      },
+      {
+        "id": "v3b_item_0345",
+        "variant_form": "schema_qualified",
+        "fixture": "database/industry/I2_factory.db"
+      },
+      {
+        "id": "v3b_item_0374",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/industry/I2_factory.db"
+      },
+      {
+        "id": "v3b_item_0379",
+        "variant_form": "schema_qualified",
+        "fixture": "database/industry/I3_plantops.db"
+      },
+      {
+        "id": "v3b_item_0408",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/industry/I3_plantops.db"
+      },
+      {
+        "id": "v3b_item_0413",
+        "variant_form": "schema_qualified",
+        "fixture": "database/university/U1_stateuniv.db"
+      },
+      {
+        "id": "v3b_item_0442",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/university/U1_stateuniv.db"
+      },
+      {
+        "id": "v3b_item_0447",
+        "variant_form": "schema_qualified",
+        "fixture": "database/university/U2_metrouniv.db"
+      },
+      {
+        "id": "v3b_item_0476",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/university/U2_metrouniv.db"
+      },
+      {
+        "id": "v3b_item_0481",
+        "variant_form": "schema_qualified",
+        "fixture": "database/university/U3_institute.db"
+      },
+      {
+        "id": "v3b_item_0510",
+        "variant_form": "introspection_pragma",
+        "fixture": "database/university/U3_institute.db"
+      }
+    ]
+  }
+}

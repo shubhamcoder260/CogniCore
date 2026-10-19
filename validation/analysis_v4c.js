@@ -19,8 +19,8 @@ const config = require('./lib/config');
 const { wilson, exactUpperZeroEvents, ruleOfThree } = require('./lib/stats');
 const { readAll } = require('./lib/jsonl');
 
-const RAW_DIR = path.resolve(config.PATHS.VALIDATION_ROOT, 'raw');
-const RESULTS_DIR = path.resolve(config.PATHS.VALIDATION_ROOT, 'results');
+const RAW_DIR = config.PATHS.RAW_DIR;
+const RESULTS_DIR = config.PATHS.RESULTS_DIR;
 if (!fs.existsSync(RESULTS_DIR)) {
   fs.mkdirSync(RESULTS_DIR, { recursive: true });
 }
@@ -71,7 +71,10 @@ function runAnalysis() {
 
   // Upstream provenance audit & summaries
   const provAudit = JSON.parse(fs.readFileSync(path.join(config.PATHS.VALIDATION_ROOT, 'data/v4/provenance_audit.json'), 'utf8'));
-  const phaseDSummary = JSON.parse(fs.readFileSync(path.join(RAW_DIR, 'v4_phase_d_summary.json'), 'utf8'));
+  const phaseDSummaryPath = fs.existsSync(path.join(RAW_DIR, 'v4_phase_d_summary.json'))
+    ? path.join(RAW_DIR, 'v4_phase_d_summary.json')
+    : path.join(config.PATHS.VALIDATION_ROOT, 'raw/v4_phase_d_summary.json');
+  const phaseDSummary = JSON.parse(fs.readFileSync(phaseDSummaryPath, 'utf8'));
 
   console.log(`Loaded records: v4Gate=${v4Gate.length}, v4bGate=${v4bGate.length}, v4cGate=${v4cGate.length}`);
 

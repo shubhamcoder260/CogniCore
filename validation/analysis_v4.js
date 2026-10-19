@@ -17,8 +17,8 @@ const { wilson, exactUpperZeroEvents, ruleOfThree } = require('./lib/stats');
 const { readAll } = require('./lib/jsonl');
 const { runRepairPropertyTests } = require('./experiments/v4_repair_props');
 
-const RAW_DIR = path.resolve(config.PATHS.VALIDATION_ROOT, 'raw');
-const RESULTS_DIR = path.resolve(config.PATHS.VALIDATION_ROOT, 'results');
+const RAW_DIR = config.PATHS.RAW_DIR;
+const RESULTS_DIR = config.PATHS.RESULTS_DIR;
 const DATA_DIR = path.resolve(config.PATHS.VALIDATION_ROOT, 'data/v4');
 
 if (!fs.existsSync(RESULTS_DIR)) {

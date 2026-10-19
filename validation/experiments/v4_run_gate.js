@@ -27,7 +27,7 @@ const { prepareSql } = require(path.resolve(config.PATHS.SERVER_DIR, 'src/core/e
 const { SQLiteAdapter } = require(path.resolve(config.PATHS.SERVER_DIR, 'src/ingestion/adapters/sqlite.adapter'));
 
 const DATA_DIR = path.resolve(config.PATHS.VALIDATION_ROOT, 'data/v4');
-const RAW_DIR = path.resolve(config.PATHS.VALIDATION_ROOT, 'raw');
+const RAW_DIR = config.PATHS.RAW_DIR;
 
 const GATE_LOG = path.join(RAW_DIR, 'v4_gate.jsonl');
 const ORACLES_LOG = path.join(RAW_DIR, 'v4_oracles.jsonl');

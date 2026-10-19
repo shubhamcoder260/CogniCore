@@ -19,7 +19,9 @@ const { redactEvidence } = require('../../server/src/guardrails/pii');
 const { enforcePolicy, PolicyError } = require('../../server/src/security/data.policy');
 const { generatePoliciesForFixture, inspectFixture } = require('../lib/v3_oracles');
 
-const outputFile = path.resolve(__dirname, '../raw/v3_phase_d_evidence.json');
+const config = require('../lib/config');
+
+const outputFile = path.resolve(config.PATHS.RAW_DIR, 'v3_phase_d_evidence.json');
 
 async function runPhaseD() {
   console.log('=== Running Phase D: Non-SQL Surface Runtime Verification ===');

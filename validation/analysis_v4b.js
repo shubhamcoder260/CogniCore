@@ -25,7 +25,7 @@ const config = require('./lib/config');
 const { wilson, exactUpperZeroEvents, ruleOfThree } = require('./lib/stats');
 const { readAll } = require('./lib/jsonl');
 
-const RESULTS_DIR = path.resolve(config.PATHS.VALIDATION_ROOT, 'results');
+const RESULTS_DIR = config.PATHS.RESULTS_DIR;
 if (!fs.existsSync(RESULTS_DIR)) {
   fs.mkdirSync(RESULTS_DIR, { recursive: true });
 }
@@ -55,11 +55,15 @@ function main() {
   console.log('=== Step 2b: Generating V4b Analysis & Results ===\n');
 
   // Load raw data
-  const v4bGate = readAll(path.resolve(config.PATHS.VALIDATION_ROOT, 'raw/v4b_gate.jsonl'));
-  const v4bOracles = readAll(path.resolve(config.PATHS.VALIDATION_ROOT, 'raw/v4b_oracles.jsonl'));
-  const v4bResource = readAll(path.resolve(config.PATHS.VALIDATION_ROOT, 'raw/v4b_resource.jsonl'));
-  const v4bDefense = readAll(path.resolve(config.PATHS.VALIDATION_ROOT, 'raw/v4b_defense_hardened.jsonl'));
-  const phaseDSummary = JSON.parse(fs.readFileSync(path.resolve(config.PATHS.VALIDATION_ROOT, 'raw/v4_phase_d_summary.json'), 'utf8'));
+  const rawDir = config.PATHS.RAW_DIR;
+  const v4bGate = readAll(path.resolve(rawDir, 'v4b_gate.jsonl'));
+  const v4bOracles = readAll(path.resolve(rawDir, 'v4b_oracles.jsonl'));
+  const v4bResource = readAll(path.resolve(rawDir, 'v4b_resource.jsonl'));
+  const v4bDefense = readAll(path.resolve(rawDir, 'v4b_defense_hardened.jsonl'));
+  const phaseDSummaryPath = fs.existsSync(path.resolve(rawDir, 'v4_phase_d_summary.json'))
+    ? path.resolve(rawDir, 'v4_phase_d_summary.json')
+    : path.resolve(config.PATHS.VALIDATION_ROOT, 'raw/v4_phase_d_summary.json');
+  const phaseDSummary = JSON.parse(fs.readFileSync(phaseDSummaryPath, 'utf8'));
 
   // Maps for fast join
   const gateMap = new Map(v4bGate.map(r => [r.id, r]));

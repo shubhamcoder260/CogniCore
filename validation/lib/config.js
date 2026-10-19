@@ -21,9 +21,27 @@ const sampleDataDir = fs.existsSync(path.resolve(TARGET_REPO, 'sample-data'))
   ? path.resolve(TARGET_REPO, 'sample-data')
   : path.resolve(WORKSPACE_ROOT, 'sample-data');
 
+const OUT_TAG = process.env.VALIDATION_OUT_TAG ? process.env.VALIDATION_OUT_TAG.trim() : '';
+
+const rawDir = OUT_TAG
+  ? path.resolve(TARGET_REPO, 'validation/raw', OUT_TAG)
+  : path.resolve(TARGET_REPO, 'validation/raw');
+
+const resultsDir = OUT_TAG
+  ? path.resolve(TARGET_REPO, 'validation/results', OUT_TAG)
+  : path.resolve(TARGET_REPO, 'validation/results');
+
+if (!fs.existsSync(rawDir)) {
+  fs.mkdirSync(rawDir, { recursive: true });
+}
+if (!fs.existsSync(resultsDir)) {
+  fs.mkdirSync(resultsDir, { recursive: true });
+}
+
 module.exports = {
   MASTER_SEED: 20261015,
   TARGET_REPO,
+  OUT_TAG,
 
   TEMPERATURE: {
     PRIMARY: 0.0,
@@ -46,8 +64,8 @@ module.exports = {
     WORKSPACE_ROOT,
     TARGET_REPO,
     VALIDATION_ROOT: path.resolve(TARGET_REPO, 'validation'),
-    RAW_DIR: path.resolve(TARGET_REPO, 'validation/raw'),
-    RESULTS_DIR: path.resolve(TARGET_REPO, 'validation/results'),
+    RAW_DIR: rawDir,
+    RESULTS_DIR: resultsDir,
     EXPERIMENTS_DIR: path.resolve(TARGET_REPO, 'validation/experiments'),
     DATABASE_DIR: databaseDir,
     SAMPLE_DATA_DIR: sampleDataDir,

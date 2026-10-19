@@ -151,8 +151,8 @@ async function getSchema(fixtureRel) {
   }
 
   // Save logs
-  const gateLogFile = path.resolve(config.PATHS.VALIDATION_ROOT, 'raw/v4c_gate.jsonl');
-  const resLogFile = path.resolve(config.PATHS.VALIDATION_ROOT, 'raw/v4c_resource.jsonl');
+  const gateLogFile = path.resolve(config.PATHS.RAW_DIR, 'v4c_gate.jsonl');
+  const resLogFile = path.resolve(config.PATHS.RAW_DIR, 'v4c_resource.jsonl');
 
   fs.writeFileSync(gateLogFile, gateResults.map(r => JSON.stringify(r)).join('\n') + '\n', 'utf8');
   fs.writeFileSync(resLogFile, resourceResults.map(r => JSON.stringify(r)).join('\n') + '\n', 'utf8');

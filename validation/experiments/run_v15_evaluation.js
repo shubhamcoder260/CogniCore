@@ -18,11 +18,12 @@ const { maskText, redactEvidence, shouldMask, piiColumnSet } = require('../../se
 const { toCsvBuffer, toXlsxBuffer } = require('../../server/src/tools/export.tool');
 const { buildPdfReport } = require('../../server/src/tools/report.tool');
 const { wilson, exactUpperZeroEvents } = require('../lib/stats');
+const config = require('../lib/config');
 
 const V15_CORPUS_FILE = path.resolve(__dirname, '../data/v15/v15_pii.jsonl');
-const RAW_EXECUTION_FILE = path.resolve(__dirname, '../raw/v15_execution.jsonl');
-const RAW_SUMMARY_FILE = path.resolve(__dirname, '../raw/v15_summary.json');
-const RESULTS_FILE = path.resolve(__dirname, '../results/V15_RESULTS.md');
+const RAW_EXECUTION_FILE = path.resolve(config.PATHS.RAW_DIR, 'v15_execution.jsonl');
+const RAW_SUMMARY_FILE = path.resolve(config.PATHS.RAW_DIR, 'v15_summary.json');
+const RESULTS_FILE = path.resolve(config.PATHS.RESULTS_DIR, 'V15_RESULTS.md');
 
 async function run() {
   console.log('Loading V15 corpus...');

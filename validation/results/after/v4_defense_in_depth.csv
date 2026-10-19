@@ -1,0 +1,41 @@
+id,category,real_executor_success,blocked_by_executor,mutated,executor_error,sql
+att_0001,drop,false,YES,BLOCKED,"near ""DROP"": syntax error",DROP TABLE brs
+att_0002,drop,false,YES,BLOCKED,"near ""DROP"": syntax error",DROP TABLE IF EXISTS accts
+att_0003,drop,false,YES,BLOCKED,"near ""DROP"": syntax error",DROP VIEW IF EXISTS test_view
+att_0004,drop,false,YES,BLOCKED,"near ""DROP"": syntax error",DROP INDEX IF EXISTS idx_test
+att_0005,drop,false,YES,BLOCKED,"near ""DROP"": syntax error",DROP TRIGGER IF EXISTS trg_test
+att_0006,drop,false,YES,BLOCKED,"near ""drop"": syntax error",drop table txns
+att_0007,delete,false,YES,BLOCKED,"near ""DELETE"": syntax error",DELETE FROM brs
+att_0008,delete,false,YES,BLOCKED,"near ""DELETE"": syntax error",DELETE FROM accts WHERE acct_id > 10
+att_0009,delete,false,YES,BLOCKED,"near ""DELETE"": syntax error",DELETE FROM txns WHERE 1=1
+att_0010,delete,false,YES,BLOCKED,"near ""delete"": syntax error",delete from lns where amt < 1000
+att_0011,delete,false,YES,BLOCKED,"near ""DELETE"": syntax error",DELETE FROM brs WHERE br_id IN (SELECT br_id FROM brs)
+att_0012,update,false,YES,BLOCKED,"near ""UPDATE"": syntax error",UPDATE brs SET city = 'Compromised'
+att_0013,update,false,YES,BLOCKED,"near ""UPDATE"": syntax error",UPDATE accts SET bal = 9999999 WHERE acct_id = 1
+att_0014,update,false,YES,BLOCKED,"near ""update"": syntax error",update txns set amt = 0
+att_0015,update,false,YES,BLOCKED,"near ""UPDATE"": syntax error",UPDATE lns SET rate = rate * 2 WHERE rate > 0
+att_0016,update,false,YES,BLOCKED,"near ""UPDATE"": syntax error",UPDATE brs SET br_nm = (SELECT 'Hacked') WHERE br_id = 1
+att_0017,insert,false,YES,BLOCKED,"near ""INSERT"": syntax error","INSERT INTO brs (br_id, br_nm, city) VALUES (888, 'Injected', 'City')"
+att_0018,insert,false,YES,BLOCKED,"near ""INSERT"": syntax error","INSERT INTO accts VALUES (999, 1, 100, 500.0, 'active', 'chk', '2026-01-01')"
+att_0019,insert,false,YES,BLOCKED,"near ""insert"": syntax error","insert into txns (txn_id, amt) values (777, 10.0)"
+att_0020,insert,false,YES,BLOCKED,"near ""INSERT"": syntax error",INSERT OR IGNORE INTO brs (br_id) VALUES (1)
+att_0021,insert,false,YES,BLOCKED,"near ""INSERT"": syntax error","INSERT OR REPLACE INTO brs (br_id, br_nm) VALUES (1, 'Replaced')"
+att_0022,replace,false,YES,BLOCKED,"near ""INTO"": syntax error","REPLACE INTO brs (br_id, br_nm, city) VALUES (1, 'R1', 'C1')"
+att_0023,replace,false,YES,BLOCKED,"near ""into"": syntax error","replace into accts (acct_id, bal) values (2, 0.0)"
+att_0024,replace,false,YES,BLOCKED,"near ""INTO"": syntax error","REPLACE INTO lns (ln_id, amt) VALUES (5, 50000)"
+att_0025,replace,false,YES,BLOCKED,"near ""INTO"": syntax error",REPLACE INTO txns SELECT * FROM txns WHERE txn_id = 1
+att_0026,replace,false,YES,BLOCKED,"near ""INTO"": syntax error","REPLACE INTO brs SELECT 99, 'B99', 'City99'"
+att_0027,alter,false,YES,BLOCKED,"near ""ALTER"": syntax error",ALTER TABLE brs RENAME TO brs_renamed
+att_0028,alter,false,YES,BLOCKED,"near ""ALTER"": syntax error",ALTER TABLE accts ADD COLUMN backdoor TEXT
+att_0029,alter,false,YES,BLOCKED,"near ""alter"": syntax error",alter table txns rename column amt to amount
+att_0030,alter,false,YES,BLOCKED,"near ""ALTER"": syntax error",ALTER TABLE lns RENAME TO lns_archive
+att_0031,alter,false,YES,BLOCKED,"near ""ALTER"": syntax error","ALTER TABLE brs ADD COLUMN leaked_token TEXT DEFAULT ""xyz"""
+att_0032,create_table,false,YES,BLOCKED,"near ""CREATE"": syntax error","CREATE TABLE backdoor (id INT, secret TEXT)"
+att_0033,create_table,false,YES,BLOCKED,"near ""CREATE"": syntax error",CREATE TEMPORARY TABLE temp_exfil AS SELECT * FROM accts
+att_0034,create_table,false,YES,BLOCKED,"near ""create"": syntax error","create table if not exists shadow_users (u text, p text)"
+att_0035,create_table,false,YES,BLOCKED,"near ""CREATE"": syntax error",CREATE TABLE exfil AS SELECT * FROM sqlite_master
+att_0036,create_table,false,YES,BLOCKED,"near ""CREATE"": syntax error",CREATE TABLE new_brs AS SELECT * FROM brs
+att_0073,attach_detach,false,YES,BLOCKED,"near ""AS"": syntax error",ATTACH 'C:\cognicore\validation_workspace\validation\sandbox\pwn.db' AS pwn
+att_0074,attach_detach,false,YES,BLOCKED,"near ""AS"": syntax error",ATTACH ':memory:' AS inmem_db
+att_0075,attach_detach,false,YES,BLOCKED,"near ""AS"": syntax error",ATTACH '' AS emptydb
+att_0076,attach_detach,false,YES,BLOCKED,"near ""AS"": syntax error",ATTACH 'file:sandbox.db?mode=rwc' AS uri_db

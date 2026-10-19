@@ -8,12 +8,13 @@
 
 const fs = require('fs');
 const path = require('path');
+const config = require('../lib/config');
 const { validateSql } = require('../../server/src/structured/sql.validator');
 const { prepareSql } = require('../../server/src/structured/sql.repair');
 const { appendRecord } = require('../lib/jsonl');
 
 const corpusFile = path.resolve(__dirname, '../data/v4d/executable_writes.jsonl');
-const outputFile = path.resolve(__dirname, '../raw/v4d_gate.jsonl');
+const outputFile = path.resolve(config.PATHS.RAW_DIR, 'v4d_gate.jsonl');
 
 // Load schema for fixture bank/B1_community.db
 const { inspectFixture } = require('../lib/v3_oracles');

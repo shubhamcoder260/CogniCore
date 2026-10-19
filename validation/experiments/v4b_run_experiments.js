@@ -28,7 +28,7 @@ const { prepareSql } = require(path.resolve(config.PATHS.SERVER_DIR, 'src/core/e
 const { SQLiteAdapter } = require(path.resolve(config.PATHS.SERVER_DIR, 'src/ingestion/adapters/sqlite.adapter'));
 
 const DATA_V4B_DIR = path.resolve(config.PATHS.VALIDATION_ROOT, 'data/v4b');
-const RAW_DIR = path.resolve(config.PATHS.VALIDATION_ROOT, 'raw');
+const RAW_DIR = config.PATHS.RAW_DIR;
 if (!fs.existsSync(RAW_DIR)) {
   fs.mkdirSync(RAW_DIR, { recursive: true });
 }

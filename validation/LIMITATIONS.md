@@ -192,3 +192,48 @@ This document tracks all hypotheses that did not hold, planned experiments that 
 
 3. **Cross-Platform Filesystem Differences**:
    - Evaluated on Windows 11 host (`win32 x64`). Windows UNC paths, drive letters, and backslash path conventions were tested. Linux/Unix-specific socket paths or filesystem behaviors remain unverified on this host.
+
+---
+
+# After-Fix Re-Run Reconciliation Status Ledger (Post-Domain 1–6 Re-Run)
+
+Following the completion of Domain 1–6 fixes (commit `e975b89`) and the re-run of frozen validation suites (V3, V3b, V3c, V4, V4b, V4c, V4d, V12, V13, V14, V15), the limitations ledger is updated as follows:
+
+### 1. Resolved / Fixed Limitations:
+- **Literal Boundary Punctuation Rejections (Hypothesis 4 / V4-02)**: **FIXED**. Semicolons and comments inside quoted string literals are now stripped via `stripLiterals()` prior to screening (`sql.validator.js:79, 94-98`). Construct rejections dropped from 86/400 to 10/400 (-73.68% relative delta).
+- **Keyword Denylist Screening on Literals & Quoted Aliases (Hypothesis 7 / V4-09)**: **FIXED**. `BLOCKED_KEYWORDS` evaluated on stripped text; false rejections on keyword data values dropped from 30 to 15.
+- **Offset-0 File Magic Signature & Plaintext Executable Bypass (Hypothesis 24 / V12-01)**: **FIXED**. `file.validator.js:14-35` screens leading whitespace/BOM and inspects plain text for shell/PHP/HTML signatures. Rejection of malicious payloads: 468/468 (100.00%, exact bound 0.64%).
+- **Adversarial Path Traversal & Control Characters (V12-02)**: **FIXED**. 100/100 adversarial filenames sanitized to safe basenames.
+- **ZIP Archive Bomb & Ratio Protection (V12-03)**: **FIXED**. `zip.reader.js:22-55` validates local header offsets, restricts compression methods to 0 (stored) and 8 (deflate), and enforces decompression ratio ceilings.
+- **Prompt Injection Screening & Indirect Neutralization (V13-03)**: **FIXED**. `neutralizeInjection` bounds untrusted data inside XML fences; attack recall stands at 97.53% [95.53%, 98.65%].
+
+### 2. Partially Resolved Limitations:
+- **Column-Level Validation Gate (Hypothesis 3 / V4-03)**: **PARTIALLY FIXED**. `findUnknownColumns` implemented in `sql.analyzer.js` and wired to `sql.validator.js` with fail-open shadow mode telemetry. Throws `SQLValidationError` only when `process.env.ENFORCE_COLUMN_VALIDATION === 'true'`.
+- **Query Execution Timeout Enforcement (Hypothesis 2 / V4-04)**: **PARTIALLY FIXED**. Asynchronous `Promise.race` timeout wrapper added to `sql.executor.js:49-58`, but synchronous `better-sqlite3` execution blocks the Node.js event loop, preventing `setTimeout` from aborting runaway queries on SQLite.
+- **Unenforced Diagnostic Probes (Hypothesis 15 / V3-05)**: **PARTIALLY FIXED**. `diagnoseEmptyResult` in `result.checks.js` stopped destructively mutating and overwriting user queries (`repairedSql` removed), but still queries the base physical table directly (`SELECT ${cq} FROM ${tq}`), returning available values across forbidden rows to restricted users.
+
+### 3. Confirmed Open / Remaining Invariant Limitations:
+- **Driver-Level Read-Only Connection (Hypothesis 1 / V4-01)**: **NOT FIXED**. SQLite adapter opens connections with `{ readonly: false, fileMustExist: true }`. Read-only isolation relies 100% on AST gate checks.
+- **Dual-Layer Connection Hardening (Hypotheses 9, 10 / V4-05, V4-10, V4-11)**: **NOT FIXED**. Absent `readonly: true` and `PRAGMA query_only = ON`.
+- **Disguised Comma-Join Cartesian Bypass (Hypothesis 8 / V4-06)**: **NOT FIXED**. `hasWhereOrOn` check in `sql.complexity.js:52, 58` still disables cartesian detection when unrelated `WHERE` predicates appear.
+- **SQLite Bracket Dialect Mismatch (Hypothesis 5 / V4-07)**: **NOT FIXED**. PostgreSQL parser grammar in `node-sql-parser` rejects bracket-quoted identifiers (`[col]`).
+- **Integer Division Bare Literals (Hypothesis 6 / V4-08)**: **NOT FIXED**. Division repair requires `COUNT` or `SUM`; `10 / 3` is unrepaired.
+- **SQLite Schema-Qualification Bypass (Hypothesis 11 / V3-01)**: **NOT FIXED**. `SELECT * FROM main.t` bypasses unqualified CTE shadowing in SQLite (1,779 / 46,920 systematic leaks in V3c).
+- **Unfiltered LLM Prompt Payload Leakage (Hypothesis 12 / V3-02)**: **NOT FIXED**. Denied column names and canary values transmitted in prompts compiled by `sql.generator.js`.
+- **Unprotected Dataset Preview Endpoint (Hypothesis 13 / V3-03)**: **NOT FIXED**. `GET /api/datasets/:id/preview` invokes `adapter.preview()` without policy or PII filters.
+- **Export Endpoints Bypass PII Redaction (Hypothesis 14 / V3-04)**: **NOT FIXED**. Tool export routes stream raw query rows directly into CSV/XLSX/PDF.
+- **CTE Name Collision (Hypothesis 16 / V3-06)**: **NOT FIXED**. Prepended CTE matching user CTE name triggers duplicate CTE syntax error.
+- **PRAGMA Schema Introspection (Hypothesis 17 / V3-07)**: **NOT FIXED**. Table-valued PRAGMA functions bypass column denial checks at policy layer.
+- **Low-Entropy Session ID (Hypothesis 21 / V3-08)**: **NOT FIXED**. 32-bit `Math.random` session IDs persist.
+- **Rate Limiter O(N) Cleanup (Hypothesis 26 / V13-01)**: **NOT FIXED**. Synchronous Map scan when `buckets.size > 5000`.
+- **Conversational Session IDOR (Hypothesis 27 / V14-01)**: **NOT FIXED**. Attacker supplying victim `sessionId` in `POST /api/chat` attaches to victim context.
+- **Absence of Authentication Rate Limiting & Lockout (Hypothesis 28 / V14-02)**: **NOT FIXED**. `/api/auth/login` lacks rate limiting and failed-attempt lockout.
+- **Credit Card Luhn Check Absence (Hypothesis 29 / V15-01)**: **NOT FIXED**. Masks 13–19 digit strings without Luhn checksum, yielding 25.0% false positives.
+- **Egress Channel PII Leaks (Hypothesis 30 / V15-02)**: **NOT FIXED**. Chat `execResult.rows` and preview routes emit unmasked PII.
+
+### 4. Formally Designated NOT RUN Claims:
+- **Spider Main & BIRD Gold Benchmarks**: Spider V1 main run staged; BIRD dev gold benchmark designated **NOT RUN**.
+- **External Dialects (PostgreSQL and MySQL Live Servers)**: Testing against live external server daemons is designated **NOT RUN**.
+- **PostgreSQL CTE Claim (Domain 3.2 / E5)**: Formally designated **NOT RUN** against a live PostgreSQL server.
+- **RBAC Expected Matrix Verification (`validation/data/rbac/expected.csv`)**: Formally designated **NOT RUN** due to absent user-supplied expected matrix.
+

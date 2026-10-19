@@ -17,10 +17,11 @@ const { prepareSql } = require('../../server/src/structured/sql.repair');
 const { enforcePolicy, PolicyError } = require('../../server/src/security/data.policy');
 const { generatePoliciesForFixture, inspectFixture, diffMultisets, rowsEqual } = require('../lib/v3_oracles');
 const { appendRecord } = require('../lib/jsonl');
+const config = require('../lib/config');
 
 const corpusFile = path.resolve(__dirname, '../data/v3b/v3b_queries.jsonl');
-const e2eOutputFile = path.resolve(__dirname, '../raw/v3b_e2e_results.jsonl');
-const polOutputFile = path.resolve(__dirname, '../raw/v3b_policy_alone_results.jsonl');
+const e2eOutputFile = path.resolve(config.PATHS.RAW_DIR, 'v3b_e2e_results.jsonl');
+const polOutputFile = path.resolve(config.PATHS.RAW_DIR, 'v3b_policy_alone_results.jsonl');
 
 if (fs.existsSync(e2eOutputFile)) fs.unlinkSync(e2eOutputFile);
 if (fs.existsSync(polOutputFile)) fs.unlinkSync(polOutputFile);

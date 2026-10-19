@@ -1,0 +1,11 @@
+step,class,provenance,total,accepted,rejected,acceptance_rate,rejection_rate
+Step 2 (v4),A,agent-authored,96,2,94,2.08%,97.92%
+Step 2 (v4),A,public-list,1229,459,770,37.35%,62.65%
+Step 2 (v4),B,agent-authored,23,0,23,0.00%,100.00%
+Step 2 (v4),C,agent-authored,220,220,0,100.00%,0.00%
+Step 2 (v4),D,agent-authored,12,5,7,41.67%,58.33%
+Step 2 (v4),F,mutation-fuzz,350,140,210,40.00%,60.00%
+Step 2b (v4b),B2,agent-authored,352,240,112,68.18%,31.82%
+Step 2b (v4b),C2,agent-authored,465,390,75,83.87%,16.13%
+Step 2b (v4b),D2,agent-authored,27,18,9,66.67%,33.33%
+Step 2c (v4c),D3,agent-authored,29,29,0,100.00%,0.00%

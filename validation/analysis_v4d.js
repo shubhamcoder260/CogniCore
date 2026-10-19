@@ -8,9 +8,10 @@
 const fs = require('fs');
 const path = require('path');
 const { exactUpperZeroEvents, ruleOfThree } = require('./lib/stats');
+const config = require('./lib/config');
 
-const rawFile = path.resolve(__dirname, 'raw/v4d_gate.jsonl');
-const outputFile = path.resolve(__dirname, 'results/V4d_RESULTS.md');
+const rawFile = path.resolve(config.PATHS.RAW_DIR, 'v4d_gate.jsonl');
+const outputFile = path.resolve(config.PATHS.RESULTS_DIR, 'V4d_RESULTS.md');
 
 const records = fs.readFileSync(rawFile, 'utf8').trim().split('\n').map(JSON.parse);
 

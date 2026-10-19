@@ -21,7 +21,7 @@ const { readAll } = require('../lib/jsonl');
 const { wilson, exactUpperZeroEvents, ruleOfThree } = require('../lib/stats');
 const { runV4cChild } = require('../lib/v4c_resource_runner');
 
-const RAW_DIR = path.resolve(config.PATHS.VALIDATION_ROOT, 'raw');
+const RAW_DIR = config.PATHS.RAW_DIR;
 
 async function runPhase0() {
   console.log('=== Running Phase 0: V4 Loose Ends ===\n');

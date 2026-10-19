@@ -18,9 +18,10 @@
 const fs = require('fs');
 const path = require('path');
 const { wilson, exactUpperZeroEvents, ruleOfThree } = require('./lib/stats');
+const config = require('./lib/config');
 
-const RAW_DIR = path.resolve(__dirname, 'raw');
-const RESULTS_DIR = path.resolve(__dirname, 'results');
+const RAW_DIR = config.PATHS.RAW_DIR;
+const RESULTS_DIR = config.PATHS.RESULTS_DIR;
 
 const E2E_FILE = path.join(RAW_DIR, 'v3_e2e_results.jsonl');
 const POLICY_FILE = path.join(RAW_DIR, 'v3_policy_alone_results.jsonl');

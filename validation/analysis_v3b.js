@@ -10,12 +10,15 @@
 const fs = require('fs');
 const path = require('path');
 const { wilson, exactUpperZeroEvents, clusterBootstrap } = require('./lib/stats');
-const { MASTER_SEED } = require('./lib/config');
+const config = require('./lib/config');
+const { MASTER_SEED } = config;
 
-const e2eFile = path.resolve(__dirname, 'raw/v3b_e2e_results.jsonl');
-const polFile = path.resolve(__dirname, 'raw/v3b_policy_alone_results.jsonl');
-const phaseDFile = path.resolve(__dirname, 'raw/v3_phase_d_evidence.json');
-const outputFile = path.resolve(__dirname, 'results/V3b_RESULTS.md');
+const e2eFile = path.resolve(config.PATHS.RAW_DIR, 'v3b_e2e_results.jsonl');
+const polFile = path.resolve(config.PATHS.RAW_DIR, 'v3b_policy_alone_results.jsonl');
+const phaseDFile = fs.existsSync(path.resolve(config.PATHS.RAW_DIR, 'v3_phase_d_evidence.json'))
+  ? path.resolve(config.PATHS.RAW_DIR, 'v3_phase_d_evidence.json')
+  : path.resolve(config.PATHS.VALIDATION_ROOT, 'raw/v3_phase_d_evidence.json');
+const outputFile = path.resolve(config.PATHS.RESULTS_DIR, 'V3b_RESULTS.md');
 
 const e2e = fs.readFileSync(e2eFile, 'utf8').trim().split('\n').map(JSON.parse);
 const pol = fs.readFileSync(polFile, 'utf8').trim().split('\n').map(JSON.parse);

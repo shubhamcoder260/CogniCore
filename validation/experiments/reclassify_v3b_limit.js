@@ -13,7 +13,8 @@ const os = require('os');
 const Database = require('../../server/node_modules/better-sqlite3');
 const { generatePoliciesForFixture, inspectFixture, rowsEqual } = require('../lib/v3_oracles');
 const { clusterBootstrap, wilson, exactUpperZeroEvents } = require('../lib/stats');
-const { MASTER_SEED } = require('../lib/config');
+const config = require('../lib/config');
+const { MASTER_SEED } = config;
 
 console.log('========================================================================');
 console.log('            PHASE B: LIMIT ARTIFACT RECLASSIFICATION                    ');
@@ -97,8 +98,8 @@ if (!pcResult.isContained) {
 // -------------------------------------------------------------
 console.log('2. Reclassifying V3b E1 and E2 records with Subset-Containment Rule...');
 
-const e2eFile = path.resolve(__dirname, '../raw/v3b_e2e_results.jsonl');
-const polFile = path.resolve(__dirname, '../raw/v3b_policy_alone_results.jsonl');
+const e2eFile = path.resolve(config.PATHS.RAW_DIR, 'v3b_e2e_results.jsonl');
+const polFile = path.resolve(config.PATHS.RAW_DIR, 'v3b_policy_alone_results.jsonl');
 
 const e2e = fs.readFileSync(e2eFile, 'utf8').trim().split('\n').map(JSON.parse);
 const pol = fs.readFileSync(polFile, 'utf8').trim().split('\n').map(JSON.parse);
@@ -353,5 +354,5 @@ const reclassSummary = {
   }
 };
 
-fs.writeFileSync(path.resolve(__dirname, '../raw/v3b_reclassified_summary.json'), JSON.stringify(reclassSummary, null, 2), 'utf8');
-console.log('\nWrote validation/raw/v3b_reclassified_summary.json');
+fs.writeFileSync(path.resolve(config.PATHS.RAW_DIR, 'v3b_reclassified_summary.json'), JSON.stringify(reclassSummary, null, 2), 'utf8');
+console.log('\nWrote ' + path.resolve(config.PATHS.RAW_DIR, 'v3b_reclassified_summary.json'));
