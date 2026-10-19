@@ -12,8 +12,10 @@ function has(bin) { try { return spawnSync(bin, ['--version'], { stdio: 'ignore'
 function ocrAvailable() { return { tesseract: has('tesseract'), pdftoppm: has('pdftoppm') }; }
 
 function ocrImage(imgPath) {
-  const r = spawnSync('tesseract', [imgPath, 'stdout', '-l', process.env.OCR_LANG || 'eng'], { encoding: 'utf8', timeout: 120000, maxBuffer: 20 * 1024 * 1024 });
-  if (r.error || r.status !== 0) throw new Error('tesseract failed');
+  const rawLang = process.env.OCR_LANG || 'eng';
+  const lang = /^[a-zA-Z0-9_+]+$/.test(rawLang) ? rawLang : 'eng';
+  const r = spawnSync('tesseract', [imgPath, 'stdout', '-l', lang], { encoding: 'utf8', timeout: 120000, maxBuffer: 20 * 1024 * 1024 });
+  if (r.error || r.status !== 0) return '';
   return r.stdout || '';
 }
 
@@ -27,7 +29,7 @@ function ocrPdf(pdfPath, { maxPages = 60 } = {}) {
   try {
     const r = spawnSync('pdftoppm', ['-r', '200', '-l', String(maxPages), '-png', pdfPath, path.join(dir, 'p')], { timeout: 300000 });
     if (r.error || r.status !== 0) throw new Error('Could not render the PDF pages for OCR.');
-    const files = fs.readdirSync(dir).filter((f) => f.endsWith('.png')).sort();
+    const files = fs.readdirSync(dir).filter((f) => f.endsWith('.png')).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
     return files.map((f, i) => ({ pageNumber: i + 1, text: ocrImage(path.join(dir, f)).replace(/[ \t]+/g, ' ').trim() }));
   } finally { fs.rmSync(dir, { recursive: true, force: true }); }
 }

@@ -71,29 +71,51 @@ const VectorStore = {
 
   /** Brute-force cosine similarity search within one dataset's chunks. */
   search(datasetId, queryEmbedding, topK = config.documents.retrievalTopK) {
-    const rows = db.prepare(`SELECT chunk_index, page_number, section, text, embedding_json FROM document_chunks WHERE dataset_id = ?`).all(datasetId);
-    const scored = rows.map((r) => ({
-      chunkIndex: r.chunk_index,
-      pageNumber: r.page_number,
-      section: r.section,
-      text: r.text,
-      score: cosineSimilarity(queryEmbedding, JSON.parse(r.embedding_json)),
-    }));
+    if (!datasetId || !Array.isArray(queryEmbedding) || queryEmbedding.length === 0) return [];
+    const k = Number.isInteger(topK) && topK > 0 ? topK : config.documents.retrievalTopK;
+    let rows;
+    try {
+      rows = db.prepare(`SELECT chunk_index, page_number, section, text, embedding_json FROM document_chunks WHERE dataset_id = ?`).all(datasetId);
+    } catch (_) {
+      return [];
+    }
+
+    const scored = [];
+    for (const r of rows) {
+      let emb;
+      try {
+        emb = JSON.parse(r.embedding_json);
+      } catch (_) {
+        continue;
+      }
+      const score = cosineSimilarity(queryEmbedding, emb);
+      scored.push({
+        chunkIndex: r.chunk_index,
+        pageNumber: r.page_number,
+        section: r.section,
+        text: r.text,
+        score,
+      });
+    }
     scored.sort((a, b) => b.score - a.score);
-    return scored.slice(0, topK);
+    return scored.slice(0, k);
   },
 };
 
 function cosineSimilarity(a, b) {
+  if (!Array.isArray(a) || !Array.isArray(b) || a.length === 0 || b.length === 0) return 0;
   let dot = 0, normA = 0, normB = 0;
   const len = Math.min(a.length, b.length);
   for (let i = 0; i < len; i++) {
-    dot += a[i] * b[i];
-    normA += a[i] * a[i];
-    normB += b[i] * b[i];
+    const valA = Number(a[i]) || 0;
+    const valB = Number(b[i]) || 0;
+    dot += valA * valB;
+    normA += valA * valA;
+    normB += valB * valB;
   }
-  if (normA === 0 || normB === 0) return 0;
-  return dot / (Math.sqrt(normA) * Math.sqrt(normB));
+  if (normA <= 0 || normB <= 0) return 0;
+  const sim = dot / (Math.sqrt(normA) * Math.sqrt(normB));
+  return Number.isFinite(sim) ? Math.max(-1, Math.min(1, sim)) : 0;
 }
 
 module.exports = { VectorStore, cosineSimilarity };

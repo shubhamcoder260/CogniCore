@@ -102,13 +102,24 @@ async function parsePptx(filePath) {
   const zip = readZipEntries(fs.readFileSync(filePath));
   const slideNames = zip.names.filter((n) => /^ppt\/slides\/slide\d+\.xml$/.test(n)).sort((a, b) => parseInt(a.match(/(\d+)\.xml$/)[1], 10) - parseInt(b.match(/(\d+)\.xml$/)[1], 10));
   if (!slideNames.length) throw new Error('This file does not look like a PowerPoint presentation (no slides found).');
-  const decode = (x) => x.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
+  const decode = (x) => String(x || '')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n, 10)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, '&');
   const pages = slideNames.map((n, i) => {
-    const xml = zip.read(n).toString('utf8');
+    const slideBuf = zip.read(n);
+    const xml = slideBuf ? slideBuf.toString('utf8') : '';
     const paras = (xml.match(/<a:p>[\s\S]*?<\/a:p>|<a:p [\s\S]*?<\/a:p>/g) || []).map((p) => decode((p.match(/<a:t>[^<]*<\/a:t>|<a:t [^>]*>[^<]*<\/a:t>/g) || []).map((t) => t.replace(/<[^>]+>/g, '')).join('')).trim()).filter(Boolean);
     const notesName = n.replace('ppt/slides/slide', 'ppt/notesSlides/notesSlide');
     let notes = '';
-    if (zip.has(notesName)) notes = decode((zip.read(notesName).toString('utf8').match(/<a:t>[^<]*<\/a:t>/g) || []).map((t) => t.replace(/<[^>]+>/g, '')).join(' ')).trim();
+    if (zip.has(notesName)) {
+      const notesBuf = zip.read(notesName);
+      if (notesBuf) notes = decode((notesBuf.toString('utf8').match(/<a:t>[^<]*<\/a:t>/g) || []).map((t) => t.replace(/<[^>]+>/g, '')).join(' ')).trim();
+    }
     const title = paras[0] || `Slide ${i + 1}`;
     return { pageNumber: i + 1, text: cleanText(`# ${title}\n${paras.slice(1).join('\n')}${notes ? `\nSpeaker notes: ${notes}` : ''}`) };
   });

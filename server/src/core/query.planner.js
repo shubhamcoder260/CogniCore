@@ -61,6 +61,12 @@ function planQuery({ question, datasetIds, sessionActiveDatasetId }) {
     return { routeType: 'HYBRID', structuredDataset: structuredDatasets[0], documentDataset: null, structuredDatasets, documentDatasets: [] };
   }
 
+  if (documentDatasets.length > 1) {
+    // Several document sources at once (e.g. two policies / handbooks): ask each one and
+    // combine the evidence across all of them.
+    return { routeType: 'HYBRID', structuredDataset: null, documentDataset: documentDatasets[0], structuredDatasets: [], documentDatasets };
+  }
+
   if (structuredDatasets.length > 0) {
     return { routeType: 'STRUCTURED', dataset: structuredDatasets[0] };
   }

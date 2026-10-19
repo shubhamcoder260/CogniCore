@@ -40,11 +40,17 @@ router.post('/', requireAuth, requireCapability('upload'), upload.single('file')
     return res.status(err.status || 400).json({ error: true, message: err.message });
   }
 
-  const dataset = await ingestFile({
-    filePath: req.file.path,
-    originalFilename: sanitizeFilename(req.file.originalname),
-    ownerId: req.user.user_id,
-  });
+  let dataset;
+  try {
+    dataset = await ingestFile({
+      filePath: req.file.path,
+      originalFilename: sanitizeFilename(req.file.originalname),
+      ownerId: req.user.user_id,
+    });
+  } catch (err) {
+    fs.rmSync(req.file.path, { force: true });
+    throw err;
+  }
 
   AuthRegistry.appendAudit({
     userId: req.user.user_id, action: 'dataset.upload', resourceType: 'dataset', resourceId: dataset.dataset_id,

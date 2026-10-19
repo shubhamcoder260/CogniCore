@@ -30,12 +30,24 @@ const { buildHybridEvidence } = require('../../evidence/evidence.manager');
 const polFor = (policy, id) => (typeof policy === 'function' ? policy(id) : policy);
 
 async function runHybridQuery({ question, structuredDataset, documentDataset, structuredDatasets = null, documentDatasets = null, llmProvider, embeddingProvider, conversationContext, policy = null, knowledgeText = '' }) {
-  const structs = Array.isArray(structuredDatasets) && structuredDatasets.length ? structuredDatasets : [structuredDataset];
-  const docs = Array.isArray(documentDatasets) ? documentDatasets : (documentDataset ? [documentDataset] : []);
+  const structs = (Array.isArray(structuredDatasets) && structuredDatasets.length ? structuredDatasets : (structuredDataset ? [structuredDataset] : [])).filter(Boolean);
+  const docs = (Array.isArray(documentDatasets) && documentDatasets.length ? documentDatasets : (documentDataset ? [documentDataset] : [])).filter(Boolean);
 
   const [structuredResults, documentResults] = await Promise.all([
-    Promise.all(structs.map((d) => runStructuredQuery({ question, dataset: d, llmProvider, conversationContext, policy: polFor(policy, d.dataset_id), knowledgeText }))),
-    Promise.all(docs.map((d) => runDocumentQuery({ question, dataset: d, embeddingProvider, conversationContext }))),
+    Promise.all(structs.map(async (d) => {
+      try {
+        return await runStructuredQuery({ question, dataset: d, llmProvider, conversationContext, policy: polFor(policy, d.dataset_id), knowledgeText });
+      } catch (err) {
+        return { routeType: 'STRUCTURED', answer: `Structured query failed: ${err.message}`, evidence: null, lowConfidence: true };
+      }
+    })),
+    Promise.all(docs.map(async (d) => {
+      try {
+        return await runDocumentQuery({ question, dataset: d, embeddingProvider, conversationContext });
+      } catch (err) {
+        return { routeType: 'DOCUMENT', answer: `Document retrieval failed: ${err.message}`, evidence: null, lowConfidence: true };
+      }
+    })),
   ]);
 
   const evidenceParts = [];

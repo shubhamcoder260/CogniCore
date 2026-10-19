@@ -13,6 +13,9 @@ const HEADING_RES = [
 function headingOf(line) {
   const t = line.trim();
   if (!t || t.length > 130) return null;
+  if (/\b(SELECT|FROM|WHERE|INSERT|UPDATE|DELETE|JOIN|GROUP\s+BY|ORDER\s+BY)\b/i.test(t)) return null;
+  if (/^PAGE\s+\d+(\s+OF\s+\d+)?$/i.test(t)) return null;
+  if (/:.*\$/.test(t)) return null;
   for (const { re, group } of HEADING_RES) {
     const m = t.match(re);
     if (m) {

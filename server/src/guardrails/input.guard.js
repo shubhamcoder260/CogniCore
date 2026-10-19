@@ -7,18 +7,19 @@
  * These run in plain code; the LLM is never asked whether something is safe.
  */
 const INJECTION = [
-  /ignore\s+(all\s+|any\s+)?(the\s+)?(previous|prior|above|earlier|preceding)\s+(instructions?|rules?|prompts?|messages?)/i,
-  /disregard\s+(all\s+|any\s+)?(the\s+)?(previous|prior|above|your|these)?\s*(instructions?|rules?|guidelines|constraints)/i,
-  /forget\s+(everything|all|your)\s+(above|previous|prior|instructions?|rules?)/i,
+  /\bignore\s+(all\s+|any\s+)?(the\s+)?(previous|prior|above|earlier|preceding)\b/i,
+  /\bdisregard\s+(all\s+|any\s+)?(the\s+)?(previous|prior|above|your|these)?\b/i,
+  /\bforget\s+(everything|all|your)\s+(above|previous|prior|instructions?|rules?)/i,
+  /\bnew\s+instructions?\s*:/i,
   /(reveal|show|print|display|repeat|output|leak)\s+(me\s+)?(your|the)\s+(hidden\s+|secret\s+|initial\s+)?(system\s+prompt|instructions|prompt|rules)/i,
   /you\s+are\s+now\s+(in\s+)?(dan|developer\s+mode|an?\s+unrestricted|jailbroken|no\s+longer)/i,
   /\b(jailbreak|do\s+anything\s+now)\b/i,
   /(bypass|override|disable|circumvent|turn\s+off)\s+(the\s+|all\s+|any\s+)?(security|permissions?|access\s+(control|rules?)|rbac|policy|policies|validation|safety|guardrails?|restrictions?|filters?)/i,
   /pretend\s+(that\s+)?(you\s+)?(have\s+no|are\s+not|don'?t\s+have)\s+(restrictions?|rules?|limits?)/i,
   /(act|respond)\s+as\s+(if\s+)?(i\s+am|i'm|an?)\s+(the\s+)?(admin(istrator)?|root|superuser)/i,
-  /<\s*\/?\s*(system|assistant|untrusted_data)\s*>|\[\s*\/?\s*(system|inst|assistant)\s*\]|###\s*(system|instruction|assistant)/i,
-  /<\|\s*(im_start|im_end|endoftext|start_header_id|end_header_id)\s*\|>/i,
-  /(^|\n)\s*(system|assistant)\s*:/i,
+  /<\s*\/?\s*(system|assistant|user|untrusted_data)\s*>|\[\s*\/?\s*(system|inst|instruction|assistant|user)\s*\]|###\s*(system|instruction|assistant|user)/i,
+  /<\|\s*(system|user|assistant|im_start|im_end|endoftext|start_header_id|end_header_id)\s*\|>/i,
+  /(^|[\n\r.;!?|\[<])\s*(system|assistant|user)\s*:/i,
   /(`{3,}|~{3,})/i,
 ];
 

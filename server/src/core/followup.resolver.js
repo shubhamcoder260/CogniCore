@@ -23,9 +23,19 @@ function isFollowUp(question, state) {
 }
 
 function summarizePreview(evidence) {
-  if (!evidence || evidence.source_type !== 'database') return '';
-  const rows = (evidence.sample_rows || []).slice(0, 3);
-  return rows.map((r) => JSON.stringify(r)).join('; ').slice(0, 400);
+  if (!evidence) return '';
+  if (evidence.source_type === 'database') {
+    const rows = (evidence.sample_rows || []).slice(0, 3);
+    return rows.map((r) => JSON.stringify(r)).join('; ').slice(0, 400);
+  }
+  if (evidence.source_type === 'document') {
+    const excerpts = (evidence.chunks || []).slice(0, 2).map((c) => c.text);
+    return excerpts.join('; ').slice(0, 400);
+  }
+  if (evidence.source_type === 'hybrid') {
+    return (evidence.parts || []).map(summarizePreview).filter(Boolean).join(' | ').slice(0, 400);
+  }
+  return '';
 }
 
 function updateState(prev = {}, { question, standaloneQuestion, sql, evidence, answer }) {
@@ -77,4 +87,4 @@ async function resolveFollowUp({ question, state, llmProvider }) {
   return { standaloneQuestion, wasFollowUp: true, viaLlm: usable };
 }
 
-module.exports = { isFollowUp, resolveFollowUp, updateState, buildRewritePrompt, extractWhere };
+module.exports = { isFollowUp, resolveFollowUp, updateState, buildRewritePrompt, extractWhere, summarizePreview };

@@ -31,7 +31,13 @@ function evidenceNumbers(evidence) {
         if (vals.length > 1 && vals.length === (ev.sample_rows || []).length) add(vals.reduce((a, b) => a + b, 0));
       }
     }
-    if (ev.source_type === 'document') (ev.chunks || []).forEach((c) => (String(c.text).match(NUM_RE) || []).forEach(add));
+    if (ev.source_type === 'document') {
+      (ev.chunks || []).forEach((c) => {
+        if (c.page !== null && c.page !== undefined) add(c.page);
+        if (c.section) (String(c.section).match(NUM_RE) || []).forEach(add);
+        (String(c.text).match(NUM_RE) || []).forEach(add);
+      });
+    }
     (ev.insights || []).forEach((i) => (String(i.text).match(NUM_RE) || []).forEach(add));
   };
   walk(evidence);
