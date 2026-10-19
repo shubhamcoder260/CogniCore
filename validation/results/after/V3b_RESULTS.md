@@ -37,7 +37,7 @@ This evaluation expands Step 3 to the full specification, testing **1,430 items*
 
 ## 2. Table 1: End-to-End (E1) vs. Policy-Alone (E2) Outcomes by Variant Construct
 
-| Variant Form | $N$ | E1 Leaks | E1 Leak Rate [95% CI] | E1 Over-Filter | E2 Leaks | E2 Leak Rate [95% CI] | E2 Over-Filter | Construct Verdict |
+| Variant Form | N | E1 Leaks | E1 Leak Rate [95% CI] | E1 Over-Filter | E2 Leaks | E2 Leak Rate [95% CI] | E2 Over-Filter | Construct Verdict |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
 | `plain_select` | 15 | 0 | 0.00% [0.00%, 20.39%] | 0 | 0 | 0.00% [0.00%, 20.39%] | 0 | `SECURE` |
 | `existing_where` | 15 | 0 | 0.00% [0.00%, 20.39%] | 0 | 0 | 0.00% [0.00%, 20.39%] | 0 | `SECURE` |
@@ -84,7 +84,7 @@ This evaluation expands Step 3 to the full specification, testing **1,430 items*
 
 ## 3. Table 2: Evaluation Outcomes by Database Fixture
 
-| Database Fixture | $N$ | E1 Leaks | E1 Leak Rate [95% CI] | E2 Leaks | E2 Leak Rate [95% CI] | Security Status |
+| Database Fixture | N | E1 Leaks | E1 Leak Rate [95% CI] | E2 Leaks | E2 Leak Rate [95% CI] | Security Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
 | `database/bank/B1_community.db` | 96 | 1 | 1.04% [0.18%, 5.67%] | 2 | 2.08% [0.57%, 7.28%] | `LEAK (1 items)` |
 | `database/bank/B2_district.db` | 95 | 2 | 2.11% [0.58%, 7.35%] | 3 | 3.16% [1.08%, 8.88%] | `LEAK (2 items)` |

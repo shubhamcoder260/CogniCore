@@ -14,9 +14,9 @@ This report reconciles all evaluation data across Steps 2, 2b, and 2c of the Cog
 
 ### 1. Primary Security Guarantee: Zero Acceptance of Genuine Write Statements
 - **Primary Statistic**: The primary security metric of the AST Safety Gate is the **acceptance rate of genuine write statements** ($n = 119$, agent-authored, NOT independent of the evaluation harness):
-  - **Observed Acceptance**: **$0 / 119$** (0.00%).
-  - **Exact 95% Upper Bound (Clopper-Pearson)**: **2.49%** ($1 - 0.05^{1/n}$).
-  - **Rule of Three 95% Bound**: **2.52%** ($3/n$).
+  - **Observed Acceptance**: **0 / 119** (0.00%).
+  - **Exact 95% Upper Bound (Clopper-Pearson)**: **2.49%** (1 - 0.05^(1/n)).
+  - **Rule of Three 95% Bound**: **2.52%** (3/n).
   - **Interpretation**: Under zero accepted genuine write statements, the gate provides a verified upper bound guaranteeing with 95% confidence that fewer than 2.49% of genuine write payloads can bypass the validator.
 
 ### 2. Secondary Statistic: Zero Execution Bypass Across Accepted Items
@@ -41,7 +41,7 @@ While the gate prevents write-based database corruption, exhaustive empirical ev
 ### Table 1: Item Reconciled Ledger Across Steps 2, 2b, and 2c
 The following table summarizes every stratum evaluated across the entire CogniCore validation program. The stratum sums equal the pooled totals bit-for-bit:
 
-$$\sum \text{Total} = 2803 = 2803, \quad \sum \text{Accepted} = 1503 = 1503, \quad \sum \text{Rejected} = 1300 = 1300$$
+`\sum \text{Total} = 2803 = 2803, \quad \sum \text{Accepted} = 1503 = 1503, \quad \sum \text{Rejected} = 1300 = 1300`
 
 | Step | Class | Provenance | Total Evaluated | Accepted | Rejected | Acceptance Rate | Rejection Rate |
 |---|---|---|---|---|---|---|---|
@@ -65,7 +65,7 @@ $$\sum \text{Total} = 2803 = 2803, \quad \sum \text{Accepted} = 1503 = 1503, \qu
    - The initial Phase C pilot examined 23 synthetic probes. In Step 2 Phase C, the test suite expanded to 250 probes across 15 fixtures (of which 113 were accepted).
    - In Step 2b, Class B was fully refined into **Class B2 (352 items)** querying real database tables, of which **224 were accepted**.
 3. **Pooled Totals Arithmetic (2,774 / 1,191 vs draft sum 2,662 / 1,046)**:
-   - Early partial summaries omitted the 112 boundary and fuzz differential items ($2,774 - 112 = 2,662$ total; $1,191 - 145 = 1,046$ accepted).
+   - Early partial summaries omitted the 112 boundary and fuzz differential items (2,774 - 112 = 2,662 total; $1,191 - 145 = 1,046$ accepted).
    - As proven in Table 1 above, when all strata are aggregated from the raw JSONL logs, the totals sum with zero discrepancy: $1,930 \text{ (v4)} + 844 \text{ (v4b)} + 29 \text{ (v4c)} = 2803$.
 4. **Reclassification & Post-Hoc Audit**:
    - Zero items changed class after results were observed. All item IDs retained their immutable assigned classes (`att_*` in Class A, `b2_*` in Class B2, `c2_*` in Class C2, `d2_*` in Class D2, and `v4c_*` in Class D3). No post-hoc reclassifications occurred.

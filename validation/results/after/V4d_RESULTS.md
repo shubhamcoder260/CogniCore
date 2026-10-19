@@ -17,8 +17,8 @@ To close the empirical evidence gap identified in Step 3—where only 56 frozen 
 Across all **640 executable write statements**:
 - **Gate Rejection Rate**: **640 / 640 (100.00%)**
 - **Gate Acceptance Rate**: **0 / 640 (0.00%)**
-- **Exact 95% Clopper-Pearson Upper Bound ($1 - 0.05^{1/n}$)**: **0.47%**
-- **Rule of Three 95% Upper Bound ($3/n$)**: **0.47%**
+- **Exact 95% Clopper-Pearson Upper Bound (1 - 0.05^(1/n))**: **0.47%**
+- **Rule of Three 95% Upper Bound (3/n)**: **0.47%**
 
 When pooled with the 56 Phase 0 executable write statements, CogniCore's SQL safety gate achieved **0 / 696 acceptances (0.00%)**, establishing an exact 95% statistical upper bound of **0.43%** (Rule of Three: **0.43%**).
 
@@ -26,7 +26,7 @@ When pooled with the 56 Phase 0 executable write statements, CogniCore's SQL saf
 
 ## 2. Table 1: Executable-Write Outcomes by Provenance
 
-| Provenance Stratum | Description & Source | $N$ | Accepted | Rejected | Acceptance Rate | Exact 95% Upper Bound | Author Independence |
+| Provenance Stratum | Description & Source | N | Accepted | Rejected | Acceptance Rate | Exact 95% Upper Bound | Author Independence |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Public Payloads** | PayloadsAllTheThings `SQLite-Injection.md` (lines 91, 108, 109) | 3 | 0 | 3 | 0.00% | 63.16% | **STRICTLY INDEPENDENT** |
 | **Agent-Authored** | Systematic grammar & mutation expansion (14 SQL write categories) | 637 | 0 | 637 | 0.00% | 0.47% | Harness Derived |
@@ -41,7 +41,7 @@ When pooled with the 56 Phase 0 executable write statements, CogniCore's SQL saf
 
 ## 3. Table 2: Executable-Write Breakdown by SQL Construct Category
 
-| Category | Description | $N$ | Accepted | Rejected | Rejection Rate | Primary Rejecting Layer |
+| Category | Description | N | Accepted | Rejected | Rejection Rate | Primary Rejecting Layer |
 | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
 | `create_table` | CREATE_TABLE executable write variants | 33 | 0 | 33 | 100.00% | `keyword_denylist` / `safety_validator` |
 | `insert` | INSERT executable write variants | 128 | 0 | 128 | 100.00% | `keyword_denylist` / `safety_validator` |

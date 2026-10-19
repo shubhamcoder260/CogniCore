@@ -21,62 +21,62 @@
 
 | HTTP Method | Route Endpoint | Middleware Protection Chain | Auth Required? | Role / Capability Guard |
 | :--- | :--- | :--- | :---: | :--- |
-| `POST` | `/` | `requireAuth $\to$ <anonymous> $\to$ multerMiddleware $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/` | `requireAuth $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/api` | `requireAuth $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/` | `requireAuth -> <anonymous> -> multerMiddleware -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/` | `requireAuth -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/api` | `requireAuth -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
 | `GET` | `/` | `<anonymous>` | No (Public) | None (Public) |
-| `GET` | `/:id` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:id/preview` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/:id/share` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `DELETE` | `/:id/share/:userId` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:id/shares` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `DELETE` | `/:id` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:datasetId` | `requireAuth $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/` | `requireAuth $\to$ <anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:id` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:id/preview` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/:id/share` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `DELETE` | `/:id/share/:userId` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:id/shares` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `DELETE` | `/:id` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:datasetId` | `requireAuth -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/` | `requireAuth -> <anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
 | `GET` | `/` | `<anonymous>` | No (Public) | None (Public) |
 | `GET` | `/` | `<anonymous>` | No (Public) | None (Public) |
-| `POST` | `/chart` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/calculate` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/export` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/report` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/chart` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/calculate` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/export` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/report` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
 | `POST` | `/register` | `<anonymous>` | **Yes** | requireAuth |
 | `POST` | `/login` | `<anonymous>` | **Yes** | requireAuth |
-| `GET` | `/me` | `requireAuth $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/sessions` | `requireAuth $\to$ <anonymous>` | **Yes** | requireAuth |
-| `DELETE` | `/sessions/:id` | `requireAuth $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/logout` | `requireAuth $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/logout-all` | `requireAuth $\to$ <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/me` | `requireAuth -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/sessions` | `requireAuth -> <anonymous>` | **Yes** | requireAuth |
+| `DELETE` | `/sessions/:id` | `requireAuth -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/logout` | `requireAuth -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/logout-all` | `requireAuth -> <anonymous>` | **Yes** | requireAuth |
 | `GET` | `/users` | `<anonymous>` | **Yes** | requireAuth |
 | `PATCH` | `/users/:id/role` | `<anonymous>` | **Yes** | requireAuth |
 | `GET` | `/audit` | `<anonymous>` | **Yes** | requireAuth |
 | `GET` | `/models` | `<anonymous>` | **Yes** | requireAuth |
 | `GET` | `/briefing` | `<anonymous>` | **Yes** | requireAuth |
 | `GET` | `/registry` | `<anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:datasetId/semantic` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:datasetId/quality` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:datasetId/kpis` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:datasetId/explore` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:datasetId/report` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:datasetId/report/download` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/:datasetId/chart-svg` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/:datasetId/export-analysis` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/:datasetId/python` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:datasetId/catalog` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `PUT` | `/:datasetId/catalog/meaning` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `DELETE` | `/:datasetId/catalog/meaning` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:datasetId/dashboard` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:datasetId/tool/schema` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:datasetId/tool/profile` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/:datasetId/tool/validate` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `GET` | `/:datasetId` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `POST` | `/:datasetId` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `DELETE` | `/:datasetId/:policyId` | `<anonymous> $\to$ <anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:datasetId/semantic` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:datasetId/quality` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:datasetId/kpis` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:datasetId/explore` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:datasetId/report` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:datasetId/report/download` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/:datasetId/chart-svg` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/:datasetId/export-analysis` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/:datasetId/python` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:datasetId/catalog` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `PUT` | `/:datasetId/catalog/meaning` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `DELETE` | `/:datasetId/catalog/meaning` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:datasetId/dashboard` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:datasetId/tool/schema` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:datasetId/tool/profile` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/:datasetId/tool/validate` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `GET` | `/:datasetId` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/:datasetId` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `DELETE` | `/:datasetId/:policyId` | `<anonymous> -> <anonymous> -> <anonymous>` | **Yes** | requireAuth |
 | `GET` | `/` | `<anonymous>` | No (Public) | None (Public) |
-| `POST` | `/` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
-| `DELETE` | `/:id` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
+| `DELETE` | `/:id` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
 | `GET` | `/types` | `<anonymous>` | **Yes** | requireAuth |
 | `GET` | `/` | `<anonymous>` | No (Public) | None (Public) |
-| `POST` | `/` | `<anonymous> $\to$ <anonymous>` | **Yes** | requireAuth |
+| `POST` | `/` | `<anonymous> -> <anonymous>` | **Yes** | requireAuth |
 | `POST` | `/:id/approve` | `<anonymous>` | **Yes** | requireAuth |
 | `POST` | `/:id/reject` | `<anonymous>` | **Yes** | requireAuth |
 | `GET` | `/` | `<anonymous>` | No (Public) | None (Public) |

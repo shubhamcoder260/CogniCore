@@ -18,7 +18,7 @@
 
 ## 2. Table 1: Valid File False-Rejection by Format
 
-| Valid File Format / Class | Total Items ($N$) | False Rejections ($k$) | False-Rejection Rate | Wilson 95% CI |
+| Valid File Format / Class | Total Items (N) | False Rejections (K) | False-Rejection Rate | Wilson 95% CI |
 | :--- | :---: | :---: | :---: | :---: |
 | `valid_xlsx` | 1 | 0 | **0.0%** | [0.0%, 79.3%] |
 | `valid_docx` | 1 | 0 | **0.0%** | [0.0%, 79.3%] |
@@ -37,7 +37,7 @@
 
 ## 3. Table 2: Malicious Payload Rejection & Acceptance Rate by Category
 
-| Malicious Payload Category | Total Items ($N$) | Accepted ($k$) | Acceptance Rate | Exact 95% Upper Bound / CI |
+| Malicious Payload Category | Total Items (N) | Accepted (K) | Acceptance Rate | Exact 95% Upper Bound / CI |
 | :--- | :---: | :---: | :---: | :---: |
 | `extension_content_mismatch` | 135 | 6 | **4.4%** | Wilson CI: [2.1%, 9.4%] |
 | `eicar_string` | 6 | 2 | **33.3%** | Wilson CI: [9.7%, 70.0%] |

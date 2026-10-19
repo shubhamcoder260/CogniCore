@@ -82,13 +82,13 @@ Every suite verified that positive controls **continue to fail closed**, proving
 ### C1: V3c Systematic Policy Leak Matrix (46,920 Items)
 Evaluates row filtering (E1) and column denial (E2) across 46,920 permutations (15 schemas, 24 queries, 5 roles, 26 syntax variants, 10 row bounds).
 
-| Evaluation Metric | Total $n$ | Baseline Leaks ($k$) | Baseline Rate [95% CI] | After Leaks ($k$) | After Rate [95% CI] | Absolute Delta | Exact Zero Bound |
+| Evaluation Metric | Total N | Baseline Leaks (K) | Baseline Rate [95% CI] | After Leaks (K) | After Rate [95% CI] | Absolute Delta | Exact Zero Bound |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Pooled E1 Row Leaks** | 46,920 | 1,779 | 3.79% [3.51%, 4.09%] | 1,779 | 3.79% [3.51%, 4.09%] | 0.00% | N/A |
 | **Pooled E2 Column Leaks**| 46,920 | 1,779 | 3.79% [3.51%, 4.08%] | 1,779 | 3.79% [3.51%, 4.08%] | 0.00% | N/A |
 
 #### Breakdown by Query Variant Form (E1 Row Leaks):
-| Query Variant Form | $n$ | Baseline Leaks | After Leaks | Absolute Delta | After 95% Wilson CI | Exact Zero Bound |
+| Query Variant Form | N | Baseline Leaks | After Leaks | Absolute Delta | After 95% Wilson CI | Exact Zero Bound |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | `aggregate` | 2760 | undefined (N/A) | undefined (N/A) | N/A | [N/A, N/A] | N/A |
 | `backtick_quoted` | 2760 | undefined (N/A) | undefined (N/A) | N/A | [N/A, N/A] | N/A |
@@ -114,7 +114,7 @@ Evaluates row filtering (E1) and column denial (E2) across 46,920 permutations (
 
 ### C2: V4 SQL Safety Gate & Boundary Accuracy (1,930 Items)
 
-| Gate Evaluation Stratum | Total $n$ | Baseline Accepted | Baseline Rate | After Accepted | After Rate | Absolute Delta | Relative Delta |
+| Gate Evaluation Stratum | Total N | Baseline Accepted | Baseline Rate | After Accepted | After Rate | Absolute Delta | Relative Delta |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Class A (Mutating DDL/DML)** | 400 | 0 | 0.00% | 0 | 0.00% | 0.00% | 0.00% (Bound: 0.75%) |
 | **Class B (Resource Exhaustion)** | 350 | 0 | 0.00% | 0 | 0.00% | 0.00% | 0.00% (Bound: 0.85%) |
@@ -133,7 +133,7 @@ Evaluates row filtering (E1) and column denial (E2) across 46,920 permutations (
 ### C3: V4b Construct False Rejections (C2 Stratum, 400 Items)
 Evaluates false-positive gate rejections on valid, benign SQLite constructs.
 
-| Construct Evaluated | $n$ | Baseline Rej ($k$) | After Rej ($k$) | Absolute Delta | Relative Delta | After 95% Wilson CI | Exact Zero Bound |
+| Construct Evaluated | N | Baseline Rej (K) | After Rej (K) | Absolute Delta | Relative Delta | After 95% Wilson CI | Exact Zero Bound |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `backtick_identifier` | 15 | 0 (0.00%) | 0 (0.00%) | 0.00% | 0.00% | [0.00%, 20.39%] | 18.10% |
 | `bracket_identifier` | 15 | 15 (100.00%) | 15 (100.00%) | 0.00% | 0.00% | [79.61%, 100.00%] | N/A |
@@ -173,7 +173,7 @@ Evaluates false-positive gate rejections on valid, benign SQLite constructs.
 
 ### C4: V4b B2 Function Probes Accepted (240 Items)
 
-| Probe Category | Total $n$ | Baseline Accepted | After Accepted | Absolute Delta | Exact Zero Upper Bound |
+| Probe Category | Total N | Baseline Accepted | After Accepted | Absolute Delta | Exact Zero Upper Bound |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Dangerous SQLite Built-ins** | 240 | 0 (0.00%) | 0 (0.00%) | 0.00% | **1.24%** |
 
@@ -181,7 +181,7 @@ Evaluates false-positive gate rejections on valid, benign SQLite constructs.
 
 ### C5: V4c DoS Execution & Resource Bounds (29 Items)
 
-| Execution Dimension | Total $n$ | Baseline | After-Fix | Delta | Outcome Verdict |
+| Execution Dimension | Total N | Baseline | After-Fix | Delta | Outcome Verdict |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Total DoS Queries Executed** | 29 | 29 | 29 | 0 | Valid Run |
 | **Completed Queries** | 29 | 23 | 23 | 0 | Unchanged |
@@ -193,7 +193,7 @@ Evaluates false-positive gate rejections on valid, benign SQLite constructs.
 
 ### C6: V4d Executable Writes Gate (640 Items)
 
-| Statement Category | Total $n$ | Baseline Accepted | After Accepted | Absolute Delta | Exact Zero Upper Bound |
+| Statement Category | Total N | Baseline Accepted | After Accepted | Absolute Delta | Exact Zero Upper Bound |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Class A DDL/DML Write Attacks** | 640 | 0 (0.00%) | 0 (0.00%) | 0.00% | **0.47%** |
 
@@ -201,7 +201,7 @@ Evaluates false-positive gate rejections on valid, benign SQLite constructs.
 
 ### C7: V12 File Upload Security (761 Files)
 
-| File Category | Total $n$ | Baseline Accepted | After Accepted | Absolute Delta | Metric & Exact Zero Bound |
+| File Category | Total N | Baseline Accepted | After Accepted | Absolute Delta | Metric & Exact Zero Bound |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Malicious / Disguised Payloads** | 468 | 0 (0.00%) | 0 (0.00%) | 0.00% | Rejection: **100.00%** (Bound: **0.64%**) |
 | **Benign Data Files** | 293 | 293 (100.00%) | 293 (100.00%) | 0.00% | False Rej: **0.00%** (Bound: **1.02%**) |
@@ -212,7 +212,7 @@ Evaluates false-positive gate rejections on valid, benign SQLite constructs.
 
 ### C8: V13 Input Guard & Injection Screening (972 Items)
 
-| Item Classification | Total $n$ | Baseline Blocked | After Blocked | Absolute Delta | Performance Metric |
+| Item Classification | Total N | Baseline Blocked | After Blocked | Absolute Delta | Performance Metric |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Adversarial Injection Attacks** | 405 | 395 (97.53%) | 395 (97.53%) | 0.00% | Attack Block Recall: **97.53% [95.53%, 98.65%]** |
 | **Benign Analytical Queries** | 300 | 0 (0.00%) | 0 (0.00%) | 0.00% | False Positive Rate: **0.00% (Bound: 0.99%)** |
@@ -233,7 +233,7 @@ Evaluates false-positive gate rejections on valid, benign SQLite constructs.
 
 ### C10: V15 Sensitive-Information Exposure & PII Redaction (620 Items)
 
-| PII Category | $n$ | Masked ($k$) | After Recall [95% CI] | After Precision [95% CI] | False Positive Rate [95% CI] |
+| PII Category | N | Masked (K) | After Recall [95% CI] | After Precision [95% CI] | False Positive Rate [95% CI] |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Phone Numbers** | 100 | 100 | **100.00% [96.30%, 100.00%]** | 100.00% [96.30%, 100.00%] | 0.00% |
 | **Credit Card Numbers** | 100 | 100 | **100.00% [96.30%, 100.00%]** | 100.00% [96.30%, 100.00%] | 0.00% |
@@ -254,7 +254,7 @@ Evaluates false-positive gate rejections on valid, benign SQLite constructs.
 | **V3-02** | LLM prompt contains unfiltered schema/canaries | **NOT FIXED** | 255 leaked prompts (100.00%) | `server/src/structured/sql.generator.js:48` | `sql.generator.js` was not modified in Domains 1–6; canary tokens remain echoed during prompt compilation. |
 | **V3-03** | Preview endpoint bypasses policy | **NOT FIXED** | 100.00% leak rate on preview | `server/src/api/routes/datasets.js:41-59` | `GET /api/datasets/:id/preview` invokes raw `adapter.preview()` without calling `enforcePolicy` or `redactEvidence`. |
 | **V3-04** | Tool export endpoints bypass PII redaction | **NOT FIXED** | 100.00% leak on CSV/XLSX export | `server/src/api/routes/tools.js:80-120` | Routes stream raw query results directly into serializers without `redactEvidence`. |
-| **V3-05** | Diagnostic probe executes raw on base table | **PARTIALLY FIXED** | Destructive rewrite removed; base probe remains | `server/src/structured/result.checks.js:77` | Fixed: removed silent `repairedSql` query substitution. Unfixed: line 77 still executes `SELECT ${cq} FROM ${tq}` without row policy. |
+| **V3-05** | Diagnostic probe executes raw on base table | **PARTIALLY FIXED** | Destructive rewrite removed; base probe remains | `server/src/structured/result.checks.js:77` | Fixed: removed silent `repairedSql` query substitution. Unfixed: line 77 still executes `SELECT {col} FROM {table}` without row policy. |
 | **V3-06** | CTE name collision syntax failure | **NOT FIXED** | 100.00% syntax failure on duplicate CTE | `server/src/security/data.policy.js:301-304` | `WITH employees AS (...) SELECT * FROM employees` fails with `duplicate WITH table name: employees`. |
 | **V3-07** | PRAGMA introspection at policy layer | **NOT FIXED** | 15 / 15 fixtures leaked (100.00%) | `server/src/security/data.policy.js:203` | PRAGMA table-valued functions are parsed as functions, not checked against column denial rules. |
 | **V3-08** | Low-entropy unscoped session ID | **NOT FIXED** | 32-bit entropy (`Math.random`) | `server/src/conversation/session.manager.js:18` | Session IDs retain 8 hex characters without UUID v4 cryptographic entropy. |
@@ -287,10 +287,10 @@ Evaluates false-positive gate rejections on valid, benign SQLite constructs.
 
 ### E1: PII Classifier Regex Column Evaluation
 Evaluated against `server/src/semantic/semantic.lexicon.js` (`PII_NAME` patterns):
-- **`phoneNumber`**: **UNFLAGGED**. CamelCase prevents matching boundary `(^|_)(phone|mobile|tel)(_|$)/i`.
+- **`phoneNumber`**: **UNFLAGGED**. CamelCase prevents matching boundary `(^|_)(phone|mobile|tel)(_|[end])`.
 - **`homePhone`**: **UNFLAGGED**. Preceded by `home`, fails leading boundary `(^|_)`.
-- **`emailAddress`**: **UNFLAGGED**. Followed by `Address`, fails trailing boundary `(_|$)`.
-- **`mobileNo`**: **UNFLAGGED**. Followed by `No`, fails trailing boundary `(_|$)`.
+- **`emailAddress`**: **UNFLAGGED**. Followed by `Address`, fails trailing boundary `(_|[end])`.
+- **`mobileNo`**: **UNFLAGGED**. Followed by `No`, fails trailing boundary `(_|[end])`.
 - **`ssn_number`**: **FLAGGED** as `national_id`. Preceded by start-of-string `^` and followed by underscore `_`.
 - **`hotel`**: **UNFLAGGED**. Correctly unflagged; boundary check prevents spurious match on substring `tel`.
 - **`japan_north`**: **UNFLAGGED**. No PII tokens present.
@@ -318,7 +318,7 @@ Tested via empirical execution suite `validation/test_e3_scoping.js`:
 2. **Derived Table Reusing Names:** BLOCKED (`PolicyError: Your role does not have access to the column "salary"`).
 3. **Subquery in Select List:** BLOCKED (`PolicyError`).
 4. **NATURAL JOIN:** BLOCKED when expanding to include denied column.
-5. **JSON Functions:** BLOCKED when column is passed as function argument (`json_extract(salary, '$.val')`); PERMITTED when column name appears only inside json path literal (`json_extract(data, '$.salary')`).
+5. **JSON Functions:** BLOCKED when column is passed as function argument (`json_extract(salary, '%.val')`); PERMITTED when column name appears only inside json path literal (`json_extract(data, '%.salary')`).
 6. **UNION:** BLOCKED when denied column appears in either UNION branch.
 7. **Window ORDER BY:** BLOCKED (`OVER (PARTITION BY dept_id ORDER BY salary DESC)`).
 8. **Alias Equal to Denied Column in ORDER BY:** BLOCKED (fails closed on alias collision to prevent leakage).
@@ -327,12 +327,12 @@ Tested via empirical execution suite `validation/test_e3_scoping.js`:
 Inspected `server/src/structured/result.checks.js:55-80`:
 ```javascript
 const rows = (await adapter.executeQuery(
-  `SELECT ${cq} AS v, COUNT(*) AS n FROM ${tq} WHERE ${cq} IS NOT NULL GROUP BY ${cq} ORDER BY n DESC LIMIT 8`
+  `SELECT {col} AS v, COUNT(*) AS n FROM {table} WHERE {col} IS NOT NULL GROUP BY {col} ORDER BY n DESC LIMIT 8`
 )).rows;
 findings.push({ column: col.name, literal: f.literal, type: 'value_not_found', available: rows.map((r) => r.v) });
 ```
 **Empirical Finding:**
-1. `diagnoseEmptyResult` executes raw SQL queries directly against the un-filtered base table (`${tq}`) without passing through `applyRowFilters` or CTE shadowing.
+1. `diagnoseEmptyResult` executes raw SQL queries directly against the un-filtered base table (`{table}`) without passing through `applyRowFilters` or CTE shadowing.
 2. When a restricted user runs a query that returns 0 rows, the diagnostic probe queries the database for alternative values and attaches them to the returned response under `findings[].available`.
 3. **Restricted users DO receive 'available' values from rows the row-level policy hides.** This constitutes an active data leakage channel.
 

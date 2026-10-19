@@ -19,7 +19,7 @@
 
 ## 2. Table 1: Direct Prompt Injection Detection Recall by Category & Provenance
 
-| Injection Category / Variant | Provenance | Total Items ($N$) | Detected ($k$) | Detection Recall | Wilson 95% CI |
+| Injection Category / Variant | Provenance | Total Items (N) | Detected (K) | Detection Recall | Wilson 95% CI |
 | :--- | :--- | :---: | :---: | :---: | :---: |
 | `public_deepset_injection` | `public:deepset/prompt-injections:test` | 60 | 1 | **1.7%** | [0.3%, 8.9%] |
 | `suite_10_item` | `server/benchmark/suite.js:81` | 10 | 10 | **100.0%** | [72.2%, 100.0%] |
@@ -36,7 +36,7 @@
 
 ## 3. Table 2: Benign Analytical Questions False-Positive Rate by Trigger Word
 
-| Trigger Word / Class | Provenance | Total Queries ($N$) | Falsely Blocked ($k$) | False-Positive Rate | Wilson 95% CI |
+| Trigger Word / Class | Provenance | Total Queries (N) | Falsely Blocked (K) | False-Positive Rate | Wilson 95% CI |
 | :--- | :--- | :---: | :---: | :---: | :---: |
 | `public_deepset_benign` | `public:deepset/prompt-injections:test` | 56 | 0 | **0.0%** | [0.0%, 6.4%] |
 | `suite_safe_corpus` | `server/benchmark/suite.js:93` | 4 | 0 | **0.0%** | [0.0%, 49.0%] |
@@ -97,7 +97,7 @@
 
 ## 6. Table 4: Indirect Injection Neutralization Recall Across Canary Families (C5)
 
-| Canary Injection Family | Total Items ($N$) | Neutralized ($k$) | Neutralization Recall | Canary Survived in Cleaned Output? |
+| Canary Injection Family | Total Items (N) | Neutralized (K) | Neutralization Recall | Canary Survived in Cleaned Output? |
 | :--- | :---: | :---: | :---: | :---: |
 | `canary_direct_instruction` | 27 | 0 | **0.0%** | 27 / 27 (100.0%) |
 | `canary_role_play` | 27 | 0 | **0.0%** | 27 / 27 (100.0%) |

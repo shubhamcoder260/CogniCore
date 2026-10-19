@@ -53,7 +53,7 @@ The V4 safety evaluation rigorously tested the end-to-end SQL validation, repair
 
 ## 3. Table 2: False-Rejection Stratification by Construct on Class C2
 
-*Denominator = Total Handcrafted & Verified Read-Only Benign Queries per Construct ($N=15$ to $30$). No pooled headline masking.*
+*Denominator = Total Handcrafted & Verified Read-Only Benign Queries per Construct (N = 15 to 30). No pooled headline masking.*
 
 | Construct | Total Tested (N) | Gate Accepted | Gate Rejected | Rejection Rate (%) | 95% Wilson CI | Primary Rejecting Layer |
 |---|---|---|---|---|---|---|

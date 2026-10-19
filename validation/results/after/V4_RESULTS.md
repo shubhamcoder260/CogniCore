@@ -24,7 +24,7 @@ The V4 SQL Safety Gate was evaluated against the locked hypotheses from `PREREGI
 Evaluation stratified by item class and provenance.
 *Note: In accordance with Amendment V4-A4, the denominator for bypass rate is the count of **ACCEPTED** items.*
 
-| Stratum | Total Items | Gate Accepted | Gate Rejected | Bypasses | Bypass Rate | 95% Exact Upper Bound | Rule of Three ($3/n$) | Status |
+| Stratum | Total Items | Gate Accepted | Gate Rejected | Bypasses | Bypass Rate | 95% Exact Upper Bound | Rule of Three (3/n) | Status |
 |---|---|---|---|---|---|---|---|---|
 | **Overall** | 1930 | 826 | 1104 | 0 | 0.00% | 0.00362 | 0.00363 | **PASS** |
 | **Class_A** | 1325 | 461 | 864 | 0 | 0.00% | 0.00648 | 0.00651 | **PASS** |

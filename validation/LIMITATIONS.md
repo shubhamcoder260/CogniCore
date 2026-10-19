@@ -133,7 +133,7 @@ This document tracks all hypotheses that did not hold, planned experiments that 
 
 26. **Rate Limiter Memory Growth and O(N) Cleanup Scan**:
     - *Claim*: Sliding window rate limiter bounds abuse without performance degradation.
-    - *Observed Reality*: `server/src/guardrails/rate.limit.js:19-25` maintains an in-memory `Map` of rate limit buckets per Node process. When `buckets.size > 5000`, the handler iterates synchronously through all entries on *every* incoming request, introducing an $O(N)$ event-loop delay under high-cardinality IP/user floods.
+    - *Observed Reality*: `server/src/guardrails/rate.limit.js:19-25` maintains an in-memory `Map` of rate limit buckets per Node process. When `buckets.size > 5000`, the handler iterates synchronously through all entries on *every* incoming request, introducing an O(N) event-loop delay under high-cardinality IP/user floods.
     - *Reference*: Verified in Step 4 Phase C (`V13_RESULTS.md`).
 
 27. **Session IDOR via Arbitrary Client Session ID**:
@@ -210,7 +210,7 @@ Following the completion of Domain 1–6 fixes (commit `e975b89`) and the re-run
 ### 2. Partially Resolved Limitations:
 - **Column-Level Validation Gate (Hypothesis 3 / V4-03)**: **PARTIALLY FIXED**. `findUnknownColumns` implemented in `sql.analyzer.js` and wired to `sql.validator.js` with fail-open shadow mode telemetry. Throws `SQLValidationError` only when `process.env.ENFORCE_COLUMN_VALIDATION === 'true'`.
 - **Query Execution Timeout Enforcement (Hypothesis 2 / V4-04)**: **PARTIALLY FIXED**. Asynchronous `Promise.race` timeout wrapper added to `sql.executor.js:49-58`, but synchronous `better-sqlite3` execution blocks the Node.js event loop, preventing `setTimeout` from aborting runaway queries on SQLite.
-- **Unenforced Diagnostic Probes (Hypothesis 15 / V3-05)**: **PARTIALLY FIXED**. `diagnoseEmptyResult` in `result.checks.js` stopped destructively mutating and overwriting user queries (`repairedSql` removed), but still queries the base physical table directly (`SELECT ${cq} FROM ${tq}`), returning available values across forbidden rows to restricted users.
+- **Unenforced Diagnostic Probes (Hypothesis 15 / V3-05)**: **PARTIALLY FIXED**. `diagnoseEmptyResult` in `result.checks.js` stopped destructively mutating and overwriting user queries (`repairedSql` removed), but still queries the base physical table directly (`SELECT {col} FROM {table}`), returning available values across forbidden rows to restricted users.
 
 ### 3. Confirmed Open / Remaining Invariant Limitations:
 - **Driver-Level Read-Only Connection (Hypothesis 1 / V4-01)**: **NOT FIXED**. SQLite adapter opens connections with `{ readonly: false, fileMustExist: true }`. Read-only isolation relies 100% on AST gate checks.

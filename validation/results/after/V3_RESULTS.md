@@ -34,10 +34,10 @@ This report establishes the empirical security boundaries of CogniCore's Row-Lev
 ## 2. Table 1: Row Filter Evaluation by Construct
 
 Evaluation across **17 structural variant forms** on User U1 (single categorical filter) and User U2 (multi-table filter) across both execution strata:
-- **End-to-End**: Full CogniCore pipeline (`prepareSql` $\rightarrow$ `validateSql` $\rightarrow$ `enforcePolicy` $\rightarrow$ `executeValidatedQuery`).
+- **End-to-End**: Full CogniCore pipeline (`prepareSql` -> `validateSql` -> `enforcePolicy` -> `executeValidatedQuery`).
 - **Policy-Alone**: Isolated policy layer (`enforcePolicy` on read-only SQLite connection, bypassing AST gate).
 
-| Variant Construct | Target Mechanism | $N$ | E2E Gate Passed | E2E Policy Blocked | E2E Leaked Items | E2E Leak Rate [95% CI] | Policy Alone Leaked | Pol Leak Rate [95% CI] |
+| Variant Construct | Target Mechanism | N | E2E Gate Passed | E2E Policy Blocked | E2E Leaked Items | E2E Leak Rate [95% CI] | Policy Alone Leaked | Pol Leak Rate [95% CI] |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `plain_select` | cte_shadowing_base | 15 | 15 | 0 | **0** | 0.00% [0.00%, 20.39%] | **0** | 0.00% [0.00%, 20.39%] |
 | `existing_where` | where_clause_preservation | 15 | 15 | 0 | **0** | 0.00% [0.00%, 20.39%] | **0** | 0.00% [0.00%, 20.39%] |
@@ -70,7 +70,7 @@ Evaluation across **17 structural variant forms** on User U1 (single categorical
 
 Evaluation across **15 structural variant forms** on User U3 (denied column policy):
 
-| Variant Construct | Target Mechanism | $N$ | E2E Gate Passed | E2E Policy Blocked | E2E Leaked Items | E2E Leak Rate [95% CI] | Policy Alone Leaked | Pol Leak Rate [95% CI] |
+| Variant Construct | Target Mechanism | N | E2E Gate Passed | E2E Policy Blocked | E2E Leaked Items | E2E Leak Rate [95% CI] | Policy Alone Leaked | Pol Leak Rate [95% CI] |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `select_explicit` | token_identifier_matching | 15 | 15 | 15 | **0** | 0.00% [0.00%, 20.39%] | **0** | 0.00% [0.00%, 20.39%] |
 | `select_star` | wildcard_star_rejection | 15 | 15 | 15 | **0** | 0.00% [0.00%, 20.39%] | **0** | 0.00% [0.00%, 20.39%] |

@@ -38,7 +38,7 @@ All metrics, confidence intervals, and tables are **generated programmatically f
 
 Performance across each evaluation category with Wilson 95% confidence intervals:
 
-| Category | In-Scope? | Total ($n$) | TP | FN | FP | TN | Recall [95% CI] | Precision [95% CI] |
+| Category | In-Scope? | Total (N) | TP | FN | FP | TN | Recall [95% CI] | Precision [95% CI] |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Email** | YES | 100 | 90 | 10 | 0 | 0 | 90.0% [82.6%, 94.5%] | 100.0% [95.9%, 100.0%] |
 | **Phone** | YES | 100 | 100 | 0 | 0 | 0 | 100.0% [96.3%, 100.0%] | 100.0% [96.3%, 100.0%] |
@@ -55,7 +55,7 @@ Performance across each evaluation category with Wilson 95% confidence intervals
 
 ### Subtype Breakdown
 
-| Category | Subtype | Total ($n$) | TP | FN | FP | TN | Recall [95% CI] | Notes |
+| Category | Subtype | Total (N) | TP | FN | FP | TN | Recall [95% CI] | Notes |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
 | **Email** | Standard | 25 | 25 | 0 | 0 | 0 | 100.0% [86.7%, 100.0%] | Clean RFC 5322 match |
 | **Email** | Plus-Addressing | 25 | 25 | 0 | 0 | 0 | 100.0% [86.7%, 100.0%] | Handled via `[\w.+-]+` pattern |
