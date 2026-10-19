@@ -278,4 +278,4 @@ async function ingestApi({ url, name, ownerId = null, ...opts }) {
   return { dataset, recordCount: records.length };
 }
 
-module.exports = { ingestApi, fetchRecords, assertPublicUrl, isPrivateIp, parseIPv6ToWords, findRecordArray, flattenRecord };
+module.exports = { ingestApi, fetchRecords, assertPublicUrl, requestWithPinnedIp, isPrivateIp, parseIPv6ToWords, findRecordArray, flattenRecord };

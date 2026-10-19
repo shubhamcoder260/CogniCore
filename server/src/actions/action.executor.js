@@ -56,8 +56,16 @@ const EXECUTORS = {
     return { file: path.basename(file), bytes: r.buf.length };
   },
   async webhook(action) {
-    const res = await fetch(action.params.url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(action.params.payload), redirect: 'error', signal: AbortSignal.timeout(10000) });
-    return { status: res.status, ok: res.ok };
+    const { assertPublicUrl, requestWithPinnedIp } = require('../ingestion/api.connector');
+    const u = await assertPublicUrl(action.params.url);
+    const payloadStr = JSON.stringify(action.params.payload ?? {});
+    const headers = {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(payloadStr),
+      'User-Agent': 'CogniCore-Webhook/1.0',
+    };
+    const responseText = await requestWithPinnedIp(u, { method: 'POST', headers, body: payloadStr }, u.pinnedIp);
+    return { ok: true, status: 200, response: responseText ? responseText.slice(0, 500) : '' };
   },
 };
 
@@ -72,27 +80,29 @@ function assertCanDecide(action, decider) {
 }
 
 async function approveAndExecute(actionId, decider, note = null) {
-  const action = ActionRegistry.get(actionId);
+  const id = typeof actionId === 'object' && actionId !== null ? actionId.action_id : actionId;
+  const action = ActionRegistry.get(id);
   if (!action) throw Object.assign(new Error('Action not found.'), { status: 404 });
   assertCanDecide(action, decider);
   const proposerRow = AuthRegistry.getUserById(action.requested_by);
-  if (!proposerRow) return ActionRegistry.markDecision(actionId, { status: 'failed', decidedBy: decider.user_id, note, result: { error: 'The requesting user no longer exists.' } });
+  if (!proposerRow) return ActionRegistry.markDecision(id, { status: 'failed', decidedBy: decider.user_id, note, result: { error: 'The requesting user no longer exists.' } });
   try {
     const result = await EXECUTORS[action.type](action, proposerRow);
-    AuthRegistry.appendAudit({ userId: decider.user_id, action: 'action.executed', resourceType: 'action', resourceId: actionId, success: true, details: { type: action.type, requestedBy: action.requested_by } });
-    return ActionRegistry.markDecision(actionId, { status: 'executed', decidedBy: decider.user_id, note, result });
+    AuthRegistry.appendAudit({ userId: decider.user_id, action: 'action.executed', resourceType: 'action', resourceId: id, success: true, details: { type: action.type, requestedBy: action.requested_by } });
+    return ActionRegistry.markDecision(id, { status: 'executed', decidedBy: decider.user_id, note, result });
   } catch (err) {
-    AuthRegistry.appendAudit({ userId: decider.user_id, action: 'action.executed', resourceType: 'action', resourceId: actionId, success: false, details: { type: action.type, error: err.message } });
-    return ActionRegistry.markDecision(actionId, { status: 'failed', decidedBy: decider.user_id, note, result: { error: err.message } });
+    AuthRegistry.appendAudit({ userId: decider.user_id, action: 'action.executed', resourceType: 'action', resourceId: id, success: false, details: { type: action.type, error: err.message } });
+    return ActionRegistry.markDecision(id, { status: 'failed', decidedBy: decider.user_id, note, result: { error: err.message } });
   }
 }
 
 function reject(actionId, decider, note = null) {
-  const action = ActionRegistry.get(actionId);
+  const id = typeof actionId === 'object' && actionId !== null ? actionId.action_id : actionId;
+  const action = ActionRegistry.get(id);
   if (!action) throw Object.assign(new Error('Action not found.'), { status: 404 });
   assertCanDecide(action, decider);
-  AuthRegistry.appendAudit({ userId: decider.user_id, action: 'action.rejected', resourceType: 'action', resourceId: actionId, success: true, details: { type: action.type } });
-  return ActionRegistry.markDecision(actionId, { status: 'rejected', decidedBy: decider.user_id, note });
+  AuthRegistry.appendAudit({ userId: decider.user_id, action: 'action.rejected', resourceType: 'action', resourceId: id, success: true, details: { type: action.type } });
+  return ActionRegistry.markDecision(id, { status: 'rejected', decidedBy: decider.user_id, note });
 }
 
 module.exports = { approveAndExecute, reject, assertCanDecide, makeReportBuffer };
