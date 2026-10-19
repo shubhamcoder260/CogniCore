@@ -262,6 +262,10 @@ If `connect()` / `getConnection()` threw an error (e.g. bad credentials, timeout
    Identical escaping rules applied consistently across adapters: SQLite and Postgres use standard SQL double quotes `'"' + name.replace(/"/g, '""') + '"'`, MySQL uses backticks ``'`' + name.replace(/`/g, '``') + '`'``.
 3. **SSRF Guard**:
    Enforces fail-closed validation on all IP parsing. Every address returned by DNS lookup must pass `isPrivateIp`. Actual requests use pinned IP sockets to eliminate DNS rebinding.
+4. **Redirect Rejection**:
+   `requestWithPinnedIp` uses native Node.js `http.request` / `https.request`, which does not follow HTTP redirects automatically. Any redirect response (`300 <= statusCode < 400`) is immediately rejected with an error, preventing an external endpoint from bouncing a pinned request to a private cloud metadata or loopback IP.
+5. **MySQL Privilege Requirement**:
+   `KILL QUERY <threadId>` requires the connecting MySQL database user to hold the `PROCESS` administrative privilege. If the privilege is absent, the server rejection is caught gracefully (`catch (_) {}`) and the Node-side execution timeout rejects the query cleanly.
 
 ---
 
