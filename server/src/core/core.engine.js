@@ -68,7 +68,7 @@ async function handleUserQuery({ question, datasetId, datasetIds, sessionId, use
   const fu = await resolveFollowUp({ question, state: prevState, llmProvider: rewriteProvider });
   const effectiveQuestion = fu.standaloneQuestion;
   trace.add('follow_up', fu.wasFollowUp ? 'ok' : 'skipped', fu.wasFollowUp ? `understood as: ${effectiveQuestion}` : 'standalone question');
-  const conversationContext = buildConversationContext(session.session_id);
+  const conversationContext = buildConversationContext(session.session_id, { userId: actor.user_id || userId });
   recordTurn(session.session_id, 'user', question);
 
   const preferencesText = actor.user_id ? Preferences.toPromptText(actor.user_id) : null;

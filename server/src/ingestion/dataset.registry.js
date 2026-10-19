@@ -13,6 +13,7 @@
 const Database = require('better-sqlite3');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
 const config = require('../config/env');
 
@@ -151,7 +152,7 @@ const DatasetRegistry = {
 
   // ---- Session / conversation memory (bounded) ----
   createSession(userId = null) {
-    const session_id = 'sess_' + uuidv4().slice(0, 8);
+    const session_id = 'sess_' + crypto.randomUUID();
     const ts = now();
     db.prepare(`
       INSERT INTO sessions (session_id, user_id, active_dataset_id, state_json, created_at, updated_at)

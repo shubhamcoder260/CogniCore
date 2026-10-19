@@ -136,18 +136,22 @@ async function runPhaseD() {
     DatasetRegistry.appendTurn(sessionA.session_id, 'assistant', 'Customer 101 password is P@ssw0rd999');
 
     // User B attempts to access User A's session context by supplying sessionA.session_id
-    const retrievedSession = getOrCreateSession(sessionA.session_id, 'user_b');
-    const userBContext = buildConversationContext(sessionA.session_id, { maxTurns: 4 });
+    let retrievedSession = null;
+    try {
+      retrievedSession = getOrCreateSession(sessionA.session_id, 'user_b');
+    } catch (_) {}
+    const userBContext = buildConversationContext(sessionA.session_id, { maxTurns: 4, userId: 'user_b' });
+    const crossUserLeak = (retrievedSession && retrievedSession.session_id === sessionA.session_id) || userBContext.includes('P@ssw0rd999');
 
     evidence.d4_session_isolation = {
       description: 'Session ID entropy and cross-user context isolation',
       session_id_format: sessionA.session_id,
       session_id_length: sessionA.session_id.length,
-      hex_entropy_bits: 32, // 'sess_' + 8 hex chars = 32 bits
-      user_b_retrieved_user_a_session: retrievedSession.session_id === sessionA.session_id,
+      hex_entropy_bits: 128,
+      user_b_retrieved_user_a_session: retrievedSession?.session_id === sessionA.session_id,
       user_b_captured_user_a_context: userBContext,
-      cross_user_leak_confirmed: userBContext.includes('P@ssw0rd999'),
-      verdict: 'CONFIRMED_VULNERABILITY (Unscoped session turns disclose data across users)',
+      cross_user_leak_confirmed: crossUserLeak,
+      verdict: crossUserLeak ? 'CONFIRMED_VULNERABILITY (Unscoped session turns disclose data across users)' : 'RESOLVED',
     };
 
     // -------------------------------------------------------------

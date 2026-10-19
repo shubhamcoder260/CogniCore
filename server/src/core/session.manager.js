@@ -8,7 +8,17 @@ const { DatasetRegistry } = require('../ingestion/dataset.registry');
 function getOrCreateSession(sessionId, userId = null) {
   if (sessionId) {
     const existing = DatasetRegistry.getSession(sessionId);
-    if (existing) return existing;
+    if (!existing) {
+      const err = new Error('Session not found.');
+      err.status = 404;
+      throw err;
+    }
+    if (existing.user_id && userId && existing.user_id !== userId) {
+      const err = new Error('Session not found.');
+      err.status = 404;
+      throw err;
+    }
+    return existing;
   }
   return DatasetRegistry.createSession(userId);
 }

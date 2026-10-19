@@ -5,8 +5,14 @@ const { DatasetRegistry } = require('../ingestion/dataset.registry');
  * RULE: Never dump an entire database or document collection into the LLM.
  * Builds a small, bounded conversational context string from recent turns.
  */
-function buildConversationContext(sessionId, { maxTurns = 4 } = {}) {
+function buildConversationContext(sessionId, { maxTurns = 4, userId = null } = {}) {
   if (!sessionId) return '';
+  if (userId) {
+    const session = DatasetRegistry.getSession(sessionId);
+    if (!session || (session.user_id && session.user_id !== userId)) {
+      return '';
+    }
+  }
   const turns = DatasetRegistry.getRecentTurns(sessionId, maxTurns * 2); // user+assistant pairs
   if (!turns.length) return '';
 
