@@ -30,6 +30,14 @@ const BLOCKED_PATTERNS = [
   { re: /\b(ZEROBLOB|RANDOMBLOB)\b/i, name: 'ZEROBLOB' },
 ];
 
+const DANGEROUS_FUNCTIONS = new Set([
+  'load_extension', 'readfile', 'writefile', 'fts3_tokenizer', 'edit',
+  'sqlite_compileoption_get', 'sqlite_version', 'sqlite_source_id', 'sqlite_log',
+  'zeroblob', 'randomblob',
+]);
+
+const ALLOWED_TABLE_VALUED_FUNCTIONS = new Set(['json_each', 'json_tree']);
+
 /**
  * Inspect string literals for SQL injection smuggling.
  * In Domain 2, stripLiterals was introduced to allow benign literals containing
@@ -155,6 +163,95 @@ function validateSql(sql, schema, datasetType = 'sqlite') {
     throw new SQLValidationError('SQL comments are not allowed.');
   }
 
+  // Reject pragma_* anywhere in SQL
+  if (/\bpragma_[a-z0-9_]+\b/i.test(sql)) {
+    throw new SQLValidationError('Pragma functions/tables are not allowed.');
+  }
+
+  // Reject pathological ReDoS LIKE without ESCAPE clause with >= 6 wildcards
+  if (!/\bESCAPE\b/i.test(sql) && /\bLIKE\s+['"][^'"]*(?:%[^%']*){6,}['"]/i.test(sql)) {
+    throw new SQLValidationError('Pathological LIKE pattern causing catastrophic backtracking is not allowed.');
+  }
+
+  // Token-level function and table-valued checks
+  const tokens = tokenize(sql);
+  for (let i = 0; i < tokens.length; i++) {
+    const t = tokens[i];
+    if (t.t === 'word') {
+      const fnName = t.v.toLowerCase();
+      const next = tokens[i + 1];
+      const prev = tokens[i - 1];
+
+      if (next && next.v === '(') {
+        if (DANGEROUS_FUNCTIONS.has(fnName)) {
+          throw new SQLValidationError(`Dangerous function "${fnName}" is not allowed.`);
+        }
+
+        // Table-valued function in FROM/JOIN position
+        if (prev && (prev.v.toLowerCase() === 'from' || prev.v.toLowerCase() === 'join')) {
+          if (!ALLOWED_TABLE_VALUED_FUNCTIONS.has(fnName)) {
+            throw new SQLValidationError(`Table-valued function "${fnName}" in FROM/JOIN position is not allowed.`);
+          }
+        }
+
+        // Check printf gigantic width
+        if (fnName === 'printf') {
+          const formatTok = tokens[i + 2];
+          if (formatTok && formatTok.t === 'str' && /%\d{3,}[sdicf]/i.test(formatTok.v)) {
+            throw new SQLValidationError('Excessive printf format width is not allowed.');
+          }
+        }
+
+        // Check group_concat with dynamic column identifier separator
+        if (fnName === 'group_concat') {
+          let depth = 1;
+          let commaIdx = -1;
+          for (let j = i + 2; j < tokens.length; j++) {
+            if (tokens[j].v === '(') depth++;
+            if (tokens[j].v === ')') { depth--; if (depth === 0) break; }
+            if (tokens[j].v === ',' && depth === 1) commaIdx = j;
+          }
+          if (commaIdx > 0) {
+            const secondArg = tokens[commaIdx + 1];
+            if (secondArg && (secondArg.t === 'word' || secondArg.t === 'qid')) {
+              throw new SQLValidationError('Dynamic column separator in group_concat is not allowed.');
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Check deeply nested correlated subqueries in WHERE clauses
+  let selDepth = 0;
+  let maxSelDepth = 0;
+  const selStack = [];
+  tokens.forEach((t, idx) => {
+    if (t.v === '(' && t.t === 'p') {
+      const isSel = tokens[idx + 1]?.v.toLowerCase() === 'select';
+      selStack.push(isSel);
+      if (isSel) {
+        selDepth++;
+        maxSelDepth = Math.max(maxSelDepth, selDepth);
+      }
+    }
+    if (t.v === ')' && t.t === 'p') {
+      if (selStack.pop()) selDepth--;
+    }
+  });
+  if (maxSelDepth >= 2 && /\bWHERE\b[\s\S]*\bWHERE\b/i.test(sql)) {
+    throw new SQLValidationError('Nested correlated subqueries exceeding safe depth are not allowed.');
+  }
+
+  // CTE shadowing check against physical schema tables
+  const knownTables = new Set((schema?.tables || []).map(t => t.name.toLowerCase()));
+  const cteNamesList = extractCteNames(sql);
+  for (const cte of cteNamesList) {
+    if (knownTables.has(cte.toLowerCase())) {
+      throw new SQLValidationError(`CTE name "${cte}" shadows an existing physical table.`, { cte });
+    }
+  }
+
   let ast;
   try {
     ast = parser.astify(sql, { database: dialect });
@@ -173,7 +270,6 @@ function validateSql(sql, schema, datasetType = 'sqlite') {
   }
 
   // Validate table references against the ACTUAL dataset schema.
-  const knownTables = new Set(schema.tables.map(t => t.name.toLowerCase()));
   let tableList = [];
   try {
     tableList = parser.tableList(sql, { database: dialect });
