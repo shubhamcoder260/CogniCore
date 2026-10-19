@@ -20,17 +20,19 @@ async function analyzeDataQuality({ adapter, schema, semantic, datasetType, rela
   const out = { tables: [], generatedAt: new Date().toISOString() };
 
   for (const table of schema.tables) {
-    const sem = semantic?.tables?.find((t) => t.name === table.name);
+    const sem = semantic?.tables?.find((t) => t.name.toLowerCase() === table.name.toLowerCase());
     const tq = quoteIdent(table.name, dialect);
     const issues = [];
     const total = sem?.rowCount ?? table.rowCount ?? 0;
 
     // ---- per-column checks ----
     for (const col of table.columns) {
-      const scol = sem?.columns.find((c) => c.name === col.name);
+      // Case-insensitive lookup; if multiple columns match in mixed-case schemas, take the first consistently
+      const scol = sem?.columns.find((c) => c.name.toLowerCase() === col.name.toLowerCase());
+      const scolStats = scol?.stats || { nonNull: 0, distinct: 0, missing: 0 };
       const cq = quoteIdent(col.name, dialect);
       const role = scol?.role || 'unknown';
-      const missing = scol?.stats?.missing ?? 0;
+      const missing = scolStats.missing;
 
       if (missing > 0) {
         issues.push(issue('missing_values', missing / Math.max(total, 1) > 0.2 ? 'high' : 'medium', col.name, missing,
@@ -49,8 +51,8 @@ async function analyzeDataQuality({ adapter, schema, semantic, datasetType, rela
       }
 
       // duplicate identifiers
-      if (role === 'identifier' && scol.stats.nonNull > scol.stats.distinct) {
-        const dupes = scol.stats.nonNull - scol.stats.distinct;
+      if (role === 'identifier' && scolStats.nonNull > scolStats.distinct) {
+        const dupes = scolStats.nonNull - scolStats.distinct;
         issues.push(issue('duplicate_ids', 'high', col.name, dupes, `The identifier column ${col.name} contains ${dupes} duplicate value${dupes === 1 ? '' : 's'}.`));
       }
 
@@ -76,7 +78,7 @@ async function analyzeDataQuality({ adapter, schema, semantic, datasetType, rela
           if (ratio >= 0.9 && ratio < 1) {
             const bad = vals.filter((v) => !numericLike.includes(v));
             issues.push(issue('mixed_types', 'medium', col.name, bad.length, `${col.name} looks numeric but ${bad.length} value${bad.length === 1 ? '' : 's'} are not numbers.`, bad.slice(0, 5)));
-          } else if (ratio === 1 && role !== 'boolean' && scol?.stats.distinct > 2) {
+          } else if (ratio === 1 && role !== 'boolean' && scolStats.distinct > 2) {
             issues.push(issue('numbers_as_text', 'low', col.name, vals.length, `${col.name} holds only numbers but is stored as text, which can break sorting and math.`));
           }
         }
@@ -90,6 +92,7 @@ async function analyzeDataQuality({ adapter, schema, semantic, datasetType, rela
           const groups = new Map();
           for (const r of rows) {
             const key = normalizeCategory(r.v);
+            if (!key) continue; // Skip empty/placeholder-only normalized keys
             if (!groups.has(key)) groups.set(key, []);
             groups.get(key).push({ value: r.v, count: toNum(r.n) ?? 0 });
           }
@@ -103,7 +106,7 @@ async function analyzeDataQuality({ adapter, schema, semantic, datasetType, rela
       }
 
       // numeric value checks
-      if (['measure', 'monetary', 'count', 'percentage'].includes(role) && scol.stats.nonNull >= 8) {
+      if (['measure', 'monetary', 'count', 'percentage'].includes(role) && scolStats.nonNull >= 8) {
         const values = (await columnNumbers(adapter, tq, cq)).filter(Number.isFinite);
         if (values.length >= 8) {
           const negatives = values.filter((v) => v < 0).length;
@@ -135,10 +138,10 @@ async function analyzeDataQuality({ adapter, schema, semantic, datasetType, rela
     }
 
     // ---- referential integrity: child rows whose key has no parent ----
-    for (const rel of relationships.filter((r) => r.fromTable === table.name)) {
+    for (const rel of relationships.filter((r) => (r.fromTable || '').toLowerCase() === table.name.toLowerCase())) {
       try {
         const parentQ = quoteIdent(rel.toTable, dialect), childCol = quoteIdent(rel.fromColumn, dialect), parentCol = quoteIdent(rel.toColumn, dialect);
-        const r = (await adapter.executeQuery(`SELECT COUNT(*) AS n FROM ${tq} c WHERE c.${childCol} IS NOT NULL AND NOT EXISTS (SELECT 1 FROM ${parentQ} p WHERE p.${parentCol} = c.${childCol})`)).rows[0];
+        const r = (await adapter.executeQuery(`SELECT COUNT(*) AS n FROM ${tq} c WHERE c.${childCol} IS NOT NULL AND c.${childCol} != '' AND NOT EXISTS (SELECT 1 FROM ${parentQ} p WHERE p.${parentCol} = c.${childCol})`)).rows[0];
         const n = toNum(r?.n) ?? 0;
         if (n > 0) issues.push(issue('referential_integrity', 'high', rel.fromColumn, n, `${n} row${n === 1 ? '' : 's'} in ${table.name} reference a ${rel.toColumn} that does not exist in ${rel.toTable} (orphaned ${rel.fromColumn}).`));
       } catch (_) { /* best effort */ }

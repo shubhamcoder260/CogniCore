@@ -16,7 +16,10 @@ const INJECTION = [
   /(bypass|override|disable|circumvent|turn\s+off)\s+(the\s+|all\s+|any\s+)?(security|permissions?|access\s+(control|rules?)|rbac|policy|policies|validation|safety|guardrails?|restrictions?|filters?)/i,
   /pretend\s+(that\s+)?(you\s+)?(have\s+no|are\s+not|don'?t\s+have)\s+(restrictions?|rules?|limits?)/i,
   /(act|respond)\s+as\s+(if\s+)?(i\s+am|i'm|an?)\s+(the\s+)?(admin(istrator)?|root|superuser)/i,
-  /<\s*\/?\s*(system|assistant)\s*>|\[\s*(system|inst)\s*\]|###\s*system/i,
+  /<\s*\/?\s*(system|assistant|untrusted_data)\s*>|\[\s*\/?\s*(system|inst|assistant)\s*\]|###\s*(system|instruction|assistant)/i,
+  /<\|\s*(im_start|im_end|endoftext|start_header_id|end_header_id)\s*\|>/i,
+  /(^|\n)\s*(system|assistant)\s*:/i,
+  /(`{3,}|~{3,})/i,
 ];
 
 const SQLI_LIKE = [
@@ -55,4 +58,20 @@ function neutralizeInjection(text) {
   return { text: clean, removed };
 }
 
-module.exports = { screenQuestion, neutralizeInjection, INJECTION, SQLI_LIKE };
+/** Sanitize human-entered business meanings and definitions against prompt injection and control tags. */
+function sanitizeMeaning(raw) {
+  let s = String(raw || '').trim().replace(/[\r\n\t]+/g, ' ');
+  // Strip code fences and backticks
+  s = s.replace(/```[\s\S]*?```/g, '').replace(/`+/g, '').replace(/~+/g, '');
+  // Strip ChatML tags (<|im_start|>, <|im_end|>, etc.)
+  s = s.replace(/<\|\s*(im_start|im_end|endoftext|start_header_id|end_header_id)\s*\|>/gi, '');
+  // Strip HTML-like system/assistant tags
+  s = s.replace(/<\s*\/?\s*(system|assistant|untrusted_data)\s*>/gi, '');
+  // Strip bracketed instruction/system tags
+  s = s.replace(/\[\s*\/?\s*(system|inst|assistant)\s*\]/gi, '');
+  // Run through neutralizeInjection
+  const { text } = neutralizeInjection(s);
+  return text.trim().slice(0, 400);
+}
+
+module.exports = { screenQuestion, neutralizeInjection, sanitizeMeaning, INJECTION, SQLI_LIKE };

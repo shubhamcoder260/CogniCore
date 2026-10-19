@@ -9,6 +9,8 @@
  */
 const { getRegistryDb } = require('../config/registry.db');
 const { v4: uuidv4 } = require('uuid');
+const { pluralize } = require('../schema/relationship.detector');
+const { sanitizeMeaning } = require('../guardrails/input.guard');
 
 const DDL = `
   CREATE TABLE IF NOT EXISTS org_knowledge (
@@ -24,6 +26,44 @@ const DDL = `
 const getDb = () => getRegistryDb('knowledge', (d) => d.exec(DDL));
 
 const KINDS = ['glossary', 'metric', 'rule', 'fact'];
+
+/**
+ * Three-tier term matching:
+ * 1. Multi-word phrases: exact substring + pluralized last word ("active customer" matches "active customers").
+ * 2. Non-alphanumeric terms: boundary (^|[^a-zA-Z0-9]) so characters like '%' or '$' (e.g. "Gross Margin %") match.
+ * 3. Alphanumeric single words: word-boundary with optional regular plural inflection \b${term}(s|es|ies)?\b.
+ *
+ * Known limitation: Irregular English plurals (child/children, person/people, mouse/mice) are not
+ * inflected by standard suffix rules. If required, rule-type knowledge (kind === 'rule') or explicit
+ * multi-term glossary entries can be used.
+ */
+function matchesTerm(question, term) {
+  const q = String(question || '').toLowerCase();
+  const t = String(term || '').trim().toLowerCase();
+  if (!t || !q) return false;
+
+  // 1. Multi-word phrases
+  if (t.includes(' ')) {
+    if (q.includes(t)) return true;
+    const words = t.split(/\s+/);
+    const lastWord = words[words.length - 1];
+    const pluralLast = pluralize(lastWord);
+    const pluralPhrase = [...words.slice(0, -1), pluralLast].join(' ');
+    if (q.includes(pluralPhrase)) return true;
+    return false;
+  }
+
+  // 2. Terms with non-alphanumeric characters (e.g. "Gross Margin %", "$ Revenue")
+  const escaped = t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (/[^a-zA-Z0-9]/.test(t)) {
+    const pattern = new RegExp(`(^|[^a-zA-Z0-9])${escaped}($|[^a-zA-Z0-9])`, 'i');
+    return pattern.test(q);
+  }
+
+  // 3. Alphanumeric single words: word-boundary with optional plural inflection
+  const pattern = new RegExp(`\\b${escaped}(s|es|ies)?\\b`, 'i');
+  return pattern.test(q);
+}
 
 const OrgKnowledge = {
   add({ scope = '*', kind = 'glossary', term, definition, createdBy = null }) {
@@ -46,11 +86,13 @@ const OrgKnowledge = {
   renderForPrompt(datasetId, question = '') {
     const all = this.list(datasetId);
     if (!all.length) return '';
-    const q = String(question).toLowerCase();
-    const relevant = all.filter((k) => q.includes(k.term.toLowerCase()) || k.kind === 'rule');
+    const relevant = all.filter((k) => k.kind === 'rule' || matchesTerm(question, k.term));
     const chosen = (relevant.length ? relevant : all.slice(0, 8)).slice(0, 12);
-    return chosen.map((k) => `- ${k.term}: ${k.definition}`).join('\n');
+    return chosen.map((k) => {
+      const cleanDef = sanitizeMeaning(k.definition);
+      return `- ${k.term}: ${cleanDef}`;
+    }).join('\n');
   },
 };
 
-module.exports = { OrgKnowledge, KINDS };
+module.exports = { OrgKnowledge, KINDS, matchesTerm };

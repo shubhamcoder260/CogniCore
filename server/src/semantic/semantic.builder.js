@@ -1,6 +1,7 @@
 const { classifyColumn, describeColumn } = require('./semantic.classifier');
 const { quoteIdent, dialectOf, isNumericType, toNum } = require('../utils/sqlident');
 const { describeValues } = require('../analytics/descriptive');
+const logger = require('../config/logger');
 
 const MAX_CAT_VALUES = 30;
 
@@ -35,7 +36,16 @@ async function buildSemanticModel({ adapter, schema, datasetType, relationships 
         facts.min = r.min_v ?? null;
         facts.max = r.max_v ?? null;
         facts.avg = numeric ? toNum(r.avg_v) : null;
-      } catch (_) { /* column stats are best-effort */ }
+      } catch (err) {
+        logger.debug('Full column aggregation failed (falling back to simple counts)', { table: table.name, column: col.name, error: err.message });
+        try {
+          const fallback = (await adapter.executeQuery(`SELECT COUNT(*) AS total, COUNT(${cq}) AS non_null FROM ${tq}`)).rows[0] || {};
+          facts.total = toNum(fallback.total) ?? totalRows;
+          facts.nonNull = toNum(fallback.non_null) ?? 0;
+        } catch (err2) {
+          logger.debug('Fallback column counts failed', { table: table.name, column: col.name, error: err2.message });
+        }
+      }
 
       let samples = [];
       let values = [];
@@ -63,7 +73,9 @@ async function buildSemanticModel({ adapter, schema, datasetType, relationships 
       let distribution = null;
       if (numeric && ['monetary', 'measure', 'count', 'percentage'].includes(cls.role) && facts.nonNull >= 5) {
         try {
-          const vals = (await adapter.executeQuery(`SELECT ${cq} AS v FROM ${tq} WHERE ${cq} IS NOT NULL LIMIT 20000`)).rows.map((r) => toNum(r.v));
+          const vals = (await adapter.executeQuery(`SELECT ${cq} AS v FROM ${tq} WHERE ${cq} IS NOT NULL LIMIT 20000`))
+            .rows.map((r) => toNum(r.v))
+            .filter((v) => v !== null && Number.isFinite(v));
           const d = describeValues(vals);
           if (d) distribution = { sampled: vals.length < facts.nonNull ? vals.length : null, p25: d.p25, median: d.median, p75: d.p75, p90: d.p90, std: d.std, skew: d.skew, shape: d.shape, histogram: d.histogram };
         } catch (_) { /* best effort */ }

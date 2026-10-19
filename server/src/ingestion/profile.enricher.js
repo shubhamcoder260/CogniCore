@@ -33,30 +33,68 @@ async function enrichProfile({ type, datasetId, location, schema, relationships 
   return out;
 }
 
+const SEVERITY_RANK = { high: 3, medium: 2, low: 1 };
+
 /** Date columns normalized to ISO at load time are reported as quality findings, not hidden. */
 function mergeLoaderNotes(quality, loaderNotes) {
-  if (!quality || !loaderNotes) return;
+  if (!quality?.tables || !loaderNotes) return;
+
   for (const t of quality.tables) {
-    const notes = loaderNotes[t.name];
+    const notes = loaderNotes[t.name] || loaderNotes[t.name.toLowerCase()];
     if (!notes?.dateNormalization) continue;
+
     for (const [col, info] of Object.entries(notes.dateNormalization)) {
       const formats = Object.keys(info.formats || {});
+      const candidates = [];
+
       if (formats.length > 1) {
-        t.issues.push({ type: 'mixed_date_formats', severity: 'medium', column: col, count: formats.length,
-          message: `${col} mixed ${formats.length} date formats (${formats.join(', ')}); values were normalized to YYYY-MM-DD when loaded.` });
+        candidates.push({
+          type: 'mixed_date_formats',
+          severity: 'medium',
+          column: col,
+          count: formats.length,
+          message: `${col} mixed ${formats.length} date formats (${formats.join(', ')}); values were normalized to YYYY-MM-DD when loaded.`
+        });
       }
       if (info.invalidCount > 0) {
-        t.issues.push({ type: 'invalid_dates', severity: 'high', column: col, count: info.invalidCount,
-          message: `${info.invalidCount} value${info.invalidCount === 1 ? '' : 's'} in ${col} are not valid dates.`, examples: info.invalidExamples });
+        candidates.push({
+          type: 'invalid_dates',
+          severity: 'high',
+          column: col,
+          count: info.invalidCount,
+          message: `${info.invalidCount} value${info.invalidCount === 1 ? '' : 's'} in ${col} are not valid dates.`,
+          examples: info.invalidExamples || []
+        });
+      }
+
+      for (const candidate of candidates) {
+        const existing = t.issues.find((i) => i.type === candidate.type && (i.column || '').toLowerCase() === col.toLowerCase());
+        if (!existing) {
+          t.issues.push(candidate);
+        } else {
+          // Upgrade severity if candidate is higher rank
+          if ((SEVERITY_RANK[candidate.severity] || 0) > (SEVERITY_RANK[existing.severity] || 0)) {
+            existing.severity = candidate.severity;
+          }
+          // Enrich message with the loader's normalization details
+          if (candidate.type === 'mixed_date_formats' && candidate.message.includes('when loaded')) {
+            existing.message = candidate.message;
+          }
+          if (candidate.examples?.length && (!existing.examples || !existing.examples.length)) {
+            existing.examples = candidate.examples;
+          }
+        }
       }
     }
+
     const weights = { high: 12, medium: 5, low: 2 };
-    t.score = Math.max(0, 100 - t.issues.reduce((s, i) => s + weights[i.severity], 0));
+    t.score = Math.max(0, 100 - t.issues.reduce((s, i) => s + (weights[i.severity] || 0), 0));
     t.summary = `${t.issues.length} issue${t.issues.length === 1 ? '' : 's'} found.`;
   }
+
   const scores = quality.tables.map((t) => t.score);
   quality.overallScore = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 100;
   quality.issueCount = quality.tables.reduce((s, t) => s + t.issues.length, 0);
 }
 
-module.exports = { enrichProfile };
+module.exports = { enrichProfile, mergeLoaderNotes };

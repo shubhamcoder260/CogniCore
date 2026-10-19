@@ -5,21 +5,37 @@
  * injected into the SQL-generation prompt, which makes natural-language querying more reliable.
  */
 const { getRegistryDb } = require('../config/registry.db');
+const { sanitizeMeaning } = require('../guardrails/input.guard');
 
 const DDL = `CREATE TABLE IF NOT EXISTS column_meanings (
-  dataset_id TEXT NOT NULL, table_name TEXT NOT NULL, column_name TEXT NOT NULL, meaning TEXT NOT NULL,
+  dataset_id TEXT NOT NULL, table_name TEXT NOT NULL COLLATE NOCASE, column_name TEXT NOT NULL COLLATE NOCASE, meaning TEXT NOT NULL,
   updated_by TEXT, updated_at TEXT NOT NULL, PRIMARY KEY (dataset_id, table_name, column_name));`;
 const db = () => getRegistryDb('column_meanings', (d) => d.exec(DDL));
 
 const Meanings = {
   list(datasetId) { return db().prepare(`SELECT * FROM column_meanings WHERE dataset_id = ?`).all(datasetId); },
   set({ datasetId, table, column, meaning, userId = null }) {
-    const m = String(meaning || '').trim().slice(0, 400);
-    if (!m) throw new Error('A meaning is required.');
-    db().prepare(`INSERT INTO column_meanings VALUES (?,?,?,?,?,?) ON CONFLICT(dataset_id, table_name, column_name) DO UPDATE SET meaning = excluded.meaning, updated_by = excluded.updated_by, updated_at = excluded.updated_at`)
-      .run(datasetId, table, column, m, userId, new Date().toISOString());
+    const raw = String(meaning || '').trim().replace(/[\r\n\t]+/g, ' ').slice(0, 400);
+    if (!raw) throw new Error('A meaning is required.');
+    const cleanMeaning = sanitizeMeaning(raw);
+
+    // Runtime case-insensitivity: reuse stored casing if it already exists to prevent duplicate rows
+    const existing = db().prepare(
+      `SELECT table_name, column_name FROM column_meanings WHERE dataset_id = ? AND LOWER(table_name) = LOWER(?) AND LOWER(column_name) = LOWER(?)`
+    ).get(datasetId, table, column);
+
+    const targetTable = existing ? existing.table_name : table;
+    const targetCol = existing ? existing.column_name : column;
+
+    db().prepare(
+      `INSERT INTO column_meanings VALUES (?,?,?,?,?,?) ON CONFLICT(dataset_id, table_name, column_name) DO UPDATE SET meaning = excluded.meaning, updated_by = excluded.updated_by, updated_at = excluded.updated_at`
+    ).run(datasetId, targetTable, targetCol, cleanMeaning, userId, new Date().toISOString());
   },
-  remove(datasetId, table, column) { db().prepare(`DELETE FROM column_meanings WHERE dataset_id = ? AND table_name = ? AND column_name = ?`).run(datasetId, table, column); },
+  remove(datasetId, table, column) {
+    db().prepare(
+      `DELETE FROM column_meanings WHERE dataset_id = ? AND LOWER(table_name) = LOWER(?) AND LOWER(column_name) = LOWER(?)`
+    ).run(datasetId, table, column);
+  },
 };
 
 /** Returns a copy of the semantic model whose column descriptions use the human meanings where present. */

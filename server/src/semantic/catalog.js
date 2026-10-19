@@ -20,20 +20,36 @@ function buildCatalog({ dataset, policy = null }) {
   const semantic = dataset.profile?.semantic;
   const owner = dataset.owner_id ? AuthRegistry.getUserById(dataset.owner_id) : null;
   const meanings = new Map(Meanings.list(dataset.dataset_id).map((m) => [`${m.table_name}.${m.column_name}`.toLowerCase(), m]));
-  const relationships = dataset.profile?.relationships || semantic?.relationships || [];
+  const allRelationships = dataset.profile?.relationships || semantic?.relationships || [];
+
+  // Filter root relationships: remove any relationship exposing a denied column
+  const safeRelationships = allRelationships.filter((r) => {
+    if (isColumnDenied(policy, r.fromTable, r.fromColumn)) return false;
+    if (isColumnDenied(policy, r.toTable, r.toColumn)) return false;
+    return true;
+  });
+
   const entities = (semantic?.tables || []).map((t) => {
     const attrs = t.columns.filter((c) => !isColumnDenied(policy, t.name, c.name)).map((c) => {
       const m = meanings.get(`${t.name}.${c.name}`.toLowerCase());
       return {
         name: c.name, role: c.role, sql_type: c.sqlType, pii: c.pii || null,
+        primary_key: c.primaryKey || false,
         auto_description: c.description?.replace(/^[^:]+:\s*/, '').split(';')[0] || c.role,
         business_meaning: m?.meaning || null, meaning_by: m?.updated_by || null,
         distinct: c.stats?.distinct, missing: c.stats?.missing, min: c.stats?.min ?? null, max: c.stats?.max ?? null,
         values: c.role === 'categorical' ? (c.values || []).slice(0, 8).map((v) => v.value) : undefined,
       };
     });
-    const key = t.columns.find((c) => c.role === 'identifier');
-    return { entity: t.name, rows: t.rowCount, key: key?.name || null, attributes: attrs, relationships: relationships.filter((r) => r.fromTable === t.name || r.toTable === t.name) };
+    // Pick identifier from permitted attributes (cannot leak denied PKs)
+    const key = attrs.find((c) => c.role === 'identifier') || attrs.find((c) => c.primary_key);
+    return {
+      entity: t.name,
+      rows: t.rowCount,
+      key: key?.name || null,
+      attributes: attrs,
+      relationships: safeRelationships.filter((r) => (r.fromTable || '').toLowerCase() === t.name.toLowerCase() || (r.toTable || '').toLowerCase() === t.name.toLowerCase())
+    };
   });
   const documentInfo = !semantic ? { sections: dataset.profile?.sections || [], pages: dataset.profile?.pageCount ?? null } : null;
   return {
@@ -46,7 +62,9 @@ function buildCatalog({ dataset, policy = null }) {
       tables: entities.length, total_rows: entities.reduce((s, e) => s + (e.rows || 0), 0),
       annotated_attributes: [...meanings.keys()].length,
     },
-    entities, relationships, document: documentInfo,
+    entities,
+    relationships: safeRelationships,
+    document: documentInfo,
   };
 }
 

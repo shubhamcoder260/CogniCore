@@ -196,6 +196,8 @@ function detectRelationships(schema) {
 module.exports = {
   detectRelationships,
   extractIdStem,
+  pluralize,
+  singularize,
   ROLE_SELF_REF_STEMS,
   AUDIT_USER_STEMS,
   USER_TABLE_CANDIDATES,

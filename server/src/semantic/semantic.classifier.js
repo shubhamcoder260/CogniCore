@@ -30,12 +30,19 @@ function classifyColumn({ name, sqlType = '', primaryKey = false, totalRows = 0,
       return finish('temporal', { dateFormat, pii });
     }
   }
-  if (numeric && L.DATE_NAME.test(lname) && min !== null && Number.isFinite(Number(min)) && Number(min) >= 1900 && Number(max) <= 2200 && /year/.test(lname)) {
+  if (numeric && L.DATE_NAME.test(lname) && /year/i.test(lname) &&
+      min !== null && max !== null &&
+      Number.isFinite(Number(min)) && Number.isFinite(Number(max)) &&
+      Number(min) >= 1800 && Number(max) <= 2200 &&
+      Number(min) <= Number(max)) {
     return finish('temporal', { dateFormat: 'YYYY', pii });
   }
 
   // Identifier / reference
   if (primaryKey) return finish('identifier', { pii });
+  if (totalRows === 0 && (primaryKey || lname === 'id' || lname === 'uuid' || /^(id|_id|uuid)$/i.test(lname))) {
+    return finish('identifier', { pii });
+  }
   if (L.ID_NAME.test(lname)) {
     return finish(uniqRatio >= 0.9 ? 'identifier' : 'reference', { pii });
   }
@@ -44,6 +51,7 @@ function classifyColumn({ name, sqlType = '', primaryKey = false, totalRows = 0,
   }
 
   // Boolean
+  if (/^BOOL(EAN)?$/i.test(sqlType)) return finish('boolean', { pii });
   if (distinct > 0 && distinct <= 2 && strSamples.length) {
     const vals = new Set(strSamples.map((s) => s.toLowerCase()));
     const allBool = [...vals].every((v) => L.BOOL_TRUE.has(v) || L.BOOL_FALSE.has(v));
@@ -103,7 +111,7 @@ const ROLE_TEXT = {
 function describeColumn(col) {
   const parts = [`${col.name}: ${ROLE_TEXT[col.role] || col.role}`];
   if (col.role === 'temporal' && col.stats?.min) parts.push(`range ${col.stats.min} to ${col.stats.max}`);
-  if (['measure', 'monetary', 'count', 'percentage'].includes(col.role) && col.stats?.min !== null && col.stats?.min !== undefined) {
+  if (['measure', 'monetary', 'count', 'percentage'].includes(col.role) && col.stats?.min !== null && col.stats?.min !== undefined && col.stats?.max !== null && col.stats?.max !== undefined) {
     parts.push(`range ${fmt(col.stats.min)}–${fmt(col.stats.max)}${col.stats.avg !== null && col.stats.avg !== undefined ? `, avg ${fmt(col.stats.avg)}` : ''}`);
   }
   if (col.role === 'categorical' && col.values?.length) {
@@ -111,6 +119,6 @@ function describeColumn(col) {
   }
   return parts.join('; ');
 }
-const fmt = (n) => (Number.isFinite(Number(n)) ? +Number(n).toFixed(2) : n);
+const fmt = (n) => (n === null || n === undefined || n === '' ? null : (Number.isFinite(Number(n)) ? +Number(n).toFixed(2) : n));
 
 module.exports = { classifyColumn, describeColumn, ROLE_TEXT };

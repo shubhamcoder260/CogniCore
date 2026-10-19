@@ -21,6 +21,11 @@ const PII_PATTERNS = [
   { kind: 'national_id', re: /^\d{3}-\d{2}-\d{4}$|^\d{4}\s\d{4}\s\d{4}$/ },
   { kind: 'card_number', re: /^(?:\d[ -]?){13,19}$/ },
 ];
-const PII_NAME = { email: /e-?mail/i, phone: /(phone|mobile|contact_?no|tel)/i, national_id: /(ssn|aadhaar|aadhar|passport|national_?id|pan_?no)/i, card_number: /(card_?(no|number)|iban|account_?(no|number))/i };
+const PII_NAME = {
+  email: /(^|_)(e-?mail)(_|$)/i,
+  phone: /(^|_)(phone|mobile|contact_?no|telephone|tel)(_|$)/i,
+  national_id: /(^|_)(ssn|aadhaar|aadhar|passport|national_?id|pan_?no)(_|$)/i,
+  card_number: /(^|_)(card_?(no|number)|iban|account_?(no|number))(_|$)/i,
+};
 
 module.exports = { MONEY, PERCENT, COUNTISH, ID_NAME, DATE_NAME, NAME_LIKE, BOOL_TRUE, BOOL_FALSE, PII_PATTERNS, PII_NAME };
