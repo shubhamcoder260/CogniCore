@@ -299,7 +299,13 @@ function validateSql(sql, schema, datasetType = 'sqlite') {
   }
 
   if (tablesUsed.length === 0) {
-    throw new SQLValidationError('Query does not reference any known table.');
+    const hasAllowedTableValuedFunction = tokens.some((t, i) => {
+      const prev = tokens[i - 1]?.v?.toLowerCase();
+      return (prev === 'from' || prev === 'join') && ALLOWED_TABLE_VALUED_FUNCTIONS.has(t.v.toLowerCase());
+    });
+    if (!hasAllowedTableValuedFunction) {
+      throw new SQLValidationError('Query does not reference any known table.');
+    }
   }
 
   // Validate column references against the dataset schema (fail-open + shadow mode telemetry)
