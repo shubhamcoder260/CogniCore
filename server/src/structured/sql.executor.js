@@ -1,5 +1,71 @@
 const config = require('../config/env');
 const { tokenize } = require('./sql.analyzer');
+const { Worker } = require('node:worker_threads');
+const path = require('node:path');
+
+function executeSqliteInWorker(dbPath, sql, params, timeoutMs, onTimeout) {
+  return new Promise((resolve, reject) => {
+    const workerScript = path.resolve(__dirname, 'sqlite.worker.js');
+    let worker;
+    let timer = null;
+    let finished = false;
+
+    try {
+      worker = new Worker(workerScript, {
+        workerData: { dbPath, sql, params: params || [] },
+      });
+    } catch (err) {
+      return reject(err);
+    }
+
+    const cleanup = () => {
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+    };
+
+    timer = setTimeout(async () => {
+      if (finished) return;
+      finished = true;
+      if (typeof onTimeout === 'function') onTimeout();
+      try {
+        await worker.terminate();
+      } catch (_) {}
+      reject(new Error(`Query execution timed out after ${timeoutMs}ms`));
+    }, timeoutMs);
+    if (timer.unref) timer.unref();
+
+    worker.on('message', (msg) => {
+      if (finished) return;
+      finished = true;
+      cleanup();
+      if (msg.success) {
+        resolve({ columns: msg.columns, rows: msg.rows });
+      } else {
+        const err = new Error(msg.error);
+        if (msg.code) err.code = msg.code;
+        reject(err);
+      }
+    });
+
+    worker.on('error', (err) => {
+      if (finished) return;
+      finished = true;
+      cleanup();
+      reject(err);
+    });
+
+    worker.on('exit', (code) => {
+      if (finished) return;
+      finished = true;
+      cleanup();
+      if (code !== 0) {
+        reject(new Error(`SQLite worker stopped with exit code ${code}`));
+      }
+    });
+  });
+}
 
 /**
  * SQL EXECUTOR
@@ -54,10 +120,20 @@ async function executeValidatedQuery(adapter, sql, { maxRows = config.query.maxR
       });
 
       result = await Promise.race([queryPromise, timeoutPromise]);
+    } else if (
+      adapter.location &&
+      typeof adapter.location === 'string' &&
+      (adapter.constructor?.name === 'SQLiteAdapter' ||
+        adapter.db ||
+        adapter.datasetType === 'sqlite' ||
+        adapter.options?.datasetType === 'sqlite')
+    ) {
+      // SQLite: execute in worker thread and terminate it on timeout (unblocking main event loop)
+      result = await executeSqliteInWorker(adapter.location, cappedSql, [], timeoutMs, () => {
+        timedOut = true;
+      });
     } else {
-      // Postgres / SQLite: standard query promise with timeout
-      // NOTE ON SQLITE: better-sqlite3 is synchronous on the main thread and cannot be interrupted by setTimeout.
-      // Runaway query protection for SQLite is provided pre-execution by the complexity gate (Domain 2.3).
+      // Postgres or in-memory fallback
       const queryPromise = adapter.executeQuery(cappedSql);
       const timeoutPromise = new Promise((_, reject) => {
         const timer = setTimeout(() => {

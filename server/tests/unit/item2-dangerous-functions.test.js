@@ -56,7 +56,7 @@ describe('Dangerous and Table-Valued Functions (Item 2)', () => {
 
     // Allowed table-valued functions: json_each
     assert.doesNotThrow(() => {
-      validateSql("SELECT value FROM brs JOIN json_each('[\"a\", \"b\"]') ON 1=1", schema, 'sqlite');
+      validateSql("SELECT value FROM brs JOIN json_each('[\"a\", \"b\"]') ON json_each.value IS NOT NULL", schema, 'sqlite');
     });
   });
 

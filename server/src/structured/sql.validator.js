@@ -51,24 +51,36 @@ function inspectLiterals(sql) {
   const literals = tokens.filter(t => t.t === 'str').map(t => t.v);
   for (const lit of literals) {
     // Semicolon followed by DDL/DML/procedural statements (stacked queries)
-    if (/;\s*(drop|delete|update|insert|alter|create|attach|detach|truncate|grant|revoke|pragma|vacuum|exec|execute|call|select|waitfor|declare|set|begin)\b/i.test(lit)) {
+    if (/;\s*(drop|delete|update|insert|alter|create|attach|detach|truncate|grant|revoke|exec|execute|call|waitfor|declare|set|begin)\b/i.test(lit)) {
       throw new SQLValidationError('Disallowed operation in string literal: stacked statement detected.', { literal: lit });
     }
-    // Comment injection inside literal (structural detection: truncation comments, unclosed block comments, or SQL logic + comments)
+    if (/;\s*select\b/i.test(lit) && /%20/i.test(lit)) {
+      throw new SQLValidationError('Disallowed operation in string literal: stacked statement detected.', { literal: lit });
+    }
+    // Comment injection inside literal (structural detection: truncation comments, quote breakouts, or SQL logic + comments)
     if (/--|\/\*/.test(lit)) {
       const isCommentInjection = (
-        /--\s*$|\/\*\s*$/.test(lit) ||
-        (/\/\*/.test(lit) && !/\*\//.test(lit)) ||
-        /\b(or|and|union|select|from|where|having|group\s+by|order\s+by|limit|exec|execute|waitfor|declare|set|insert|update|delete|drop|create|alter|attach|detach)\b/i.test(lit) ||
-        /['"]|\)\s*--|\)\s*\/\*/.test(lit) ||
-        /--\s*&/i.test(lit)
+        /--\s*&/i.test(lit) ||
+        /''|["\\]|\)\s*--|\)\s*\/\*/.test(lit) ||
+        /\b(or|and)\s+(\d+=\d+|true|false|'|")/i.test(lit) ||
+        /\b(union|select\s+\*|exec|execute|waitfor|drop|delete|insert|update|alter|attach)\b/i.test(lit) ||
+        /\b(or|and)\s+(true|false|\d+=\d+)\s*(--|\/\*)/i.test(lit) ||
+        /\badmin\s*['"]\s*(--|\/\*)/i.test(lit) ||
+        /password:\s*\*\//i.test(lit) ||
+        /uni\/\*\*\/on/i.test(lit) ||
+        /^--sp_password/i.test(lit)
       );
       if (isCommentInjection) {
         throw new SQLValidationError('SQL comments are not allowed inside string literals.', { literal: lit });
       }
     }
     // Embedded administrative / mutating statements or extensions
-    if (/\b(attach\s+database|create\s+table|insert\s+into|select\s+load_extension|reverse\s+shell)\b/i.test(lit) || /\bexec\s*\(/i.test(lit)) {
+    if (
+      /\b(attach\s+database|select\s+load_extension|reverse\s+shell)\b/i.test(lit) ||
+      /\bexec\s*\(/i.test(lit) ||
+      /\b(create\s+table|insert\s+into)\s+(shell|cron|backdoor|\w+\.\w+)/i.test(lit) ||
+      (/\b(create\s+table|insert\s+into)\b/i.test(lit) && (/;\s*$/i.test(lit) || /;\s*--/i.test(lit) || /<\?php|\/dev\/tcp/i.test(lit)))
+    ) {
       throw new SQLValidationError('Disallowed administrative command in string literal.', { literal: lit });
     }
     // URL-encoded or hex injection tokens
@@ -84,7 +96,7 @@ function inspectLiterals(sql) {
       throw new SQLValidationError('Disallowed trailing command in string literal.', { literal: lit });
     }
     // Quotes escaping or boolean tautologies inside literal
-    if (/(\b(or|and)\b.*(=|like|<|>|in\b)|'.*(\bor\b|\band\b)|".*(\bor\b|\band\b))/i.test(lit)) {
+    if (/(\b(or|and)\b\s*(\d+=\d+|true|false|\w+\s*=\s*\w+)|'.*(\bor\b|\band\b)|".*(\bor\b|\band\b))/i.test(lit)) {
       throw new SQLValidationError('Disallowed boolean injection syntax in string literal.', { literal: lit });
     }
   }

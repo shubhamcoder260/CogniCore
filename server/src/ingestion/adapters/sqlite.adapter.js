@@ -6,10 +6,20 @@ const config = require('../../config/env');
 const SYSTEM_TABLES = new Set(['sqlite_sequence', 'sqlite_stat1', 'sqlite_stat4']);
 
 class SQLiteAdapter extends DataSourceAdapter {
-  async connect() {
-    this.db = new Database(this.location, { readonly: false, fileMustExist: true });
-    this.db.pragma('journal_mode = WAL');
+  async connect(options = {}) {
+    const isWrite = Boolean(options.write || this.options?.write);
+    if (isWrite) {
+      this.db = new Database(this.location, { readonly: false, fileMustExist: true });
+      this.db.pragma('journal_mode = WAL');
+    } else {
+      this.db = new Database(this.location, { readonly: true, fileMustExist: true });
+      this.db.pragma('query_only = ON');
+    }
     return this;
+  }
+
+  async connectWrite() {
+    return this.connect({ write: true });
   }
 
   async disconnect() {
@@ -97,6 +107,10 @@ class SQLiteAdapter extends DataSourceAdapter {
 
   async executeQuery(sql, params = []) {
     const stmt = this.db.prepare(sql);
+    if (!stmt.reader) {
+      const info = params.length ? stmt.run(...params) : stmt.run();
+      return { columns: [], rows: [], changes: info.changes };
+    }
     const rows = params.length ? stmt.all(...params) : stmt.all();
     return { columns: rows.length ? Object.keys(rows[0]) : [], rows };
   }

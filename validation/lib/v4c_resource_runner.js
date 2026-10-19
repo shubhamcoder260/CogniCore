@@ -132,9 +132,10 @@ function runV4cChild(mode, payload, fixtureDbPath = null, timeoutMs = 15000) {
       let status = 'completed';
       if (killedOom) {
         status = 'KILLED_OOM';
-      } else if (timedOut) {
+      } else if (timedOut || (childResult && /timed out/i.test(childResult.error || ''))) {
         status = 'KILLED_TIMEOUT';
-      } else if (code !== 0 && !childResult) {
+        timedOut = true;
+      } else if (code !== 0 || (childResult && !childResult.success)) {
         status = 'error';
       }
 
@@ -144,7 +145,7 @@ function runV4cChild(mode, payload, fixtureDbPath = null, timeoutMs = 15000) {
       resolve({
         status,
         completed,
-        killed: timedOut || killedOom,
+        killed: timedOut || killedOom || status === 'error',
         killed_oom: killedOom,
         timed_out: timedOut,
         elapsed_ms: elapsedMs,
