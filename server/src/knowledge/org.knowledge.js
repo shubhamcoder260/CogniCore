@@ -80,6 +80,9 @@ const OrgKnowledge = {
       : getDb().prepare(`SELECT * FROM org_knowledge ORDER BY created_at`).all();
     return rows;
   },
+  get(id) {
+    return getDb().prepare(`SELECT * FROM org_knowledge WHERE id = ?`).get(id) || null;
+  },
   remove(id) { getDb().prepare(`DELETE FROM org_knowledge WHERE id = ?`).run(id); },
 
   /** Text block for prompts: entries whose term appears in the question, or all if the set is small. */
