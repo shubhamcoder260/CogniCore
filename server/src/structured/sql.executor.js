@@ -8,9 +8,20 @@ const { tokenize } = require('./sql.analyzer');
  */
 async function executeValidatedQuery(adapter, sql, { maxRows = config.query.maxRows, timeoutMs = config.query.timeoutMs } = {}) {
   let queryConnection = null;
+  let didConnect = false;
+  let timedOut = false;
+
+  const isAlreadyConnected = Boolean(
+    (adapter.db && adapter.db.open !== false) ||
+    (adapter.pool && !adapter.pool.ended && !adapter.pool._ended) ||
+    adapter.isConnected === true
+  );
 
   try {
-    await adapter.connect();
+    if (!isAlreadyConnected && typeof adapter.connect === 'function') {
+      await adapter.connect();
+      didConnect = true;
+    }
     const cappedSql = enforceLimit(sql, maxRows);
     const start = Date.now();
     let result;
@@ -29,6 +40,7 @@ async function executeValidatedQuery(adapter, sql, { maxRows = config.query.maxR
 
       const timeoutPromise = new Promise((_, reject) => {
         const timer = setTimeout(async () => {
+          timedOut = true;
           try {
             if (adapter.pool && threadId) {
               const killConn = await adapter.pool.getConnection();
@@ -49,6 +61,7 @@ async function executeValidatedQuery(adapter, sql, { maxRows = config.query.maxR
       const queryPromise = adapter.executeQuery(cappedSql);
       const timeoutPromise = new Promise((_, reject) => {
         const timer = setTimeout(() => {
+          timedOut = true;
           reject(new Error(`Query execution timed out after ${timeoutMs}ms`));
         }, timeoutMs);
         if (timer.unref) timer.unref();
@@ -70,7 +83,12 @@ async function executeValidatedQuery(adapter, sql, { maxRows = config.query.maxR
     if (queryConnection) {
       try { queryConnection.release(); } catch (_) {}
     }
-    await adapter.disconnect();
+    // Shared adapters are never closed per query (close only per-query connections or on timeout)
+    if (didConnect || timedOut) {
+      if (typeof adapter.disconnect === 'function') {
+        try { await adapter.disconnect(); } catch (_) {}
+      }
+    }
   }
 }
 

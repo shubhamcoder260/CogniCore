@@ -13,7 +13,10 @@ class SQLiteAdapter extends DataSourceAdapter {
   }
 
   async disconnect() {
-    if (this.db) this.db.close();
+    if (this.db) {
+      try { this.db.close(); } catch (_) {}
+      this.db = null;
+    }
   }
 
   async getSchema() {
