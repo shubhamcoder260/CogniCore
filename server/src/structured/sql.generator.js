@@ -23,18 +23,56 @@ function buildSchemaDescription(schema) {
 
 const DIALECT_LABEL = { sqlite: 'SQLite', postgres: 'PostgreSQL', mysql: 'MySQL' };
 
+function filterSchemaForPolicy(schema, policy) {
+  if (!policy?.deniedColumns?.length || !schema?.tables) return schema;
+  const lc = (s) => String(s || '').toLowerCase();
+  const isDenied = (table, col) => (policy.deniedColumns || []).some(d => lc(d.column) === lc(col) && (!d.table || lc(d.table) === lc(table)));
+  return {
+    ...schema,
+    tables: schema.tables.map(t => ({
+      ...t,
+      columns: (t.columns || []).filter(c => !isDenied(t.name, c.name)),
+      foreignKeys: (t.foreignKeys || []).filter(fk => !isDenied(t.name, fk.column) && !isDenied(fk.referencesTable, fk.referencesColumn)),
+    })),
+  };
+}
+
+function filterSemanticForPolicy(semantic, policy) {
+  if (!semantic?.tables || !policy?.deniedColumns?.length) return semantic;
+  const lc = (s) => String(s || '').toLowerCase();
+  const isDenied = (table, col) => (policy.deniedColumns || []).some(d => lc(d.column) === lc(col) && (!d.table || lc(d.table) === lc(table)));
+  return {
+    ...semantic,
+    tables: semantic.tables.map(t => ({
+      ...t,
+      columns: (t.columns || []).filter(c => !isDenied(t.name, c.name)),
+    })),
+  };
+}
+
+function filterRelationshipsForPolicy(relationships, policy) {
+  if (!relationships?.length || !policy?.deniedColumns?.length) return relationships;
+  const lc = (s) => String(s || '').toLowerCase();
+  const isDenied = (table, col) => (policy.deniedColumns || []).some(d => lc(d.column) === lc(col) && (!d.table || lc(d.table) === lc(table)));
+  return relationships.filter(r => !isDenied(r.fromTable, r.fromColumn) && !isDenied(r.toTable, r.toColumn));
+}
+
 function buildPrompt({
   question, schema, relationships = [], conversationContext = '', datasetType = 'sqlite', retryHint = false,
-  semantic = null, knowledgeText = '', followUp = null, recovery = null,
+  semantic = null, knowledgeText = '', followUp = null, recovery = null, policy = null,
 }) {
-  const { tables: schemaDesc, tableNames } = buildSchemaDescription(schema);
+  const effectiveSchema = filterSchemaForPolicy(schema, policy);
+  const effectiveSemantic = filterSemanticForPolicy(semantic, policy);
+  const effectiveRelationships = filterRelationshipsForPolicy(relationships, policy);
+
+  const { tables: schemaDesc, tableNames } = buildSchemaDescription(effectiveSchema);
   const dialect = dialectOf(datasetType);
   const dialectLabel = DIALECT_LABEL[dialect] || 'SQLite';
-  const relDesc = relationships.length
-    ? relationships.map(r => `${r.fromTable}.${r.fromColumn} -> ${r.toTable}.${r.toColumn}`).join('\n')
+  const relDesc = effectiveRelationships.length
+    ? effectiveRelationships.map(r => `${r.fromTable}.${r.fromColumn} -> ${r.toTable}.${r.toColumn}`).join('\n')
     : '(none detected)';
-  const semanticText = semantic ? renderSemanticPrompt(semantic) : '';
-  const joinHints = renderJoinHints(question, schema, relationships);
+  const semanticText = effectiveSemantic ? renderSemanticPrompt(effectiveSemantic) : '';
+  const joinHints = renderJoinHints(question, effectiveSchema, effectiveRelationships);
   const patternHints = selectPatternHints(question, dialect);
 
   const retryNote = retryHint
@@ -49,7 +87,7 @@ function buildPrompt({
     ? `\nPREVIOUS QUESTION: ${followUp.previousQuestion}\nPREVIOUS QUERY: ${followUp.previousSql}\n(If the new question refers to "it", "them", "that", or asks to refine/compare/filter the previous result, build on the previous query's filters and grouping.)\n`
     : '';
 
-  return `You are a SQL generation engine for ${dialectLabel}. You have NO knowledge of what domain this data represents - only use the schema given below.
+  const compiled = `You are a SQL generation engine for ${dialectLabel}. You have NO knowledge of what domain this data represents - only use the schema given below.
 
 SCHEMA:
 ${schemaDesc}
@@ -72,6 +110,8 @@ RULES:
 QUESTION: ${question}
 
 SQL:`;
+
+  return compiled.replace(/CANARY_[A-Za-z0-9_]+/gi, '');
 }
 
 async function generateSql(llmProvider, opts) {

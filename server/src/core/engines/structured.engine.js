@@ -52,7 +52,7 @@ async function runStructuredQueryInner({
 
   const gen = (extra = {}) => generateSql(llmProvider, {
     question, schema, relationships, conversationContext, datasetType: dataset.type,
-    semantic, knowledgeText, followUp, ...extra,
+    semantic, knowledgeText, followUp, policy, ...extra,
   });
 
   // 1. Generate candidate SQL (untrusted).

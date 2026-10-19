@@ -110,7 +110,7 @@ async function buildSemanticModel({ adapter, schema, datasetType, relationships 
 function renderSemanticPrompt(model, { maxTables = 12 } = {}) {
   if (!model?.tables) return '';
   return model.tables.slice(0, maxTables).map((t) => {
-    const lines = t.columns.map((c) => `  - ${c.description}${c.stats.missing ? ` (${c.stats.missing} missing)` : ''}`);
+    const lines = t.columns.map((c) => `  - ${c.description}${c.stats?.missing ? ` (${c.stats.missing} missing)` : ''}`);
     return `Table "${t.name}" (${t.rowCount} rows):\n${lines.join('\n')}`;
   }).join('\n');
 }
