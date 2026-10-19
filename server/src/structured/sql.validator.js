@@ -33,7 +33,7 @@ const BLOCKED_PATTERNS = [
 /**
  * Inspect string literals for SQL injection smuggling.
  * In Domain 2, stripLiterals was introduced to allow benign literals containing
- * keywords (e.g. WHERE action = 'DROP' or WHERE note = 'A; B' or 'branch -- north').
+ * keywords (e.g. WHERE action = 'DROP' or WHERE note = 'A; B' or text with hyphens).
  * However, stripping literals wholesale allowed attackers to smuggle stacked statements,
  * comment terminations, and administrative commands inside single-quoted strings.
  * This gate validates that string literals do not contain malicious SQL payloads.
@@ -46,10 +46,16 @@ function inspectLiterals(sql) {
     if (/;\s*(drop|delete|update|insert|alter|create|attach|detach|truncate|grant|revoke|pragma|vacuum|exec|execute|call|select|waitfor|declare|set|begin)\b/i.test(lit)) {
       throw new SQLValidationError('Disallowed operation in string literal: stacked statement detected.', { literal: lit });
     }
-    // Comment injection inside literal
+    // Comment injection inside literal (structural detection: truncation comments, unclosed block comments, or SQL logic + comments)
     if (/--|\/\*/.test(lit)) {
-      // Allow benign C2 literals
-      if (!/^\s*branch -- north\s*$/i.test(lit) && !/^\s*historic \/\* downtown \*\/ zone\s*$/i.test(lit)) {
+      const isCommentInjection = (
+        /--\s*$|\/\*\s*$/.test(lit) ||
+        (/\/\*/.test(lit) && !/\*\//.test(lit)) ||
+        /\b(or|and|union|select|from|where|having|group\s+by|order\s+by|limit|exec|execute|waitfor|declare|set|insert|update|delete|drop|create|alter|attach|detach)\b/i.test(lit) ||
+        /['"]|\)\s*--|\)\s*\/\*/.test(lit) ||
+        /--\s*&/i.test(lit)
+      );
+      if (isCommentInjection) {
         throw new SQLValidationError('SQL comments are not allowed inside string literals.', { literal: lit });
       }
     }
