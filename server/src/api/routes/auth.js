@@ -51,14 +51,38 @@ router.post('/login', asyncHandler(async (req, res) => {
     return res.status(400).json({ error: true, message: 'Email and password are required.' });
   }
 
+  const clientIp = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.ip || req.socket?.remoteAddress || '127.0.0.1';
+
+  const lock = AuthRegistry.checkLoginLock(email, clientIp);
+  if (lock.locked) {
+    const retryAfterSec = Math.max(1, Math.ceil(lock.remainingMs / 1000));
+    res.set('Retry-After', String(retryAfterSec));
+    return res.status(429).json({
+      error: true,
+      message: `Account or IP temporarily locked due to too many failed attempts. Try again in ${retryAfterSec} seconds.`,
+      retryAfter: retryAfterSec,
+    });
+  }
+
   const row = AuthRegistry.getUserByEmail(email);
   const valid = row && await verifyPassword(password, row.password_hash);
 
   if (!valid) {
-    AuthRegistry.appendAudit({ userId: row?.user_id || null, action: 'auth.login', success: false, details: { email } });
+    const lockResult = AuthRegistry.recordFailedLogin(email, clientIp);
+    AuthRegistry.appendAudit({ userId: row?.user_id || null, action: 'auth.login', success: false, details: { email, ip: clientIp, locked: lockResult.locked } });
+    if (lockResult.locked) {
+      const retryAfterSec = Math.max(1, Math.ceil(lockResult.remainingMs / 1000));
+      res.set('Retry-After', String(retryAfterSec));
+      return res.status(429).json({
+        error: true,
+        message: `Too many failed login attempts. Temporarily locked for ${retryAfterSec} seconds.`,
+        retryAfter: retryAfterSec,
+      });
+    }
     return res.status(401).json({ error: true, message: 'Invalid email or password.' });
   }
 
+  AuthRegistry.recordSuccessfulLogin(email, clientIp);
   const user = AuthRegistry.getUserById(row.user_id);
   const token = issueSession(user, req);
   AuthRegistry.appendAudit({ userId: user.user_id, action: 'auth.login', success: true });

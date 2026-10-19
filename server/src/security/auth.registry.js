@@ -187,4 +187,125 @@ AuthRegistry.revokeAllSessions = function revokeAllSessions(userId, exceptId = n
   return db.prepare(`UPDATE auth_sessions SET revoked_at = ? WHERE user_id = ? AND revoked_at IS NULL AND session_id <> ?`).run(new Date().toISOString(), userId, exceptId || '').changes;
 };
 
+// LOGIN LOCKOUT & FAILED ATTEMPT TRACKING (Item 7 / V14-02)
+db.exec(`
+  CREATE TABLE IF NOT EXISTS login_attempts (
+    identifier TEXT NOT NULL,
+    type TEXT NOT NULL,         -- 'account' | 'ip'
+    failed_count INTEGER NOT NULL DEFAULT 0,
+    first_failed_at TEXT NOT NULL,
+    last_failed_at TEXT NOT NULL,
+    locked_until TEXT,
+    PRIMARY KEY (identifier, type)
+  );
+  CREATE INDEX IF NOT EXISTS idx_login_attempts_lookup ON login_attempts(identifier, type);
+`);
+
+const MAX_FAILED_ATTEMPTS = 5;
+const ATTEMPT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes window
+const BASE_LOCK_MS = 60 * 1000;           // 1 minute base lock
+const MAX_LOCK_MS = 24 * 60 * 60 * 1000;  // 24 hours max lock
+
+AuthRegistry.checkLoginLock = function checkLoginLock(email, ip) {
+  const normEmail = email ? email.toLowerCase().trim() : null;
+  const nowMs = Date.now();
+
+  const checks = [];
+  if (normEmail) checks.push({ identifier: normEmail, type: 'account' });
+  if (ip) checks.push({ identifier: String(ip).trim(), type: 'ip' });
+
+  for (const { identifier, type } of checks) {
+    const row = db.prepare(`SELECT * FROM login_attempts WHERE identifier = ? AND type = ?`).get(identifier, type);
+    if (row && row.locked_until) {
+      const lockUntilMs = new Date(row.locked_until).getTime();
+      if (lockUntilMs > nowMs) {
+        return {
+          locked: true,
+          remainingMs: lockUntilMs - nowMs,
+          type,
+          identifier,
+        };
+      }
+    }
+  }
+
+  return { locked: false };
+};
+
+AuthRegistry.recordFailedLogin = function recordFailedLogin(email, ip) {
+  const normEmail = email ? email.toLowerCase().trim() : null;
+  const nowIso = new Date().toISOString();
+  const nowMs = Date.now();
+
+  const targets = [];
+  if (normEmail) targets.push({ identifier: normEmail, type: 'account' });
+  if (ip) targets.push({ identifier: String(ip).trim(), type: 'ip' });
+
+  let locked = false;
+  let maxRemainingMs = 0;
+  let lockReason = null;
+
+  for (const { identifier, type } of targets) {
+    const row = db.prepare(`SELECT * FROM login_attempts WHERE identifier = ? AND type = ?`).get(identifier, type);
+    let newCount = 1;
+    let firstFailedAt = nowIso;
+
+    if (row) {
+      const lastFailedMs = new Date(row.last_failed_at).getTime();
+      if (nowMs - lastFailedMs <= ATTEMPT_WINDOW_MS) {
+        newCount = row.failed_count + 1;
+        firstFailedAt = row.first_failed_at;
+      }
+    }
+
+    let lockedUntil = null;
+    if (newCount >= MAX_FAILED_ATTEMPTS) {
+      const multiplier = Math.pow(2, newCount - MAX_FAILED_ATTEMPTS);
+      const lockDurationMs = Math.min(BASE_LOCK_MS * multiplier, MAX_LOCK_MS);
+      lockedUntil = new Date(nowMs + lockDurationMs).toISOString();
+      locked = true;
+      if (lockDurationMs > maxRemainingMs) {
+        maxRemainingMs = lockDurationMs;
+        lockReason = type;
+      }
+    }
+
+    db.prepare(`
+      INSERT INTO login_attempts (identifier, type, failed_count, first_failed_at, last_failed_at, locked_until)
+      VALUES (?, ?, ?, ?, ?, ?)
+      ON CONFLICT(identifier, type) DO UPDATE SET
+        failed_count = excluded.failed_count,
+        first_failed_at = excluded.first_failed_at,
+        last_failed_at = excluded.last_failed_at,
+        locked_until = excluded.locked_until
+    `).run(identifier, type, newCount, firstFailedAt, nowIso, lockedUntil);
+  }
+
+  return {
+    locked,
+    remainingMs: maxRemainingMs,
+    reason: lockReason,
+  };
+};
+
+AuthRegistry.recordSuccessfulLogin = function recordSuccessfulLogin(email, ip) {
+  const normEmail = email ? email.toLowerCase().trim() : null;
+  if (normEmail) {
+    db.prepare(`DELETE FROM login_attempts WHERE identifier = ? AND type = 'account'`).run(normEmail);
+  }
+  if (ip) {
+    db.prepare(`DELETE FROM login_attempts WHERE identifier = ? AND type = 'ip'`).run(String(ip).trim());
+  }
+};
+
+AuthRegistry.resetLoginLocks = function resetLoginLocks(identifier = null, type = null) {
+  if (identifier && type) {
+    db.prepare(`DELETE FROM login_attempts WHERE identifier = ? AND type = ?`).run(identifier, type);
+  } else if (identifier) {
+    db.prepare(`DELETE FROM login_attempts WHERE identifier = ?`).run(identifier);
+  } else {
+    db.prepare(`DELETE FROM login_attempts`).run();
+  }
+};
+
 module.exports = { AuthRegistry, ROLES };
