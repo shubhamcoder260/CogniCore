@@ -69,6 +69,7 @@ const isKw = (t, kw) => t && t.t === 'word' && lc(t.v) === kw;
 
 /** Throws PolicyError if the SQL references a denied column (directly, via alias, or via SELECT *). */
 function assertColumnAccess(sql, schema, policy) {
+  assertNoSystemCatalogs(sql);
   if (!policy?.deniedColumns?.length) return;
   const tokens = tokenize(sql);
   const scope = buildScope(tokens, schema);
@@ -269,17 +270,81 @@ function assertColumnAccess(sql, schema, policy) {
 
 const sqlStr = (s) => `'${String(s).replace(/'/g, "''")}'`;
 
+/**
+ * Rejects access to internal SQLite system catalogs under data policy.
+ */
+function assertNoSystemCatalogs(sql) {
+  if (/\b(sqlite_master|sqlite_schema|sqlite_temp_master)\b/i.test(sql)) {
+    throw new PolicyError('Access to system catalogs is not permitted under data policy.');
+  }
+}
+
+/**
+ * Normalizes table references in the query body for tables protected by row policies.
+ * Schema qualifiers like main.t, temp.t, "main"."t", [main].[t], `main`.`t` are rewritten
+ * to unqualified `"t"` so that SQLite binds the reference to the shadow CTE rather than
+ * bypassing it via the physical database file. References to unrecognized foreign schemas
+ * on protected tables throw PolicyError.
+ */
+function normalizeTableReferences(sql, tablesWithRowPolicy) {
+  if (!tablesWithRowPolicy || !tablesWithRowPolicy.size) {
+    return sql;
+  }
+
+  const protectedNames = new Set([...tablesWithRowPolicy].map((t) => lc(typeof t === 'string' ? t : t.name)));
+
+  return sql.replace(
+    /(?:("(?:\w+)"|`(?:\w+)`|\[(?:\w+)\]|(?:\b\w+\b))\s*\.\s*)("(?:\w+)"|`(?:\w+)`|\[(?:\w+)\]|(?:\b\w+\b))/gi,
+    (match, schemaPart, tablePart) => {
+      if (!schemaPart) return match;
+
+      const rawSchema = schemaPart.replace(/["`\[\]]/g, '').toLowerCase();
+      const rawTable = tablePart.replace(/["`\[\]]/g, '').toLowerCase();
+
+      if (protectedNames.has(rawTable)) {
+        if (rawSchema === 'main' || rawSchema === 'temp') {
+          // Rewrite to unqualified quoted table name so shadow CTE applies
+          return `"${rawTable}"`;
+        } else {
+          // Reject foreign schema qualification on protected table
+          throw new PolicyError(
+            `Access to schema-qualified table "${schemaPart}.${tablePart}" is not permitted under data policy.`
+          );
+        }
+      }
+      return match;
+    }
+  );
+}
+
 /** Wraps permitted tables in filtered CTEs. Returns possibly-rewritten SQL. */
 function applyRowFilters(sql, schema, policy, datasetType) {
+  assertNoSystemCatalogs(sql);
   const filters = policy?.rowFilters || [];
   if (!filters.length) return sql;
-  const referenced = new Set(tokenize(sql).filter((t) => t.t === 'word' || t.t === 'qid').map((t) => lc(t.v)));
-  const byTable = new Map();
+
+  // Identify all tables in schema that have applicable row filters
+  const tablesWithRowPolicy = new Set();
   for (const t of schema.tables) {
     const rel = filters.filter((f) => (!f.table || lc(f.table) === lc(t.name)) && t.columns.some((c) => lc(c.name) === lc(f.column)));
-    if (rel.length && referenced.has(lc(t.name))) byTable.set(t, rel);
+    if (rel.length) {
+      tablesWithRowPolicy.add(t);
+    }
   }
-  if (!byTable.size) return sql;
+
+  // Normalize schema-qualified references in the query so shadow CTEs bind properly
+  const normalizedSql = normalizeTableReferences(sql, tablesWithRowPolicy);
+
+  const referenced = new Set(tokenize(normalizedSql).filter((t) => t.t === 'word' || t.t === 'qid').map((t) => lc(t.v)));
+  const byTable = new Map();
+  for (const t of tablesWithRowPolicy) {
+    if (referenced.has(lc(t.name))) {
+      const rel = filters.filter((f) => (!f.table || lc(f.table) === lc(t.name)) && t.columns.some((c) => lc(c.name) === lc(f.column)));
+      byTable.set(t, rel);
+    }
+  }
+
+  if (!byTable.size) return normalizedSql;
   if (datasetType === 'mysql') throw new PolicyError('Row-level restrictions are not supported on MySQL connections; access denied to protect restricted rows.');
 
   const ctes = [];
@@ -298,7 +363,7 @@ function applyRowFilters(sql, schema, policy, datasetType) {
       : `"${table.name.replace(/"/g, '""')}"`;
     ctes.push(`"${table.name.replace(/"/g, '""')}" AS (SELECT * FROM ${schemaPrefix} WHERE ${conds.join(' AND ')})`);
   }
-  const trimmed = sql.trim();
+  const trimmed = normalizedSql.trim();
   const m = trimmed.match(/^WITH\s+(RECURSIVE\s+)?/i);
   if (m) return `WITH ${m[1] || ''}${ctes.join(', ')}, ${trimmed.slice(m[0].length)}`;
   return `WITH ${ctes.join(', ')} ${trimmed}`;
