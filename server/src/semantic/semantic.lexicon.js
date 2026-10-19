@@ -19,7 +19,7 @@ const PII_PATTERNS = [
   { kind: 'email', re: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
   { kind: 'phone', re: /^\+?[\d][\d\s\-().]{7,17}\d$/ },
   { kind: 'national_id', re: /^\d{3}-\d{2}-\d{4}$|^\d{4}\s\d{4}\s\d{4}$/ },
-  { kind: 'card_number', re: /^(?:\d[ -]?){13,19}$/ },
+  { kind: 'card_number', re: /^(?:\d[ -]?){13,19}$/, luhn: true },
 ];
 const PII_NAME = {
   email: /(^|_)(e-?mail)(_|$)/i,

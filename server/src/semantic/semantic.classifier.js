@@ -1,6 +1,15 @@
 const L = require('./semantic.lexicon');
 const { parseDateLoose } = require('../utils/dates');
 const { isNumericType, isDateType } = require('../utils/sqlident');
+const { passesLuhn } = require('../guardrails/pii');
+
+function splitColumnName(name) {
+  return String(name || '')
+    .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1_$2')
+    .replace(/[-\s]+/g, '_')
+    .toLowerCase();
+}
 
 /**
  * Pure classifier: turns measured facts about one column into a semantic role.
@@ -16,7 +25,7 @@ function classifyColumn({ name, sqlType = '', primaryKey = false, totalRows = 0,
   const uniqRatio = nonNull > 0 ? distinct / nonNull : 0;
   const strSamples = samples.map((s) => (s === null || s === undefined ? '' : String(s))).filter(Boolean);
 
-  const pii = detectPii(lname, strSamples);
+  const pii = detectPii(name, strSamples);
 
   // Temporal
   if (isDateType(sqlType)) return finish('temporal', { pii });
@@ -83,11 +92,16 @@ function classifyColumn({ name, sqlType = '', primaryKey = false, totalRows = 0,
   }
 }
 
-function detectPii(lname, strSamples) {
-  for (const [kind, re] of Object.entries(L.PII_NAME)) if (re.test(lname)) return { kind };
+function detectPii(name, strSamples) {
+  const normName = splitColumnName(name);
+  for (const [kind, re] of Object.entries(L.PII_NAME)) if (re.test(normName)) return { kind };
   if (strSamples.length >= 3) {
     for (const p of L.PII_PATTERNS) {
-      const hits = strSamples.filter((s) => p.re.test(s)).length;
+      const hits = strSamples.filter((s) => {
+        if (!p.re.test(s)) return false;
+        if (p.luhn && !passesLuhn(s)) return false;
+        return true;
+      }).length;
       if (hits / strSamples.length >= 0.8) return { kind: p.kind };
     }
   }
@@ -121,4 +135,4 @@ function describeColumn(col) {
 }
 const fmt = (n) => (n === null || n === undefined || n === '' ? null : (Number.isFinite(Number(n)) ? +Number(n).toFixed(2) : n));
 
-module.exports = { classifyColumn, describeColumn, ROLE_TEXT };
+module.exports = { classifyColumn, describeColumn, splitColumnName, ROLE_TEXT };

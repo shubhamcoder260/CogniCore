@@ -7,9 +7,41 @@
  */
 const MASK_ROLES = new Set((process.env.PII_MASK_ROLES || 'viewer,employee').split(',').map((s) => s.trim()).filter(Boolean));
 
+function passesLuhn(digits) {
+  const s = String(digits ?? '').replace(/\D/g, '');
+  if (s.length < 13 || s.length > 19) return false;
+  let sum = 0;
+  let double = false;
+  for (let i = s.length - 1; i >= 0; i--) {
+    let digit = parseInt(s.charAt(i), 10);
+    if (double) {
+      digit *= 2;
+      if (digit > 9) digit -= 9;
+    }
+    sum += digit;
+    double = !double;
+  }
+  return sum % 10 === 0;
+}
+
 const PATTERNS = [
   { re: /\b[\w.+-]+@[\w-]+\.[\w.-]+\b/g, mask: (m) => m.replace(/^(.).*(@.*)$/, '$1***$2') },
-  { re: /\b(?:\d[ -]?){13,19}\b/g, mask: (m) => `**** **** **** ${m.replace(/\D/g, '').slice(-4)}` },
+  {
+    re: /\b\d(?:[ -]?\d){12,18}\b/g,
+    mask: (m) => {
+      const digits = m.replace(/\D/g, '');
+      if (digits.length < 13 || digits.length > 19) return m;
+      if (passesLuhn(digits)) {
+        return `**** **** **** ${digits.slice(-4)}`;
+      }
+      const hasCardGrouping = /[ -]/.test(m);
+      const isRecognizedCardPrefix = /^(?:4|5[1-5]|2[2-7]|3[47])/.test(digits);
+      if (hasCardGrouping || isRecognizedCardPrefix) {
+        return `**** **** **** ${digits.slice(-4)}`;
+      }
+      return m;
+    }
+  },
   { re: /\b\d{3}-\d{2}-\d{4}\b/g, mask: () => '***-**-****' },
   { re: /\b\d{4}\s\d{4}\s\d{4}\b/g, mask: (m) => `**** **** ${m.slice(-4)}` },
   { re: /(?<!\d)\+?\d[\d\s\-().]{8,16}\d(?!\d)/g, mask: (m) => { const d = m.replace(/\D/g, ''); return d.length >= 9 && d.length <= 15 ? `${'*'.repeat(d.length - 3)}${d.slice(-3)}` : m; } },
@@ -55,4 +87,4 @@ function redactEvidence(evidence, semantic, role) {
   return { evidence: walk(evidence), redacted };
 }
 
-module.exports = { maskText, redactEvidence, shouldMask, piiColumnSet };
+module.exports = { maskText, redactEvidence, shouldMask, piiColumnSet, passesLuhn };
