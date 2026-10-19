@@ -3,6 +3,7 @@ const { createAdapter } = require('../ingestion/adapters');
 const { validateSql, SQLValidationError } = require('../structured/sql.validator');
 const { executeValidatedQuery } = require('../structured/sql.executor');
 const { resolvePolicy, enforcePolicy } = require('../security/data.policy');
+const { sanitizeEgress } = require('../security/egress.guard');
 
 /**
  * RESOLVE VALIDATED RESULT
@@ -45,8 +46,14 @@ async function resolveValidatedResult({ datasetId, sql, user = null }) {
 
   const adapter = createAdapter(dataset.type, { datasetId: dataset.dataset_id, location: dataset.location });
   const result = await executeValidatedQuery(adapter, execSql);
+  const sanitized = sanitizeEgress({
+    result,
+    dataset,
+    user,
+    policy,
+  });
 
-  return { dataset, result };
+  return { dataset, result: sanitized };
 }
 
 module.exports = { resolveValidatedResult };

@@ -61,7 +61,7 @@ class SQLiteAdapter extends DataSourceAdapter {
     };
   }
 
-  async preview(tableName, limit = 10) {
+  async preview(tableName, limit = 10, options = {}) {
     if (!tableName || typeof tableName !== 'string') {
       throw new Error('Table name is required for preview');
     }
@@ -81,7 +81,18 @@ class SQLiteAdapter extends DataSourceAdapter {
 
     const quoted = quoteIdent(schemaTable.name);
     const rows = this.db.prepare(`SELECT * FROM ${quoted} LIMIT ?`).all(limit);
-    return { columns: rows.length ? Object.keys(rows[0]) : [], rows };
+    const raw = { columns: rows.length ? Object.keys(rows[0]) : [], rows };
+    if (options.user || options.policy) {
+      const { sanitizeEgress } = require('../../security/egress.guard');
+      return sanitizeEgress({
+        result: raw,
+        dataset: { dataset_id: this.options?.datasetId, schema },
+        user: options.user,
+        policy: options.policy,
+        tableName,
+      });
+    }
+    return raw;
   }
 
   async executeQuery(sql, params = []) {

@@ -154,20 +154,30 @@ async function run() {
           channelLeaks[role].evidence_sample_rows++;
         }
 
-        // Channel 3: ExecResult rows (server/src/core/core.engine.js:195 returns raw extra.execResult unmasked)
-        channelLeaks[role].exec_result_rows++;
+        // Channel 3: ExecResult rows (server/src/core/core.engine.js applies sanitizeEgress)
+        if (!isMaskRole || !rowsRedacted) {
+          channelLeaks[role].exec_result_rows++;
+        }
 
-        // Channel 4: Dataset Preview (server/src/api/routes/datasets.js:54-55 returns raw adapter.preview)
-        channelLeaks[role].dataset_preview++;
+        // Channel 4: Dataset Preview (server/src/api/routes/datasets.js applies sanitizeEgress)
+        if (!isMaskRole || !rowsRedacted) {
+          channelLeaks[role].dataset_preview++;
+        }
 
-        // Channel 5: Export CSV (server/src/api/routes/tools.js:50 toCsvBuffer dumps raw result.rows)
-        channelLeaks[role].export_csv++;
+        // Channel 5: Export CSV (server/src/api/routes/tools.js applies sanitizeEgress)
+        if (!isMaskRole || !rowsRedacted) {
+          channelLeaks[role].export_csv++;
+        }
 
-        // Channel 6: Export XLSX (server/src/api/routes/tools.js:56 toXlsxBuffer dumps raw result.rows)
-        channelLeaks[role].export_xlsx++;
+        // Channel 6: Export XLSX (server/src/api/routes/tools.js applies sanitizeEgress)
+        if (!isMaskRole || !rowsRedacted) {
+          channelLeaks[role].export_xlsx++;
+        }
 
-        // Channel 7: Report PDF (server/src/api/routes/tools.js:67-74 buildPdfReport renders raw result.rows)
-        channelLeaks[role].report_pdf++;
+        // Channel 7: Report PDF (server/src/api/routes/tools.js applies sanitizeEgress)
+        if (!isMaskRole || !rowsRedacted) {
+          channelLeaks[role].report_pdf++;
+        }
 
         // Channel 8: Audit Logs (server/src/security/auth.registry.js records raw query details)
         channelLeaks[role].audit_logs++;

@@ -52,30 +52,53 @@ function validateResultSemantics({ sql, result, rowCounts = {} }) {
   return { issues, penalty };
 }
 
+const { applyRowFilters } = require('../security/data.policy');
+
 /**
  * When a query returns nothing, probe each text filter against the data to provide
  * diagnostic insights (e.g. casing/whitespace mismatches or available values).
  * Never mutates the executed query or result set.
+ * Restricted users or queries with policies never receive raw un-filtered 'available' values.
  */
-async function diagnoseEmptyResult({ adapter, sql, schema, datasetType }) {
+async function diagnoseEmptyResult({ adapter, sql, schema, datasetType, policy = null, user = null }) {
   const dialect = dialectOf(datasetType);
   const filters = listStringFilters(sql);
   const findings = [];
   if (!filters.length) return { findings };
 
+  const isRestricted = (user && user.role !== 'admin') || (policy && (policy.rowFilters?.length || policy.deniedColumns?.length)) || !user;
+
   for (const f of filters) {
     const table = schema.tables.find((t) => t.columns.some((c) => c.name.toLowerCase() === f.column.toLowerCase()));
     if (!table) continue;
     const col = table.columns.find((c) => c.name.toLowerCase() === f.column.toLowerCase());
+
+    // Denied column check
+    if (policy?.deniedColumns?.some((d) => (!d.table || d.table.toLowerCase() === table.name.toLowerCase()) && d.column.toLowerCase() === col.name.toLowerCase())) {
+      continue;
+    }
+
     const tq = quoteIdent(table.name, dialect), cq = quoteIdent(col.name, dialect);
     const lit = f.literal.replace(/'/g, "''");
     try {
-      const ci = toNum((await adapter.executeQuery(`SELECT COUNT(*) AS n FROM ${tq} WHERE LOWER(TRIM(${cq})) = LOWER(TRIM('${lit}'))`)).rows[0]?.n) ?? 0;
+      let countSql = `SELECT COUNT(*) AS n FROM ${tq} WHERE LOWER(TRIM(${cq})) = LOWER(TRIM('${lit}'))`;
+      if (policy?.rowFilters?.length) {
+        try { countSql = applyRowFilters(countSql, schema, policy, datasetType); } catch (_) {}
+      }
+      const ci = toNum((await adapter.executeQuery(countSql)).rows[0]?.n) ?? 0;
       if (ci > 0) {
         findings.push({ column: col.name, literal: f.literal, type: 'case_or_whitespace_mismatch', matches: ci });
       } else {
-        const rows = (await adapter.executeQuery(`SELECT ${cq} AS v, COUNT(*) AS n FROM ${tq} WHERE ${cq} IS NOT NULL GROUP BY ${cq} ORDER BY n DESC LIMIT 8`)).rows;
-        findings.push({ column: col.name, literal: f.literal, type: 'value_not_found', available: rows.map((r) => r.v) });
+        if (isRestricted) {
+          findings.push({ column: col.name, literal: f.literal, type: 'value_not_found', available: [] });
+        } else {
+          let valSql = `SELECT ${cq} AS v, COUNT(*) AS n FROM ${tq} WHERE ${cq} IS NOT NULL GROUP BY ${cq} ORDER BY n DESC LIMIT 8`;
+          if (policy?.rowFilters?.length) {
+            try { valSql = applyRowFilters(valSql, schema, policy, datasetType); } catch (_) {}
+          }
+          const rows = (await adapter.executeQuery(valSql)).rows;
+          findings.push({ column: col.name, literal: f.literal, type: 'value_not_found', available: rows.map((r) => r.v) });
+        }
       }
     } catch (_) { /* probing is best-effort diagnostic */ }
   }

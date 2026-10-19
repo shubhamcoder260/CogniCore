@@ -9,6 +9,7 @@ const { resolvePolicy } = require('../security/data.policy');
 const { can } = require('../security/rbac');
 const { screenQuestion } = require('../guardrails/input.guard');
 const { redactEvidence } = require('../guardrails/pii');
+const { sanitizeEgress } = require('../security/egress.guard');
 const { checkNumericGrounding, detectContradiction, buildDeterministicAnswer } = require('../guardrails/answer.grounding');
 const { OrgKnowledge } = require('../knowledge/org.knowledge');
 const { resolveFollowUp, updateState } = require('./followup.resolver');
@@ -192,7 +193,11 @@ function finalize({ final, extra, session, question, effectiveQuestion, fu, prev
     evidence,
     lowConfidence: final.lowConfidence,
     generatedSql: extra.generatedSql,
-    execResult: extra.execResult,
+    execResult: extra.execResult ? sanitizeEgress({
+      result: extra.execResult,
+      dataset: structured[0],
+      user: actor,
+    }) : undefined,
     partial: extra.partial,
     insights, chart, suggestions,
     ...(extra.tool ? { tool: extra.tool } : {}),

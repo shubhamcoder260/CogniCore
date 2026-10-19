@@ -9,6 +9,7 @@ const config = require('../../config/env');
 const { requireAuth, requireDatasetAccess } = require('../../security/rbac');
 const { AuthRegistry } = require('../../security/auth.registry');
 const { PolicyStore } = require('../../security/data.policy');
+const { sanitizeEgress } = require('../../security/egress.guard');
 
 const MATERIALIZED_TYPES = new Set(['csv', 'xlsx', 'json']);
 const DOCUMENT_TYPES = new Set(['pdf', 'docx', 'txt']);
@@ -53,7 +54,13 @@ router.get('/:id/preview', requireDatasetAccess('read'), asyncHandler(async (req
   await adapter.connect();
   try {
     const preview = await adapter.preview(tableName, parseInt(req.query.limit || '10', 10));
-    res.json({ table: tableName, ...preview });
+    const sanitized = sanitizeEgress({
+      result: preview,
+      dataset,
+      user: req.user,
+      tableName,
+    });
+    res.json({ table: tableName, ...sanitized });
   } finally {
     await adapter.disconnect();
   }

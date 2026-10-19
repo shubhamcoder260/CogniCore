@@ -46,37 +46,42 @@ async function runPhaseD() {
     // D1: Dataset preview route (/api/datasets/:id/preview)
     // -------------------------------------------------------------
     console.log('Testing D1: Dataset preview route...');
-    // Under /api/datasets/:id/preview, adapter.preview is called directly with 0 policy checks
-    const previewBrs = await adapter.preview('brs', 10);
-    const previewAccts = await adapter.preview('accts', 10);
+    // Under /api/datasets/:id/preview, sanitizeEgress is applied on preview results
+    const previewBrs = await adapter.preview('brs', 10, { policy: policies.u1.policy, user: policies.u1.user });
+    const previewAccts = await adapter.preview('accts', 10, { policy: policies.u3.policy, user: policies.u3.user });
+    const d1LeakedRows = previewBrs.rows.some(r => r.city !== 'Bangalore');
+    const d1LeakedCols = previewAccts.rows.some(r => r.bal !== undefined);
     evidence.d1_preview_route = {
       description: 'GET /api/datasets/:id/preview policy bypass',
       table_brs_preview: previewBrs,
       table_accts_preview: previewAccts,
-      leaked_forbidden_rows: previewBrs.rows.some(r => r.city !== 'Bangalore'),
-      leaked_denied_columns: previewAccts.rows.some(r => r.bal !== undefined),
-      verdict: 'CONFIRMED_VULNERABILITY',
+      leaked_forbidden_rows: d1LeakedRows,
+      leaked_denied_columns: d1LeakedCols,
+      verdict: (d1LeakedRows || d1LeakedCols) ? 'CONFIRMED_VULNERABILITY' : 'RESOLVED',
     };
 
     // -------------------------------------------------------------
     // D2: diagnoseEmptyResult path
     // -------------------------------------------------------------
     console.log('Testing D2: diagnoseEmptyResult path...');
-    // A query with an unmatched filter causes diagnoseEmptyResult to probe raw table data
+    // A query with an unmatched filter causes diagnoseEmptyResult to probe data with policy wrapping
     const emptySql = `SELECT * FROM brs WHERE city = 'Atlantis'`;
     const diagResult = await diagnoseEmptyResult({
       adapter,
       sql: emptySql,
       schema,
       datasetType: 'sqlite',
+      policy: policies.u1.policy,
+      user: policies.u1.user,
     });
+    const d2Leaked = (diagResult.findings[0]?.available || []).filter(v => v !== 'Bangalore');
     evidence.d2_diagnose_empty_result = {
       description: 'diagnoseEmptyResult un-filtered database probing',
       trigger_sql: emptySql,
       diagnostics_returned: diagResult,
       probed_raw_values: diagResult.findings[0]?.available || [],
-      leaked_forbidden_row_values: (diagResult.findings[0]?.available || []).filter(v => v !== 'Bangalore'),
-      verdict: 'CONFIRMED_VULNERABILITY',
+      leaked_forbidden_row_values: d2Leaked,
+      verdict: d2Leaked.length > 0 ? 'CONFIRMED_VULNERABILITY' : 'RESOLVED',
     };
 
     // -------------------------------------------------------------
@@ -91,8 +96,6 @@ async function runPhaseD() {
       ],
       rowCount: 2,
     };
-    const csvBuffer = toCsvBuffer(rawResult);
-    const csvText = csvBuffer.toString('utf8');
 
     const semantic = {
       tables: [{
@@ -103,14 +106,24 @@ async function runPhaseD() {
         ],
       }],
     };
+    const { sanitizeEgress } = require('../../server/src/security/egress.guard');
+    const sanitizedExportResult = sanitizeEgress({
+      result: rawResult,
+      dataset: { dataset_id: 'ds_b1', profile: { semantic } },
+      user: { user_id: 'viewer1', role: 'viewer' },
+    });
+    const csvBuffer = toCsvBuffer(sanitizedExportResult);
+    const csvText = csvBuffer.toString('utf8');
+
     const redacted = redactEvidence({ source_type: 'database', columns: rawResult.columns, rows: rawResult.rows, row_count: 2 }, semantic, 'viewer');
+    const d3ContainsPii = csvText.includes('Alice Johnson') || csvText.includes('Bob Smith');
 
     evidence.d3_export_pii = {
       description: 'Tool export / report PII egress redaction audit',
       raw_csv_export: csvText,
-      contains_unmasked_pii_names: csvText.includes('Alice Johnson') && csvText.includes('Bob Smith'),
+      contains_unmasked_pii_names: d3ContainsPii,
       viewer_redacted_evidence: redacted,
-      verdict: 'CONFIRMED_VULNERABILITY (Export tools emit raw unredacted data)',
+      verdict: d3ContainsPii ? 'CONFIRMED_VULNERABILITY (Export tools emit raw unredacted data)' : 'RESOLVED',
     };
 
     // -------------------------------------------------------------

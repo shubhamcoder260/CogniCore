@@ -138,7 +138,7 @@ async function runStructuredQueryInner({
     const adapter = createAdapter(dataset.type, { datasetId: dataset.dataset_id, location: dataset.location });
     await adapter.connect();
     try {
-      emptyDiagnosis = await diagnoseEmptyResult({ adapter, sql: candidateSql, schema, datasetType: dataset.type });
+      emptyDiagnosis = await diagnoseEmptyResult({ adapter, sql: candidateSql, schema, datasetType: dataset.type, policy, user: actor });
     } finally { await adapter.disconnect(); }
   }
   const finalSql = prepared.sql;
