@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const DEFAULT_MODEL = 'qwen2.5-coder:7b';
+const DEFAULT_MODEL = process.env.OLLAMA_MODEL || process.env.SPIDER_MODEL || 'qwen2.5-coder:7b';
 const DEFAULT_SEED = 20261015;
 const DEFAULT_NUM_CTX = 4096;
 const OLLAMA_HOST = process.env.OLLAMA_HOST || 'http://127.0.0.1:11434';
