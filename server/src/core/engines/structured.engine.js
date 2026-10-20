@@ -41,7 +41,7 @@ async function runStructuredQuery(opts) {
 
 async function runStructuredQueryInner({
   question, dataset, llmProvider, conversationContext,
-  followUp = null, policy = null, knowledgeText = '', maxRecovery = MAX_RECOVERY_ATTEMPTS, _steps = [],
+  followUp = null, policy = null, knowledgeText = '', maxRecovery = MAX_RECOVERY_ATTEMPTS, _steps = [], user = null, actor = null,
 }) {
   const t0 = Date.now();
   const mark = (name, status, detail) => _steps.push({ name, status, detail: String(detail ?? '').slice(0, 300), ms: Date.now() - t0 });
@@ -138,7 +138,7 @@ async function runStructuredQueryInner({
     const adapter = createAdapter(dataset.type, { datasetId: dataset.dataset_id, location: dataset.location });
     await adapter.connect();
     try {
-      emptyDiagnosis = await diagnoseEmptyResult({ adapter, sql: candidateSql, schema, datasetType: dataset.type, policy, user: actor });
+      emptyDiagnosis = await diagnoseEmptyResult({ adapter, sql: candidateSql, schema, datasetType: dataset.type, policy, user: user || actor });
     } finally { await adapter.disconnect(); }
   }
   const finalSql = prepared.sql;
