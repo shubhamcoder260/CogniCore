@@ -38,17 +38,18 @@ function loadJsonl(filePath) {
 
 function loadCatalog() {
   const sampleItems = loadJsonl(path.join(process.cwd(), 'validation/data/spider/frozen_sample_300.jsonl')).map((item) => ({ ...item, split: 'test' }));
+  const sampleBItems = loadJsonl(path.join(process.cwd(), 'validation/data/spider/frozen_sample_300_B.jsonl')).map((item) => ({ ...item, split: 'test_b' }));
   const pilotItems = loadJsonl(path.join(process.cwd(), 'validation/data/spider/pilot.jsonl')).map((item) => ({ ...item, split: 'pilot' }));
   const goldChecks = new Map(loadJsonl(path.join(process.cwd(), 'validation/data/spider/gold_checks.jsonl')).map((item) => [item.id, item]));
   const goldResults = new Map(loadJsonl(path.join(process.cwd(), 'validation/data/spider/gold_results.jsonl')).map((item) => [item.id, item]));
 
   const catalog = new Map();
-  for (const item of [...sampleItems, ...pilotItems]) {
+  for (const item of [...sampleItems, ...sampleBItems, ...pilotItems]) {
     const check = goldChecks.get(item.id) || {};
     const res = goldResults.get(item.id) || {};
     catalog.set(item.id, {
       ...item,
-      hardness: check.hardness || 'medium',
+      hardness: check.hardness || item.hardness || 'medium',
       order_unique: check.order_unique || 0,
       dqs_incompatible: check.dqs_incompatible || 0,
       gold_row_count: res.row_count !== undefined ? res.row_count : null,

@@ -143,9 +143,14 @@ async function runSupervisor({
 }) {
   let targetItems = items;
   if (!targetItems) {
-    const file = split === 'pilot'
-      ? path.join(process.cwd(), 'validation/data/spider/pilot.jsonl')
-      : path.join(process.cwd(), 'validation/data/spider/frozen_sample_300.jsonl');
+    let file;
+    if (split === 'pilot') {
+      file = path.join(process.cwd(), 'validation/data/spider/pilot.jsonl');
+    } else if (split === 'sample_b' || split === 'sampleB' || split === 'B') {
+      file = path.join(process.cwd(), 'validation/data/spider/frozen_sample_300_B.jsonl');
+    } else {
+      file = path.join(process.cwd(), 'validation/data/spider/frozen_sample_300.jsonl');
+    }
     targetItems = fs.readFileSync(file, 'utf-8')
       .split('\n')
       .map((l) => l.trim())
