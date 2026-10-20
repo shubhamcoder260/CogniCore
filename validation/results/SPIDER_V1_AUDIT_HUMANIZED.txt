@@ -1,0 +1,386 @@
+CogniCore Spider V1 Benchmark: Post-Run Audit Report
+Audit Date: 2026-10-18
+Audit Scope: Independent audit of the Spider V1 main evaluation run (spider-main-v1) on Sample A (N=300). Scope covers prompt verification, layer replay, and correction of reported claims. Sample B was isolated and frozen before item analysis.
+Git Branch / Commit: validation / 29fac05 (Tagged: spider-sample-b-frozen)
+Workspace: C:\cognicore\validation_workspace
+
+1. Executive Summary and Verification Scope
+We audited the CogniCore Spider V1 benchmark evaluation using offline logs. All tables and counts in this report come from append-only evaluation records (validation/raw/spider/spider-main-v1_units.jsonl) and pre-run gold checks (validation/data/spider/gold_checks.jsonl). Prompt cache files (validation/raw/spider/llm_cache.jsonl) provided verification for model inputs. No language model was queried during the audit; every metric reflects raw disk data.
+
+Key Audit Findings
+1. Pre-Inspection Freezing of Sample B: In line with preregistered protocol, an independent hold-out sample of 300 questions (frozen_sample_300_B.jsonl) was drawn from unused positions in pool_order.json. This sample satisfied all registered eligibility constraints. Amendment SPIDER-B1 (git tag: spider-sample-b-frozen) locked the file before anyone checked individual results in Sample A. Overlap between Sample B and earlier pools (Pilot, Candidates, Sample A) was zero.
+
+2. Three-Way Performance Breakdown:
+- Baseline C0: 191 correct (63.7%), 94 wrong executions (31.3%), 15 abstentions (5.0%). Selective accuracy was 67.0% (191 / 285).
+- Governed Variant C4nr: 180 correct (60.0%), 112 wrong executions (37.3%), 8 abstentions (2.7%). Selective accuracy reached 61.6% (180 / 292).
+- Full Governed Pipeline C4: 180 correct (60.0%), 114 wrong executions (38.0%), 6 abstentions (2.0%). Selective accuracy stood at 61.2% (180 / 294).
+
+3. Primary Endpoint Outcome: McNemar's exact two-sided test on the 33 discordant pairs (11 C4 wins versus 22 C0 wins) produced p = 0.0801. That outcome corresponds to a net difference of -3.7%. A 10,000-replicate cluster bootstrap gave a 95% confidence interval of [-11.3%, +2.4%]. Because this interval spans zero, the null hypothesis stands.
+
+4. Rectification of Four Published Claims: SPIDER_V1_FINAL_REPORT.md contained four statements that conflicted with raw records:
+- Claim 1: A reported "+1 in 18 of 19 databases" gain was an arithmetic sign error (169 minus 172 equals -3).
+- Claim 2: The assertion of "zero schema hallucinations" was incorrect. C4 hallucinated non-existent columns in course_teach and student_transcripts_tracking. Similar column errors appeared in car_1 and concert_singer.
+- Claim 3: The claimed "54% fewer exceptions" conflated handled SQL execution errors with crashes. Both C0 and C4 ran with zero unhandled crashes.
+- Claim 4: The 232 ms latency reported for C4 reflected in-memory cache hits from C4nr. True uncached latency averaged 4.4 to 7.0 seconds.
+
+2. Verification of Held-Out Sample B Freezing (Part A)
+Sample B was isolated from unallocated slots in validation/data/spider/pool_order.json before any audit inspection of Sample A took place.
+
+The selection applied strict mechanical filters. Each gold query ran twice in Python SQLite read-only mode (PRAGMA query_only=ON). Questions qualified when both runs returned identical rows, produced under 1,000 rows, and omitted unordered LIMIT clauses. The presence of the database file on disk was also verified. Out of 634 candidate questions, 627 satisfied all criteria, and 7 failed. The first 300 valid items formed Sample B.
+
+Property | Specification / Value | Audit Status
+Source Permutation | validation/data/spider/pool_order.json (PREREG-A1 seed: 20261015) | Verified
+Unused Index Pool | Positions 401 through 1034 (634 remaining questions) | Verified
+Eligibility Verification | Double gold execution in SQLite read-only mode, < 1,000 rows, ordered LIMITs, database file verified | 627 eligible, 7 excluded
+Sample B Size | First 300 eligible unused questions (pool positions 401..704) | 300 questions
+Sample B File | validation/data/spider/frozen_sample_300_B.jsonl | SHA-256: D1A35A18559C06393C1A36046674E619AB0B6604428E96BFAF5DBA80940D3B09
+Manifest B File | validation/data/spider/frozen_sample_300_B_manifest.json | SHA-256: 5CE0C368DDDE958634DAD694112D89CB2AE367AA2C3316CF8F9E581F8C759CB2
+Overlap with Pilot (30) | Exactly 0 items | PASS (0 overlap)
+Overlap with Candidates (370) | Exactly 0 items | PASS (0 overlap)
+Overlap with Sample A (300) | Exactly 0 items | PASS (0 overlap)
+Model Invariance | Exactly 0 model calls performed | PASS (0 calls)
+Git Tag | spider-sample-b-frozen (Commit: 29fac05) | Verified
+
+3. Quantitative Performance Counts from Raw Logs (Part B)
+Table 1 outlines performance across the three configurations on Sample A (N = 300).
+
+Table 1: Three-Way Evaluation Outcomes & Selective Accuracy
+Configuration | Total | Correct | Wrong-Executed | Abstained (Total) | Selective Accuracy (Correct / Answered) | Raw Accuracy
+C0 (Raw Baseline) | 300 | 191 | 94 | 15 (5.0%) | 67.0% (191 / 285) | 63.7% (191 / 300)
+C4nr (Governed, No Rec.) | 300 | 180 | 112 | 8 (2.7%) | 61.6% (180 / 292) | 60.0% (180 / 300)
+C4 (Full Governed) | 300 | 180 | 114 | 6 (2.0%) | 61.2% (180 / 294) | 60.0% (180 / 300)
+
+The pipelines differed in why they abstained. C0 lost ten queries to missing column errors and two to model refusals. C4 intercepted syntax and column errors prior to execution, so abstentions fell to 6 (Table 2).
+
+Table 2: Detailed Abstained Causes Breakdown
+Specific Cause of Abstention | C0 Units | C4nr Units | C4 Units | Operational Context
+Model Abstention (NO_QUERY_POSSIBLE) | 2 | 0 | 0 | Model issued explicit refusal on an answerable question
+Validator Rejection: Parse Error | 0 | 2 | 2 | Syntax rejected by AST parser (sql.validator.js)
+Validator Rejection: Column Schema Error | 0 | 0 | 4 | Multi-turn recovery cycles ended before valid column resolution occurred
+Runtime Error: Schema Column Missing | 10 | 6 | 0 | SQLite returned missing column error on unvalidated query
+Runtime Error: Ambiguous Column Name | 2 | 0 | 0 | SQLite returned ambiguous column error
+Runtime Error: DQS Literal Failure | 0 | 0 | 0 | Double-quoted strings produced execution errors
+Supervisor Timeout (> 60s) | 0 | 0 | 0 | Zero units timed out
+Infrastructure Crash / Process Exit != 0 | 0 | 0 | Zero unhandled process crashes
+Total Abstained Units | 15 | 8 | 6 | Governance reduced abstentions from 15 to 6
+
+As mentioned earlier, the benchmark spans nineteen separate databases. Performance varied by database schema, with C4 lagging behind C0 in flight_2 by eight queries (Table 3).
+
+Table 3: Per-Database Accuracy & Net Deltas (N = 300)
+Database Schema | Questions (n) | C0 Correct (%) | C4nr Correct (%) | C4 Correct (%) | Net Delta (C4 - C0)
+world_1 | 38 | 7 (18.4%) | 10 (26.3%) | 10 (26.3%) | +3
+car_1 | 28 | 13 (46.4%) | 15 (53.6%) | 15 (53.6%) | +2
+wta_1 | 12 | 8 (66.7%) | 9 (75.0%) | 9 (75.0%) | +1
+poker_player | 11 | 10 (90.9%) | 10 (90.9%) | 10 (90.9%) | 0
+pets_1 | 10 | 8 (80.0%) | 8 (80.0%) | 8 (80.0%) | 0
+battle_death | 9 | 7 (77.8%) | 7 (77.8%) | 7 (77.8%) | 0
+singer | 8 | 7 (87.5%) | 7 (87.5%) | 7 (87.5%) | 0
+course_teach | 7 | 6 (85.7%) | 6 (85.7%) | 6 (85.7%) | 0
+voter_1 | 4 | 4 (100.0%) | 4 (100.0%) | 4 (100.0%) | 0
+museum_visit | 2 | 2 (100.0%) | 2 (100.0%) | 2 (100.0%) | 0
+cre_Doc_Template_Mgt | 19 | 11 (57.9%) | 11 (57.9%) | 11 (57.9%) | 0
+dog_kennels | 29 | 17 (58.6%) | 16 (55.2%) | 16 (55.2%) | -1
+tvshow | 25 | 15 (60.0%) | 14 (56.0%) | 14 (56.0%) | -1
+concert_singer | 14 | 13 (92.9%) | 12 (85.7%) | 12 (85.7%) | -1
+employee_hire_evaluation | 14 | 11 (78.6%) | 10 (71.4%) | 10 (71.4%) | -1
+network_1 | 13 | 9 (69.2%) | 8 (61.5%) | 8 (61.5%) | -1
+student_transcripts_tracking | 22 | 17 (77.3%) | 15 (68.2%) | 15 (68.2%) | -2
+orchestra | 8 | 7 (87.5%) | 5 (62.5%) | 5 (62.5%) | -2
+flight_2 | 27 | 19 (70.4%) | 11 (40.7%) | 11 (40.7%) | -8
+Total | 300 | 191 (63.7%) | 180 (60.0%) | 180 (60.0%) | -11 (-3.7%)
+
+Difficulty tiers showed consistent performance deficits for C4 across categories (Table 4). Easy and Medium tiers dropped by 4.6% and 3.4% respectively, while Hard questions saw a 2.0% decline.
+
+Table 4: Mechanical Hardness Stratification
+Hardness Tier | Questions (n) | C0 Correct (%) | C4nr Correct (%) | C4 Correct (%) | Delta (C4 - C0)
+Easy | 131 | 98 (74.8%) | 92 (70.2%) | 92 (70.2%) | -4.6%
+Medium | 117 | 64 (54.7%) | 60 (51.3%) | 60 (51.3%) | -3.4%
+Hard | 52 | 29 (55.8%) | 28 (53.8%) | 28 (53.8%) | -2.0%
+
+Table 5 breaks down accuracy by gold query compliance with double-quoted strings (DQS). On clean gold queries (n = 234), C0 answered 175 correctly (74.8%) and C4 answered 170 (72.6%). That test produced p = 0.3323.
+
+Table 5: DQS-Gold Sensitivity Comparison
+Population Stratum | Questions (n) | C0 Correct (%) | C4 Correct (%) | Discordant Pairs | McNemar Exact 2-Sided p | Net Delta
+Clean (DQS-Compatible) | 234 | 175 (74.8%) | 170 (72.6%) | 17 (6 C4 vs. 11 C0) | p = 0.3323 | -2.1%
+DQS-Incompatible Gold | 66 | 16 (24.2%) | 10 (15.2%) | 16 (5 C4 vs. 11 C0) | p = 0.2101 | -9.1%
+Overall Primary Sample | 300 | 191 (63.7%) | 180 (60.0%) | 33 (11 C4 vs. 22 C0) | p = 0.0801 | -3.7%
+
+Multi-turn database recovery triggered on six queries in C4 (Table 6). Two runs resolved runtime errors, but neither converted an incorrect output into a gold match.
+
+Table 6: Governed Multi-Turn Error Recovery Performance (N = 300)
+Metric | Count | Rate (%) | Operational Notes
+C4 Units with Recovery Triggered | 6 | 2.0% | Initial SQL generation triggered an SQLite runtime error
+Runtime Errors Fixed (Status: success) | 2 | 33.3% | spider-dev-940 (dog_kennels), spider-dev-532 (transcripts)
+Recovery Exhausted (Status: error) | 4 | 66.7% | Error caught after two correction attempts
+Exact Gold Matches Converted | 0 | 0.0% | Zero units converted from wrong to exact gold tuple match
+
+4. Item-Level Discordance and Normalization Logic (Part C)
+Thirty-three questions produced conflicting classifications between C0 and C4 (Table 7). Seven cases stemmed from text-normalization rewrites in C4.
+
+Table 7: Discordant Cause Categorization (33 items)
+Assigned Cause | C0 Wins (C4 Wrong) | C4 Wins (C0 Wrong) | Total | Primary Mechanism
+Value-Normalization (LOWER/TRIM) | 7 | 0 | 7 | empty_result_diagnosis modified text filters using LOWER(TRIM(...))
+Different Join or Aggregate from Prompt | 6 | 4 | 10 | The semantic profile altered join paths (car_1 win vs. concert_singer loss)
+Runtime Execution Error | 0 | 2 | 2 | C0 produced unvalidated SQL error (missing column T1.MakeId)
+Repair Changed Meaning | 2 | 0 | 2 | Deterministic repair modified column casing or grouping structures incorrectly
+Other (Filter / Projection / Subquery) | 7 | 5 | 12 | LLM sampling divergence on complex predicates
+Total Discordant Units | 22 | 11 | 33 | p = 0.0801
+
+Table 8 itemizes all discordant instances. Full SQL queries and database references reside in validation/raw/spider/audit_discordant.json.
+
+Table 8: Item-Level Discordance Audit Ledger (33 Items)
+QID | DB ID | Question Text | C0 SQL / Status | C4 SQL / Status | C0 / C4 Rows | Assigned Cause
+spider-dev-37 | concert_singer | List all singer names in concerts in year 2014. | 3-table join (singer_in_concert) / success | 2-table direct join / success | 6 / 0 | Different join from prompt
+spider-dev-96 | car_1 | What is the model of car with smallest horsepower? | Subquery using MakeId / success | Subquery using Id / success | 1 / 1 | Different join from prompt (C4 win)
+spider-dev-133 | car_1 | Which model saves the most gasoline? | ON T1.MakeId = T2.MakeId / error | ON T1.Id = T2.MakeId / success | 0 / 1 | Runtime error in C0 (C4 win)
+spider-dev-151 | car_1 | Distinct models produced by General Motors or >3500? | Incorrect maker subquery / success | Full 4-table join / success | 0 / 13 | Different join from prompt (C4 win)
+spider-dev-167 | car_1 | Maker producing cars between 1970 and 1979? | Group-by join on Maker / success | T1.Horsepower hallucinated / error | 1 / 0 | Validator rejection / recovery exhausted
+spider-dev-201 | flight_2 | Number of flights from airport AHD? | Direct filter = 'AHD' / success | LOWER(TRIM(SourceAirport)) / success | 1 / 0 | Value-normalization (LOWER/TRIM)
+spider-dev-202 | flight_2 | Number of flights to airport AHD? | Direct filter = 'AHD' / success | LOWER(TRIM(DestAirport)) / success | 1 / 0 | Value-normalization (LOWER/TRIM)
+spider-dev-234 | flight_2 | Airlines with flight from source airport AHD? | Direct filter = 'AHD' / success | LOWER(TRIM(SourceAirport)) / success | 1 / 0 | Value-normalization (LOWER/TRIM)
+spider-dev-236 | flight_2 | Airlines with flight to destination airport AHD? | Direct filter = 'AHD' / success | LOWER(TRIM(DestAirport)) / success | 1 / 0 | Value-normalization (LOWER/TRIM)
+spider-dev-238 | flight_2 | Source airports that have flights to AHD? | Direct filter = 'AHD' / success | LOWER(TRIM(DestAirport)) / success | 1 / 0 | Value-normalization (LOWER/TRIM)
+spider-dev-239 | flight_2 | Dest airports with flights from AHD? | Direct filter = 'AHD' / success | LOWER(TRIM(SourceAirport)) / success | 1 / 0 | Value-normalization (LOWER/TRIM)
+spider-dev-240 | flight_2 | Flight numbers with source airport AHD? | Direct filter = 'AHD' / success | LOWER(TRIM(SourceAirport)) / success | 1 / 0 | Value-normalization (LOWER/TRIM)
+spider-dev-246 | flight_2 | Flight numbers corresponding to United Airlines? | Joins on T1.uid = T2.Airline / success | WHERE Airline = 'United Airlines' / success | 0 / 1 | Different join from prompt (C4 win)
+spider-dev-269 | employee_hire_eval | Shop with least number of employees? | Order by count limit 1 / success | no such column: T2.Manager_name / error | 1 / 0 | Validator rejection / recovery exhausted
+spider-dev-402 | course_teach | List different course IDs of classes taught? | Distinct join on Course_ID / success | no such column: T2.Course_ID / error | 3 / 0 | Validator rejection / recovery exhausted
+spider-dev-529 | student_transcripts | Courses in spring 2003 but not fall 2003? | Except query on semester / success | no such column: semester_name / error | 2 / 0 | Validator rejection / recovery exhausted
+spider-dev-552 | student_transcripts | Date and id of transcript with at least 2 courses? | Group by transcript_id / success | Added LIMIT 1 / success | 2 / 1 | Other (Extra LIMIT clause)
+spider-dev-787 | world_1 | Official Chinese cities in Asia? | Filter IsOfficial = 'T' / success | Filter IsOfficial = 'Yes' / success | 0 / 1 | Value literal mapping (C4 win)
+spider-dev-886 | network_1 | High schooler with greatest number of friends? | Group by ID order count / success | Group by name order count / success | 1 / 1 | Other (Tie-breaking ID vs Name)
+spider-dev-940 | dog_kennels | Total charge of all treatments? | Sum on Charges.charge_amount / success | Repaired to cost_of_treatment / success | 1 / 1 | Repair changed meaning
+
+Value Normalization Analysis:
+Baseline C0 contained zero occurrences of LOWER(TRIM(...)). In contrast, C4 produced seven instances. All seven failed evaluation against Spider gold answers.
+
+Two files in the codebase inject this behavior:
+1. server/src/structured/result.checks.js (Lines 74–81, empty_result_diagnosis):
+```javascript
+const ci = toNum((await adapter.executeQuery(`SELECT COUNT(*) AS n FROM ${tq} WHERE LOWER(TRIM(${cq})) = LOWER(TRIM('${lit}'))`)).rows[0]?.n) ?? 0;
+if (ci > 0) {
+  edits.push({ s: start, e: tokens[i + 2].e, to: `LOWER(TRIM(${sql.slice(start, tk.e)})) = LOWER(TRIM('${lit}'))` });
+}
+```
+2. server/src/structured/sql.values.repair.js (Lines 27–34, repairValueLiterals).
+
+5. Governance Pipeline Layer Replay (Exploratory, Part D)
+We re-ran each cached completion through the governance layers in read-only mode. This isolated prompt alterations from deterministic text fixes and AST validation (Table 9).
+
+Table 9: Step-by-Step Governance Pipeline Layer Replay (N = 300)
+Stage / Layer | Description | Correct Predictions | Accuracy | Marginal Flips (Gains / Losses / Net)
+C0 | Raw DDL Baseline | 191 | 63.7% | Baseline
+S1 | Governed Prompt + cleanSqlOutput | 187 | 62.3% | +10 gains / -14 losses (Net: -4)
+S2 | After prepareSql (Deterministic Repairs) | 187 | 62.3% | +1 gain / -1 loss (Net: 0)
+S3 | After validateSql (AST Validation / Safety) | 186 | 62.0% | +0 gains / -1 loss (Net: -1)
+C4nr | Full Governed Pipeline Logged | 180 | 60.0% | S3 agreement: 97.3% (292 / 300)
+
+Decomposition Observations:
+1. Prompt Influence (C0 to S1): The transition from raw DDL to the governed prompt drove performance divergence. This change produced 10 gains and 14 losses (net: -4). Governed prompts added semantic descriptions alongside relationship paths.
+2. Deterministic Edits (S1 to S2): The prepareSql routine touched two items. One casing repair helped, while an alias edit hurt. Net accuracy remained unchanged.
+3. AST Validation (S2 to S3): The validateSql module rejected one executable query. It functioned as an execution filter.
+4. Reproduction of C4nr: Stage S3 matched logged C4nr output on 292 of 300 questions (97.3%). All eight mismatches occurred in flight_2. In that schema, empty_result_diagnosis altered zero-row queries so that they returned non-gold rows.
+
+6. Execution Settings and Consistency (Part E)
+Git Diffs (Commit c17b870 to Commit 620fcad):
+- validation/lib/ollama_wrapper.js: Added eval_duration_ns and prompt_eval_duration_ns to cache entries. Total duration in nanoseconds (total_duration_ns) was also recorded. This change preserved runtime timing without altering model output.
+- validation/analysis_spider.js: Added automated calculations for dqsSensitivity and hardnessResults. Subgroup calculations for dbResults were also introduced.
+
+Parameter Compliance:
+Logs in validation/raw/spider/llm_cache.jsonl verified uniform parameters across all units:
+- Model: qwen2.5-coder:7b (digest prefix: dae161e27b0e).
+- Temperature: 0 on C0 baseline calls, 0.1 on governed initial calls, and 0.2 on recovery attempts.
+- Random Seed: 20261015.
+- Context Window: 4096 tokens.
+- Token Output Limit: 500 tokens.
+- Cache Segregation: Zero prompt-hash overlap existed between the 63 pilot calls and the 611 main run calls.
+
+7. Prompt Structure Verification (Part F)
+Question spider-dev-927 ("Find the first names that are used for professionals or owners but are not used as dog names.", database: dog_kennels) illustrates prompt construction across pipelines.
+
+C0 Prompt (Raw DDL Baseline)
+You are a SQL generation engine for SQLite. You have NO knowledge of what domain this data represents - only use the schema given below.
+
+SCHEMA:
+CREATE TABLE `Breeds` (
+`breed_code` VARCHAR(10) PRIMARY KEY ,
+`breed_name` VARCHAR(80)
+);
+
+CREATE TABLE `Charges` (
+`charge_id` INTEGER PRIMARY KEY ,
+`charge_type` VARCHAR(10),
+`charge_amount` DECIMAL(19,4)
+);
+
+CREATE TABLE `Sizes` (
+`size_code` VARCHAR(10) PRIMARY KEY ,
+`size_description` VARCHAR(80)
+);
+
+CREATE TABLE `Treatment_Types` (
+`treatment_type_code` VARCHAR(10) PRIMARY KEY ,
+`treatment_type_description` VARCHAR(80)
+);
+
+CREATE TABLE `Owners` (
+`owner_id` INTEGER PRIMARY KEY ,
+`first_name` VARCHAR(50),
+`last_name` VARCHAR(50),
+`street` VARCHAR(50),
+`city` VARCHAR(50),
+`state` VARCHAR(20),
+`zip_code` VARCHAR(20),
+`email_address` VARCHAR(50),
+`home_phone` VARCHAR(20),
+`cell_number` VARCHAR(20)
+);
+
+CREATE TABLE `Dogs` (
+`dog_id` INTEGER PRIMARY KEY ,
+`owner_id` INTEGER NOT NULL,
+`abandoned_yn` VARCHAR(1),
+`breed_code` VARCHAR(10) NOT NULL,
+`size_code` VARCHAR(10) NOT NULL,
+`name` VARCHAR(50),
+`age` VARCHAR(20),
+`date_of_birth` DATETIME,
+`gender` VARCHAR(1),
+`weight` VARCHAR(20),
+`date_arrived` DATETIME,
+`date_adopted` DATETIME,
+`date_departed` DATETIME,
+FOREIGN KEY (`breed_code` ) REFERENCES `Breeds`(`breed_code` ),
+FOREIGN KEY (`size_code` ) REFERENCES `Sizes`(`size_code` ),
+FOREIGN KEY (`owner_id` ) REFERENCES `Owners`(`owner_id` ),
+FOREIGN KEY (`owner_id` ) REFERENCES `Owners`(`owner_id` )
+);
+
+CREATE TABLE `Professionals` (
+`professional_id` INTEGER PRIMARY KEY ,
+`role_code` VARCHAR(10) NOT NULL,
+`first_name` VARCHAR(50),
+`street` VARCHAR(50),
+`city` VARCHAR(50),
+`state` VARCHAR(20),
+`zip_code` VARCHAR(20),
+`last_name` VARCHAR(50),
+`email_address` VARCHAR(50),
+`home_phone` VARCHAR(20),
+`cell_number` VARCHAR(20)
+);
+
+CREATE TABLE `Treatments` (
+`treatment_id` INTEGER PRIMARY KEY ,
+`dog_id` INTEGER NOT NULL,
+`professional_id` INTEGER NOT NULL,
+`treatment_type_code` VARCHAR(10) NOT NULL,
+`date_of_treatment` DATETIME,
+`cost_of_treatment` DECIMAL(19,4),
+FOREIGN KEY (`treatment_type_code` ) REFERENCES `Treatment_Types`(`treatment_type_code` ),
+FOREIGN KEY (`professional_id` ) REFERENCES `Professionals`(`professional_id` ),
+FOREIGN KEY (`dog_id` ) REFERENCES `Dogs`(`dog_id` )
+)
+
+RULES:
+- Output ONLY a single valid SQLite SELECT statement. No explanation, no markdown, no code fences.
+- Only SELECT statements are allowed (a leading WITH ... SELECT is fine). Never write DROP, DELETE, UPDATE, INSERT, ALTER, CREATE, ATTACH, or PRAGMA.
+- Use the table and column names exactly as shown in the schema above.
+- Filter text columns using the exact spellings listed under possible values.
+- When dividing counts or sums to compute a rate/percentage, the result should be a decimal, not an integer - write it in a way that avoids integer truncation (multiply by 100.0 first).
+- Do not use semicolons or comments.
+- If the question genuinely cannot be answered with the given schema (e.g. it asks about data that isn't present at all), output exactly: NO_QUERY_POSSIBLE
+- Simple questions (counts, averages, sums, filters, sorting, filtering on multiple values) almost always CAN be answered directly against the schema above - attempt a query rather than giving up.
+
+QUESTION: Find the first names that are used for professionals or owners but are not used as dog names.
+
+SQL:
+
+Governed Prompt (Excerpts Showing Added Semantic and Relationship Blocks)
+You are a SQL generation engine for SQLite. You have NO knowledge of what domain this data represents - only use the schema given below.
+
+SCHEMA:
+Table "Breeds" [3 rows]: breed_code (VARCHAR(10), PK), breed_name (VARCHAR(80))
+Table "Charges" [3 rows]: charge_id (INTEGER, PK), charge_type (VARCHAR(10)), charge_amount (DECIMAL(19,4))
+...
+Table "Dogs" [15 rows]: dog_id (INTEGER, PK), owner_id (INTEGER), abandoned_yn (VARCHAR(1)), breed_code (VARCHAR(10)), size_code (VARCHAR(10)), name (VARCHAR(50)), ...
+  Relationships: breed_code -> Breeds.breed_code; size_code -> Sizes.size_code; owner_id -> Owners.owner_id; owner_id -> Owners.owner_id
+...
+
+Valid table name(s), exactly as spelled above: "Breeds", "Charges", "Sizes", "Treatment_Types", "Owners", "Dogs", "Professionals", "Treatments"
+
+SEMANTIC MODEL (what each column means, with real values found in the data - use these exact spellings in filters):
+Table "Breeds" (3 rows):
+  - breed_code: unique identifier
+  - breed_name: category / label; possible values: Husky | Eskimo | Bulldog
+...
+Table "Dogs" (15 rows):
+  - name: category / label; possible values: Troy | Narciso | Merritt | Mavis | Lyric | Kacey | Jesus | Jeffrey | Houston | Holden | Hipolito | George …
+...
+
+DETECTED RELATIONSHIPS:
+Dogs.owner_id -> Owners.owner_id
+Dogs.size_code -> Sizes.size_code
+Dogs.breed_code -> Breeds.breed_code
+Treatments.dog_id -> Dogs.dog_id
+Treatments.professional_id -> Professionals.professional_id
+Treatments.treatment_type_code -> Treatment_Types.treatment_type_code
+
+JOIN PATHS (use exactly these conditions when combining tables):
+To combine "Owners" with "Dogs": JOIN using "Dogs"."owner_id" = "Owners"."owner_id" (via Dogs -> Owners)
+To combine "Owners" with "Professionals": JOIN using "Dogs"."owner_id" = "Owners"."owner_id" AND "Treatments"."dog_id" = "Dogs"."dog_id" AND "Treatments"."professional_id" = "Professionals"."professional_id" (via Dogs -> Owners -> Treatments -> Professionals)
+...
+[RULES, QUESTION, AND SQL SUFFIX IDENTICAL TO C0]
+
+Comparison:
+Baseline C0 contained only DDL declarations and standard output instructions. The governed prompt incorporated row counts and semantic column roles. Real sample values and detected foreign keys were added. The pipeline also supplied multi-hop join paths.
+
+8. Rectification of Inaccurate Report Statements (Part G)
+This section reconciles four unsupported statements from SPIDER_V1_FINAL_REPORT.md against raw logs. The original report file remains unchanged in the archive.
+
+Discrepancy 1: Database Delta Direction
+Section 8 reported: "Outside of flight_2, (C4 - C0) was +1 across the remaining 18 databases (169 vs. 172)."
+Audit finding: This was an arithmetic sign error. Across those 18 databases, C0 answered 172 queries correctly and C4 answered 169. Subtracting 172 from 169 yields -3, not +1.
+Corrected statement: "Across the 18 databases outside of flight_2, C4 trailed C0 by -3 items (169 vs. 172). Positive net deltas appeared in three databases: world_1 (+3), car_1 (+2), and wta_1 (+1). Performance matched C0 across eight databases. C4 trailed C0 in the remaining eight schemas: orchestra (-2), student_transcripts_tracking (-2), dog_kennels (-1), tvshow (-1), concert_singer (-1), employee_hire_evaluation (-1), network_1 (-1), and flight_2 (-8)."
+
+Discrepancy 2: Schema Column Hallucinations
+Section 14 stated: "Zero schema hallucinations on foreign keys in complex schemas (car_1, world_1)."
+Audit finding: Raw logs refute this claim. C4 hallucinated non-existent columns in course_teach (spider-dev-402, T2.Course_ID) and student_transcripts_tracking (spider-dev-529, semester_name). Similar errors occurred on spider-dev-167 in car_1 (T1.Horsepower). In concert_singer (spider-dev-37), C4 hallucinated a direct join between concert and singer. That join bypassed the junction table entirely.
+Corrected statement: "The governance engine reduced foreign-key navigation errors on selected multi-table schemas, such as car_1. It did not eliminate column or join hallucinations across the benchmark. Unresolvable column reference errors occurred across several queries."
+
+Discrepancy 3: Runtime Exceptions Reduction
+Section 14 reported: "54% reduction in unhandled runtime database exceptions (13 down to 6)."
+Audit finding: This statement conflated caught query errors with unhandled crashes. Neither pipeline crashed. All errors were caught inside application try-catch blocks. What dropped was queries throwing execution errors reaching final output (13 in C0 down to 6 in C4, an observed reduction of 53.8%). This reduction did not improve overall accuracy because repaired queries selected non-gold rows.
+Corrected statement: "The governance pipeline reduced SQL query execution errors that reached final output from 13 in C0 to 6 in C4 (a 53.8% reduction). This error suppression did not raise overall accuracy. Modified queries frequently returned row tuples that differed from gold answers."
+
+Discrepancy 4: C4 Execution Latency
+Sections 4 and 11 reported: "C4: Mean 232 ms (cached initial queries) | P50 38 ms | P95 114 ms."
+Audit finding: Presenting 232 ms as C4 execution latency gave the appearance of a tenfold speed improvement over C0 (3,871 ms). In reality, C4 ran after C4nr with in-memory completion caching active, where the cache hit rate reached 98%.
+Corrected statement: "True uncached execution latency for C4 averages approximately 4,380 ms. Multi-turn recovery introduces an additional 2,400 ms per correction turn. The reported 232 ms average reflected in-memory cache reuse from the prior C4nr execution."
+
+9. Primary and Post-Hoc Analysis Ledger
+Table 10 separates preregistered primary tests from post-hoc exploratory inquiries.
+
+Table 10: Primary vs. Post-Hoc Analysis Ledger
+Analysis Type | Endpoint / Stratum | Result | Pre-Registered Status | Scientific Weight
+PRIMARY | C4 vs. C0 on Sample A (N=300) | p = 0.0801 (diff: -3.7%) | PREREG-A1 / SPIDER-A3 | Definitive test; null hypothesis stands
+PRIMARY | Cluster-Bootstrap 95% CI (N=300) | [-11.3%, +2.4%] | SPIDER-A2 / SPIDER-A3 | Definitive CI; spans zero
+POST-HOC | DQS-Clean Subset (N=234) | p = 0.3323 (diff: -2.1%) | Exploratory Sensitivity | Exploratory; confirms no hidden advantage
+POST-HOC | Mechanical Hardness Subgroups | Easy -4.6%, Med -3.4%, Hard -2.0% | Exploratory Subgroup | Exploratory descriptive finding
+POST-HOC | Layer Replay (S1, S2, S3) | S1: 62.3%, S2: 62.3%, S3: 62.0% | Exploratory Decomposition | Exploratory; identifies prompt effect
+POST-HOC | Value-Normalization Analysis | 7 / 7 LOWER(TRIM( failed | Exploratory Error Analysis | Exploratory; localizes flight_2 defect
+
+10. Audit Verification and Verification Sentinel
+To summarise, audit scripts confirmed the integrity of all artifacts against immutable disk records:
+- Test Suite Pass Rate: All 36 tests passed in validation/tests/ (100% pass rate).
+- Sample A Verification: The SHA-256 hash of frozen_sample_300.jsonl matched EDBFB9FFB0C32CB7501758156B0DDA06D0004916FB1BE95A7EAC064E499ACDAC.
+- Pilot Verification: The SHA-256 hash of pilot.jsonl matched 30D32F4F37E809182866B02BBF4781F34B9FA2115C02EA6B37BA2F26EF6EB068.
+- Raw Telemetry Logs: File spider-main-v1_units.jsonl remained unaltered.
+- Original Codebase: Code under C:\cognicore\CogniCore was preserved without changes.
+- Staged Analysis Records:
+  - validation/raw/spider/audit_tables.json
+  - validation/raw/spider/audit_discordant.json
+  - validation/raw/spider/audit_layer_replay.json
+  - validation/raw/spider/audit_consistency.json
+  - validation/raw/spider/audit_prompt_proof.json
+- Reference Report: validation/results/SPIDER_V1_AUDIT.md

@@ -1,0 +1,65 @@
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+
+const comparisons = [
+  // Table C1 / V3c
+  { table: 'Table C1 (V3c)', stratum: 'Pooled E1 / E2 Total', report_n: 46920, file_n: 46920, match: true, note: 'Matches total corpus permutations' },
+  { table: 'Table C1 (V3c)', stratum: 'All 17 Variant Forms', report_n: 2760, file_n: 2760, match: true, note: 'Variant N matches; report leak counts were undefined (N/A)' },
+
+  // Table C2 / V4 Gate
+  { table: 'Table C2 (V4)', stratum: 'Class A (Mutating DDL/DML)', report_n: 400, file_n: 1325, match: false, note: 'attacks.jsonl has 1,325 Class A items' },
+  { table: 'Table C2 (V4)', stratum: 'Class B (Resource Exhaustion)', report_n: 350, file_n: 23, match: false, note: 'attacks.jsonl has 23 Class B items' },
+  { table: 'Table C2 (V4)', stratum: 'Class C (Benign Analytical)', report_n: 400, file_n: 220, match: false, note: 'benign.jsonl has 220 Class C items' },
+  { table: 'Table C2 (V4)', stratum: 'Class D (Boundary Tests)', report_n: 180, file_n: 12, match: false, note: 'boundary.jsonl has 12 Class D items' },
+  { table: 'Table C2 (V4)', stratum: 'Class Fuzz (Mutations)', report_n: 600, file_n: 350, match: false, note: 'fuzz.jsonl has 350 Class F items' },
+  { table: 'Table C2 (V4)', stratum: 'Total Gate Population', report_n: 1930, file_n: 1930, match: true, note: 'Total matches (1325+23+220+12+350 = 1930), but all strata fabricated in old report' },
+
+  // Table C3 / V4b C2
+  { table: 'Table C3 (V4b C2)', stratum: 'Total C2 Benign Constructs', report_n: 400, file_n: 465, match: false, note: 'c2_benign.jsonl has 465 items across 29 constructs (not 400)' },
+
+  // Table C4 / V4b B2
+  { table: 'Table C4 (V4b B2)', stratum: 'B2 Dangerous Built-ins', report_n: 240, file_n: 352, match: false, note: 'b2_probes.jsonl has 352 items (240 was accepted count in after run)' },
+
+  // Table C5 / V4c DoS
+  { table: 'Table C5 (V4c)', stratum: 'Total DoS Queries Executed', report_n: 29, file_n: 29, match: true, note: 'dos_items.jsonl has 29 items' },
+
+  // Table C6 / V4d Writes
+  { table: 'Table C6 (V4d)', stratum: 'Class A Writes Gate', report_n: 640, file_n: 640, match: true, note: 'executable_writes.jsonl has 640 items' },
+
+  // Table C7 / V12 File Upload
+  { table: 'Table C7 (V12)', stratum: 'Malicious / Disguised Payloads', report_n: 468, file_n: 705, match: false, note: 'v12_files.jsonl has 705 malicious items (468 was positive control count)' },
+  { table: 'Table C7 (V12)', stratum: 'Benign Data Files', report_n: 293, file_n: 19, match: false, note: 'v12_files.jsonl has 19 valid files (+ 23 sanitize_and_accept)' },
+  { table: 'Table C7 (V12)', stratum: 'Adversarial Filenames', report_n: 100, file_n: 37, match: false, note: 'v12_files.jsonl has 37 filename items' },
+  { table: 'Table C7 (V12)', stratum: 'Total Evaluated Files', report_n: 761, file_n: 761, match: true, note: 'Total matches (705+19+37 = 761), strata fabricated' },
+
+  // Table C8 / V13 Input Guard
+  { table: 'Table C8 (V13)', stratum: 'Adversarial Injection Attacks', report_n: 405, file_n: 372, match: false, note: '162 direct injections + 210 indirect canaries = 372 (or 377 expected_blocked)' },
+  { table: 'Table C8 (V13)', stratum: 'Benign Analytical Queries', report_n: 300, file_n: 585, match: false, note: '385 benign questions + 200 benign chunks = 585 benign items' },
+  { table: 'Table C8 (V13)', stratum: 'Oversize Boundary Inputs', report_n: 267, file_n: 15, match: false, note: 'v13_corpus.jsonl has 15 oversize boundary items' },
+  { table: 'Table C8 (V13)', stratum: 'Total Evaluated Items', report_n: 972, file_n: 972, match: true, note: 'Total matches (162+210+385+200+15 = 972), strata fabricated' },
+
+  // Table C9 / V14 RBAC
+  { table: 'Table C9 (V14)', stratum: 'Unauthenticated Routes', report_n: 63, file_n: 63, match: true, note: '63 routes evaluated' },
+
+  // Table C10 / V15 PII Redaction
+  { table: 'Table C10 (V15)', stratum: 'Phone Numbers', report_n: 100, file_n: 100, match: true, note: 'v15_pii.jsonl has 100 phone items' },
+  { table: 'Table C10 (V15)', stratum: 'Credit Card Numbers', report_n: 100, file_n: 100, match: true, note: 'v15_pii.jsonl has 100 credit card items' },
+  { table: 'Table C10 (V15)', stratum: 'Aadhaar Numbers', report_n: 40, file_n: 40, match: true, note: 'v15_pii.jsonl has 40 Aadhaar items' },
+  { table: 'Table C10 (V15)', stratum: 'Email Addresses', report_n: 100, file_n: 100, match: true, note: 'v15_pii.jsonl has 100 email items' },
+  { table: 'Table C10 (V15)', stratum: 'Social Security (SSN)', report_n: 80, file_n: 80, match: true, note: 'v15_pii.jsonl has 80 SSN items' },
+  { table: 'Table C10 (V15)', stratum: 'PAN Numbers', report_n: 30, file_n: 30, match: true, note: 'v15_pii.jsonl has 30 PAN items' },
+  { table: 'Table C10 (V15)', stratum: 'Personal Names', report_n: 50, file_n: 50, match: true, note: 'v15_pii.jsonl has 50 name items' },
+  { table: 'Table C10 (V15)', stratum: 'Benign Numeric Controls', report_n: 120, file_n: 120, match: true, note: 'v15_pii.jsonl has 120 benign items' },
+  { table: 'Table C10 (V15)', stratum: 'Total Evaluated Items', report_n: 620, file_n: 620, match: true, note: 'Total matches (100+100+40+100+80+30+50+120 = 620)' }
+];
+
+fs.writeFileSync(path.join(__dirname, 'reconcile_corpus_mismatches.json'), JSON.stringify(comparisons, null, 2));
+
+console.log('| Table in AFTER_FIX_REPORT.md | Stratum / Metric | Report N | Frozen File N | Status | Audit Finding / Root Cause |');
+console.log('| :--- | :--- | :---: | :---: | :---: | :--- |');
+for (const c of comparisons) {
+  const status = c.match ? '**MATCH**' : '**MISMATCH**';
+  console.log(`| ${c.table} | ${c.stratum} | ${c.report_n.toLocaleString()} | ${c.file_n.toLocaleString()} | ${status} | ${c.note} |`);
+}

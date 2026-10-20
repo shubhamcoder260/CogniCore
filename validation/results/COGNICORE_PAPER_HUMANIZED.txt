@@ -1,0 +1,69 @@
+CogniCore: A Fail-Closed, Self-Healing Governance Architecture for Trustworthy Enterprise Natural Language to SQL
+Authors: [Author Names Anonymized for Peer Review]
+Affiliation: [Institution Anonymized for Peer Review]
+Target Venue: ACM SIGMOD / VLDB (Industrial & Applications Track) / EMNLP (System Demonstrations & Industry)
+Artifact Repository: https://github.com/anonymized/cognicore (Replication Package Included)
+
+Abstract
+Relational databases store primary operational records in enterprise environments. Direct deployment of large language models against these repositories creates execution faults and numerical hallucinations. Unguarded models also introduce risks of row-level data leaks and denial-of-service query loops. Data authorization and execution safety require deterministic enforcement outside model weights.
+
+This paper presents CogniCore, an enterprise natural-language-to-SQL architecture designed for local execution. The system separates responsibilities across three testable axioms:
+1. Truth Derivation: Query results supply all empirical facts. Synthesized text undergoes numeric verification against database tables.
+2. Computation Delegation: The execution engine performs mathematical calculations.
+3. Structural Authorization: Common Table Expression shadowing enforces row- and column-level access rules prior to driver execution.
+
+Candidate queries pass through a deterministic validation sequence. Token-level algorithmic repair corrects minor syntax errors. An abstract syntax tree validator checks query complexity. Queries then undergo Common Table Expression policy shadowing and a feedback-guided recovery cycle before read-only execution.
+
+We evaluate CogniCore across two experimental regimes. The first evaluation uses the Spider V1 benchmark (Sample B) with 900 execution units across 20 relational databases. This test compares an unconstrained baseline (C0) against a governed variant (C4nr). The full self-healing configuration (C4) was also tested on a local 7B open-weight model (qwen2.5-coder:7b). The second evaluation assesses data isolation against 52,000 synthetic attack vectors.
+
+Our empirical findings establish five outcomes:
+1. Performance Parity: CogniCore achieved 62.00% execution accuracy [95% Wilson CI: 56.39%, 67.31%], compared to 63.00% [57.40%, 68.27%] for the unconstrained baseline (p = 0.71). Security containment imposed no accuracy penalty.
+2. Crash Reduction: Database execution errors fell from 17 in the baseline to 5 in CogniCore (a 70.6% decline). Structured application error boundaries caught all remaining failures.
+3. Monotonic Error Recovery: The feedback-guided recovery cycle converted 33.33% of fatal database errors into exact gold matches. Zero regressions occurred across 183 validated queries.
+4. Logical Immutability: SHA-256 content hashes confirmed zero data modifications across all 20 databases.
+5. Edge Efficiency: The specialized 7B coder model outperformed a general 14B model by 13.33 percentage points in accuracy and executed eight times faster in local environments.
+
+Keywords: Text-to-SQL, Enterprise AI Governance, Local LLMs, Row-Level Security, Common Table Expressions, Self-Healing Code, Trustworthy AI, Database Security.
+
+1. Introduction
+Relational databases and tabular stores hold primary operational records in corporate environments. Extracting insights requires knowledge of physical schemas and relational SQL syntax. Natural-language interfaces aim to lower this barrier, yet unconstrained model deployments create systematic operational hazards:
+
+Stochastic Arithmetic and Fabricated Metrics: Language models frequently generate incorrect aggregations and mismatched grain levels [13, 22]. In many instances, models produce synthetic business metrics with no foundation in physical tables.
+
+Unhandled Execution Crashes: Unconstrained models hallucinate table names and column identifiers. Common errors include singular-plural confusion and invalid foreign key joins, which produce fatal database rejections.
+
+Privilege Escalation and Data Leakage: Access control based on prompt instructions fails under adversarial inputs. Prompt injections and semantic jailbreaks bypass soft prompt directives [25, 28]. Authorization must remain a deterministic system property enforced outside model weights.
+
+Resource Exhaustion: Unbounded queries generate accidental Cartesian joins and cyclic subqueries. These operations consume excessive server memory and execution capacity.
+
+Prior investigations explored isolated components, such as prompt formulation [8, 9] and schema pruning [10]. Automated self-correction was also studied [11, 24]. Although semantic context helps interpret user intent [13], semantic alignment alone does not prevent unauthorized execution. Existing governance frameworks rely on surface-level keyword checks and cloud-hosted models exceeding 70 billion parameters. Furthermore, these frameworks fail to isolate error causes across distinct processing layers.
+
+Technical Contributions
+CogniCore addresses these architectural limitations through a unified pipeline engineered for local execution on commodity workstation hardware. Our primary contributions are:
+
+1. The Three-Axiom Separation Architecture:
+We formalize an end-to-end system based on three operational rules:
+- Axiom 1 (Truth): All reported answers derive from executed SQL results. Synthesized text undergoes numeric verification against query tables.
+- Axiom 2 (Computation): The language model performs no arithmetic. Aggregation operations remain with the SQL execution engine. Ratio calculations and rounding are also delegated directly to the database driver.
+- Axiom 3 (Security): Authentication and access control reside outside the model. Query shadowing via Common Table Expressions isolates tenant data and restricts column access.
+
+2. Deterministic Query Repair and Monotonic Recovery:
+The pipeline applies six rule-based token repairs without invoking an external model. These deterministic routines correct pluralization errors and supply omitted clauses. They also cast integer divisions without model intervention. A reflection-guided loop catches runtime execution faults. As mentioned earlier, this self-healing mechanism is strictly monotonic: it resolves fatal database errors without degrading queries that already executed correctly.
+
+3. Empirical and Adversarial Verification:
+The system underwent evaluation on the held-out Spider V1 benchmark (Sample B) across 900 units and 20 databases. We examined the baseline C0 alongside governed variant C4nr. The full pipeline C4 was also evaluated. An ablation study compared a local 7B coder model against a 14B general model. Cryptographic SHA-256 hashes verified zero state changes across all database files. Finally, an adversarial suite evaluated 52,000 synthetic attack vectors.
+
+Research Questions
+To summarise, six formal research questions guide our empirical evaluation:
+
+RQ1 (Intent Routing): Can a deterministic classification layer assign user intent across structured query paths and document retrieval pipelines?
+
+RQ2 (Accuracy Preservation): Does a fail-closed governance pipeline maintain execution accuracy relative to an unconstrained raw DDL baseline?
+
+RQ3 (Execution Stability): To what extent does multi-stage AST validation and deterministic token repair reduce runtime database faults?
+
+RQ4 (Data Isolation): Can structural Common Table Expression shadowing enforce row-level access boundaries under adversarial inputs?
+
+RQ5 (Recovery Monotonicity): Does automated multi-turn error correction repair broken queries without regressing functional queries?
+
+RQ6 (Local Model Efficiency): How does a domain-specialized 7B parameter model compare with a larger 14B parameter general model in accuracy and latency when deployed on local hardware?

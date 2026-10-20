@@ -1,0 +1,85 @@
+{
+  "total_routes_enumerated": 63,
+  "unauthenticated_sweep": {
+    "total": 63,
+    "leaks_2xx": 0
+  },
+  "idor_sweep": [
+    {
+      "test": "Cross-User Dataset Metadata Read",
+      "endpoint": "GET /api/datasets/:id",
+      "expected": "403 Forbidden",
+      "actual_status": 403,
+      "passed": true
+    },
+    {
+      "test": "Cross-User Dataset Table Preview",
+      "endpoint": "GET /api/datasets/:id/preview",
+      "expected": "403 Forbidden",
+      "actual_status": 403,
+      "passed": true
+    },
+    {
+      "test": "Cross-User Dataset Deletion",
+      "endpoint": "DELETE /api/datasets/:id",
+      "expected": "403 Forbidden",
+      "actual_status": 403,
+      "passed": true
+    },
+    {
+      "test": "Cross-User Audit/Trace Read",
+      "endpoint": "GET /api/traces/:id",
+      "expected": "404 Masked (Not Found)",
+      "actual_status": 404,
+      "passed": true
+    },
+    {
+      "test": "Cross-User Conversation Session Hijack",
+      "endpoint": "POST /api/chat (sessionId hijacking)",
+      "expected": "Reject / Isolate to own session",
+      "actual_status": 404,
+      "passed": true,
+      "notes": "Isolated"
+    },
+    {
+      "test": "Cross-User Device Session Revocation",
+      "endpoint": "DELETE /api/auth/sessions/:id",
+      "expected": "404 Masked / Forbidden",
+      "actual_status": 404,
+      "passed": true
+    }
+  ],
+  "token_suite": [
+    {
+      "test": "Expired Token",
+      "token_condition": "expiresIn: -10s",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "test": "Tampered Payload (Role Escalation)",
+      "token_condition": "Payload edited, original signature",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "test": "Forged Signature (Arbitrary Secret)",
+      "token_condition": "Signed with untrusted secret",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "test": "Algorithm \"none\" Token",
+      "token_condition": "alg: none header without signature",
+      "status": 401,
+      "passed": true
+    }
+  ],
+  "account_lockout": {
+    "tested_attempts": 5,
+    "lockout_triggered": true,
+    "status": "Enforced"
+  },
+  "expected_matrix_status": "NOT RUN (expected.csv absent)",
+  "unauthorized_data_disclosures": []
+}

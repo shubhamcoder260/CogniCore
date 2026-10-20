@@ -29,3 +29,15 @@ yarn-error.log*
 
 *.db-shm
 *.db-wal
+
+# Validation sandboxes, raw dumps, and scratch
+cognicore_spider/
+spider_databases/
+spider_wal_control/
+scratch/
+validation/raw_baseline_backup/
+validation/APPROVED_TO_RUN
+*.backup*
+__pycache__/
+*.pyc
+.agent/

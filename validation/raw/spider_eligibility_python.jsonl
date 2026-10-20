@@ -1,0 +1,370 @@
+{"candidate_position": 1, "id": "spider-dev-927", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 30, "gold_columns": ["first_name"]}
+{"candidate_position": 2, "id": "spider-dev-37", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["name"]}
+{"candidate_position": 3, "id": "spider-dev-367", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 10, "gold_columns": ["document_id", "count(*)"]}
+{"candidate_position": 4, "id": "spider-dev-435", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(loser_age)", "avg(winner_age)"]}
+{"candidate_position": 5, "id": "spider-dev-118", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(mpg)"]}
+{"candidate_position": 6, "id": "spider-dev-151", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 13, "gold_columns": ["Model"]}
+{"candidate_position": 7, "id": "spider-dev-236", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["Airline"]}
+{"candidate_position": 8, "id": "spider-dev-242", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["Airline"]}
+{"candidate_position": 9, "id": "spider-dev-794", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 539, "gold_columns": ["count(*)", "District"]}
+{"candidate_position": 10, "id": "spider-dev-940", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["owner_id", "zip_code"]}
+{"candidate_position": 11, "id": "spider-dev-843", "db_id": "orchestra", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["Name"]}
+{"candidate_position": 12, "id": "spider-dev-886", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["name"]}
+{"candidate_position": 13, "id": "spider-dev-229", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Airline"]}
+{"candidate_position": 14, "id": "spider-dev-545", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 10, "gold_columns": ["course_name"]}
+{"candidate_position": 15, "id": "spider-dev-872", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["ID"]}
+{"candidate_position": 16, "id": "spider-dev-606", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["LANGUAGE", "count(*)"]}
+{"candidate_position": 17, "id": "spider-dev-91", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 18, "id": "spider-dev-96", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Model"]}
+{"candidate_position": 19, "id": "spider-dev-910", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 5, "gold_columns": ["name"]}
+{"candidate_position": 20, "id": "spider-dev-578", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT current_address_id)"]}
+{"candidate_position": 21, "id": "spider-dev-55", "db_id": "pets_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT pettype)"]}
+{"candidate_position": 22, "id": "spider-dev-328", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 9, "gold_columns": ["version_number", "template_type_code"]}
+{"candidate_position": 23, "id": "spider-dev-819", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 28, "gold_columns": ["count(*)", "max(Percentage)"]}
+{"candidate_position": 24, "id": "spider-dev-715", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Population", "LifeExpectancy"]}
+{"candidate_position": 25, "id": "spider-dev-234", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["Airline"]}
+{"candidate_position": 26, "id": "spider-dev-766", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["sum(Population)"]}
+{"candidate_position": 27, "id": "spider-dev-965", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 15, "gold_columns": ["date_arrived", "date_departed"]}
+{"candidate_position": 28, "id": "spider-dev-413", "db_id": "museum_visit", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(age)"]}
+{"candidate_position": 29, "id": "spider-dev-1018", "db_id": "singer", "status": "eligible", "reason": null, "gold_row_count": 8, "gold_columns": ["Title", "Name"]}
+{"candidate_position": 30, "id": "spider-dev-207", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 31, "id": "spider-dev-597", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT series_name)", "count(DISTINCT content)"]}
+{"candidate_position": 32, "id": "spider-dev-552", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 4, "gold_columns": ["transcript_date", "transcript_id"]}
+{"candidate_position": 33, "id": "spider-dev-246", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 100, "gold_columns": ["FlightNo"]}
+{"candidate_position": 34, "id": "spider-dev-214", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 35, "id": "spider-dev-488", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["first_name", "country_code", "birth_date"]}
+{"candidate_position": 36, "id": "spider-dev-560", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 14, "gold_columns": ["first_name"]}
+{"candidate_position": 37, "id": "spider-dev-226", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["AirportCode"]}
+{"candidate_position": 38, "id": "spider-dev-431", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 39, "id": "spider-dev-796", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 17, "gold_columns": ["sum(Population)", "GovernmentForm"]}
+{"candidate_position": 40, "id": "spider-dev-771", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT T2.Language)"]}
+{"candidate_position": 41, "id": "spider-dev-68", "db_id": "pets_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["pettype", "weight"]}
+{"candidate_position": 42, "id": "spider-dev-599", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Content"]}
+{"candidate_position": 43, "id": "spider-dev-145", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 44, "id": "spider-dev-541", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["student_id", "first_name", "middle_name", "last_name", "count(*)", "student_id:1"]}
+{"candidate_position": 45, "id": "spider-dev-617", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["max(SHARE)", "min(SHARE)"]}
+{"candidate_position": 46, "id": "spider-dev-474", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 153, "gold_columns": ["count(*)", "country_code"]}
+{"candidate_position": 47, "id": "spider-dev-711", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Region"]}
+{"candidate_position": 48, "id": "spider-dev-661", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["Name"]}
+{"candidate_position": 49, "id": "spider-dev-112", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Accelerate"]}
+{"candidate_position": 50, "id": "spider-dev-767", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["sum(Population)"]}
+{"candidate_position": 51, "id": "spider-dev-1021", "db_id": "singer", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["Name"]}
+{"candidate_position": 52, "id": "spider-dev-500", "db_id": "battle_death", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["id", "name"]}
+{"candidate_position": 53, "id": "spider-dev-76", "db_id": "pets_1", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["fname", "age"]}
+{"candidate_position": 54, "id": "spider-dev-407", "db_id": "course_teach", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Name"]}
+{"candidate_position": 55, "id": "spider-dev-222", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["City"]}
+{"candidate_position": 56, "id": "spider-dev-776", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["Name"]}
+{"candidate_position": 57, "id": "spider-dev-721", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Name"]}
+{"candidate_position": 58, "id": "spider-dev-16", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["max(capacity)", "average"]}
+{"candidate_position": 59, "id": "spider-dev-951", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 15, "gold_columns": ["first_name", "last_name", "size_code"]}
+{"candidate_position": 60, "id": "spider-dev-605", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["LANGUAGE", "count(*)"]}
+{"candidate_position": 61, "id": "spider-dev-962", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["email_address"]}
+{"candidate_position": 62, "id": "spider-dev-314", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["template_id"]}
+{"candidate_position": 63, "id": "spider-dev-823", "db_id": "orchestra", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 64, "id": "spider-dev-158", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["cylinders"]}
+{"candidate_position": 65, "id": "spider-dev-365", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["paragraph_text"]}
+{"candidate_position": 66, "id": "spider-dev-157", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["cylinders"]}
+{"candidate_position": 67, "id": "spider-dev-262", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 10, "gold_columns": ["name"]}
+{"candidate_position": 68, "id": "spider-dev-998", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["first_name", "treatment_type_description"]}
+{"candidate_position": 69, "id": "spider-dev-374", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["document_id", "document_name"]}
+{"candidate_position": 70, "id": "spider-dev-638", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["series_name", "country"]}
+{"candidate_position": 71, "id": "spider-dev-521", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 72, "id": "spider-dev-658", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["max(Final_Table_Made)"]}
+{"candidate_position": 73, "id": "spider-dev-111", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Accelerate"]}
+{"candidate_position": 74, "id": "spider-dev-337", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["template_type_code"]}
+{"candidate_position": 75, "id": "spider-dev-244", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["Airline"]}
+{"candidate_position": 76, "id": "spider-dev-60", "db_id": "pets_1", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["Fname"]}
+{"candidate_position": 77, "id": "spider-dev-884", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 14, "gold_columns": ["name", "count(*)"]}
+{"candidate_position": 78, "id": "spider-dev-901", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 8, "gold_columns": ["name"]}
+{"candidate_position": 79, "id": "spider-dev-251", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["FlightNo"]}
+{"candidate_position": 80, "id": "spider-dev-894", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["id"]}
+{"candidate_position": 81, "id": "spider-dev-124", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 8, "gold_columns": ["CountryName", "CountryId"]}
+{"candidate_position": 82, "id": "spider-dev-644", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 11, "gold_columns": ["id"]}
+{"candidate_position": 83, "id": "spider-dev-475", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["country_code"]}
+{"candidate_position": 84, "id": "spider-dev-830", "db_id": "orchestra", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(Attendance)"]}
+{"candidate_position": 85, "id": "spider-dev-349", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["template_type_description"]}
+{"candidate_position": 86, "id": "spider-dev-276", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["name"]}
+{"candidate_position": 87, "id": "spider-dev-14", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["LOCATION", "name"]}
+{"candidate_position": 88, "id": "spider-dev-452", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["country_code", "first_name"]}
+{"candidate_position": 89, "id": "spider-dev-539", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["degree_program_id", "degree_summary_name"]}
+{"candidate_position": 90, "id": "spider-dev-543", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["semester_name"]}
+{"candidate_position": 91, "id": "spider-dev-502", "db_id": "battle_death", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT RESULT)"]}
+{"candidate_position": 92, "id": "spider-dev-385", "db_id": "course_teach", "status": "eligible", "reason": null, "gold_row_count": 7, "gold_columns": ["Age", "Hometown"]}
+{"candidate_position": 93, "id": "spider-dev-402", "db_id": "course_teach", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["Name", "Course"]}
+{"candidate_position": 94, "id": "spider-dev-346", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["template_type_code"]}
+{"candidate_position": 95, "id": "spider-dev-106", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["Continent", "count(*)"]}
+{"candidate_position": 96, "id": "spider-dev-375", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["document_id"]}
+{"candidate_position": 97, "id": "spider-dev-17", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(capacity)", "max(capacity)"]}
+{"candidate_position": 98, "id": "spider-dev-976", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["cost_of_treatment"]}
+{"candidate_position": 99, "id": "spider-dev-258", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 100, "gold_columns": ["AirportName"]}
+{"candidate_position": 100, "id": "spider-dev-114", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 101, "id": "spider-dev-133", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Model"]}
+{"candidate_position": 102, "id": "spider-dev-697", "db_id": "voter_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 103, "id": "spider-dev-279", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["name"]}
+{"candidate_position": 104, "id": "spider-dev-950", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 15, "gold_columns": ["first_name", "last_name", "size_code"]}
+{"candidate_position": 105, "id": "spider-dev-732", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT LANGUAGE)"]}
+{"candidate_position": 106, "id": "spider-dev-625", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["Episode"]}
+{"candidate_position": 107, "id": "spider-dev-589", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 108, "id": "spider-dev-286", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["name"]}
+{"candidate_position": 109, "id": "spider-dev-745", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["COUNT(*)"]}
+{"candidate_position": 110, "id": "spider-dev-787", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 359, "gold_columns": ["Name"]}
+{"candidate_position": 111, "id": "spider-dev-238", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["Airline"]}
+{"candidate_position": 112, "id": "spider-dev-390", "db_id": "course_teach", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["Name"]}
+{"candidate_position": 113, "id": "spider-dev-911", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 5, "gold_columns": ["name"]}
+{"candidate_position": 114, "id": "spider-dev-635", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["country"]}
+{"candidate_position": 115, "id": "spider-dev-245", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 100, "gold_columns": ["FlightNo"]}
+{"candidate_position": 116, "id": "spider-dev-969", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT professional_id)"]}
+{"candidate_position": 117, "id": "spider-dev-892", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 118, "id": "spider-dev-978", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 119, "id": "spider-dev-122", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 36, "gold_columns": ["Maker", "Model"]}
+{"candidate_position": 120, "id": "spider-dev-439", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["min(loser_rank)"]}
+{"candidate_position": 121, "id": "spider-dev-957", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["first_name", "name"]}
+{"candidate_position": 122, "id": "spider-dev-383", "db_id": "course_teach", "status": "eligible", "reason": null, "gold_row_count": 7, "gold_columns": ["Name"]}
+{"candidate_position": 123, "id": "spider-dev-529", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["semester_name", "semester_id"]}
+{"candidate_position": 124, "id": "spider-dev-678", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Nationality"]}
+{"candidate_position": 125, "id": "spider-dev-600", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Content"]}
+{"candidate_position": 126, "id": "spider-dev-264", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 5, "gold_columns": ["count(*)", "city"]}
+{"candidate_position": 127, "id": "spider-dev-136", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(horsepower)"]}
+{"candidate_position": 128, "id": "spider-dev-1024", "db_id": "singer", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["Name", "sum(T2.Sales)"]}
+{"candidate_position": 129, "id": "spider-dev-493", "db_id": "battle_death", "status": "eligible", "reason": null, "gold_row_count": 8, "gold_columns": ["name", "date"]}
+{"candidate_position": 130, "id": "spider-dev-544", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["semester_name"]}
+{"candidate_position": 131, "id": "spider-dev-706", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["sum(SurfaceArea)"]}
+{"candidate_position": 132, "id": "spider-dev-693", "db_id": "voter_1", "status": "eligible", "reason": null, "gold_row_count": 4, "gold_columns": ["state", "created"]}
+{"candidate_position": 133, "id": "spider-dev-755", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 48, "gold_columns": ["Code", "Name", "Continent", "Region", "SurfaceArea", "IndepYear", "Population", "LifeExpectancy", "GNP", "GNPOld", "LocalName", "GovernmentForm", "HeadOfState", "Capital", "Code2", "CountryCode", "Language", "IsOfficial", "Percentage"]}
+{"candidate_position": 134, "id": "spider-dev-837", "db_id": "orchestra", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["Name"]}
+{"candidate_position": 135, "id": "spider-dev-6", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["song_name", "song_release_year"]}
+{"candidate_position": 136, "id": "spider-dev-933", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["professional_id", "role_code", "first_name"]}
+{"candidate_position": 137, "id": "spider-dev-532", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["department_description"]}
+{"candidate_position": 138, "id": "spider-dev-727", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["sum(SurfaceArea)"]}
+{"candidate_position": 139, "id": "spider-dev-932", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["professional_id", "role_code", "first_name"]}
+{"candidate_position": 140, "id": "spider-dev-132", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["horsepower", "Make"]}
+{"candidate_position": 141, "id": "spider-dev-453", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["first_name", "country_code"]}
+{"candidate_position": 142, "id": "spider-dev-746", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["Name"]}
+{"candidate_position": 143, "id": "spider-dev-663", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 5, "gold_columns": ["Name"]}
+{"candidate_position": 144, "id": "spider-dev-149", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["FullName", "Id"]}
+{"candidate_position": 145, "id": "spider-dev-239", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["Airline"]}
+{"candidate_position": 146, "id": "spider-dev-274", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 9, "gold_columns": ["name", "LOCATION", "district"]}
+{"candidate_position": 147, "id": "spider-dev-348", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 5, "gold_columns": ["template_type_code", "template_type_description"]}
+{"candidate_position": 148, "id": "spider-dev-57", "db_id": "pets_1", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["Fname"]}
+{"candidate_position": 149, "id": "spider-dev-252", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["FlightNo"]}
+{"candidate_position": 150, "id": "spider-dev-115", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 151, "id": "spider-dev-170", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["max(mpg)"]}
+{"candidate_position": 152, "id": "spider-dev-268", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 9, "gold_columns": ["count(*)", "LOCATION"]}
+{"candidate_position": 153, "id": "spider-dev-749", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["Name"]}
+{"candidate_position": 154, "id": "spider-dev-615", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["Episode", "Rating"]}
+{"candidate_position": 155, "id": "spider-dev-491", "db_id": "battle_death", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 156, "id": "spider-dev-656", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Money_Rank"]}
+{"candidate_position": 157, "id": "spider-dev-849", "db_id": "orchestra", "status": "eligible", "reason": null, "gold_row_count": 11, "gold_columns": ["Record_Company", "COUNT(*)"]}
+{"candidate_position": 158, "id": "spider-dev-630", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["production_code", "channel"]}
+{"candidate_position": 159, "id": "spider-dev-1016", "db_id": "singer", "status": "eligible", "reason": null, "gold_row_count": 5, "gold_columns": ["Citizenship", "max(Net_Worth_Millions)"]}
+{"candidate_position": 160, "id": "spider-dev-202", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["AirportName"]}
+{"candidate_position": 161, "id": "spider-dev-812", "db_id": "world_1", "status": "excluded", "reason": "gold_result_at_or_above_1000_rows", "gold_row_count": 1001, "gold_columns": ["name"]}
+{"candidate_position": 162, "id": "spider-dev-230", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Airline"]}
+{"candidate_position": 163, "id": "spider-dev-920", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(age)"]}
+{"candidate_position": 164, "id": "spider-dev-575", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["semester_id"]}
+{"candidate_position": 165, "id": "spider-dev-665", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Birth_Date"]}
+{"candidate_position": 166, "id": "spider-dev-292", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 7, "gold_columns": ["Shop_ID", "Employee_ID", "Start_from", "Is_full_time"]}
+{"candidate_position": 167, "id": "spider-dev-573", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["transcript_date", "transcript_id"]}
+{"candidate_position": 168, "id": "spider-dev-759", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 258, "gold_columns": ["Language"]}
+{"candidate_position": 169, "id": "spider-dev-916", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["min(grade)"]}
+{"candidate_position": 170, "id": "spider-dev-964", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 15, "gold_columns": ["date_arrived", "date_departed"]}
+{"candidate_position": 171, "id": "spider-dev-895", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["id"]}
+{"candidate_position": 172, "id": "spider-dev-577", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT current_address_id)"]}
+{"candidate_position": 173, "id": "spider-dev-35", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 5, "gold_columns": ["name", "count(*)"]}
+{"candidate_position": 174, "id": "spider-dev-83", "db_id": "pets_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["lname"]}
+{"candidate_position": 175, "id": "spider-dev-568", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 176, "id": "spider-dev-422", "db_id": "museum_visit", "status": "eligible", "reason": null, "gold_row_count": 4, "gold_columns": ["name"]}
+{"candidate_position": 177, "id": "spider-dev-958", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 9, "gold_columns": ["date_arrived", "date_departed"]}
+{"candidate_position": 178, "id": "spider-dev-289", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["sum(bonus)"]}
+{"candidate_position": 179, "id": "spider-dev-632", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["package_option", "series_name"]}
+{"candidate_position": 180, "id": "spider-dev-518", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT department_id)"]}
+{"candidate_position": 181, "id": "spider-dev-782", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 69, "gold_columns": ["Code"]}
+{"candidate_position": 182, "id": "spider-dev-265", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["city"]}
+{"candidate_position": 183, "id": "spider-dev-499", "db_id": "battle_death", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["id", "name"]}
+{"candidate_position": 184, "id": "spider-dev-173", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 7, "gold_columns": ["CountryName"]}
+{"candidate_position": 185, "id": "spider-dev-99", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 11, "gold_columns": ["Maker"]}
+{"candidate_position": 186, "id": "spider-dev-947", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 15, "gold_columns": ["date_of_treatment", "first_name"]}
+{"candidate_position": 187, "id": "spider-dev-41", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["name", "location"]}
+{"candidate_position": 188, "id": "spider-dev-928", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 7, "gold_columns": ["professional_id", "role_code", "email_address"]}
+{"candidate_position": 189, "id": "spider-dev-739", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["COUNT(*)"]}
+{"candidate_position": 190, "id": "spider-dev-972", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["first_name", "last_name", "email_address"]}
+{"candidate_position": 191, "id": "spider-dev-63", "db_id": "pets_1", "status": "eligible", "reason": null, "gold_row_count": 33, "gold_columns": ["stuid"]}
+{"candidate_position": 192, "id": "spider-dev-269", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["manager_name", "district"]}
+{"candidate_position": 193, "id": "spider-dev-707", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["sum(SurfaceArea)"]}
+{"candidate_position": 194, "id": "spider-dev-641", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["id"]}
+{"candidate_position": 195, "id": "spider-dev-497", "db_id": "battle_death", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["name", "RESULT"]}
+{"candidate_position": 196, "id": "spider-dev-834", "db_id": "orchestra", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT Nationality)"]}
+{"candidate_position": 197, "id": "spider-dev-555", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["first_name", "middle_name", "last_name"]}
+{"candidate_position": 198, "id": "spider-dev-631", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["package_option", "series_name"]}
+{"candidate_position": 199, "id": "spider-dev-586", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["Title"]}
+{"candidate_position": 200, "id": "spider-dev-713", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Language"]}
+{"candidate_position": 201, "id": "spider-dev-184", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["Airline", "Abbreviation"]}
+{"candidate_position": 202, "id": "spider-dev-666", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Birth_Date"]}
+{"candidate_position": 203, "id": "spider-dev-882", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 14, "gold_columns": ["student_id", "count(*)"]}
+{"candidate_position": 204, "id": "spider-dev-761", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Name", "Population"]}
+{"candidate_position": 205, "id": "spider-dev-7", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["song_name", "song_release_year"]}
+{"candidate_position": 206, "id": "spider-dev-370", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 10, "gold_columns": ["document_id", "document_name", "count(*)"]}
+{"candidate_position": 207, "id": "spider-dev-240", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["Airline"]}
+{"candidate_position": 208, "id": "spider-dev-652", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 5, "gold_columns": ["Final_Table_Made", "Best_Finish"]}
+{"candidate_position": 209, "id": "spider-dev-601", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Package_Option"]}
+{"candidate_position": 210, "id": "spider-dev-990", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["charge_type", "charge_amount"]}
+{"candidate_position": 211, "id": "spider-dev-277", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["name"]}
+{"candidate_position": 212, "id": "spider-dev-299", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 15, "gold_columns": ["document_id", "document_name", "document_description"]}
+{"candidate_position": 213, "id": "spider-dev-75", "db_id": "pets_1", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["fname", "age"]}
+{"candidate_position": 214, "id": "spider-dev-150", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["FullName", "Id"]}
+{"candidate_position": 215, "id": "spider-dev-458", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 487, "gold_columns": ["first_name", "last_name"]}
+{"candidate_position": 216, "id": "spider-dev-681", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Name"]}
+{"candidate_position": 217, "id": "spider-dev-437", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(winner_rank)"]}
+{"candidate_position": 218, "id": "spider-dev-802", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["Name"]}
+{"candidate_position": 219, "id": "spider-dev-634", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["country"]}
+{"candidate_position": 220, "id": "spider-dev-3", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["name", "country", "age"]}
+{"candidate_position": 221, "id": "spider-dev-241", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["Airline"]}
+{"candidate_position": 222, "id": "spider-dev-209", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 223, "id": "spider-dev-616", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["Episode", "Rating"]}
+{"candidate_position": 224, "id": "spider-dev-304", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["document_id", "template_id", "Document_Description"]}
+{"candidate_position": 225, "id": "spider-dev-430", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 226, "id": "spider-dev-752", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 20, "gold_columns": ["Region"]}
+{"candidate_position": 227, "id": "spider-dev-844", "db_id": "orchestra", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Name"]}
+{"candidate_position": 228, "id": "spider-dev-607", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["LANGUAGE", "count(*)"]}
+{"candidate_position": 229, "id": "spider-dev-729", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["sum(Population)"]}
+{"candidate_position": 230, "id": "spider-dev-295", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT LOCATION)"]}
+{"candidate_position": 231, "id": "spider-dev-929", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 7, "gold_columns": ["professional_id", "role_code", "email_address"]}
+{"candidate_position": 232, "id": "spider-dev-937", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["owner_id", "last_name"]}
+{"candidate_position": 233, "id": "spider-dev-335", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["min(Version_Number)", "template_type_code"]}
+{"candidate_position": 234, "id": "spider-dev-815", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["LANGUAGE"]}
+{"candidate_position": 235, "id": "spider-dev-621", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Weekly_Rank"]}
+{"candidate_position": 236, "id": "spider-dev-915", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(grade)"]}
+{"candidate_position": 237, "id": "spider-dev-8", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["country"]}
+{"candidate_position": 238, "id": "spider-dev-167", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["MakeId", "Make"]}
+{"candidate_position": 239, "id": "spider-dev-98", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 230, "gold_columns": ["model"]}
+{"candidate_position": 240, "id": "spider-dev-571", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)", "student_course_id"]}
+{"candidate_position": 241, "id": "spider-dev-944", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 15, "gold_columns": ["first_name", "last_name"]}
+{"candidate_position": 242, "id": "spider-dev-200", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["AirportName"]}
+{"candidate_position": 243, "id": "spider-dev-672", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 5, "gold_columns": ["Name"]}
+{"candidate_position": 244, "id": "spider-dev-781", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 223, "gold_columns": ["CountryCode"]}
+{"candidate_position": 245, "id": "spider-dev-603", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 246, "id": "spider-dev-795", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 539, "gold_columns": ["count(*)", "District"]}
+{"candidate_position": 247, "id": "spider-dev-18", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["name", "capacity"]}
+{"candidate_position": 248, "id": "spider-dev-708", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Continent"]}
+{"candidate_position": 249, "id": "spider-dev-212", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 250, "id": "spider-dev-287", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["count(*)", "name"]}
+{"candidate_position": 251, "id": "spider-dev-922", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["professional_id", "last_name", "cell_number"]}
+{"candidate_position": 252, "id": "spider-dev-558", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["first_name", "middle_name", "last_name"]}
+{"candidate_position": 253, "id": "spider-dev-5", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(age)", "min(age)", "max(age)"]}
+{"candidate_position": 254, "id": "spider-dev-80", "db_id": "pets_1", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["count(*)", "stuid"]}
+{"candidate_position": 255, "id": "spider-dev-376", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["document_id"]}
+{"candidate_position": 256, "id": "spider-dev-24", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["name", "capacity"]}
+{"candidate_position": 257, "id": "spider-dev-980", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 258, "id": "spider-dev-361", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["other_details"]}
+{"candidate_position": 259, "id": "spider-dev-360", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 260, "id": "spider-dev-692", "db_id": "voter_1", "status": "eligible", "reason": null, "gold_row_count": 10, "gold_columns": ["contestant_name"]}
+{"candidate_position": 261, "id": "spider-dev-492", "db_id": "battle_death", "status": "eligible", "reason": null, "gold_row_count": 7, "gold_columns": ["name", "tonnage"]}
+{"candidate_position": 262, "id": "spider-dev-369", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 10, "gold_columns": ["document_id", "document_name", "count(*)"]}
+{"candidate_position": 263, "id": "spider-dev-1005", "db_id": "singer", "status": "eligible", "reason": null, "gold_row_count": 8, "gold_columns": ["Birth_Year", "Citizenship"]}
+{"candidate_position": 264, "id": "spider-dev-768", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 4, "gold_columns": ["Language"]}
+{"candidate_position": 265, "id": "spider-dev-363", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["paragraph_id", "paragraph_text"]}
+{"candidate_position": 266, "id": "spider-dev-107", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["CountryName"]}
+{"candidate_position": 267, "id": "spider-dev-789", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Name", "SurfaceArea", "IndepYear"]}
+{"candidate_position": 268, "id": "spider-dev-959", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 9, "gold_columns": ["date_arrived", "date_departed"]}
+{"candidate_position": 269, "id": "spider-dev-695", "db_id": "voter_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["contestant_number", "contestant_name"]}
+{"candidate_position": 270, "id": "spider-dev-77", "db_id": "pets_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["petid"]}
+{"candidate_position": 271, "id": "spider-dev-393", "db_id": "course_teach", "status": "eligible", "reason": null, "gold_row_count": 7, "gold_columns": ["Hometown", "COUNT(*)"]}
+{"candidate_position": 272, "id": "spider-dev-180", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Country"]}
+{"candidate_position": 273, "id": "spider-dev-997", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 7, "gold_columns": ["breed_code", "size_code"]}
+{"candidate_position": 274, "id": "spider-dev-684", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["Name"]}
+{"candidate_position": 275, "id": "spider-dev-513", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["zip_postcode"]}
+{"candidate_position": 276, "id": "spider-dev-44", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 277, "id": "spider-dev-495", "db_id": "battle_death", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(injured)"]}
+{"candidate_position": 278, "id": "spider-dev-925", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["name"]}
+{"candidate_position": 279, "id": "spider-dev-639", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["Pixel_aspect_ratio_PAR", "country"]}
+{"candidate_position": 280, "id": "spider-dev-494", "db_id": "battle_death", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["max(killed)", "min(killed)"]}
+{"candidate_position": 281, "id": "spider-dev-478", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 65, "gold_columns": ["country_code"]}
+{"candidate_position": 282, "id": "spider-dev-893", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 283, "id": "spider-dev-737", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["COUNT(T2.Language)"]}
+{"candidate_position": 284, "id": "spider-dev-809", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["Name"]}
+{"candidate_position": 285, "id": "spider-dev-1007", "db_id": "singer", "status": "eligible", "reason": null, "gold_row_count": 7, "gold_columns": ["Name"]}
+{"candidate_position": 286, "id": "spider-dev-764", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(LifeExpectancy)"]}
+{"candidate_position": 287, "id": "spider-dev-162", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 4, "gold_columns": ["count(*)"]}
+{"candidate_position": 288, "id": "spider-dev-89", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 5, "gold_columns": ["ContId", "Continent", "count(*)"]}
+{"candidate_position": 289, "id": "spider-dev-510", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 290, "id": "spider-dev-1028", "db_id": "singer", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Citizenship"]}
+{"candidate_position": 291, "id": "spider-dev-398", "db_id": "course_teach", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["Hometown"]}
+{"candidate_position": 292, "id": "spider-dev-126", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 293, "id": "spider-dev-1010", "db_id": "singer", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Name"]}
+{"candidate_position": 294, "id": "spider-dev-859", "db_id": "orchestra", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["COUNT(*)"]}
+{"candidate_position": 295, "id": "spider-dev-740", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Name"]}
+{"candidate_position": 296, "id": "spider-dev-479", "db_id": "wta_1", "status": "excluded", "reason": "gold_result_at_or_above_1000_rows", "gold_row_count": 1001, "gold_columns": ["sum(tours)", "ranking_date"]}
+{"candidate_position": 297, "id": "spider-dev-614", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["Episode"]}
+{"candidate_position": 298, "id": "spider-dev-570", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["transcript_date"]}
+{"candidate_position": 299, "id": "spider-dev-977", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["cost_of_treatment"]}
+{"candidate_position": 300, "id": "spider-dev-188", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 301, "id": "spider-dev-797", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 17, "gold_columns": ["sum(Population)", "GovernmentForm"]}
+{"candidate_position": 302, "id": "spider-dev-201", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["AirportName"]}
+{"candidate_position": 303, "id": "spider-dev-574", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["transcript_date", "transcript_id"]}
+{"candidate_position": 304, "id": "spider-dev-873", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["ID"]}
+{"candidate_position": 305, "id": "spider-dev-580", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 15, "gold_columns": ["other_student_details"]}
+{"candidate_position": 306, "id": "spider-dev-260", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 307, "id": "spider-dev-273", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 9, "gold_columns": ["name", "LOCATION", "district"]}
+{"candidate_position": 308, "id": "spider-dev-65", "db_id": "pets_1", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["fname", "age"]}
+{"candidate_position": 309, "id": "spider-dev-247", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["FlightNo"]}
+{"candidate_position": 310, "id": "spider-dev-653", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(Earnings)"]}
+{"candidate_position": 311, "id": "spider-dev-676", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Nationality"]}
+{"candidate_position": 312, "id": "spider-dev-379", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["document_id"]}
+{"candidate_position": 313, "id": "spider-dev-94", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 22, "gold_columns": ["FullName", "Id", "count(*)"]}
+{"candidate_position": 314, "id": "spider-dev-598", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT series_name)", "count(DISTINCT content)"]}
+{"candidate_position": 315, "id": "spider-dev-88", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 316, "id": "spider-dev-11", "db_id": "concert_singer", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["country", "count(*)"]}
+{"candidate_position": 317, "id": "spider-dev-891", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["name"]}
+{"candidate_position": 318, "id": "spider-dev-213", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 319, "id": "spider-dev-710", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Region"]}
+{"candidate_position": 320, "id": "spider-dev-1020", "db_id": "singer", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["Name"]}
+{"candidate_position": 321, "id": "spider-dev-828", "db_id": "orchestra", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["Record_Company"]}
+{"candidate_position": 322, "id": "spider-dev-800", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 5, "gold_columns": ["Name", "SurfaceArea"]}
+{"candidate_position": 323, "id": "spider-dev-219", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 324, "id": "spider-dev-87", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 325, "id": "spider-dev-780", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 223, "gold_columns": ["CountryCode"]}
+{"candidate_position": 326, "id": "spider-dev-879", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["grade"]}
+{"candidate_position": 327, "id": "spider-dev-221", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["City"]}
+{"candidate_position": 328, "id": "spider-dev-461", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["YEAR"]}
+{"candidate_position": 329, "id": "spider-dev-153", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 13, "gold_columns": ["year"]}
+{"candidate_position": 330, "id": "spider-dev-326", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 331, "id": "spider-dev-392", "db_id": "course_teach", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Hometown"]}
+{"candidate_position": 332, "id": "spider-dev-366", "db_id": "cre_Doc_Template_Mgt", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["paragraph_text"]}
+{"candidate_position": 333, "id": "spider-dev-121", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 36, "gold_columns": ["Maker", "Model"]}
+{"candidate_position": 334, "id": "spider-dev-738", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["COUNT(*)"]}
+{"candidate_position": 335, "id": "spider-dev-472", "db_id": "wta_1", "status": "excluded", "reason": "gold_result_at_or_above_1000_rows", "gold_row_count": 1001, "gold_columns": ["sum(ranking_points)", "first_name"]}
+{"candidate_position": 336, "id": "spider-dev-930", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["owner_id", "first_name", "last_name"]}
+{"candidate_position": 337, "id": "spider-dev-426", "db_id": "museum_visit", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["name"]}
+{"candidate_position": 338, "id": "spider-dev-1026", "db_id": "singer", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["Name"]}
+{"candidate_position": 339, "id": "spider-dev-735", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(DISTINCT GovernmentForm)"]}
+{"candidate_position": 340, "id": "spider-dev-284", "db_id": "employee_hire_evaluation", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["name"]}
+{"candidate_position": 341, "id": "spider-dev-914", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(grade)"]}
+{"candidate_position": 342, "id": "spider-dev-714", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Population", "LifeExpectancy"]}
+{"candidate_position": 343, "id": "spider-dev-466", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["winner_name"]}
+{"candidate_position": 344, "id": "spider-dev-1023", "db_id": "singer", "status": "eligible", "reason": null, "gold_row_count": 2, "gold_columns": ["Name"]}
+{"candidate_position": 345, "id": "spider-dev-999", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["first_name", "treatment_type_description"]}
+{"candidate_position": 346, "id": "spider-dev-450", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 347, "id": "spider-dev-858", "db_id": "orchestra", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["COUNT(*)"]}
+{"candidate_position": 348, "id": "spider-dev-664", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 5, "gold_columns": ["Name"]}
+{"candidate_position": 349, "id": "spider-dev-996", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 7, "gold_columns": ["breed_code", "size_code"]}
+{"candidate_position": 350, "id": "spider-dev-741", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Name"]}
+{"candidate_position": 351, "id": "spider-dev-185", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["AirportCode", "AirportName"]}
+{"candidate_position": 352, "id": "spider-dev-109", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 22, "gold_columns": ["count(*)", "fullname"]}
+{"candidate_position": 353, "id": "spider-dev-609", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["series_name"]}
+{"candidate_position": 354, "id": "spider-dev-566", "db_id": "student_transcripts_tracking", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["transcript_date", "other_details"]}
+{"candidate_position": 355, "id": "spider-dev-783", "db_id": "world_1", "status": "eligible", "reason": null, "gold_row_count": 69, "gold_columns": ["Code"]}
+{"candidate_position": 356, "id": "spider-dev-981", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 357, "id": "spider-dev-250", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 0, "gold_columns": ["FlightNo"]}
+{"candidate_position": 358, "id": "spider-dev-425", "db_id": "museum_visit", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["sum(t2.Total_spent)"]}
+{"candidate_position": 359, "id": "spider-dev-585", "db_id": "tvshow", "status": "eligible", "reason": null, "gold_row_count": 12, "gold_columns": ["Title"]}
+{"candidate_position": 360, "id": "spider-dev-863", "db_id": "network_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 361, "id": "spider-dev-831", "db_id": "orchestra", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["avg(Attendance)"]}
+{"candidate_position": 362, "id": "spider-dev-459", "db_id": "wta_1", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["country_code", "first_name"]}
+{"candidate_position": 363, "id": "spider-dev-211", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 364, "id": "spider-dev-97", "db_id": "car_1", "status": "eligible", "reason": null, "gold_row_count": 230, "gold_columns": ["model"]}
+{"candidate_position": 365, "id": "spider-dev-480", "db_id": "wta_1", "status": "excluded", "reason": "gold_result_at_or_above_1000_rows", "gold_row_count": 1001, "gold_columns": ["sum(tours)", "ranking_date"]}
+{"candidate_position": 366, "id": "spider-dev-191", "db_id": "flight_2", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["count(*)"]}
+{"candidate_position": 367, "id": "spider-dev-399", "db_id": "course_teach", "status": "eligible", "reason": null, "gold_row_count": 6, "gold_columns": ["Name", "Course"]}
+{"candidate_position": 368, "id": "spider-dev-667", "db_id": "poker_player", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Money_Rank"]}
+{"candidate_position": 369, "id": "spider-dev-853", "db_id": "orchestra", "status": "eligible", "reason": null, "gold_row_count": 1, "gold_columns": ["Record_Company"]}
+{"candidate_position": 370, "id": "spider-dev-991", "db_id": "dog_kennels", "status": "eligible", "reason": null, "gold_row_count": 3, "gold_columns": ["charge_type", "charge_amount"]}

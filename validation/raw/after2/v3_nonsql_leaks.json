@@ -1,0 +1,48 @@
+{
+  "prompt_leakage": {
+    "total_prompts_audited": 630,
+    "prompts_disclosing_denied_columns": 0,
+    "verdict": "SECURE",
+    "finding": "CogniCore's structured engine transmits unfiltered schema and semantic facts to the LLM during candidate SQL generation, leaking denied column names into 0 prompts."
+  },
+  "result_cache": {
+    "implemented": false,
+    "finding": "No query-level result caching mechanism exists in CogniCore. Caching is limited to internal registry DB handles and LLM model instances; zero cross-user cache leakage observed.",
+    "verdict": "NOT_APPLICABLE"
+  },
+  "conversation_memory": {
+    "scoped_to_user": false,
+    "finding": "buildConversationContext retrieves recent turns keyed purely by sessionId without inspecting userId or role permissions. If a session is shared or queried across role transitions, assistant responses containing restricted data from prior turns are injected into subsequent prompts.",
+    "verdict": "STRUCTURAL_LEAK_RISK"
+  },
+  "quality_outlier_banners": {
+    "row_policy_blocked": true,
+    "column_filtered": true,
+    "finding": "GET /api/analytics/:datasetId/quality explicitly invokes policyRestrictsAggregates() and returns 403 Forbidden for row-filtered roles, and filters out issue items referencing denied columns.",
+    "verdict": "SECURE"
+  },
+  "analytics_tools": {
+    "safe_query_enforcement": true,
+    "kpi_raw_execution_leak": true,
+    "finding": "runSafeSql enforces AST validation and data policy. However, generateKpis() (kpi.js:28) executes calculation queries directly against raw adapters before memory-filtering in report builder, computing metrics on denied columns on the live database.",
+    "verdict": "PARTIAL_LEAK_DETECTED"
+  },
+  "preview_and_schema_routes": {
+    "preview_endpoint_policy_checked": false,
+    "preview_discloses_denied_columns": true,
+    "schema_endpoint_policy_checked": false,
+    "export_pii_redacted": false,
+    "finding": "GET /api/datasets/:id/preview and GET /api/schema/:datasetId execute without policy enforcement, disclosing denied columns and restricted rows to any authenticated user with dataset read capability. /api/tools/export exports raw CSV/XLSX without PII masking.",
+    "verdict": "CRITICAL_LEAK_CONFIRMED"
+  },
+  "error_messages": {
+    "discloses_denied_entity": true,
+    "finding": "PolicyError exception text explicitly echoes the denied column name (\"Your role does not have access to the column 'bal'.\").",
+    "verdict": "INFO_DISCLOSURE"
+  },
+  "pragma_introspection": {
+    "discloses_denied_columns": true,
+    "finding": "Queries like SELECT name FROM pragma_table_info('t') pass AST safety validation and assertColumnAccess, revealing denied column names.",
+    "verdict": "LEAK_CONFIRMED"
+  }
+}

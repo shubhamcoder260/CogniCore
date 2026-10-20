@@ -1,0 +1,2092 @@
+{
+  "generated_at": "2026-10-19T16:57:21.029Z",
+  "total_items": 45,
+  "matrixResults": [
+    {
+      "id": "att_0001",
+      "category": "drop",
+      "sql": "DROP TABLE brs",
+      "description": "drop",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0002",
+      "category": "drop",
+      "sql": "DROP TABLE IF EXISTS accts",
+      "description": "drop",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0003",
+      "category": "drop",
+      "sql": "DROP VIEW IF EXISTS test_view",
+      "description": "drop",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0004",
+      "category": "drop",
+      "sql": "DROP INDEX IF EXISTS idx_test",
+      "description": "drop",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0007",
+      "category": "delete",
+      "sql": "DELETE FROM brs",
+      "description": "delete",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0008",
+      "category": "delete",
+      "sql": "DELETE FROM accts WHERE acct_id > 10",
+      "description": "delete",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0009",
+      "category": "delete",
+      "sql": "DELETE FROM txns WHERE 1=1",
+      "description": "delete",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0010",
+      "category": "delete",
+      "sql": "delete from lns where amt < 1000",
+      "description": "delete",
+      "configs": {
+        "config_1_baseline": {
+          "executed": false,
+          "error": "no such column: amt",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "no such column: amt",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "no such column: amt",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "no such column: amt",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0012",
+      "category": "update",
+      "sql": "UPDATE brs SET city = 'Compromised'",
+      "description": "update",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0013",
+      "category": "update",
+      "sql": "UPDATE accts SET bal = 9999999 WHERE acct_id = 1",
+      "description": "update",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0014",
+      "category": "update",
+      "sql": "update txns set amt = 0",
+      "description": "update",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0015",
+      "category": "update",
+      "sql": "UPDATE lns SET rate = rate * 2 WHERE rate > 0",
+      "description": "update",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0017",
+      "category": "insert",
+      "sql": "INSERT INTO brs (br_id, br_nm, city) VALUES (888, 'Injected', 'City')",
+      "description": "insert",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0018",
+      "category": "insert",
+      "sql": "INSERT INTO accts VALUES (999, 1, 100, 500.0, 'active', 'chk', '2026-01-01')",
+      "description": "insert",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0019",
+      "category": "insert",
+      "sql": "insert into txns (txn_id, amt) values (777, 10.0)",
+      "description": "insert",
+      "configs": {
+        "config_1_baseline": {
+          "executed": false,
+          "error": "NOT NULL constraint failed: txns.acct_id",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0020",
+      "category": "insert",
+      "sql": "INSERT OR IGNORE INTO brs (br_id) VALUES (1)",
+      "description": "insert",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0022",
+      "category": "replace",
+      "sql": "REPLACE INTO brs (br_id, br_nm, city) VALUES (1, 'R1', 'C1')",
+      "description": "replace",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0023",
+      "category": "replace",
+      "sql": "replace into accts (acct_id, bal) values (2, 0.0)",
+      "description": "replace",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0024",
+      "category": "replace",
+      "sql": "REPLACE INTO lns (ln_id, amt) VALUES (5, 50000)",
+      "description": "replace",
+      "configs": {
+        "config_1_baseline": {
+          "executed": false,
+          "error": "table lns has no column named amt",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "table lns has no column named amt",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "table lns has no column named amt",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "table lns has no column named amt",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0025",
+      "category": "replace",
+      "sql": "REPLACE INTO txns SELECT * FROM txns WHERE txn_id = 1",
+      "description": "replace",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0027",
+      "category": "alter",
+      "sql": "ALTER TABLE brs RENAME TO brs_renamed",
+      "description": "alter",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0028",
+      "category": "alter",
+      "sql": "ALTER TABLE accts ADD COLUMN backdoor TEXT",
+      "description": "alter",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0029",
+      "category": "alter",
+      "sql": "alter table txns rename column amt to amount",
+      "description": "alter",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0030",
+      "category": "alter",
+      "sql": "ALTER TABLE lns RENAME TO lns_archive",
+      "description": "alter",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0032",
+      "category": "create_table",
+      "sql": "CREATE TABLE backdoor (id INT, secret TEXT)",
+      "description": "create_table",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0033",
+      "category": "create_table",
+      "sql": "CREATE TEMPORARY TABLE temp_exfil AS SELECT * FROM accts",
+      "description": "create_table",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0034",
+      "category": "create_table",
+      "sql": "create table if not exists shadow_users (u text, p text)",
+      "description": "create_table",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0035",
+      "category": "create_table",
+      "sql": "CREATE TABLE exfil AS SELECT * FROM sqlite_master",
+      "description": "create_table",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0037",
+      "category": "create_trigger",
+      "sql": "CREATE TRIGGER trg_pwn AFTER INSERT ON brs BEGIN UPDATE brs SET city = 'Triggered'; END",
+      "description": "create_trigger",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0038",
+      "category": "create_trigger",
+      "sql": "CREATE TRIGGER trg_del BEFORE DELETE ON accts BEGIN SELECT 1; END",
+      "description": "create_trigger",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0039",
+      "category": "create_trigger",
+      "sql": "create trigger if not exists trg_t after update on txns begin select 1; end",
+      "description": "create_trigger",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0040",
+      "category": "create_trigger",
+      "sql": "CREATE TEMP TRIGGER trg_temp AFTER INSERT ON lns BEGIN UPDATE lns SET amt = 0; END",
+      "description": "create_trigger",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0073",
+      "category": "attach_detach",
+      "sql": "ATTACH 'C:\\cognicore\\validation_workspace\\validation\\sandbox\\pwn.db' AS pwn",
+      "description": "attach_detach",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0074",
+      "category": "attach_detach",
+      "sql": "ATTACH ':memory:' AS inmem_db",
+      "description": "attach_detach",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0075",
+      "category": "attach_detach",
+      "sql": "ATTACH '' AS emptydb",
+      "description": "attach_detach",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0076",
+      "category": "attach_detach",
+      "sql": "ATTACH 'file:sandbox.db?mode=rwc' AS uri_db",
+      "description": "attach_detach",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0062",
+      "category": "stacked_statements",
+      "sql": "SELECT * FROM brs; DROP TABLE accts;",
+      "description": "stacked_statements",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0063",
+      "category": "stacked_statements",
+      "sql": "SELECT br_id FROM brs; DELETE FROM txns;",
+      "description": "stacked_statements",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0064",
+      "category": "stacked_statements",
+      "sql": "SELECT * FROM brs;\nUPDATE accts SET bal = 0;",
+      "description": "stacked_statements",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "att_0065",
+      "category": "stacked_statements",
+      "sql": "SELECT 1; SELECT 2;",
+      "description": "stacked_statements",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "SPEC_VACUUM_INTO",
+      "category": "vacuum_into",
+      "sql": "VACUUM INTO 'vacuum_target.db'",
+      "description": "VACUUM INTO creating a new database file",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "vacuum_target.db"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "vacuum_target.db"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal",
+            "vacuum_target.db"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal",
+            "vacuum_target.db"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "SPEC_ATTACH_WRITE",
+      "category": "attach_write",
+      "sql": "ATTACH DATABASE 'attached_new.db' AS att; CREATE TABLE att.test_t (id INT); INSERT INTO att.test_t VALUES (1);",
+      "description": "ATTACH new database file and write table + rows into it",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "attached_new.db"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "attached_new.db"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "unable to open database: C:/cognicore/validation_workspace/validation/sandbox_hardening/sb_config_3_readonly_true_SPEC_ATTACH_WRITE_1792429040712_5evb/attached_new.db",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "unable to open database: C:/cognicore/validation_workspace/validation/sandbox_hardening/sb_config_4_both_SPEC_ATTACH_WRITE_1792429040742_pf2i/attached_new.db",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "SPEC_CREATE_TEMP_TABLE",
+      "category": "create_temp_table",
+      "sql": "CREATE TEMP TABLE temp_demo (id INT, note TEXT); INSERT INTO temp_demo VALUES (1, 'temp data');",
+      "description": "CREATE TEMP TABLE and write rows into temporary store",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "SPEC_FLIP_QUERY_ONLY",
+      "category": "flip_query_only",
+      "sql": "PRAGMA query_only = OFF; INSERT INTO brs (br_id, br_nm, city) VALUES (9999, 'Bypass Branch', 'Bypass City');",
+      "description": "Attempt to disable PRAGMA query_only followed by INSERT",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": true
+        },
+        "config_2_query_only": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": true
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    },
+    {
+      "id": "SPEC_CTE_WRITE",
+      "category": "cte_write",
+      "sql": "WITH new_br AS (SELECT 9998 AS br_id, 'CTE Branch' AS br_nm, 'CTE City' AS city) INSERT INTO brs (br_id, br_nm, city) SELECT br_id, br_nm, city FROM new_br;",
+      "description": "Data-modifying statement disguised behind Common Table Expression",
+      "configs": {
+        "config_1_baseline": {
+          "executed": true,
+          "error": null,
+          "mutatedDb": true,
+          "mutatedFs": true,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_2_query_only": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": false,
+          "filesCreated": [],
+          "queryOnlyFlippedBack": false
+        },
+        "config_3_readonly_true": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        },
+        "config_4_both": {
+          "executed": false,
+          "error": "attempt to write a readonly database",
+          "mutatedDb": false,
+          "mutatedFs": true,
+          "filesCreated": [
+            "target.db-shm",
+            "target.db-wal"
+          ],
+          "queryOnlyFlippedBack": false
+        }
+      }
+    }
+  ],
+  "compatibilityResults": {
+    "journal_mode_wal_configured": true,
+    "readonly_true_select_success": true,
+    "select_row_count": 5,
+    "error": null
+  }
+}

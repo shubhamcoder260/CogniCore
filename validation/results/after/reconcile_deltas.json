@@ -1,0 +1,882 @@
+{
+  "table1_v3c": {
+    "total_n": 46920,
+    "pooled_e1": {
+      "base_leaks": 1720,
+      "base_rate": "3.67%",
+      "after_leaks": 1779,
+      "after_rate": "3.79%",
+      "abs_delta": "0.13%",
+      "after_ci95": "[3.62%, 3.97%]"
+    },
+    "pooled_e2": {
+      "base_leaks": 1720,
+      "base_rate": "3.67%",
+      "after_leaks": 1779,
+      "after_rate": "3.79%",
+      "abs_delta": "0.13%",
+      "after_ci95": "[3.62%, 3.97%]"
+    },
+    "variants": [
+      {
+        "variant": "plain_base",
+        "n": 2760,
+        "base_e1_leaks": 0,
+        "base_e1_rate": "0.00%",
+        "after_e1_leaks": 0,
+        "after_e1_rate": "0.00%",
+        "abs_delta_e1": "0.00%",
+        "after_e1_ci95": "[0.00%, 0.14%]",
+        "exact_zero_bound_e1": "0.11%",
+        "base_e2_leaks": 0,
+        "after_e2_leaks": 0
+      },
+      {
+        "variant": "table_alias",
+        "n": 2760,
+        "base_e1_leaks": 14,
+        "base_e1_rate": "0.51%",
+        "after_e1_leaks": 25,
+        "after_e1_rate": "0.91%",
+        "abs_delta_e1": "0.40%",
+        "after_e1_ci95": "[0.61%, 1.33%]",
+        "exact_zero_bound_e1": "N/A",
+        "base_e2_leaks": 14,
+        "after_e2_leaks": 25
+      },
+      {
+        "variant": "schema_qualified_main",
+        "n": 2760,
+        "base_e1_leaks": 1622,
+        "base_e1_rate": "58.77%",
+        "after_e1_leaks": 1637,
+        "after_e1_rate": "59.31%",
+        "abs_delta_e1": "0.54%",
+        "after_e1_ci95": "[57.47%, 61.13%]",
+        "exact_zero_bound_e1": "N/A",
+        "base_e2_leaks": 1622,
+        "after_e2_leaks": 1637
+      },
+      {
+        "variant": "schema_qualified_temp",
+        "n": 2760,
+        "base_e1_leaks": 0,
+        "base_e1_rate": "0.00%",
+        "after_e1_leaks": 0,
+        "after_e1_rate": "0.00%",
+        "abs_delta_e1": "0.00%",
+        "after_e1_ci95": "[0.00%, 0.14%]",
+        "exact_zero_bound_e1": "0.11%",
+        "base_e2_leaks": 0,
+        "after_e2_leaks": 0
+      },
+      {
+        "variant": "bracket_quoted",
+        "n": 2760,
+        "base_e1_leaks": 0,
+        "base_e1_rate": "0.00%",
+        "after_e1_leaks": 0,
+        "after_e1_rate": "0.00%",
+        "abs_delta_e1": "0.00%",
+        "after_e1_ci95": "[0.00%, 0.14%]",
+        "exact_zero_bound_e1": "0.11%",
+        "base_e2_leaks": 0,
+        "after_e2_leaks": 0
+      },
+      {
+        "variant": "backtick_quoted",
+        "n": 2760,
+        "base_e1_leaks": 0,
+        "base_e1_rate": "0.00%",
+        "after_e1_leaks": 0,
+        "after_e1_rate": "0.00%",
+        "abs_delta_e1": "0.00%",
+        "after_e1_ci95": "[0.00%, 0.14%]",
+        "exact_zero_bound_e1": "0.11%",
+        "base_e2_leaks": 0,
+        "after_e2_leaks": 0
+      },
+      {
+        "variant": "double_quoted",
+        "n": 2760,
+        "base_e1_leaks": 0,
+        "base_e1_rate": "0.00%",
+        "after_e1_leaks": 0,
+        "after_e1_rate": "0.00%",
+        "abs_delta_e1": "0.00%",
+        "after_e1_ci95": "[0.00%, 0.14%]",
+        "exact_zero_bound_e1": "0.11%",
+        "base_e2_leaks": 0,
+        "after_e2_leaks": 0
+      },
+      {
+        "variant": "cte_collision",
+        "n": 2760,
+        "base_e1_leaks": 0,
+        "base_e1_rate": "0.00%",
+        "after_e1_leaks": 0,
+        "after_e1_rate": "0.00%",
+        "abs_delta_e1": "0.00%",
+        "after_e1_ci95": "[0.00%, 0.14%]",
+        "exact_zero_bound_e1": "0.11%",
+        "base_e2_leaks": 0,
+        "after_e2_leaks": 0
+      },
+      {
+        "variant": "existing_cte",
+        "n": 2760,
+        "base_e1_leaks": 0,
+        "base_e1_rate": "0.00%",
+        "after_e1_leaks": 0,
+        "after_e1_rate": "0.00%",
+        "abs_delta_e1": "0.00%",
+        "after_e1_ci95": "[0.00%, 0.14%]",
+        "exact_zero_bound_e1": "0.11%",
+        "base_e2_leaks": 0,
+        "after_e2_leaks": 0
+      },
+      {
+        "variant": "with_recursive",
+        "n": 2760,
+        "base_e1_leaks": 0,
+        "base_e1_rate": "0.00%",
+        "after_e1_leaks": 0,
+        "after_e1_rate": "0.00%",
+        "abs_delta_e1": "0.00%",
+        "after_e1_ci95": "[0.00%, 0.14%]",
+        "exact_zero_bound_e1": "0.11%",
+        "base_e2_leaks": 0,
+        "after_e2_leaks": 0
+      },
+      {
+        "variant": "subquery_from",
+        "n": 2760,
+        "base_e1_leaks": 14,
+        "base_e1_rate": "0.51%",
+        "after_e1_leaks": 25,
+        "after_e1_rate": "0.91%",
+        "abs_delta_e1": "0.40%",
+        "after_e1_ci95": "[0.61%, 1.33%]",
+        "exact_zero_bound_e1": "N/A",
+        "base_e2_leaks": 14,
+        "after_e2_leaks": 25
+      },
+      {
+        "variant": "subquery_where_in",
+        "n": 2760,
+        "base_e1_leaks": 14,
+        "base_e1_rate": "0.51%",
+        "after_e1_leaks": 14,
+        "after_e1_rate": "0.51%",
+        "abs_delta_e1": "0.00%",
+        "after_e1_ci95": "[0.30%, 0.85%]",
+        "exact_zero_bound_e1": "N/A",
+        "base_e2_leaks": 14,
+        "after_e2_leaks": 14
+      },
+      {
+        "variant": "subquery_exists",
+        "n": 2760,
+        "base_e1_leaks": 14,
+        "base_e1_rate": "0.51%",
+        "after_e1_leaks": 14,
+        "after_e1_rate": "0.51%",
+        "abs_delta_e1": "0.00%",
+        "after_e1_ci95": "[0.30%, 0.85%]",
+        "exact_zero_bound_e1": "N/A",
+        "base_e2_leaks": 14,
+        "after_e2_leaks": 14
+      },
+      {
+        "variant": "union_all",
+        "n": 2760,
+        "base_e1_leaks": 14,
+        "base_e1_rate": "0.51%",
+        "after_e1_leaks": 14,
+        "after_e1_rate": "0.51%",
+        "abs_delta_e1": "0.00%",
+        "after_e1_ci95": "[0.30%, 0.85%]",
+        "exact_zero_bound_e1": "N/A",
+        "base_e2_leaks": 14,
+        "after_e2_leaks": 14
+      },
+      {
+        "variant": "self_join",
+        "n": 2760,
+        "base_e1_leaks": 14,
+        "base_e1_rate": "0.51%",
+        "after_e1_leaks": 25,
+        "after_e1_rate": "0.91%",
+        "abs_delta_e1": "0.40%",
+        "after_e1_ci95": "[0.61%, 1.33%]",
+        "exact_zero_bound_e1": "N/A",
+        "base_e2_leaks": 14,
+        "after_e2_leaks": 25
+      },
+      {
+        "variant": "left_join",
+        "n": 2760,
+        "base_e1_leaks": 14,
+        "base_e1_rate": "0.51%",
+        "after_e1_leaks": 25,
+        "after_e1_rate": "0.91%",
+        "abs_delta_e1": "0.40%",
+        "after_e1_ci95": "[0.61%, 1.33%]",
+        "exact_zero_bound_e1": "N/A",
+        "base_e2_leaks": 14,
+        "after_e2_leaks": 25
+      },
+      {
+        "variant": "aggregate",
+        "n": 2760,
+        "base_e1_leaks": 0,
+        "base_e1_rate": "0.00%",
+        "after_e1_leaks": 0,
+        "after_e1_rate": "0.00%",
+        "abs_delta_e1": "0.00%",
+        "after_e1_ci95": "[0.00%, 0.14%]",
+        "exact_zero_bound_e1": "0.11%",
+        "base_e2_leaks": 0,
+        "after_e2_leaks": 0
+      }
+    ]
+  },
+  "table2_v4": {
+    "total_n": 1930,
+    "base_accepted_total": 656,
+    "after_accepted_total": 826,
+    "strata": [
+      {
+        "class_id": "A",
+        "stratum": "Class A (Mutating DDL/DML)",
+        "total": 1325,
+        "base_accepted": 311,
+        "base_rate": "23.47%",
+        "after_accepted": 461,
+        "after_rate": "34.79%",
+        "abs_delta": "11.32%",
+        "rel_delta": "48.23%",
+        "exact_zero_bound": "N/A"
+      },
+      {
+        "class_id": "B",
+        "stratum": "Class B (Resource Exhaustion)",
+        "total": 23,
+        "base_accepted": 0,
+        "base_rate": "0.00%",
+        "after_accepted": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "exact_zero_bound": "12.21%"
+      },
+      {
+        "class_id": "C",
+        "stratum": "Class C (Benign Analytical)",
+        "total": 220,
+        "base_accepted": 200,
+        "base_rate": "90.91%",
+        "after_accepted": 220,
+        "after_rate": "100.00%",
+        "abs_delta": "9.09%",
+        "rel_delta": "10.00%",
+        "exact_zero_bound": "N/A"
+      },
+      {
+        "class_id": "D",
+        "stratum": "Class D (Boundary Tests)",
+        "total": 12,
+        "base_accepted": 5,
+        "base_rate": "41.67%",
+        "after_accepted": 5,
+        "after_rate": "41.67%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "exact_zero_bound": "N/A"
+      },
+      {
+        "class_id": "F",
+        "stratum": "Class Fuzz (Mutations)",
+        "total": 350,
+        "base_accepted": 140,
+        "base_rate": "40.00%",
+        "after_accepted": 140,
+        "after_rate": "40.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "exact_zero_bound": "N/A"
+      }
+    ]
+  },
+  "table3_c2": {
+    "total_n": 465,
+    "base_rejected_total": 285,
+    "after_rejected_total": 75,
+    "constructs": [
+      {
+        "construct": "backtick_identifier",
+        "total": 15,
+        "base_rejected": 0,
+        "base_rate": "0.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "bracket_identifier",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 15,
+        "after_rate": "100.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[79.61%, 100.00%]",
+        "exact_zero_bound": "N/A"
+      },
+      {
+        "construct": "cast_type_conversion",
+        "total": 15,
+        "base_rejected": 0,
+        "base_rate": "0.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "coalesce_fallback",
+        "total": 15,
+        "base_rejected": 0,
+        "base_rate": "0.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "double_quote_identifier",
+        "total": 15,
+        "base_rejected": 0,
+        "base_rate": "0.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "glob_operator",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 15,
+        "after_rate": "100.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[79.61%, 100.00%]",
+        "exact_zero_bound": "N/A"
+      },
+      {
+        "construct": "group_concat_agg",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "ifnull_null_handler",
+        "total": 15,
+        "base_rejected": 0,
+        "base_rate": "0.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "iif_conditional",
+        "total": 15,
+        "base_rejected": 0,
+        "base_rate": "0.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "like_escape_clause",
+        "total": 15,
+        "base_rejected": 0,
+        "base_rate": "0.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "limit_offset_comma",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 15,
+        "after_rate": "100.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[79.61%, 100.00%]",
+        "exact_zero_bound": "N/A"
+      },
+      {
+        "construct": "literal_equals_call",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "literal_equals_create",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "literal_equals_delete",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "literal_equals_drop",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "literal_equals_execute",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "literal_equals_insert",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "literal_equals_replace",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "literal_equals_update",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "literal_with_block_comment",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "literal_with_line_comment",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "literal_with_semicolon",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "printf_format",
+        "total": 15,
+        "base_rejected": 0,
+        "base_rate": "0.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "quoted_alias_keyword",
+        "total": 30,
+        "base_rejected": 30,
+        "base_rate": "100.00%",
+        "after_rejected": 15,
+        "after_rate": "50.00%",
+        "abs_delta": "-50.00%",
+        "rel_delta": "-50.00%",
+        "after_ci95": "[33.15%, 66.85%]",
+        "exact_zero_bound": "N/A"
+      },
+      {
+        "construct": "replace_function",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "-100.00%",
+        "rel_delta": "-100.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "strftime_date",
+        "total": 30,
+        "base_rejected": 0,
+        "base_rate": "0.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[0.00%, 11.35%]",
+        "exact_zero_bound": "9.50%"
+      },
+      {
+        "construct": "string_concat_op",
+        "total": 15,
+        "base_rejected": 15,
+        "base_rate": "100.00%",
+        "after_rejected": 15,
+        "after_rate": "100.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[79.61%, 100.00%]",
+        "exact_zero_bound": "N/A"
+      },
+      {
+        "construct": "substr_instr",
+        "total": 15,
+        "base_rejected": 0,
+        "base_rate": "0.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      },
+      {
+        "construct": "window_function",
+        "total": 15,
+        "base_rejected": 0,
+        "base_rate": "0.00%",
+        "after_rejected": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "rel_delta": "0.00%",
+        "after_ci95": "[0.00%, 20.39%]",
+        "exact_zero_bound": "18.10%"
+      }
+    ]
+  },
+  "table4_b2": {
+    "total_n": 352,
+    "base_accepted": 224,
+    "base_rate": "63.64%",
+    "after_accepted": 240,
+    "after_rate": "68.18%",
+    "abs_delta": "4.55%",
+    "after_ci95": "[63.14%, 72.83%]"
+  },
+  "table5_v4c": {
+    "total_n": 29,
+    "baseline": {
+      "total": 29,
+      "completed": 13,
+      "timeout": 16,
+      "oom": 0,
+      "elBlocked": 16
+    },
+    "after": {
+      "total": 29,
+      "completed": 17,
+      "timeout": 12,
+      "oom": 0,
+      "elBlocked": 16
+    }
+  },
+  "table6_v4d": {
+    "total_n": 640,
+    "base_accepted": 0,
+    "after_accepted": 0,
+    "exact_zero_bound": "0.47%"
+  },
+  "table7_v12": {
+    "total_n": 761,
+    "malicious": {
+      "total": 705,
+      "base_accepted": 416,
+      "base_rate": "59.01%",
+      "after_accepted": 409,
+      "after_rate": "58.01%",
+      "abs_delta": "-0.99%",
+      "after_ci95": "[54.34%, 61.60%]"
+    },
+    "valid": {
+      "total": 19,
+      "base_rejected": 0,
+      "after_rejected": 0,
+      "exact_zero_bound": "14.59%"
+    },
+    "filename": {
+      "total": 37,
+      "base_escapes": 0,
+      "after_escapes": 0,
+      "exact_zero_bound": "7.78%"
+    }
+  },
+  "table8_v13": {
+    "total_n": 972,
+    "direct_injections": {
+      "total": 162,
+      "base_detected": 44,
+      "base_recall": "27.16%",
+      "after_detected": 47,
+      "after_recall": "29.01%",
+      "after_ci95": "[22.57%, 36.42%]"
+    },
+    "indirect_canaries": {
+      "total": 210,
+      "base_neutralized": 52,
+      "base_rate": "24.76%",
+      "after_neutralized": 78,
+      "after_rate": "37.14%",
+      "after_ci95": "[30.89%, 43.85%]"
+    },
+    "benign_questions": {
+      "total": 385,
+      "base_fp": 0,
+      "after_fp": 0,
+      "exact_zero_bound": "0.78%"
+    },
+    "benign_chunks": {
+      "total": 200,
+      "base_fp": 0,
+      "after_fp": 0,
+      "exact_zero_bound": "1.49%"
+    },
+    "oversize_boundary": {
+      "total": 15,
+      "base_matched": 15,
+      "after_matched": 15
+    }
+  },
+  "table9_v14": {
+    "unauthenticated_routes": {
+      "total": 63,
+      "leaks": 0,
+      "bound": "4.64%"
+    },
+    "idor_sweep": {
+      "total": 6,
+      "passed": 5,
+      "failed": 1,
+      "failed_route": "POST /api/chat (sessionId hijacking)"
+    },
+    "jwt_tampering": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0
+    },
+    "account_lockout": {
+      "tested": 20,
+      "lockout_triggered": false,
+      "status": "NOT IMPLEMENTED"
+    }
+  },
+  "table10_v15": {
+    "total_n": 620,
+    "categories": [
+      {
+        "category": "email",
+        "n": 100,
+        "base_masked": 90,
+        "base_rate": "90.00%",
+        "after_masked": 90,
+        "after_rate": "90.00%",
+        "abs_delta": "0.00%",
+        "after_ci95": "[82.56%, 94.48%]",
+        "exact_zero_bound": "N/A",
+        "metric_type": "Recall"
+      },
+      {
+        "category": "phone",
+        "n": 100,
+        "base_masked": 100,
+        "base_rate": "100.00%",
+        "after_masked": 100,
+        "after_rate": "100.00%",
+        "abs_delta": "0.00%",
+        "after_ci95": "[96.30%, 100.00%]",
+        "exact_zero_bound": "N/A",
+        "metric_type": "Recall"
+      },
+      {
+        "category": "ssn",
+        "n": 80,
+        "base_masked": 65,
+        "base_rate": "81.25%",
+        "after_masked": 65,
+        "after_rate": "81.25%",
+        "abs_delta": "0.00%",
+        "after_ci95": "[71.34%, 88.29%]",
+        "exact_zero_bound": "N/A",
+        "metric_type": "Recall"
+      },
+      {
+        "category": "credit_card",
+        "n": 100,
+        "base_masked": 100,
+        "base_rate": "100.00%",
+        "after_masked": 100,
+        "after_rate": "100.00%",
+        "abs_delta": "0.00%",
+        "after_ci95": "[96.30%, 100.00%]",
+        "exact_zero_bound": "N/A",
+        "metric_type": "Recall"
+      },
+      {
+        "category": "aadhaar",
+        "n": 40,
+        "base_masked": 40,
+        "base_rate": "100.00%",
+        "after_masked": 40,
+        "after_rate": "100.00%",
+        "abs_delta": "0.00%",
+        "after_ci95": "[91.24%, 100.00%]",
+        "exact_zero_bound": "N/A",
+        "metric_type": "Recall"
+      },
+      {
+        "category": "pan",
+        "n": 30,
+        "base_masked": 0,
+        "base_rate": "0.00%",
+        "after_masked": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "after_ci95": "[0.00%, 11.35%]",
+        "exact_zero_bound": "9.50%",
+        "metric_type": "Recall"
+      },
+      {
+        "category": "name",
+        "n": 50,
+        "base_masked": 0,
+        "base_rate": "0.00%",
+        "after_masked": 0,
+        "after_rate": "0.00%",
+        "abs_delta": "0.00%",
+        "after_ci95": "[0.00%, 7.13%]",
+        "exact_zero_bound": "5.82%",
+        "metric_type": "Recall"
+      },
+      {
+        "category": "benign",
+        "n": 120,
+        "base_masked": 30,
+        "base_rate": "25.00%",
+        "after_masked": 30,
+        "after_rate": "25.00%",
+        "abs_delta": "0.00%",
+        "after_ci95": "[18.11%, 33.44%]",
+        "exact_zero_bound": "N/A",
+        "metric_type": "False Positive Rate"
+      }
+    ]
+  }
+}

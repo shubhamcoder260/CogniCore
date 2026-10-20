@@ -1,0 +1,74 @@
+{
+  "total_items": 40,
+  "total_passed": 30,
+  "total_failed": 10,
+  "policy_bypasses": 0,
+  "strata": {
+    "doubled_quote_identifiers": {
+      "n": 10,
+      "passed": 0,
+      "failed": 10,
+      "errors": [
+        {
+          "id": "v3d_qid_0001",
+          "reason": "Tokenizer failed to parse doubled quote identifier: expected 'branch\"id', got tokens: [br_id, branch, id, br_nm, brs]"
+        },
+        {
+          "id": "v3d_qid_0002",
+          "reason": "Tokenizer failed to parse doubled quote identifier: expected 'account\"number', got tokens: [accts, acct_id, account, number, accts]"
+        },
+        {
+          "id": "v3d_qid_0003",
+          "reason": "Tokenizer failed to parse doubled quote identifier: expected 'user\"full\"name', got tokens: [holder_nm, user, full, name, accts]"
+        },
+        {
+          "id": "v3d_qid_0004",
+          "reason": "Tokenizer failed to parse doubled quote identifier: expected 'branch\"city', got tokens: [b, city, branch, city, brs, b]"
+        },
+        {
+          "id": "v3d_qid_0005",
+          "reason": "Tokenizer failed to parse doubled quote identifier: expected 'total\"branches', got tokens: [total, branches, brs]"
+        },
+        {
+          "id": "v3d_qid_0006",
+          "reason": "Tokenizer failed to parse doubled quote identifier: expected 'id\"col', got tokens: [br_id, id, col, brs, city]"
+        },
+        {
+          "id": "v3d_qid_0007",
+          "reason": "Tokenizer failed to parse doubled quote identifier: expected 'transaction\"ref\"num', got tokens: [t, txn_id, transaction, ref, num, txns, t]"
+        },
+        {
+          "id": "v3d_qid_0008",
+          "reason": "Tokenizer failed to parse doubled quote identifier: expected 'interest\"rate\"pct', got tokens: [rate, interest, rate, pct, lns]"
+        },
+        {
+          "id": "v3d_qid_0009",
+          "reason": "Tokenizer failed to parse doubled quote identifier: expected 'loan\"status\"flag', got tokens: [status, loan, status, flag, lns]"
+        },
+        {
+          "id": "v3d_qid_0010",
+          "reason": "Tokenizer failed to parse doubled quote identifier: expected 'branch\"name\"official', got tokens: [br_nm, branch, name, official, brs]"
+        }
+      ]
+    },
+    "escaped_apostrophes_literals": {
+      "n": 10,
+      "passed": 10,
+      "failed": 0,
+      "errors": []
+    },
+    "quoted_denied_columns": {
+      "n": 10,
+      "passed": 10,
+      "failed": 0,
+      "errors": [],
+      "bypasses": []
+    },
+    "mixed_quoting": {
+      "n": 10,
+      "passed": 10,
+      "failed": 0,
+      "errors": []
+    }
+  }
+}

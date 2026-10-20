@@ -1,0 +1,14 @@
+{
+  "mysql_guard": {
+    "passed": true,
+    "error_class": "PolicyError",
+    "message": "Row-level restrictions are not supported on MySQL connections; access denied to protect restricted rows.",
+    "verdict": "PASS_FAIL_CLOSED"
+  },
+  "postgres_guard": {
+    "passed": false,
+    "rewritten_sql": "WITH \"users\" AS (SELECT * FROM \"public\".\"users\" WHERE \"role\" = 'admin') SELECT * FROM users",
+    "omits_main_qualification": true,
+    "verdict": "FAIL"
+  }
+}

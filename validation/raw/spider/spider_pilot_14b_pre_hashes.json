@@ -1,0 +1,106 @@
+{
+  "runId": "spider_pilot_14b",
+  "timestamp": "2026-10-20T06:06:22.949Z",
+  "databases": {
+    "battle_death": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\battle_death\\battle_death.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\battle_death\\battle_death.sqlite",
+      "logicalHash": "344D2ECFB6AAA534BC18F60A165723ECD686DEB3B2F5FDA1AAF7A279177786D1"
+    },
+    "car_1": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\car_1\\car_1.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\car_1\\car_1.sqlite",
+      "logicalHash": "CA1621C030CE704F759783B0FEF2CBA6A3857EBA04D3BCD346E64884825AC1EA"
+    },
+    "concert_singer": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\concert_singer\\concert_singer.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\concert_singer\\concert_singer.sqlite",
+      "logicalHash": "7AA20672C9FDAC6302DE4E76666C45824A24FD00F8055486AA87F78166028227"
+    },
+    "course_teach": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\course_teach\\course_teach.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\course_teach\\course_teach.sqlite",
+      "logicalHash": "0C57DEFB1C94DFEEECB4CDE909A6FA9A6C2861156D331EEDEDB7FA196D16C859"
+    },
+    "cre_Doc_Template_Mgt": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\cre_Doc_Template_Mgt\\cre_Doc_Template_Mgt.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\cre_Doc_Template_Mgt\\cre_Doc_Template_Mgt.sqlite",
+      "logicalHash": "EE93DE0EF3AEFE439B76542B6C5F078AF949D8897B7C4A1718EFBCB23F8C543A"
+    },
+    "dog_kennels": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\dog_kennels\\dog_kennels.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\dog_kennels\\dog_kennels.sqlite",
+      "logicalHash": "38AF9A9BA66BB3029CC545DD5EFD3B2B9DB0805AB21DB1EBBFAF1FDA06BEEFDD"
+    },
+    "employee_hire_evaluation": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\employee_hire_evaluation\\employee_hire_evaluation.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\employee_hire_evaluation\\employee_hire_evaluation.sqlite",
+      "logicalHash": "7DEDA4E0AA6E868AD7CCA07F0DBBFDECF009B95958EF12E7E83F6B3CE4FFF8EB"
+    },
+    "flight_2": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\flight_2\\flight_2.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\flight_2\\flight_2.sqlite",
+      "logicalHash": "200C842A7B2522534A980186BFDB547C8EC2792FE631CDFD4CFF7CEFB86A5D5A"
+    },
+    "museum_visit": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\museum_visit\\museum_visit.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\museum_visit\\museum_visit.sqlite",
+      "logicalHash": "A857F1F756082B0F5982FD82638D9F03D2FF73DA8E3C6D6198EFAC92A0531EF5"
+    },
+    "network_1": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\network_1\\network_1.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\network_1\\network_1.sqlite",
+      "logicalHash": "C14369CE7D5383C17BC6E63846A655FC1B1C03C573ACF90113D3A42E2F42F6F0"
+    },
+    "orchestra": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\orchestra\\orchestra.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\orchestra\\orchestra.sqlite",
+      "logicalHash": "727B36F0CAAC8DE646D5F23DADCDC7B6D05AA83FE9E51298DE2D5AE5478A221B"
+    },
+    "pets_1": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\pets_1\\pets_1.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\pets_1\\pets_1.sqlite",
+      "logicalHash": "AA70CB45A736E4E326C78DFE71C483D8F05249666F7FD2B020BB0AB7A11E0859"
+    },
+    "poker_player": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\poker_player\\poker_player.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\poker_player\\poker_player.sqlite",
+      "logicalHash": "CB0BEE7B5644537FDC76C8E9C777B813085FFA7F83B540B0AD41328AE46F074D"
+    },
+    "real_estate_properties": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\real_estate_properties\\real_estate_properties.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\real_estate_properties\\real_estate_properties.sqlite",
+      "logicalHash": "E49D548808A89CC86AD8CFE6C30E8BE4ED4EAF2F9BE2ED63A114FC30C3D8940D"
+    },
+    "singer": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\singer\\singer.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\singer\\singer.sqlite",
+      "logicalHash": "C562C07D9948F84E0B84B80B6D9B01DB63ED6A73590B19642AB0AF775B8577B5"
+    },
+    "student_transcripts_tracking": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\student_transcripts_tracking\\student_transcripts_tracking.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\student_transcripts_tracking\\student_transcripts_tracking.sqlite",
+      "logicalHash": "2B7A26504DB2BCD38AC72ADE2E595065CD5E963353CB0C28DAE5E4BFB1BFAB4C"
+    },
+    "tvshow": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\tvshow\\tvshow.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\tvshow\\tvshow.sqlite",
+      "logicalHash": "607D882ECDDCBAFABCA108DBE000FE240E2F574764AEF9BA3F37064171E287CA"
+    },
+    "voter_1": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\voter_1\\voter_1.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\voter_1\\voter_1.sqlite",
+      "logicalHash": "F709FC3621D3A8E527D5F0B6E03C97AB3BD6DC3C3F296B6FCB91867F52EDBBE5"
+    },
+    "world_1": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\world_1\\world_1.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\world_1\\world_1.sqlite",
+      "logicalHash": "FA88E4CA07B946A327D333296A08DD6C9541BD6CA15E7B7597F49FC9546F803F"
+    },
+    "wta_1": {
+      "roPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\ro\\wta_1\\wta_1.sqlite",
+      "govPath": "C:\\cognicore\\validation_workspace\\cognicore_spider\\runs\\spider_pilot_14b\\gov\\wta_1\\wta_1.sqlite",
+      "logicalHash": "BD3E50663506590EBCD7BD39D4412EE17D8A5CFEF72C138080C3D154BF4077DE"
+    }
+  }
+}
