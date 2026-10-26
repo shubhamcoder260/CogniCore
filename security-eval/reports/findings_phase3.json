@@ -1,0 +1,10 @@
+[
+  {
+    "findingId": "FINDING-BENIGN-FALSE-POSITIVES",
+    "severity": "MEDIUM",
+    "title": "Benign SQL constructs rejected by AST validator / policy",
+    "count": 75,
+    "rate": 0.10948905109489049,
+    "runDir": "/home/shubh/Documents/CogniCore/security-eval/runs/2026-10-26T06-31-45-608Z_benign_9cde26c"
+  }
+]

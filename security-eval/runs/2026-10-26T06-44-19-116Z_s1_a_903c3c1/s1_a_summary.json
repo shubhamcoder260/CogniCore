@@ -1,0 +1,22 @@
+{
+  "rung": "903c3c1",
+  "totalItems": 100,
+  "processedCount": 100,
+  "durationMs": 4678,
+  "outcomes": {
+    "blockedSafe": 100,
+    "allowedBenign": 0,
+    "mutationBypass": 0,
+    "crashError": 0
+  },
+  "firstStopCounts": {
+    "VALIDATOR_BLOCKED": 96,
+    "PARSER_BLOCKED": 4,
+    "POLICY_BLOCKED": 0,
+    "DRIVER_BLOCKED": 0,
+    "TIMEOUT_ABORTED": 0,
+    "EXECUTED_CLEAN": 0,
+    "CRASH_ERROR": 0
+  },
+  "runDir": "/home/shubh/Documents/CogniCore/security-eval/runs/2026-10-26T06-44-19-116Z_s1_a_903c3c1"
+}

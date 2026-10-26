@@ -1,0 +1,24 @@
+{
+  "suite": "S2-B",
+  "rung": "9cde26c",
+  "timestamp": "2026-10-26T06:41:28.854Z",
+  "h2a": {
+    "total": 48,
+    "exactAgreement": 48,
+    "blockedSafe": 0,
+    "leaks": 0,
+    "passRate": 100,
+    "clopperPearson95UpperLeakBound": 0.06050340934889431
+  },
+  "h2b": {
+    "total": 3,
+    "leaksConfirmedUnderD04": 1,
+    "decisionD04Note": "Transitive FK child tables without explicit tenant_id require JOIN or explicit filter; unjoined query on child table is exposed by design."
+  },
+  "v3": {
+    "total": 510,
+    "cleanExecuted": 285,
+    "blocked": 225
+  },
+  "runDir": "/home/shubh/Documents/CogniCore/security-eval/runs/2026-10-26T06-41-07-326Z_s2_b_9cde26c"
+}

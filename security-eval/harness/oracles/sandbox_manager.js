@@ -3,6 +3,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const os = require('node:os');
+const { spawnSync } = require('node:child_process');
 const Database = require('better-sqlite3');
 
 class SandboxManager {
@@ -40,9 +41,45 @@ class SandboxManager {
    * @param {string} sql
    * @param {object} [opts={}]
    * @param {boolean} [opts.enableExtensions=false]
-   * @returns {{ success: boolean, error?: string }}
+   * @param {number} [opts.timeoutMs=2000]
+   * @returns {{ success: boolean, error?: string, code?: string }}
    */
   static executeNaive(dbPath, sql, opts = {}) {
+    const isPotentiallyInfinite = /\bWITH\s+RECURSIVE\b/i.test(sql) ||
+      /\b(zero|random)blob\s*\(\s*[0-9]{7,}\s*\)/i.test(sql) ||
+      Boolean(opts.timeoutMs);
+
+    if (isPotentiallyInfinite) {
+      const timeoutMs = opts.timeoutMs || 500;
+      const workerScript = `
+        const Database = require('better-sqlite3');
+        const fs = require('node:fs');
+        try {
+          const db = new Database(process.argv[1], { readonly: false, fileMustExist: false });
+          const sql = fs.readFileSync(0, 'utf8');
+          db.exec(sql);
+          try { db.close(); } catch (_) {}
+          process.exit(0);
+        } catch (err) {
+          process.stderr.write(err.message || '');
+          process.exit(1);
+        }
+      `;
+      const res = spawnSync(process.execPath, ['-e', workerScript, dbPath], {
+        input: sql,
+        timeout: timeoutMs,
+        env: process.env,
+        encoding: 'utf8',
+      });
+      if (res.error && res.error.code === 'ETIMEDOUT') {
+        return { success: false, error: 'Query execution timed out', code: 'TIMEOUT_ABORTED' };
+      }
+      if (res.status !== 0) {
+        return { success: false, error: (res.stderr || '').trim() || 'Execution failed' };
+      }
+      return { success: true };
+    }
+
     const db = new Database(dbPath, { readonly: false, fileMustExist: false });
     try {
       if (opts.enableExtensions) {

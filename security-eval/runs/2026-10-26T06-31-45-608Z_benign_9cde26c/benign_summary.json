@@ -1,0 +1,368 @@
+{
+  "rung": "9cde26c",
+  "totalEvaluated": 685,
+  "totalAccepted": 610,
+  "totalRejected": 75,
+  "acceptanceRate": 0.8905109489051095,
+  "durationMs": 37727,
+  "constructStats": {
+    "single_table_select": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "aggregate_count": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "group_by_having": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "inner_join": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "left_join": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "three_table_join": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "nested_subquery_in": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "correlated_subquery": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "cte_basic": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "window_row_number": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "case_expression": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "distinct_like": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_embedded_syntax": {
+      "total": 21,
+      "accepted": 21,
+      "rejected": 0
+    },
+    "single_table_limit_order": {
+      "total": 19,
+      "accepted": 19,
+      "rejected": 0
+    },
+    "strftime_date": {
+      "total": 30,
+      "accepted": 30,
+      "rejected": 0
+    },
+    "iif_conditional": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "ifnull_null_handler": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "coalesce_fallback": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "glob_operator": {
+      "total": 15,
+      "accepted": 0,
+      "rejected": 15
+    },
+    "string_concat_op": {
+      "total": 15,
+      "accepted": 0,
+      "rejected": 15
+    },
+    "replace_function": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "substr_instr": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "printf_format": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "group_concat_agg": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "limit_offset_comma": {
+      "total": 15,
+      "accepted": 0,
+      "rejected": 15
+    },
+    "backtick_identifier": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "bracket_identifier": {
+      "total": 15,
+      "accepted": 0,
+      "rejected": 15
+    },
+    "double_quote_identifier": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "cast_type_conversion": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "window_function": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "like_escape_clause": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_equals_drop": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_equals_delete": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_equals_update": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_equals_insert": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_equals_create": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_equals_replace": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_equals_call": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_equals_execute": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "quoted_alias_keyword": {
+      "total": 30,
+      "accepted": 15,
+      "rejected": 15
+    },
+    "literal_with_semicolon": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_with_line_comment": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_with_block_comment": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    }
+  },
+  "categoryStats": {
+    "single_table_select": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "aggregate_count": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "group_by_having": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "inner_join": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "left_join": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "three_table_join": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "nested_subquery_in": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "correlated_subquery": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "cte_basic": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "window_row_number": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "case_expression": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "distinct_like": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_embedded_syntax": {
+      "total": 21,
+      "accepted": 21,
+      "rejected": 0
+    },
+    "single_table_limit_order": {
+      "total": 19,
+      "accepted": 19,
+      "rejected": 0
+    },
+    "date_function": {
+      "total": 30,
+      "accepted": 30,
+      "rejected": 0
+    },
+    "conditional_function": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "null_handling": {
+      "total": 30,
+      "accepted": 30,
+      "rejected": 0
+    },
+    "pattern_matching": {
+      "total": 30,
+      "accepted": 15,
+      "rejected": 15
+    },
+    "string_operator": {
+      "total": 15,
+      "accepted": 0,
+      "rejected": 15
+    },
+    "string_function": {
+      "total": 45,
+      "accepted": 45,
+      "rejected": 0
+    },
+    "aggregate_function": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "paging_syntax": {
+      "total": 15,
+      "accepted": 0,
+      "rejected": 15
+    },
+    "identifier_quoting": {
+      "total": 45,
+      "accepted": 30,
+      "rejected": 15
+    },
+    "type_cast": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "window_calculation": {
+      "total": 15,
+      "accepted": 15,
+      "rejected": 0
+    },
+    "literal_keyword_token": {
+      "total": 120,
+      "accepted": 120,
+      "rejected": 0
+    },
+    "alias_keyword_token": {
+      "total": 30,
+      "accepted": 15,
+      "rejected": 15
+    },
+    "literal_syntax_punctuation": {
+      "total": 45,
+      "accepted": 45,
+      "rejected": 0
+    }
+  },
+  "runDir": "/home/shubh/Documents/CogniCore/security-eval/runs/2026-10-26T06-31-45-608Z_benign_9cde26c"
+}

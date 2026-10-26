@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-10-26T06:31:45.718Z",
+  "commit": "72d90a784dc9e0666e71140ae357c5f9adfe3878",
+  "runtime": {
+    "nodeVersion": "v22.22.2",
+    "platform": "linux",
+    "arch": "x64",
+    "sqliteCliVersion": "3.51.2 2026-01-09 17:27:48 b270f8339eb13b504d0b2ba154ebca966b7dde08e40c3ed7d559749818cbalt1 (64-bit)",
+    "betterSqliteVersion": "3.53.2"
+  },
+  "inputChecksums": {
+    "/home/shubh/Documents/CogniCore/validation/data/v4/benign.jsonl": "a9fcb7110eddd729c629bd262fdbbba846c702eaf6e3163de60d66df45f64c38",
+    "/home/shubh/Documents/CogniCore/validation/data/v4b/c2_benign.jsonl": "5d7927ed2113bc2ae3c994c43b4a1dc92e6176bce8c49a9ea5cb3238f2991858"
+  },
+  "suite": "BENIGN_UTILITY",
+  "rung": "9cde26c",
+  "totalItems": 685,
+  "dryRun": false
+}
