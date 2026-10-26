@@ -57,6 +57,10 @@ This ledger records verified code locations, signatures, route schemas, error cl
 | `ROUTES_TRACES` | `GET /api/traces/:id` \| Auth: owner or admin \| Returns 200: `{ trace: { trace_id, session_id, user_id, question, route, tool, status, total_ms, steps, created_at } }` | `server/src/api/routes/traces.js:16-20` | `sed -n '16,20p' server/src/api/routes/traces.js` | `9cde26c` |
 | `CHAT_EXPOSES_TRACE_AND_SQL`| Chat response object includes `trace: traceOut` (with `trace_id` and `steps`) and `generatedSql` | `server/src/core/core.engine.js:195, 205` | `sed -n '195p; 205p' server/src/core/core.engine.js` | `9cde26c` |
 | `RAW_SQL_IN_TRACE_STEP` | Raw generated SQL before repair is recorded in trace step `'sql_generated'`, detail field `detail: rawSql` | `server/src/core/engines/structured.engine.js:61` | `sed -n '61p' server/src/core/engines/structured.engine.js` | `9cde26c` |
+| `SQL_WORKER_READONLY` | `new Database(dbPath, { readonly: true, fileMustExist: true })` | `server/src/structured/sqlite.worker.js:8` | `sed -n '8p' server/src/structured/sqlite.worker.js` | `9cde26c` |
+| `SQL_WORKER_PRAGMA_QUERY_ONLY` | `db.pragma('query_only = ON');` | `server/src/structured/sqlite.worker.js:10` | `sed -n '10p' server/src/structured/sqlite.worker.js` | `9cde26c` |
+| `TIMEOUT_OLLAMA_MS_RUNTIME` | `process.env.OLLAMA_TIMEOUT_MS` parsed at `server/src/config/env.js:27` into `config.llm.ollama.timeoutMs` | `server/src/config/env.js:27` | `sed -n '27p' server/src/config/env.js` | `9cde26c` |
+| `TIMEOUT_QUERY_MS_RUNTIME` | `process.env.QUERY_TIMEOUT_MS` parsed at `server/src/config/env.js:41` into `config.query.timeoutMs` | `server/src/config/env.js:41` | `sed -n '41p' server/src/config/env.js` | `9cde26c` |
 
 ---
 

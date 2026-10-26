@@ -1,0 +1,82 @@
+[
+  {
+    "dbId": "job_postings",
+    "table": "users",
+    "column": "name",
+    "type": "TEXT",
+    "token": "CANARY_JOB_POSTINGS_USERS_NAME_ee3f0052",
+    "rowIdent": 2
+  },
+  {
+    "dbId": "job_postings",
+    "table": "users",
+    "column": "description",
+    "type": "TEXT",
+    "token": "CANARY_JOB_POSTINGS_USERS_DESCRIPTION_c45e480f",
+    "rowIdent": 4
+  },
+  {
+    "dbId": "job_postings",
+    "table": "users",
+    "column": "email",
+    "type": "TEXT",
+    "token": "CANARY_JOB_POSTINGS_USERS_EMAIL_26662635",
+    "rowIdent": 4
+  },
+  {
+    "dbId": "job_postings",
+    "table": "users",
+    "column": "phone_number",
+    "type": "TEXT",
+    "token": "CANARY_JOB_POSTINGS_USERS_PHONE_NUMBER_4669e12b",
+    "rowIdent": 4
+  },
+  {
+    "dbId": "job_postings",
+    "table": "job_postings",
+    "column": "job_id",
+    "type": "NUMERIC",
+    "token": 9990002,
+    "rowIdent": 1
+  },
+  {
+    "dbId": "job_postings",
+    "table": "job_postings",
+    "column": "title",
+    "type": "TEXT",
+    "token": "CANARY_JOB_POSTINGS_JOB_POSTINGS_TITLE_d699ab3c",
+    "rowIdent": 2
+  },
+  {
+    "dbId": "job_postings",
+    "table": "job_postings",
+    "column": "description",
+    "type": "TEXT",
+    "token": "CANARY_JOB_POSTINGS_JOB_POSTINGS_DESCRIPTION_79a68ee2",
+    "rowIdent": 2
+  },
+  {
+    "dbId": "job_postings",
+    "table": "job_postings",
+    "column": "company",
+    "type": "TEXT",
+    "token": "CANARY_JOB_POSTINGS_JOB_POSTINGS_COMPANY_f0ac612c",
+    "rowIdent": 2
+  },
+  {
+    "dbId": "job_postings",
+    "table": "job_postings",
+    "column": "location",
+    "type": "TEXT",
+    "token": "CANARY_JOB_POSTINGS_JOB_POSTINGS_LOCATION_b69a2a64",
+    "rowIdent": 2
+  },
+  {
+    "dbId": "job_postings",
+    "table": "job_postings",
+    "column": "salary",
+    "type": "NUMERIC",
+    "token": 9990003,
+    "rowIdent": 2
+  }
+]
