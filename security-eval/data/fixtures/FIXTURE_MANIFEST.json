@@ -1,0 +1,182 @@
+{
+  "generatedAt": "2026-10-28T05:37:52.981Z",
+  "provenance": {
+    "archive": "database.zip",
+    "sha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+    "suppliedByOperator": "2026-10-28",
+    "realmDatabaseCount": 15,
+    "verificationReport": "security-eval/data/manifests/FIXTURE_SCHEMA_CHECK.md"
+  },
+  "files": [
+    {
+      "path": ".gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "unknown",
+      "builder": null
+    },
+    {
+      "path": "database/bank/B1_community.db",
+      "bytes": 159744,
+      "sha256": "221d6dd967f32f6c82b13ac176da4eabba436b03161f1ae6e9b223568e2d7c41",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/bank/B2_district.db",
+      "bytes": 1712128,
+      "sha256": "060a3893e42432ea47bf2b2d49c4b41371a3441628a217320d4052bd0ff491ad",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/bank/B3_metro.db",
+      "bytes": 5738496,
+      "sha256": "e2ef3c591dd90916009ab48c381651f2f45df1f299638fd60ad8aad50fbdfc5e",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/fooddelivery/F1_quickbite.db",
+      "bytes": 266240,
+      "sha256": "d355acedfe33447924971a947d2aff0602456ab2db507789dd7bb476448b3d76",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/fooddelivery/F2_citygrub.db",
+      "bytes": 1568768,
+      "sha256": "fc07ff05a992f213d0bc8550064c1e548fb03cf4f093d4d0e0a8d902925a00ce",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/fooddelivery/F3_national.db",
+      "bytes": 7311360,
+      "sha256": "6e030f86019c2f4c24f2341c4e27fe5d7f6313a4a1d7d403c9cdafa57e7990e9",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/hospital/H1_clinic.db",
+      "bytes": 319488,
+      "sha256": "d2b088a71f59be6356ffc3fd7704be4608e39d4a78a3cc3d838492d00b9dad54",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/hospital/H2_legacymed.db",
+      "bytes": 14872576,
+      "sha256": "26259661b777cf5c663c3c342ae314b047fdd2ed686d3ea3a5635ef8869f1c3a",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/hospital/H3_metropol.db",
+      "bytes": 2183168,
+      "sha256": "e2252b5840f192629dc45b6a5a32ecfc50d0dd599be13279eed44d2703cd4b2d",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/industry/I1_workshop.db",
+      "bytes": 131072,
+      "sha256": "20a14e508f68655dd1747b28546c4b72aca0d11d1689ec7636adbbbb18afe3e5",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/industry/I2_factory.db",
+      "bytes": 1716224,
+      "sha256": "141e0df9a830c3b3afdc238a72e261390f1dead7bafbd5830a2083a8d0df70a7",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/industry/I3_plantops.db",
+      "bytes": 13418496,
+      "sha256": "b75e885471fbd1309a666da9bfd7b2bf636f3f065a1ccee7efedf4d989f894c0",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/university/U1_stateuniv.db",
+      "bytes": 131072,
+      "sha256": "5242f4fb99ca902d9e14c3f967e6688895002aa70026ff60f496ca3d6b9d34aa",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/university/U2_metrouniv.db",
+      "bytes": 933888,
+      "sha256": "6419f87877b0d465f242f690bd5ad5cf4d905c3c4143e3dae9c9cf9c083fd061",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "database/university/U3_institute.db",
+      "bytes": 2895872,
+      "sha256": "eb9a9b1ca05ef393283dc32632f4beac1fe887d0ea381c7a898c8a3a038d072f",
+      "origin": "database.zip (operator-supplied 2026-10-28, SHA-256 verified, authenticity-confirmed)",
+      "builder": null,
+      "databaseZipSha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+      "note": "I2 closed: provenance documented 2026-10-28; see verification report."
+    },
+    {
+      "path": "fd_leak.sqlite",
+      "bytes": 53248,
+      "sha256": "6aa20425f80883f606b8361e785c0f449984d07ccadaea220c0bb2f13820a6d3",
+      "origin": "deterministic_build",
+      "builder": "harness/setup/09_build_fd_fixture.js"
+    },
+    {
+      "path": "s5_context.sqlite",
+      "bytes": 12288,
+      "sha256": "c209d4a57529b55117f97adefa9694b2462ff7454664c80a2120b530aeeeaa11",
+      "origin": "deterministic_build",
+      "builder": "harness/setup/10_build_s5_fixture.js"
+    },
+    {
+      "path": "s8_availability.sqlite",
+      "bytes": 2805760,
+      "sha256": "56c77424ece5ae9d38d9ef8a5ecc4996658a0fb124eda59f0e81d81853479885",
+      "origin": "deterministic_build",
+      "builder": "harness/setup/12_build_s8_fixture.js"
+    }
+  ],
+  "summary": {
+    "total": 19,
+    "deterministic": 3,
+    "fromDatabaseZip": 15,
+    "unknown": 1
+  },
+  "verificationCommand": "sha256sum --check <(node harness/tools/fixture_manifest.js --print-checks)  # or re-run this tool and diff"
+}

@@ -1,0 +1,374 @@
+{
+  "database_zip_sha256": "feef7df886a3478c4d669b1858eed790ab97f7733b1e9504a6673bed15e6d9c9",
+  "verified": true,
+  "dbs": [
+    {
+      "rel": "bank/B1_community.db",
+      "sha256": "221d6dd967f32f6c82b13ac176da4eabba436b03161f1ae6e9b223568e2d7c41",
+      "bytes": 159744,
+      "table_count": 4,
+      "total_rows": 2763
+    },
+    {
+      "rel": "bank/B2_district.db",
+      "sha256": "060a3893e42432ea47bf2b2d49c4b41371a3441628a217320d4052bd0ff491ad",
+      "bytes": 1712128,
+      "table_count": 4,
+      "total_rows": 20145
+    },
+    {
+      "rel": "bank/B3_metro.db",
+      "sha256": "e2ef3c591dd90916009ab48c381651f2f45df1f299638fd60ad8aad50fbdfc5e",
+      "bytes": 5738496,
+      "table_count": 4,
+      "total_rows": 66347
+    },
+    {
+      "rel": "fooddelivery/F1_quickbite.db",
+      "sha256": "d355acedfe33447924971a947d2aff0602456ab2db507789dd7bb476448b3d76",
+      "bytes": 266240,
+      "table_count": 6,
+      "total_rows": 6515
+    },
+    {
+      "rel": "fooddelivery/F2_citygrub.db",
+      "sha256": "fc07ff05a992f213d0bc8550064c1e548fb03cf4f093d4d0e0a8d902925a00ce",
+      "bytes": 1568768,
+      "table_count": 6,
+      "total_rows": 42531
+    },
+    {
+      "rel": "fooddelivery/F3_national.db",
+      "sha256": "6e030f86019c2f4c24f2341c4e27fe5d7f6313a4a1d7d403c9cdafa57e7990e9",
+      "bytes": 7311360,
+      "table_count": 6,
+      "total_rows": 192417
+    },
+    {
+      "rel": "hospital/H1_clinic.db",
+      "sha256": "d2b088a71f59be6356ffc3fd7704be4608e39d4a78a3cc3d838492d00b9dad54",
+      "bytes": 319488,
+      "table_count": 6,
+      "total_rows": 6594
+    },
+    {
+      "rel": "hospital/H2_legacymed.db",
+      "sha256": "26259661b777cf5c663c3c342ae314b047fdd2ed686d3ea3a5635ef8869f1c3a",
+      "bytes": 14872576,
+      "table_count": 5,
+      "total_rows": 342751
+    },
+    {
+      "rel": "hospital/H3_metropol.db",
+      "sha256": "e2252b5840f192629dc45b6a5a32ecfc50d0dd599be13279eed44d2703cd4b2d",
+      "bytes": 2183168,
+      "table_count": 9,
+      "total_rows": 53430
+    },
+    {
+      "rel": "industry/I1_workshop.db",
+      "sha256": "20a14e508f68655dd1747b28546c4b72aca0d11d1689ec7636adbbbb18afe3e5",
+      "bytes": 131072,
+      "table_count": 3,
+      "total_rows": 3330
+    },
+    {
+      "rel": "industry/I2_factory.db",
+      "sha256": "141e0df9a830c3b3afdc238a72e261390f1dead7bafbd5830a2083a8d0df70a7",
+      "bytes": 1716224,
+      "table_count": 3,
+      "total_rows": 51836
+    },
+    {
+      "rel": "industry/I3_plantops.db",
+      "sha256": "b75e885471fbd1309a666da9bfd7b2bf636f3f065a1ccee7efedf4d989f894c0",
+      "bytes": 13418496,
+      "table_count": 3,
+      "total_rows": 388238
+    },
+    {
+      "rel": "university/U1_stateuniv.db",
+      "sha256": "5242f4fb99ca902d9e14c3f967e6688895002aa70026ff60f496ca3d6b9d34aa",
+      "bytes": 131072,
+      "table_count": 5,
+      "total_rows": 1823
+    },
+    {
+      "rel": "university/U2_metrouniv.db",
+      "sha256": "6419f87877b0d465f242f690bd5ad5cf4d905c3c4143e3dae9c9cf9c083fd061",
+      "bytes": 933888,
+      "table_count": 5,
+      "total_rows": 17911
+    },
+    {
+      "rel": "university/U3_institute.db",
+      "sha256": "eb9a9b1ca05ef393283dc32632f4beac1fe887d0ea381c7a898c8a3a038d072f",
+      "bytes": 2895872,
+      "table_count": 5,
+      "total_rows": 72096
+    }
+  ],
+  "corpus_counts": {
+    "v4_attacks": 1348,
+    "v4_regressions": 166,
+    "v3_queries": 510
+  },
+  "compile_results": {
+    "OTHER": 145,
+    "SYNTAX": 583,
+    "SKIPPED_SPECIAL": 22,
+    "COMPILE_OK": 1020,
+    "MISSING_COLUMN": 27,
+    "MISSING_TABLE": 15,
+    "RUNTIME_FUNCTION": 4
+  },
+  "hard_incompatibilities": 42,
+  "sample_failures": [
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\u0018\"",
+      "sql": "\u0018 or 1=1 --"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\u0018\"",
+      "sql": "\u0018 or 3=3 --"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\" \"\": syntax error",
+      "sql": "\" \""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\" or \"\" \"\": syntax error",
+      "sql": "\" or \"\" \""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\" or \"\"&\"\": syntax error",
+      "sql": "\" or \"\"&\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\" or \"\"*\"\": syntax error",
+      "sql": "\" or \"\"*\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\" or \"\"-\"\": syntax error",
+      "sql": "\" or \"\"-\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\" or \"\"^\"\": syntax error",
+      "sql": "\" or \"\"^\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\" or \"\": syntax error",
+      "sql": "\" or \"a\"=\"a"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\" or \"\": syntax error",
+      "sql": "\" or \"x\"=\"x"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\" or 0=0 --\"",
+      "sql": "\" or 0=0 --"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\" or 1=1--\"",
+      "sql": "\" or 1=1--"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\" or benchmark(10000000,MD5(1))#\"",
+      "sql": "\" or benchmark(10000000,MD5(1))#"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\" or isNULL(1/0) /*\"",
+      "sql": "\" or isNULL(1/0) /*"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\" or pg_sleep(__TIME__)--\"",
+      "sql": "\" or pg_sleep(__TIME__)--"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\" or sleep(__TIME__)#\"",
+      "sql": "\" or sleep(__TIME__)#"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\" or true--\"",
+      "sql": "\" or true--"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\"&\"\": syntax error",
+      "sql": "\"&\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\") or (\"\": syntax error",
+      "sql": "\") or (\"x\")=(\"x"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\") or benchmark(10000000,MD5(1))#\"",
+      "sql": "\") or benchmark(10000000,MD5(1))#"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\") or pg_sleep(__TIME__)--\"",
+      "sql": "\") or pg_sleep(__TIME__)--"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\") or sleep(__TIME__)=\"\": syntax error",
+      "sql": "\") or sleep(__TIME__)=\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\") or true--\"",
+      "sql": "\") or true--"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\")) or ((\"\": syntax error",
+      "sql": "\")) or ((\"x\"))=((\"x"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\")) or benchmark(10000000,MD5(1))#\"",
+      "sql": "\")) or benchmark(10000000,MD5(1))#"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\")) or pg_sleep(__TIME__)--\"",
+      "sql": "\")) or pg_sleep(__TIME__)--"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\")) or sleep(__TIME__)=\"\": syntax error",
+      "sql": "\")) or sleep(__TIME__)=\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\"));waitfor delay '0:0:__TIME__'--\"",
+      "sql": "\"));waitfor delay '0:0:__TIME__'--"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\");waitfor delay '0:0:__TIME__'--\"",
+      "sql": "\");waitfor delay '0:0:__TIME__'--"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\"*\"\": syntax error",
+      "sql": "\"*\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\"-\"\": syntax error",
+      "sql": "\"-\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "OTHER",
+      "error": "unrecognized token: \"\";waitfor delay '0:0:__TIME__'--\"",
+      "sql": "\";waitfor delay '0:0:__TIME__'--"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\"^\"\": syntax error",
+      "sql": "\"^\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\"a\"\" or 1=1--\"\": syntax error",
+      "sql": "\"a\"\" or 1=1--\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\"a\"\" or 3=3--\"\": syntax error",
+      "sql": "\"a\"\" or 3=3--\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"\"hi\"\") or (\"\"a\"\"=\"\"a\"\": syntax error",
+      "sql": "\"hi\"\") or (\"\"a\"\"=\"\"a\""
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"%\": syntax error",
+      "sql": "%20$(sleep%2050)"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"%\": syntax error",
+      "sql": "%20'sleep%2050'"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"%\": syntax error",
+      "sql": "%20or%20''='"
+    },
+    {
+      "fixture": "bank/B1_community.db",
+      "status": "SYNTAX",
+      "error": "near \"%\": syntax error",
+      "sql": "%20or%20'x'='x"
+    }
+  ],
+  "addendum_2026_10_28": {
+    "authenticity_proof": "637/637 historically-executed S1-A statements compile clean against staged fixtures",
+    "hard_failures_resolution": "all 42 raw-compile hard failures were historically validator-blocked before SQLite execution (verified against runs/2026-10-26T06-20-54-799Z_s1_a_9cde26c)",
+    "operator_run_verdict": "CLEAR",
+    "i2_status": "CLOSED (realm-database half; spider.zip half remains open)"
+  }
+}
