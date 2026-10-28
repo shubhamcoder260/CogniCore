@@ -1,0 +1,228 @@
+{
+  "prereg": "security-eval/prereg/PREREG_S4.md",
+  "fixture": "data/fixtures/fd_leak.sqlite",
+  "fixtureSha256": "6aa20425f80883f606b8361e785c0f449984d07ccadaea220c0bb2f13820a6d3",
+  "identityColumn": "emp_id",
+  "orphanAccountIds": [
+    9001,
+    9002,
+    9003,
+    9004,
+    9005,
+    9006
+  ],
+  "dependencies": [
+    {
+      "id": "FD-1",
+      "table": "employees",
+      "determinant": [
+        "job_grade"
+      ],
+      "dependent": "salary_band",
+      "preDependencies": []
+    },
+    {
+      "id": "FD-2",
+      "table": "employees",
+      "determinant": [
+        "zip"
+      ],
+      "dependent": "state",
+      "preDependencies": []
+    },
+    {
+      "id": "FD-3",
+      "table": "employees",
+      "determinant": [
+        "role_code",
+        "state"
+      ],
+      "dependent": "salary_tier",
+      "preDependencies": [
+        "FD-2"
+      ]
+    }
+  ],
+  "fkDerivedPurges": [
+    {
+      "table": "audits",
+      "via": "account_id",
+      "refTable": "chain_accounts",
+      "refCol": "account_id",
+      "tenantCol": "tenant_id",
+      "tenant": "tenant_a"
+    }
+  ],
+  "policy": {
+    "datasetId": "fd_leak",
+    "role": "employee",
+    "deniedColumns": [
+      {
+        "table": "employees",
+        "column": "salary_band"
+      },
+      {
+        "table": "employees",
+        "column": "salary_tier"
+      },
+      {
+        "table": "employees",
+        "column": "bonus_note"
+      },
+      {
+        "table": "employees",
+        "column": "state"
+      },
+      {
+        "table": "branches",
+        "column": "branch_name"
+      },
+      {
+        "table": "chain_accounts",
+        "column": "account_name"
+      }
+    ],
+    "rowFilters": [
+      {
+        "table": "employees",
+        "column": "tenant_id",
+        "op": "=",
+        "value": "tenant_a"
+      },
+      {
+        "table": "branches",
+        "column": "tenant_id",
+        "op": "=",
+        "value": "tenant_a"
+      },
+      {
+        "table": "chain_accounts",
+        "column": "tenant_id",
+        "op": "=",
+        "value": "tenant_a"
+      }
+    ]
+  },
+  "partA": {
+    "fd_1": [
+      {
+        "id": "A-FD1-Q1",
+        "sql": "SELECT emp_id, name, job_grade FROM employees"
+      },
+      {
+        "id": "A-FD1-Q2",
+        "sql": "SELECT emp_id, job_grade, zip FROM employees WHERE job_grade IN ('A', 'B')"
+      },
+      {
+        "id": "A-FD1-Q3",
+        "sql": "SELECT emp_id, job_grade FROM employees ORDER BY emp_id LIMIT 50"
+      },
+      {
+        "id": "A-FD1-Q4",
+        "sql": "SELECT job_grade, COUNT(*) AS n FROM employees GROUP BY job_grade"
+      }
+    ],
+    "fd_2": [
+      {
+        "id": "A-FD2-Q1",
+        "sql": "SELECT emp_id, zip FROM employees"
+      },
+      {
+        "id": "A-FD2-Q2",
+        "sql": "SELECT emp_id, zip, name FROM employees WHERE tenant_id = 'tenant_a'"
+      },
+      {
+        "id": "A-FD2-Q3",
+        "sql": "SELECT emp_id, zip FROM employees WHERE tenant_id = 'tenant_a' ORDER BY emp_id LIMIT 40"
+      },
+      {
+        "id": "A-FD2-Q4",
+        "sql": "SELECT zip, COUNT(*) AS n FROM employees GROUP BY zip"
+      }
+    ],
+    "fd_3": [
+      {
+        "id": "A-FD3-Q1",
+        "sql": "SELECT emp_id, role_code, zip FROM employees"
+      },
+      {
+        "id": "A-FD3-Q2",
+        "sql": "SELECT emp_id, role_code, state FROM employees"
+      },
+      {
+        "id": "A-FD3-Q3",
+        "sql": "SELECT emp_id, role_code, zip FROM employees WHERE role_code = 'R1'"
+      },
+      {
+        "id": "A-FD3-Q4",
+        "sql": "SELECT emp_id, role_code, zip FROM employees ORDER BY emp_id LIMIT 60"
+      }
+    ],
+    "control": [
+      {
+        "id": "A-CTL-Q1",
+        "sql": "SELECT region_id, region_name FROM regions"
+      },
+      {
+        "id": "A-CTL-Q2",
+        "sql": "SELECT branch_id, tenant_id FROM branches WHERE tenant_id = 'tenant_a'"
+      }
+    ]
+  },
+  "partB": [
+    {
+      "id": "B-Q1",
+      "sql": "SELECT audit_id, audit_note, account_id FROM audits",
+      "expect": "unjoined no-tenant-key child"
+    },
+    {
+      "id": "B-Q2",
+      "sql": "SELECT a.audit_id, a.audit_note, ca.branch_id FROM audits a JOIN chain_accounts ca ON a.account_id = ca.account_id",
+      "expect": "joined child"
+    },
+    {
+      "id": "B-Q3",
+      "sql": "SELECT audit_id FROM audits WHERE account_id IN (SELECT account_id FROM chain_accounts WHERE tenant_id = 'tenant_a')",
+      "expect": "subquery child"
+    },
+    {
+      "id": "B-Q4",
+      "sql": "SELECT ca.account_id, ca.balance FROM chain_accounts ca JOIN branches b ON ca.branch_id = b.branch_id WHERE b.tenant_id = 'tenant_a'",
+      "expect": "chain depth 1"
+    },
+    {
+      "id": "B-Q5",
+      "sql": "SELECT ca.account_id, ca.balance FROM chain_accounts ca JOIN branches b ON ca.branch_id = b.branch_id JOIN districts d ON b.district_id = d.district_id WHERE d.region_id = 1",
+      "expect": "chain depth 2 via region filter"
+    },
+    {
+      "id": "B-Q6",
+      "sql": "SELECT r.region_id, ca.account_id FROM chain_accounts ca JOIN branches b ON ca.branch_id = b.branch_id JOIN districts d ON b.district_id = d.district_id JOIN regions r ON d.region_id = r.region_id WHERE b.tenant_id = 'tenant_a'",
+      "expect": "chain depth 3"
+    },
+    {
+      "id": "B-Q7",
+      "sql": "SELECT b.branch_id, b.tenant_id FROM branches b JOIN districts d ON b.district_id = d.district_id WHERE d.region_id = 1",
+      "expect": "branch listing via district"
+    },
+    {
+      "id": "B-Q8",
+      "sql": "SELECT audit_id, audit_note FROM audits WHERE account_id NOT IN (SELECT account_id FROM chain_accounts)",
+      "expect": "orphan probe"
+    },
+    {
+      "id": "B-Q9",
+      "sql": "SELECT branch_id, tenant_id FROM branches",
+      "expect": "unfiltered branch listing (row policy must filter)"
+    },
+    {
+      "id": "B-Q10",
+      "sql": "SELECT account_id, balance, tenant_id FROM chain_accounts",
+      "expect": "unfiltered accounts (row policy must filter)"
+    }
+  ],
+  "totals": {
+    "partAQueryExecutions": 14,
+    "partBQueries": 10
+  }
+}
