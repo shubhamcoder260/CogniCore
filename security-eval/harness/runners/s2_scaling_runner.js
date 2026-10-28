@@ -7,10 +7,11 @@ const JsonlLogger = require('../oracles/jsonl_logger');
 
 function parseArgs() {
   const args = process.argv.slice(2);
-  const opts = { rung: 'HEAD', iterations: 50 };
+  const opts = { rung: 'HEAD', iterations: 50, dryRun: false };
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--rung' && args[i + 1]) opts.rung = args[++i];
-    if (args[i] === '--iterations' && args[i + 1]) opts.iterations = parseInt(args[++i], 10);
+    if (args[i] === '--iterations' && args[i + 1]) opts.iterations = parseInt(args[i + 1], 10);
+    if (args[i] === '--dry-run') opts.dryRun = true; // B2 fix: the flag previously existed nowhere and was silently ignored
   }
   return opts;
 }
@@ -58,7 +59,7 @@ function computeStats(timesMs) {
 }
 
 async function runScalingBenchmark() {
-  const { rung, iterations } = parseArgs();
+  const { rung, iterations, dryRun } = parseArgs();
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
   const runDir = path.resolve(__dirname, `../../runs/${timestamp}_s2_scaling_${rung}`);
   fs.mkdirSync(runDir, { recursive: true });
@@ -70,6 +71,23 @@ async function runScalingBenchmark() {
   console.log(`=== Starting Policy Scaling Benchmark on Rung ${rung} ===`);
   console.log(`Worktree: ${worktreeDir}`);
   console.log(`Run directory: ${runDir}`);
+
+  // B2 fix (2026-10-27): honour --dry-run. Previously the flag was ignored
+  // and the full 5-tier x iterations microbenchmark EXECUTED during a
+  // "dry-run" smoke and wrote a real scaling_summary.json
+  // (PEER_REVIEW_SELFCHECK B2). The harness-wide dry-run contract is: print
+  // the plan, write a dryRun-marked summary, execute nothing.
+  if (dryRun) {
+    const s = {
+      suite: 'S2-Scaling', rung, dryRun: true, valid: null, runDir,
+      plannedIterationsPerTier: iterations,
+      plannedPolicyTiers: [1, 10, 50, 100, 250],
+      note: 'DRY_RUN — benchmark not executed (B2 fix).',
+    };
+    fs.writeFileSync(path.join(runDir, 'scaling_summary.json'), JSON.stringify(s, null, 2), 'utf8');
+    console.log('\nDRY-RUN complete — benchmark not executed.');
+    return s;
+  }
 
   const { enforcePolicy } = resolveCogniCoreModules(worktreeDir);
 

@@ -2,7 +2,9 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 const Database = require('better-sqlite3');
+const StatsCalculator = require('../oracles/stats');
 
 const LogicalHashOracle = require('../oracles/logical_hash_oracle');
 const DirectorySnapshotOracle = require('../oracles/directory_snapshot_oracle');
@@ -33,15 +35,47 @@ function extractSchema(db) {
   return { tables };
 }
 
+/**
+ * Loads a JSONL corpus STRICTLY: any malformed line aborts the run instead of
+ * being silently dropped (silent drops previously corrupted S1-A coverage).
+ * Split lines are attempted to be repaired by joining with the next line and
+ * escaping the break as \n; if that fails, the run aborts with line numbers.
+ */
 function loadCorpusFile(filePath) {
-  if (!fs.existsSync(filePath)) return [];
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Corpus file missing: ${filePath}`);
+  }
   const lines = fs.readFileSync(filePath, 'utf8').split('\n').filter(Boolean);
   const items = [];
+  const malformed = [];
   for (let i = 0; i < lines.length; i++) {
     try {
-      const parsed = JSON.parse(lines[i]);
-      items.push(parsed);
-    } catch (_) {}
+      items.push(JSON.parse(lines[i]));
+    } catch (_) {
+      // Attempt one-line lookahead join (raw newline inside a JSON string).
+      if (i + 1 < lines.length) {
+        try {
+          const obj = JSON.parse(`${lines[i]}\\n${lines[i + 1]}`);
+          items.push(obj);
+          malformed.push({ line: i + 1, repaired: 'joined-with-next' });
+          i++;
+          continue;
+        } catch (_) { /* fall through */ }
+      }
+      malformed.push({ line: i + 1, snippet: lines[i].slice(0, 120) });
+    }
+  }
+  if (malformed.length > 0) {
+    throw new Error(
+      `Corpus ${filePath} has ${malformed.length} unparseable line(s): ` +
+      JSON.stringify(malformed.slice(0, 5))
+    );
+  }
+  for (const it of items) {
+    if (!it.id) throw new Error(`Corpus ${filePath} contains an item without id`);
+    if (typeof it.sql !== 'string' || it.sql.length === 0) {
+      throw new Error(`Corpus ${filePath} item ${it.id} has null/empty sql`);
+    }
   }
   return items;
 }
@@ -75,6 +109,31 @@ async function runS1ASuite(opts = {}) {
   const { executeValidatedQuery } = require(executorPath);
   const { enforcePolicy, PolicyError } = require(policyPath);
   const { repairTableNames, ensureFromClause, fixIntegerDivision } = require(repairPath);
+
+  // ---- Fixture resolution (audit fix) -----------------------------------
+  // Corpus fixture_db values historically mixed "database/bank/X.db" and
+  // "bank/X.db". Normalize by stripping a leading "database/" and resolve
+  // strictly against the fixtures/database root. Missing fixtures abort the
+  // run in preflight instead of silently skipping items.
+  const fixturesRoot = path.resolve(__dirname, '../../data/fixtures/database');
+  function resolveFixturePath(relFixture) {
+    const clean = String(relFixture || '').replace(/^database\//, '');
+    return path.resolve(fixturesRoot, clean);
+  }
+
+  // ---- Canary map (optional, for exfil assessment of executed items) -----
+  // Format: { "default": ["TOKEN", ...], "<fixture_db>": ["TOKEN", ...] }
+  const canaryMapPath = path.resolve(__dirname, '../../data/canaries.json');
+  let canaryMap = null;
+  if (fs.existsSync(canaryMapPath)) {
+    try { canaryMap = JSON.parse(fs.readFileSync(canaryMapPath, 'utf8')); } catch (_) {}
+  }
+  function canariesForItem(relFixture) {
+    if (!canaryMap) return [];
+    const base = Array.isArray(canaryMap.default) ? canaryMap.default : [];
+    const perFixture = canaryMap[relFixture] || canaryMap[path.basename(relFixture)] || [];
+    return [...base, ...perFixture].map((t) => (typeof t === 'string' ? { token: t } : t));
+  }
 
   function prepareSql(rawSql, { schema, datasetType = 'sqlite' }) {
     let sql = rawSql;
@@ -120,19 +179,58 @@ async function runS1ASuite(opts = {}) {
   const evaluatedItems = itemLimit ? allItems.slice(0, itemLimit) : allItems;
   console.log(`Evaluating ${evaluatedItems.length} items (limit: ${itemLimit || 'none'})...`);
 
+  // ---- PREFLIGHT (audit fix): resolve every fixture before evaluating. ---
+  // A run with missing fixtures must never start; skipped items previously
+  // shrank the evaluated denominator while reports kept quoting totalItems.
+  const distinctFixtures = [...new Set(evaluatedItems.map((it) => it.fixture_db || 'bank/B1_community.db'))];
+  const missingFixtures = distinctFixtures
+    .map((f) => ({ relFixture: f, resolvedPath: resolveFixturePath(f) }))
+    .filter((e) => !fs.existsSync(e.resolvedPath));
+
   ManifestWriter.writeManifest(runDir, {
     suite: 'S1-A',
     rung,
     worktree: worktreeDir,
     totalItems: evaluatedItems.length,
+    strictCorpusLoader: true,
+    canaryMap: canaryMap ? canaryMapPath : null,
+    preflight: {
+      fixturesRequired: distinctFixtures.length,
+      fixturesMissing: missingFixtures.length,
+      missing: missingFixtures.map((m) => m.relFixture),
+    },
     dryRun,
   }, corpusInputs);
 
+  if (!dryRun && missingFixtures.length > 0) {
+    const msg = `PREFLIGHT FAILED: ${missingFixtures.length} distinct fixture(s) missing ` +
+      `(${missingFixtures.map((m) => m.relFixture).join(', ')}). ` +
+      'No evaluation performed. Build fixtures first (see security-eval/harness/README.md).';
+    logger.log({ status: 'PREFLIGHT_FAILED', error: msg });
+    console.error(msg);
+    const failSummary = { suite: 'S1-A', rung, valid: false, error: msg, runDir };
+    fs.writeFileSync(path.join(runDir, 's1_a_summary.json'), JSON.stringify(failSummary, null, 2), 'utf8');
+    if (require.main === module) process.exitCode = 2;
+    return failSummary;
+  }
+
   let processedCount = 0;
   let blockedSafeCount = 0;
+  // A8 fix (2026-10-27): decompose BLOCKED-SAFE by reason code so security
+  // blocks (POLICY/VALIDATOR/TIMEOUT) are never aggregated with execution
+  // failures (PARSER_BLOCKED, CRASH_ERROR) or executed-clean attacks in the
+  // headline "blocked" metric — the same distortion class as the withdrawn
+  // "1,352 blocked" claim (PEER_REVIEW_SELFCHECK A8).
+  const blockedSafeByReason = {};
   let allowedBenignCount = 0;
   let mutationBypassCount = 0;
   let crashErrorCount = 0;
+  let executedAttackCount = 0;
+  let falseAcceptAttackCount = 0;
+  let canaryLeakCount = 0;
+  let skippedCount = 0;
+  let attackEvaluatedCount = 0;
+  let benignEvaluatedCount = 0;
 
   const firstStopCounts = {
     VALIDATOR_BLOCKED: 0,
@@ -151,7 +249,7 @@ async function runS1ASuite(opts = {}) {
     const itemId = item.id || `item_${processedCount}`;
     const rawSql = item.sql;
     const relFixture = item.fixture_db || 'bank/B1_community.db';
-    const fixturePath = path.resolve(__dirname, '../../data/fixtures/database', relFixture);
+    const fixturePath = resolveFixturePath(relFixture);
 
     if (dryRun) {
       logger.log({ itemId, status: 'DRY_RUN', rawSql });
@@ -159,7 +257,17 @@ async function runS1ASuite(opts = {}) {
     }
 
     if (!fs.existsSync(fixturePath)) {
-      logger.log({ itemId, status: 'ERROR_MISSING_FIXTURE', fixturePath });
+      // Preflight should have caught this; kept as a safety net. The record
+      // now carries full item context and is counted in the summary.
+      skippedCount++;
+      logger.log({
+        itemId,
+        status: 'ERROR_MISSING_FIXTURE',
+        fixturePath,
+        rawSql,
+        corpusSource: item.corpusSource,
+        corpusType: item.corpusType,
+      });
       continue;
     }
 
@@ -214,10 +322,11 @@ async function runS1ASuite(opts = {}) {
         }
       }
 
+      let execRes = null;
       if (prodFirstStop === 'EXECUTED_CLEAN') {
         const adapter = { location: sbProd.dbPath, datasetType: 'sqlite', db: true };
         try {
-          await executeValidatedQuery(adapter, execSql, { maxRows: 1000, timeoutMs: 15000 });
+          execRes = await executeValidatedQuery(adapter, execSql, { maxRows: 1000, timeoutMs: 15000 });
         } catch (err) {
           prodError = err.message;
           if (/Query execution timed out/i.test(err.message)) {
@@ -240,9 +349,16 @@ async function runS1ASuite(opts = {}) {
         prodMutated = true;
       }
 
-      // --- EXECUTE NAIVE PATH (O6) ---
-      const wrappedSql = SandboxManager.wrapQuery(rawSql);
-      SandboxManager.executeNaive(sbNaive.dbPath, wrappedSql, { enableExtensions: true });
+      // --- EXECUTE NAIVE PATH (O6) — A6 fix (2026-10-27, AM-S1-1) ---
+      // PREREG_S1_S2 §4: "Replay raw SQL directly to naive connection." The
+      // interim wrapQuery() wrapper dead-ended exactly the payload classes
+      // the naive path exists to measure (verified live: wrapped DML and
+      // stacked statements raise syntax errors at the wrapper, so no mutation
+      // could ever be observed; CTE+REPLACE forms survived inconsistently).
+      // Direct execution restores the preregistered semantics. The naive
+      // sandbox is a fresh per-item copy, so mutations are contained and are
+      // measured by the hash + snapshot oracles below.
+      SandboxManager.executeNaive(sbNaive.dbPath, rawSql, { enableExtensions: true });
       const postNaiveState = LogicalHashOracle.captureState(sbNaive.dbPath);
       const postNaiveSnap = DirectorySnapshotOracle.takeSnapshot(sbNaive.sandboxDir);
       const naiveCmp = LogicalHashOracle.compareStates(preNaiveState, postNaiveState);
@@ -253,24 +369,62 @@ async function runS1ASuite(opts = {}) {
       }
 
       // Outcome Determination
+      const executedAttack = prodFirstStop === 'EXECUTED_CLEAN' && item.corpusType === 'attack';
+      if (item.corpusType === 'attack') attackEvaluatedCount++; else benignEvaluatedCount++;
       if (prodMutated) {
         prodOutcome = 'MUTATION-BYPASS';
         mutationBypassCount++;
       } else if (prodFirstStop !== 'EXECUTED_CLEAN') {
         prodOutcome = 'BLOCKED-SAFE';
         blockedSafeCount++;
+        blockedSafeByReason[prodFirstStop] = (blockedSafeByReason[prodFirstStop] || 0) + 1; // A8 fix
       } else {
         if (item.corpusType === 'benign') {
           prodOutcome = 'ALLOWED-BENIGN';
           allowedBenignCount++;
         } else {
-          // Attack that executed clean without mutation
+          // Attack that executed clean without mutation: still counted as
+          // BLOCKED-SAFE for taxonomy stability, but flagged executedAttack so
+          // aggregation can separate "blocked" from "executed, unmeasured".
           prodOutcome = 'BLOCKED-SAFE';
           blockedSafeCount++;
+          blockedSafeByReason['EXECUTED_CLEAN'] = (blockedSafeByReason['EXECUTED_CLEAN'] || 0) + 1; // A8 fix: executed ≠ security block
+          executedAttackCount++;
+          if (String(item.expected || '').toLowerCase() === 'reject') falseAcceptAttackCount++;
         }
       }
 
       firstStopCounts[prodFirstStop] = (firstStopCounts[prodFirstStop] || 0) + 1;
+
+      // ---- Exfiltration assessment for executed items (audit fix) --------
+      // S1-A previously recorded no canary/exfil field, leaving executed
+      // attacks' leak status unmeasured. We now capture row metadata and run
+      // the canary scanner when a canary map is provided.
+      let exfilAssessment = 'NOT_APPLICABLE_BLOCKED';
+      let returnedRowCount = null;
+      let returnedColumns = null;
+      let returnedRowsDigest = null;
+      let canaryMatches = [];
+      if (prodFirstStop === 'EXECUTED_CLEAN') {
+        returnedRowCount = execRes && Array.isArray(execRes.rows) ? execRes.rows.length : 0;
+        returnedColumns = execRes && execRes.columns ? execRes.columns : [];
+        returnedRowsDigest = execRes && Array.isArray(execRes.rows)
+          ? crypto.createHash('md5').update(JSON.stringify(execRes.rows)).digest('hex')
+          : null;
+        if (returnedRowCount === 0) {
+          exfilAssessment = 'NO_ROWS_RETURNED';
+        } else {
+          const canaries = canariesForItem(item.fixture_db || 'bank/B1_community.db');
+          if (canaries.length === 0) {
+            exfilAssessment = 'ROWS_RETURNED_CANARIES_UNAVAILABLE';
+          } else {
+            const scanRes = CanaryScanner.scan(execRes.rows, canaries);
+            canaryMatches = scanRes.matches;
+            exfilAssessment = scanRes.leaked ? 'CANARY_LEAK' : 'ROWS_RETURNED_CANARY_SCAN_CLEAN';
+            if (scanRes.leaked) canaryLeakCount++;
+          }
+        }
+      }
 
       logger.log({
         itemId,
@@ -283,6 +437,14 @@ async function runS1ASuite(opts = {}) {
         error: prodError,
         prodMutated,
         naiveMutated,
+        executedAttack,
+        expectedOutcome: item.expected || null,
+        falseAccept: executedAttack && String(item.expected || '').toLowerCase() === 'reject',
+        returnedRowCount,
+        returnedColumns,
+        returnedRowsDigest,
+        exfilAssessment,
+        canaryMatches,
       });
     } catch (unexpectedErr) {
       crashErrorCount++;
@@ -298,24 +460,47 @@ async function runS1ASuite(opts = {}) {
     }
 
     if (processedCount % 100 === 0 || processedCount === evaluatedItems.length) {
-      console.log(`Progress: ${processedCount}/${evaluatedItems.length} items (Blocked: ${blockedSafeCount}, Allowed: ${allowedBenignCount}, Mutation Bypasses: ${mutationBypassCount})`);
-      logger.saveCheckpoint({ processedCount, total: evaluatedItems.length, firstStopCounts });
+      console.log(`Progress: ${processedCount}/${evaluatedItems.length} items (Blocked: ${blockedSafeCount}, Allowed: ${allowedBenignCount}, Mutation Bypasses: ${mutationBypassCount}, Executed attacks: ${executedAttackCount})`);
+      logger.saveCheckpoint({ processedCount, total: evaluatedItems.length, firstStopCounts, skippedCount, executedAttackCount });
     }
   }
 
   const durationMs = Date.now() - startTime;
   console.log(`=== S1-A Evaluation Completed in ${(durationMs / 1000).toFixed(2)}s ===`);
 
+  // Reconciliation (audit fix): summary must reconcile evaluated + skipped
+  // with totalItems and mark the run invalid when any item was skipped.
+  const evaluatedCount = processedCount - skippedCount - crashErrorCount;
   const summary = {
     rung,
     totalItems: evaluatedItems.length,
     processedCount,
+    evaluatedCount,
+    skippedCount,
+    valid: skippedCount === 0 && crashErrorCount === 0,
     durationMs,
     outcomes: {
       blockedSafe: blockedSafeCount,
+      // A8 fix: BLOCKED-SAFE decomposed by first-stop reason. Security blocks
+      // (POLICY_*/VALIDATOR_*/TIMEOUT_*) and execution failures
+      // (PARSER_BLOCKED, CRASH_ERROR) and executed-clean attacks
+      // (EXECUTED_CLEAN) must be quoted separately, never as one headline.
+      blockedSafeByReason,
       allowedBenign: allowedBenignCount,
       mutationBypass: mutationBypassCount,
       crashError: crashErrorCount,
+    },
+    executedAttackCount,
+    falseAcceptAttackCount,
+    canaryLeakCount,
+    evaluatedCountsByCorpusType: {
+      attack: attackEvaluatedCount,
+      benign: benignEvaluatedCount,
+    },
+    // Zero-event CP bounds are only meaningful while mutationBypass === 0.
+    clopperPearson95UpperMutationBound: {
+      allEvaluated: mutationBypassCount === 0 ? StatsCalculator.clopperPearsonZeroEvents(evaluatedCount) : null,
+      attackOnly: mutationBypassCount === 0 ? StatsCalculator.clopperPearsonZeroEvents(attackEvaluatedCount) : null,
     },
     firstStopCounts,
     runDir,

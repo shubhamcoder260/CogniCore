@@ -4,3 +4,17 @@ node_modules
 *.db
 *.db-wal
 *.db-shm
+
+# Audit Finding E fix: fixtures and canary maps are REQUIRED inputs for
+# reproducible runs. Everything under data/fixtures/ (including built
+# *.sqlite/*.db files) and the canary token map are whitelisted below and
+# must be committed. Build them with harness/setup/02, 03, 08 (deterministic)
+# and record their checksums with harness/tools/fixture_manifest.js.
+!data/fixtures/**
+!data/canaries.json
+!data/downloads/secureSQL/**
+!data/s3/**
+!data/s4/**
+!data/s5/**
+!data/s6/**
+!data/s7/**

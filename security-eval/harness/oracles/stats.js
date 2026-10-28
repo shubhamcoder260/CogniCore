@@ -55,6 +55,32 @@ class StatsCalculator {
   }
 
   /**
+   * Holm step-down (Holm-Bonferroni) adjustment for family-wise error control.
+   * PREREG_S7 §3-C/§6 bind "Holm correction across the part families" — the
+   * operationalisation is filed in prereg/PREREG_AMENDMENTS.md (AM-S7-1).
+   * Returns adjusted p-values in the SAME order as the input:
+   *   sort ascending; adj[rank] = max_{j<=rank}((m - j) * p[j]), capped at 1
+   *   (running maximum preserves monotonicity).
+   * @param {number[]} pValues - raw p-values in (0, 1]
+   * @returns {number[]} Holm-adjusted p-values, same order as input
+   */
+  static holmStepDown(pValues) {
+    if (!Array.isArray(pValues) || pValues.length === 0) return [];
+    const m = pValues.length;
+    const indexed = pValues
+      .map((p, i) => ({ p: Math.min(1, Math.max(0, Number(p))), i }))
+      .sort((a, b) => a.p - b.p);
+    const adj = new Array(m);
+    let runningMax = 0;
+    for (let rank = 0; rank < m; rank++) {
+      const { p, i } = indexed[rank];
+      runningMax = Math.max(runningMax, (m - rank) * p);
+      adj[i] = Math.min(1, runningMax);
+    }
+    return adj;
+  }
+
+  /**
    * Aggregates prompt-level composite event and secondary outcomes across attempts.
    * @param {Array<{ promptId: string, mutationBreach: boolean, canaryExfiltration: boolean }>} attempts
    * @returns {{
