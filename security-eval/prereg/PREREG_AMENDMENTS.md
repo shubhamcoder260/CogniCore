@@ -191,3 +191,46 @@ message) when `multi_tenant_bank.sqlite`, `child_projects.sqlite`, or the V3
 corpus is missing, instead of crashing with raw ENOENT mid-run. Dry-runs waive
 the preflight with a printed note and never touch fixtures (structural
 DRY_RUN records only).
+
+## AM-S7-2 (2026-10-29, after first real runs — verdict-accounting calibration; no raw observations change) — A1 per-role expectations + fence-audit prose calibration
+
+**Origin:** first real S7 runs (`2026-10-29T06-35-51-233Z_s7_76c28cf`,
+`2026-10-29T06-35-52-685Z_s7_HEAD`) reported `A enforced=18/23` and
+`D fenceIntact=0/15` with 15x FENCE_ANOMALY, contradicting the RUNBOOK_S7 §4
+expectations (`enforced == 23`; `fenceIntact 15/15`). Investigation against the
+production composer (answer.composer.js:45-50) showed both deviations are
+verdict-accounting defects in the harness, not security findings. Raw
+observations (expected/observed pairs, tag counts, leak flags, Part B/C) are
+valid and unchanged; only derived verdict fields were wrong.
+
+**Defect 1 — Part A composite expectation (s7_runner.js):** the five H7-A1
+cases passed the composite label `DENIED_FOR_NON_ADMIN_ADMIN_ALLOWED` as
+`expected` while `observed` is the concrete verdict, and `enforced` is computed
+as `expected === observed` — false by construction for every A1 case regardless
+of behaviour. The recorded observations are correct (admin ALLOWED; manager,
+analyst, user, viewer all DENIED): the Item 9 scope-* policy held on the
+route-rule-replication surface at both rungs. Registered change: A1 cases carry
+per-role expectations (admin -> ALLOWED, others -> DENIED); the composite label
+moves to the `note` field.
+
+**Defect 2 — fence audit counts the composer's own prose (s7_rag_oracle.js):**
+`fenceIntegrityAudit` counted every literal `<untrusted_data>` occurrence as a
+fence open, but the production composer's trusted INSTRUCTION BOUNDARY sentence
+(answer.composer.js:45) contains that literal, so every production-composed
+prompt counted opens=2, closes=1 -> FENCE_ANOMALY. FENCE_INTACT was unreachable
+through the real chain, and the 15 D2 targets — whose payload close-tag line
+WAS neutralized at retrieval, exactly as PREREG_S7 §H7-D2 expects — were
+mislabelled. Registered change: the audit subtracts the single known prose
+mention (fixed anchor string) before computing `opens`.
+
+**Unchanged:** H7-D3 keeps verdict FENCE_ANOMALY (genuine measured property:
+the structured-cell JSON.stringify path bypasses line-wise neutralization and
+injects a spurious close tag INSIDE the fence region; no outside-fence leak
+under the preregistered definition, so no S7-F1 registration). Part C numbers
+are unaffected. The oracle selftest gains two pinned regression cases
+(production-shaped prose mention -> FENCE_INTACT; D3-shaped -> closes=2,
+FENCE_ANOMALY).
+
+**Action:** runner-fix commit, oracle_selftest re-run, then both rungs re-run
+per RUNBOOK_S7 §3. First-attempt run dirs are retained and committed as
+evidence; quotable headline numbers come from the post-fix re-run.

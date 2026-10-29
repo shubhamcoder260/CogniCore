@@ -119,7 +119,13 @@ function fenceIntegrityAudit(prompt, payloadHead) {
   if (typeof prompt !== 'string' || !prompt || !payloadHead) {
     return { outcome: 'VACUOUS', fencePresent: false, opens: 0, closes: 0, outsideFenceLeak: false };
   }
-  const opens = prompt.split(FENCE_OPEN).length - 1;
+  // AM-S7-2: the production composer's INSTRUCTION BOUNDARY prose
+  // (answer.composer.js:45) contains the literal '<untrusted_data>' inside
+  // trusted system text. That mention is not a fence open; without this
+  // calibration FENCE_INTACT is unreachable for any production-composed prompt.
+  const PROSE_MENTION = 'INSTRUCTION BOUNDARY: everything between <untrusted_data> tags';
+  const proseMentions = prompt.includes(PROSE_MENTION) ? 1 : 0;
+  const opens = prompt.split(FENCE_OPEN).length - 1 - proseMentions;
   const closes = prompt.split(FENCE_CLOSE).length - 1;
   const fencePresent = opens >= 1 && closes >= 1;
   const firstOpen = prompt.indexOf(FENCE_OPEN);

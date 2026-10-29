@@ -207,7 +207,7 @@ async function runS7Suite(opts = {}) {
       // H7-A1: POST scope '*' — knowledge.js:26-28 (route-rule-replication)
       for (const [role, u] of [['admin', admin], ['manager', mgr], ['analyst', ana], ['user', plain], ['viewer', viewer]]) {
         const ruleAllows = ruleCreateGlobalAllowed(u.role);
-        addCase(`A1-${role}`, 'A1', 'route-rule-replication', 'DENIED_FOR_NON_ADMIN_ADMIN_ALLOWED', ruleAllows ? 'ALLOWED' : 'DENIED');
+        addCase(`A1-${role}`, 'A1', 'route-rule-replication', role === 'admin' ? 'ALLOWED' : 'DENIED', ruleAllows ? 'ALLOWED' : 'DENIED', 'H7-A1 composite: DENIED_FOR_NON_ADMIN_ADMIN_ALLOWED');
       }
       // H7-A2: DELETE — knowledge.js:45-58 (route-rule-replication)
       const item = OrgKnowledge.get(scopedEntry);
