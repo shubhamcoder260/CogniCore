@@ -1,0 +1,13 @@
+{
+  "suite": "S5",
+  "rung": "HEAD",
+  "dryRun": true,
+  "valid": null,
+  "runDir": "/home/eshangoyal/CogniCore/security-eval/runs/2026-10-29T05-30-55-349Z_s5_HEAD",
+  "note": "DRY_RUN — nothing executed; preflight waived.",
+  "partTotals": {
+    "errorProbes": 6,
+    "promptSurfaces": 8,
+    "endpointChecks": 4
+  }
+}

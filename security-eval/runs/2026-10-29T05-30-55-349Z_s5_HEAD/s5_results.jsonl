@@ -1,0 +1,7 @@
+{"timestamp":"2026-10-29T05:30:55.487Z","part":"B","probeId":"B-P1","kind":"assertColumnAccess","sql":"SELECT account_id, ssn_last4 FROM accounts WHERE tenant_id = 'tenant_a'","rung":"HEAD","status":"DRY_RUN"}
+{"timestamp":"2026-10-29T05:30:55.487Z","part":"B","probeId":"B-P2","kind":"assertColumnAccess","sql":"SELECT account_id, balance FROM accounts WHERE tenant_id = 'tenant_a'","rung":"HEAD","status":"DRY_RUN"}
+{"timestamp":"2026-10-29T05:30:55.488Z","part":"B","probeId":"B-P3","kind":"enforcePolicy","sql":"SELECT ssn_last4, balance FROM accounts","rung":"HEAD","status":"DRY_RUN"}
+{"timestamp":"2026-10-29T05:30:55.488Z","part":"B","probeId":"B-P4","kind":"validateSql","sql":"SELECT secret_column FROM accounts","rung":"HEAD","status":"DRY_RUN"}
+{"timestamp":"2026-10-29T05:30:55.488Z","part":"B","probeId":"B-P5","kind":"assertColumnAccess","sql":"SELECT account_id FROM accounts_x","rung":"HEAD","status":"DRY_RUN"}
+{"timestamp":"2026-10-29T05:30:55.488Z","part":"B","probeId":"B-P6","kind":"validateSql","sql":"DROP TABLE accounts","rung":"HEAD","status":"DRY_RUN"}
+{"timestamp":"2026-10-29T05:30:55.488Z","part":"A","oracle":"O5-1","outcome":"NOT_RUN_HTTP_DISABLED","note":"supply --base-url, --tokens-file and --dataset-id to enable (RUNBOOK_S5 §4)","rung":"HEAD"}

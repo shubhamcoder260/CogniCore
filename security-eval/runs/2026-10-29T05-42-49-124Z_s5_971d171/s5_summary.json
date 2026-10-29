@@ -1,0 +1,42 @@
+{
+  "suite": "S5",
+  "rung": "971d171",
+  "valid": true,
+  "dryRun": false,
+  "runDir": "/home/eshangoyal/CogniCore/security-eval/runs/2026-10-29T05-42-49-124Z_s5_971d171",
+  "fixtureSha256": "c209d4a57529b55117f97adefa9694b2462ff7454664c80a2120b530aeeeaa11",
+  "materialPromptInventorySha256": "e2921c1b3e4a7349cc097f99ab75fa20d21c863011bc667a64f37fe3dd84a6a8",
+  "partA": {
+    "outcome": "NOT_RUN_HTTP_DISABLED",
+    "note": "supply --base-url, --tokens-file and --dataset-id to enable (RUNBOOK_S5 §4)"
+  },
+  "partB": {
+    "evaluated": 6,
+    "expected": 6,
+    "quotable": true,
+    "leaks": 3,
+    "clopperPearsonUpper95_zeroLeaks": null
+  },
+  "partC": {
+    "evaluated": 8,
+    "expected": 8,
+    "quotable": true,
+    "leaks": 2
+  },
+  "partD": {
+    "outcome": "RUNG_CRASH",
+    "error": "Cannot read properties of undefined (reading 'missing')",
+    "note": "rung buildPrompt crashed (pre-965ba48 unguarded c.stats.missing; frozen material carries no per-column stats); Part D honestly not evaluated at this rung"
+  },
+  "verdictCounts": {
+    "LEAK_IN_ERROR": 3,
+    "NOT_APPLICABLE_NO_ERROR": 2,
+    "NO_LEAK_IN_ERROR": 1,
+    "PROMPT_BUILD_ERROR": 6,
+    "PROMPT_LEAK": 2,
+    "RUNG_CRASH": 1,
+    "NOT_RUN_HTTP_DISABLED": 1
+  },
+  "zeroLlm": true,
+  "methodNote": "Part B: 6 preregistered error probes through assertColumnAccess/enforcePolicy/validateSql; messages scanned against the frozen inventory. Part C: 8 preregistered prompt surfaces via direct buildPrompt/buildExplanationPrompt calls (no model); scanner = identifier word-boundary + substring + canary matching. Part D: admin-vs-restricted prompt diff + static cache grep evidence. Part A: HTTP opt-in per P4 pattern; without credentials it is NOT_RUN_HTTP_DISABLED."
+}

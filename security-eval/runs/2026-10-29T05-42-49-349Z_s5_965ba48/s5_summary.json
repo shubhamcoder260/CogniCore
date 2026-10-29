@@ -1,0 +1,60 @@
+{
+  "suite": "S5",
+  "rung": "965ba48",
+  "valid": true,
+  "dryRun": false,
+  "runDir": "/home/eshangoyal/CogniCore/security-eval/runs/2026-10-29T05-42-49-349Z_s5_965ba48",
+  "fixtureSha256": "c209d4a57529b55117f97adefa9694b2462ff7454664c80a2120b530aeeeaa11",
+  "materialPromptInventorySha256": "e2921c1b3e4a7349cc097f99ab75fa20d21c863011bc667a64f37fe3dd84a6a8",
+  "partA": {
+    "outcome": "NOT_RUN_HTTP_DISABLED",
+    "note": "supply --base-url, --tokens-file and --dataset-id to enable (RUNBOOK_S5 §4)"
+  },
+  "partB": {
+    "evaluated": 6,
+    "expected": 6,
+    "quotable": true,
+    "leaks": 3,
+    "clopperPearsonUpper95_zeroLeaks": null
+  },
+  "partC": {
+    "evaluated": 8,
+    "expected": 8,
+    "quotable": true,
+    "leaks": 6
+  },
+  "partD": {
+    "outcome": "SHARING_DETECTED",
+    "adminOnlyLineCount": 1,
+    "restrictedPromptScan": "LEAK",
+    "sharingMatches": [
+      {
+        "elementClass": "denied_column",
+        "element": "ssn_last4",
+        "table": "accounts"
+      },
+      {
+        "elementClass": "denied_column",
+        "element": "balance",
+        "table": "accounts"
+      }
+    ],
+    "staticEvidence": {
+      "checked": "server/src/structured/sql.generator.js",
+      "keywordsFound": [],
+      "note": "buildPrompt is a pure function of per-request inputs; no prompt cache layer exists in the generator (grep evidence). Cross-user contamination is therefore measurable only via shared state outside this module."
+    }
+  },
+  "verdictCounts": {
+    "LEAK_IN_ERROR": 3,
+    "NOT_APPLICABLE_NO_ERROR": 2,
+    "NO_LEAK_IN_ERROR": 1,
+    "PROMPT_LEAK": 6,
+    "AUTHORIZED_BASELINE": 1,
+    "CANARY_SUPPRESSED": 1,
+    "SHARING_DETECTED": 1,
+    "NOT_RUN_HTTP_DISABLED": 1
+  },
+  "zeroLlm": true,
+  "methodNote": "Part B: 6 preregistered error probes through assertColumnAccess/enforcePolicy/validateSql; messages scanned against the frozen inventory. Part C: 8 preregistered prompt surfaces via direct buildPrompt/buildExplanationPrompt calls (no model); scanner = identifier word-boundary + substring + canary matching. Part D: admin-vs-restricted prompt diff + static cache grep evidence. Part A: HTTP opt-in per P4 pattern; without credentials it is NOT_RUN_HTTP_DISABLED."
+}

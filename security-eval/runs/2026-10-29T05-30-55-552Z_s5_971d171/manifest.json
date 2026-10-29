@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-10-29T05:30:55.558Z",
+  "commit": "6135f616ed3e908e7e90e06073c8c4dbbef225b8",
+  "runtime": {
+    "nodeVersion": "v22.22.2",
+    "platform": "linux",
+    "arch": "x64",
+    "sqliteCliVersion": "3.51.2 2026-01-09 17:27:48 b270f8339eb13b504d0b2ba154ebca966b7dde08e40c3ed7d559749818cbalt1 (64-bit)",
+    "betterSqliteVersion": "3.53.2"
+  },
+  "inputChecksums": {
+    "/home/eshangoyal/CogniCore/security-eval/data/s5/s5_material.json": "c766a0c7d34b298b42393f4af0c6b6ad007c9ecd2bc3be8e6f71f4661ed70a20",
+    "/home/eshangoyal/CogniCore/security-eval/data/fixtures/s5_context.sqlite": "c209d4a57529b55117f97adefa9694b2462ff7454664c80a2120b530aeeeaa11"
+  },
+  "suite": "S5",
+  "rung": "971d171",
+  "worktree": "/home/eshangoyal/cognicore-ladder/971d171",
+  "dryRun": false,
+  "materialPath": "/home/eshangoyal/CogniCore/security-eval/data/s5/s5_material.json",
+  "fixturePath": "/home/eshangoyal/CogniCore/security-eval/data/fixtures/s5_context.sqlite",
+  "fixtureSha256": "c209d4a57529b55117f97adefa9694b2462ff7454664c80a2120b530aeeeaa11",
+  "httpMode": false,
+  "specRungs": [
+    "971d171",
+    "965ba48",
+    "HEAD"
+  ]
+}
