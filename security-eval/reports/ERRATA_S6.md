@@ -5,7 +5,7 @@ nothing is withdrawn.
 **Date:** 2026-10-29
 **Scope:** `harness/runners/s6_runner.js` — summary accessor + canary-probe
 input well-formedness.
-**Fix:** runner `FIXHASH`; ladder worktrees untouched.
+**Fix:** runner `09bfd61`; ladder worktrees untouched.
 
 ## 1. Defects
 
