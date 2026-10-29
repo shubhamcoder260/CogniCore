@@ -4,7 +4,7 @@
 nothing is withdrawn.
 **Date:** 2026-10-29
 **Scope:** `harness/runners/s5_runner.js` Part D vs rung 971d171 system code.
-**Fix:** runner `FIXHASH`; ladder worktrees untouched (history stays frozen).
+**Fix:** runner `18961bf`; ladder worktrees untouched (history stays frozen).
 
 ## 1. Defect
 
