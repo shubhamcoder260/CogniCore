@@ -272,7 +272,7 @@ async function runS4Suite(opts = {}) {
           ...[...q.sql.matchAll(/\bFROM\s+"?([A-Za-z_][A-Za-z0-9_]*)"?/gi)].map((m) => m[1]),
           ...[...q.sql.matchAll(/\bJOIN\s+"?([A-Za-z_][A-Za-z0-9_]*)"?/gi)].map((m) => m[1]),
         ];
-        const snapshotTables = [...new Set(tableRefs.filter(Boolean))];
+        const snapshotTables = [...new Set([...tableRefs.filter(Boolean), ...(declarations.fkDerivedPurges || []).flatMap((fk) => [fk.table, fk.refTable]), ...(policy.rowFilters || []).map((f) => f.table)])];
         const snapshot = buildPurgedSnapshot(sb.dbPath, {
           rowFilters: policy.rowFilters || [],
           fkDerivedPurges: declarations.fkDerivedPurges || [],
