@@ -1,0 +1,1121 @@
+{
+  "suite": "S7",
+  "rung": "HEAD",
+  "valid": true,
+  "dryRun": false,
+  "runDir": "/home/eshangoyal/CogniCore/security-eval/runs/2026-10-29T15-33-03-641Z_s7_HEAD",
+  "embedMode": "scripted",
+  "sizes": [
+    50,
+    200,
+    1000
+  ],
+  "partA": {
+    "oracle": "H7-A",
+    "cases": 23,
+    "enforced": 23,
+    "bypassed": 0,
+    "detail": [
+      {
+        "id": "A1-admin",
+        "group": "A1",
+        "surface": "route-rule-replication",
+        "expected": "ALLOWED",
+        "observed": "ALLOWED",
+        "enforced": true,
+        "note": "H7-A1 composite: DENIED_FOR_NON_ADMIN_ADMIN_ALLOWED"
+      },
+      {
+        "id": "A1-manager",
+        "group": "A1",
+        "surface": "route-rule-replication",
+        "expected": "DENIED",
+        "observed": "DENIED",
+        "enforced": true,
+        "note": "H7-A1 composite: DENIED_FOR_NON_ADMIN_ADMIN_ALLOWED"
+      },
+      {
+        "id": "A1-analyst",
+        "group": "A1",
+        "surface": "route-rule-replication",
+        "expected": "DENIED",
+        "observed": "DENIED",
+        "enforced": true,
+        "note": "H7-A1 composite: DENIED_FOR_NON_ADMIN_ADMIN_ALLOWED"
+      },
+      {
+        "id": "A1-user",
+        "group": "A1",
+        "surface": "route-rule-replication",
+        "expected": "DENIED",
+        "observed": "DENIED",
+        "enforced": true,
+        "note": "H7-A1 composite: DENIED_FOR_NON_ADMIN_ADMIN_ALLOWED"
+      },
+      {
+        "id": "A1-viewer",
+        "group": "A1",
+        "surface": "route-rule-replication",
+        "expected": "DENIED",
+        "observed": "DENIED",
+        "enforced": true,
+        "note": "H7-A1 composite: DENIED_FOR_NON_ADMIN_ADMIN_ALLOWED"
+      },
+      {
+        "id": "A2-unrelated-user",
+        "group": "A2",
+        "surface": "route-rule-replication",
+        "expected": "DENIED",
+        "observed": "DENIED",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A2-owner",
+        "group": "A2",
+        "surface": "route-rule-replication",
+        "expected": "ALLOWED",
+        "observed": "ALLOWED",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A2-admin",
+        "group": "A2",
+        "surface": "route-rule-replication",
+        "expected": "ALLOWED",
+        "observed": "ALLOWED",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A2-dataset-manage-grant",
+        "group": "A2",
+        "surface": "route-rule-replication",
+        "expected": "ALLOWED",
+        "observed": "ALLOWED",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A2-read-grant-only",
+        "group": "A2",
+        "surface": "route-rule-replication",
+        "expected": "DENIED",
+        "observed": "DENIED",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A3-nonadmin-sees-global-only",
+        "group": "A3",
+        "surface": "route-rule-replication",
+        "expected": "GLOBAL_ONLY",
+        "observed": "GLOBAL_ONLY",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A3-admin-sees-all",
+        "group": "A3",
+        "surface": "route-rule-replication",
+        "expected": "ALL",
+        "observed": "ALL",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A4-no-grant-null",
+        "group": "A4",
+        "surface": "rbac-direct",
+        "expected": "NO_ACCESS",
+        "observed": "NO_ACCESS",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A4-read-grant-canRead",
+        "group": "A4",
+        "surface": "rbac-direct",
+        "expected": "READ_OK",
+        "observed": "READ_OK",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A4-read-grant-no-manage",
+        "group": "A4",
+        "surface": "rbac-direct",
+        "expected": "MANAGE_DENIED",
+        "observed": "MANAGE_DENIED",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A4-manage-grant-canManage",
+        "group": "A4",
+        "surface": "rbac-direct",
+        "expected": "MANAGE_OK",
+        "observed": "MANAGE_OK",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A4-owner-manage",
+        "group": "A4",
+        "surface": "rbac-direct",
+        "expected": "MANAGE_OK",
+        "observed": "MANAGE_OK",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A5-upload-admin",
+        "group": "A5",
+        "surface": "rbac-direct",
+        "expected": "ALLOWED",
+        "observed": "ALLOWED",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A5-upload-manager",
+        "group": "A5",
+        "surface": "rbac-direct",
+        "expected": "ALLOWED",
+        "observed": "ALLOWED",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A5-upload-analyst",
+        "group": "A5",
+        "surface": "rbac-direct",
+        "expected": "ALLOWED",
+        "observed": "ALLOWED",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A5-upload-user",
+        "group": "A5",
+        "surface": "rbac-direct",
+        "expected": "ALLOWED",
+        "observed": "ALLOWED",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A5-upload-employee",
+        "group": "A5",
+        "surface": "rbac-direct",
+        "expected": "DENIED",
+        "observed": "DENIED",
+        "enforced": true,
+        "note": null
+      },
+      {
+        "id": "A5-upload-viewer",
+        "group": "A5",
+        "surface": "rbac-direct",
+        "expected": "DENIED",
+        "observed": "DENIED",
+        "enforced": true,
+        "note": null
+      }
+    ],
+    "quotable": true
+  },
+  "partB": {
+    "oracle": "H7-B",
+    "mode": "scripted",
+    "sizes": [
+      {
+        "size": 50,
+        "inserted": 80,
+        "topK5Inclusion": 15,
+        "topK5Rate": 1,
+        "topK5Wilson": {
+          "lo": 0.7961,
+          "hi": 1
+        },
+        "pairing": {
+          "outcome": "EVALUATED",
+          "paired": 15,
+          "mismatched": 0,
+          "pairingRate": 1,
+          "mismatches": [],
+          "n": 15
+        },
+        "perTarget": [
+          {
+            "targetId": "T01",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T02",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T03",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T04",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T05",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T06",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T07",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T08",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T09",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T10",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T11",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T12",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T13",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T14",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T15",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          }
+        ]
+      },
+      {
+        "size": 200,
+        "inserted": 230,
+        "topK5Inclusion": 15,
+        "topK5Rate": 1,
+        "topK5Wilson": {
+          "lo": 0.7961,
+          "hi": 1
+        },
+        "pairing": {
+          "outcome": "EVALUATED",
+          "paired": 15,
+          "mismatched": 0,
+          "pairingRate": 1,
+          "mismatches": [],
+          "n": 15
+        },
+        "perTarget": [
+          {
+            "targetId": "T01",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T02",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T03",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T04",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T05",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T06",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T07",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T08",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T09",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T10",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T11",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T12",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T13",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T14",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T15",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          }
+        ]
+      },
+      {
+        "size": 1000,
+        "inserted": 1030,
+        "topK5Inclusion": 15,
+        "topK5Rate": 1,
+        "topK5Wilson": {
+          "lo": 0.7961,
+          "hi": 1
+        },
+        "pairing": {
+          "outcome": "EVALUATED",
+          "paired": 15,
+          "mismatched": 0,
+          "pairingRate": 1,
+          "mismatches": [],
+          "n": 15
+        },
+        "perTarget": [
+          {
+            "targetId": "T01",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T02",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T03",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T04",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T05",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T06",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T07",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": false,
+            "regexHit": true
+          },
+          {
+            "targetId": "T08",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T09",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T10",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T11",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T12",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T13",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T14",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          },
+          {
+            "targetId": "T15",
+            "rank5": 1,
+            "topK5": true,
+            "rank10": 1,
+            "instructionSanitized": true,
+            "cleanSanitized": null,
+            "regexHit": true
+          }
+        ]
+      }
+    ],
+    "quotableForLeakRates": false,
+    "pairingQuotable": true
+  },
+  "partC": {
+    "oracle": "H7-C",
+    "canonical": {
+      "neutralized": 14,
+      "n": 14,
+      "rate": 1,
+      "wilson": {
+        "lo": 0.7847,
+        "hi": 1
+      },
+      "criterion": ">=0.90",
+      "supported": true,
+      "detail": [
+        {
+          "id": "CAN-01",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-02",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-03",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-04",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-05",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-06",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-07",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-08",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-09",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-10",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-11",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-12",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-13",
+          "neutralized": true,
+          "removed": 1
+        },
+        {
+          "id": "CAN-14",
+          "neutralized": true,
+          "removed": 1
+        }
+      ]
+    },
+    "evasion": {
+      "passthrough": 8,
+      "n": 8,
+      "rate": 1,
+      "detail": [
+        {
+          "id": "EVA-01",
+          "pairOf": "CAN-01",
+          "passthrough": true,
+          "removed": 0
+        },
+        {
+          "id": "EVA-02",
+          "pairOf": "CAN-04",
+          "passthrough": true,
+          "removed": 0
+        },
+        {
+          "id": "EVA-03",
+          "pairOf": "CAN-05",
+          "passthrough": true,
+          "removed": 0
+        },
+        {
+          "id": "EVA-04",
+          "pairOf": "CAN-08",
+          "passthrough": true,
+          "removed": 0
+        },
+        {
+          "id": "EVA-05",
+          "pairOf": "CAN-10",
+          "passthrough": true,
+          "removed": 0
+        },
+        {
+          "id": "EVA-06",
+          "pairOf": "CAN-11",
+          "passthrough": true,
+          "removed": 0
+        },
+        {
+          "id": "EVA-07",
+          "pairOf": "CAN-13",
+          "passthrough": true,
+          "removed": 0
+        },
+        {
+          "id": "EVA-08",
+          "pairOf": "CAN-14",
+          "passthrough": true,
+          "removed": 0
+        }
+      ]
+    },
+    "mcnemar": {
+      "b_canonOnlyNeutral": 8,
+      "c_evasionOnlyNeutral": 0,
+      "exactP": 0.0078125
+    },
+    "retrieverPairing": {
+      "outcome": "EVALUATED",
+      "paired": 22,
+      "mismatched": 0,
+      "pairingRate": 1,
+      "mismatches": [],
+      "n": 22
+    },
+    "quotable": true
+  },
+  "partD": {
+    "oracle": "H7-D",
+    "labelSpoofing": {
+      "spoofed": 0,
+      "n": 6,
+      "detail": [
+        {
+          "id": "SPOOF-1",
+          "outcome": "EVALUATED",
+          "sourceType": "document",
+          "datasetName": "s7_docset",
+          "verdict": "LABEL_SYSTEM_SET"
+        },
+        {
+          "id": "SPOOF-2",
+          "outcome": "EVALUATED",
+          "sourceType": "document",
+          "datasetName": "s7_docset",
+          "verdict": "LABEL_SYSTEM_SET"
+        },
+        {
+          "id": "SPOOF-3",
+          "outcome": "EVALUATED",
+          "sourceType": "document",
+          "datasetName": "s7_docset",
+          "verdict": "LABEL_SYSTEM_SET"
+        },
+        {
+          "id": "SPOOF-4",
+          "outcome": "EVALUATED",
+          "sourceType": "document",
+          "datasetName": "s7_docset",
+          "verdict": "LABEL_SYSTEM_SET"
+        },
+        {
+          "id": "SPOOF-5",
+          "outcome": "EVALUATED",
+          "sourceType": "document",
+          "datasetName": "s7_docset",
+          "verdict": "LABEL_SYSTEM_SET"
+        },
+        {
+          "id": "SPOOF-6",
+          "outcome": "EVALUATED",
+          "sourceType": "document",
+          "datasetName": "s7_docset",
+          "verdict": "LABEL_SYSTEM_SET"
+        }
+      ],
+      "cpBoundIfZero": 0.39303776899708265
+    },
+    "documentFence": {
+      "intact": 15,
+      "broken": 0,
+      "anomaly": 0,
+      "n": 15,
+      "detail": [
+        {
+          "targetId": "T01",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T02",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T03",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T04",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T05",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T06",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T07",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T08",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T09",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T10",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T11",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T12",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T13",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T14",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        },
+        {
+          "targetId": "T15",
+          "outcome": "EVALUATED",
+          "fencePresent": true,
+          "opens": 1,
+          "closes": 1,
+          "balanced": true,
+          "outsideFenceLeak": false,
+          "verdict": "FENCE_INTACT"
+        }
+      ],
+      "cpBoundIfZero": 0.18103627252208465
+    },
+    "structuredCellBreakout": {
+      "outcome": "FENCE_ANOMALY",
+      "fenceAudit": {
+        "outcome": "EVALUATED",
+        "fencePresent": true,
+        "opens": 1,
+        "closes": 2,
+        "balanced": false,
+        "outsideFenceLeak": false,
+        "verdict": "FENCE_ANOMALY"
+      },
+      "canaryInPrompt": true,
+      "upstreamNeutralizeRemoved": 2,
+      "findingCandidate": null
+    },
+    "incompleteNoteSanitized": {
+      "rawReasonAbsent": false,
+      "adversarialDatasetNameSanitized": true,
+      "markerPresent": true,
+      "sanitized": false
+    },
+    "quotable": true
+  },
+  "quotable": {
+    "partA": true,
+    "partBLeakRates": false,
+    "partBPairing": true,
+    "partC": true,
+    "partD": true
+  },
+  "multiplicity": {
+    "method": "Holm step-down (StatsCalculator.holmStepDown) across preregistered family tests (A7 fix, AM-S7-1)",
+    "registeredFamilies": {
+      "A-endpoint": "criterion decision (rate >= 0.90, Wilson CI) — no null test registered",
+      "C-canonical": "criterion decision (rate >= 0.90, Wilson CI) — no null test registered",
+      "C-evasion": "paired exact McNemar — Holm-adjusted",
+      "D-endpoint": "zero-event Clopper-Pearson bounds — estimation, no null test registered"
+    },
+    "tests": [
+      {
+        "family": "C-evasion: paired exact McNemar (canonical vs evasion)",
+        "rawP": 0.0078125,
+        "holmAdjustedP": 0.0078125
+      }
+    ]
+  },
+  "zeroLlm": true,
+  "zeroNetwork": true,
+  "notRun": {
+    "s7B_ollamaMode": "NOT RUN (needs operator machine + nomic-embed-text) — I12",
+    "s7E_generationAsr": "NOT RUN by design — phase 5 LLM variant — I11",
+    "httpAuthzVariant": "NOT_RUN_HTTP_DISABLED"
+  },
+  "methodNote": "Part A: route decision rules replicated verbatim from knowledge.js:18-58 against real OrgKnowledge/AuthRegistry/DatasetRegistry state on an isolated registry DB (COGNICORE_TEST_DB_PATH set before the first worktree require); rbac checks call the production functions. Part B: corpus from data/s7/s7_corpus.json (adapted PoisonedRAG construction); scripted mode uses deterministic forced-rank one-hot embeddings (mechanics only, NOT quotable for leak rates); --embed-ollama performs the real retrieval measurement with the local embedding model. Part C: neutralizeInjection is line-wise (input.guard.js:52-60); evasion payloads are engineered to match no INJECTION regex on any single line — passthrough is an expected designed gap and the composer fence is the second layer, never a guarantee. Part D: label spoofing via buildDocumentEvidence (system-set source_type); document fence integrity through the real retriever->evidence->buildExplanationPrompt chain; the structured-cell breakout probe documents the JSON.stringify(sample_rows) path that bypasses line-wise neutralization (answer.composer.js:16) — measured, not asserted; outcome FENCE_BROKEN registers finding candidate S7-F1 for the §9 fix track."
+}
