@@ -1,0 +1,14 @@
+{
+  "suite": "S6",
+  "rung": "HEAD",
+  "dryRun": true,
+  "valid": null,
+  "runDir": "/home/eshangoyal/CogniCore/security-eval/runs/2026-10-29T05-53-46-123Z_s6_HEAD",
+  "note": "DRY_RUN — nothing executed.",
+  "corpora": {
+    "attacks": 568,
+    "benign": 595,
+    "poisonedPartB": 125,
+    "bipiaVendoredSha256": "fafd55f3ab43bf85b05965e70cdc66fd601dc4358b9c81f6b7e91a9f88f80f7d"
+  }
+}

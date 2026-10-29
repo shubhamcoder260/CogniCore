@@ -1,0 +1,56 @@
+{
+  "timestamp": "2026-10-29T06:07:57.026Z",
+  "commit": "48fbeececc5ca0a13ffbc24cc288a3c170c22a06",
+  "runtime": {
+    "nodeVersion": "v22.22.2",
+    "platform": "linux",
+    "arch": "x64",
+    "sqliteCliVersion": "3.51.2 2026-01-09 17:27:48 b270f8339eb13b504d0b2ba154ebca966b7dde08e40c3ed7d559749818cbalt1 (64-bit)",
+    "betterSqliteVersion": "3.53.2"
+  },
+  "inputChecksums": {
+    "/home/eshangoyal/CogniCore/validation/data/v13/v13_corpus.jsonl": "a344f5fcdb5ccd91886268e7a976f633a55edcc90a5ff4e74783ddf10432f54d",
+    "/home/eshangoyal/CogniCore/validation/data/external/deepset_prompt_injections_test.json": "163a798bada3928ebcb76bcb467d8d9c0064cf7f688cc7d1516b58442f93dd3a",
+    "/home/eshangoyal/CogniCore/security-eval/data/s6/bipia_text_attacks.json": "fafd55f3ab43bf85b05965e70cdc66fd601dc4358b9c81f6b7e91a9f88f80f7d"
+  },
+  "suite": "S6",
+  "rung": "HEAD",
+  "worktree": "/home/eshangoyal/CogniCore",
+  "dryRun": false,
+  "corpora": {
+    "v13": {
+      "path": "/home/eshangoyal/CogniCore/validation/data/v13/v13_corpus.jsonl",
+      "sha256": "a344f5fcdb5ccd91886268e7a976f633a55edcc90a5ff4e74783ddf10432f54d",
+      "attacks": 377,
+      "benign": 595
+    },
+    "deepset": {
+      "path": "/home/eshangoyal/CogniCore/validation/data/external/deepset_prompt_injections_test.json",
+      "sha256": "163a798bada3928ebcb76bcb467d8d9c0064cf7f688cc7d1516b58442f93dd3a",
+      "items": 116
+    },
+    "bipia": {
+      "path": "/home/eshangoyal/CogniCore/security-eval/data/s6/bipia_text_attacks.json",
+      "sourceSha256": "75750e7b4e8b34e8f9d88d89b357aeaaf02bd07f9e493ccd37eda74a0cd7c7f8",
+      "vendoredSha256": "fafd55f3ab43bf85b05965e70cdc66fd601dc4358b9c81f6b7e91a9f88f80f7d",
+      "attacks": 75
+    },
+    "benignSql": [
+      {
+        "path": "/home/eshangoyal/CogniCore/validation/data/v4/benign.jsonl",
+        "exists": true,
+        "sha256": "a9fcb7110eddd729c629bd262fdbbba846c702eaf6e3163de60d66df45f64c38"
+      },
+      {
+        "path": "/home/eshangoyal/CogniCore/validation/data/v4b/c2_benign.jsonl",
+        "exists": true,
+        "sha256": "5d7927ed2113bc2ae3c994c43b4a1dc92e6176bce8c49a9ea5cb3238f2991858"
+      }
+    ]
+  },
+  "specRungs": [
+    "971d171",
+    "965ba48",
+    "HEAD"
+  ]
+}
