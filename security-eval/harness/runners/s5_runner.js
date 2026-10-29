@@ -232,7 +232,7 @@ async function runS5Suite(opts = {}) {
   // PART D — cross-user isolation (O5-4)
   // ==========================================================================
   let partD = { outcome: 'NOT_EVALUATED_DRY_RUN' };
-  if (!dryRun) {
+  if (!dryRun) try {
     const restrictedPrompt = buildPrompt({
       question: material.question, schema: material.schema, semantic: material.semantic,
       relationships, datasetType: 'sqlite', policy: restrictedPolicy,
@@ -261,6 +261,14 @@ async function runS5Suite(opts = {}) {
         keywordsFound: cacheHits,
         note: 'buildPrompt is a pure function of per-request inputs; no prompt cache layer exists in the generator (grep evidence). Cross-user contamination is therefore measurable only via shared state outside this module.',
       },
+    };
+    verdictCounts[partD.outcome] = (verdictCounts[partD.outcome] || 0) + 1;
+    record({ part: 'D', oracle: 'O5-4', ...partD, rung });
+  } catch (e) {
+    partD = {
+      outcome: 'RUNG_CRASH',
+      error: String((e && e.message) || e).slice(0, 200),
+      note: 'rung buildPrompt crashed (pre-965ba48 unguarded c.stats.missing; frozen material carries no per-column stats); Part D honestly not evaluated at this rung',
     };
     verdictCounts[partD.outcome] = (verdictCounts[partD.outcome] || 0) + 1;
     record({ part: 'D', oracle: 'O5-4', ...partD, rung });
